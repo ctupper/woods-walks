@@ -1,4 +1,4 @@
-# Woods Walks
+# Woods Walks 🌲💙
 
 Finding what matters in the Maine woods. One day at a time.
 
