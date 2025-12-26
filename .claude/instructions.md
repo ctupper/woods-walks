@@ -131,10 +131,12 @@ woods-walks/
 - Sometimes the best shot is the one people miss (like my shadow in the snow)
 
 ### Technical Requirements
-- **Resize for web:** Max 1920px width, quality 80-85%
-- **File size target:** 200KB-1MB per image
+
+- **Resize for web:** Max 800px width, quality 85%
+- **File size target:** 200KB-500KB per image (typically ~300KB)
 - **Format:** JPG for photos
 - **Alt text:** Descriptive but brief
+- **Note:** 800px width works well for both portrait and landscape shots on all devices
 
 ### When to Include Photos
 - When image tells the story better than words
