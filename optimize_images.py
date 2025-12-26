@@ -8,13 +8,13 @@ from PIL import Image, ImageOps
 import os
 import sys
 
-def optimize_image(image_path, max_width=1600, quality=85):
+def optimize_image(image_path, max_width=800, quality=85):
     """
     Optimize an image for web use
 
     Args:
         image_path: Path to the image file
-        max_width: Maximum width in pixels (default: 1600)
+        max_width: Maximum width in pixels (default: 800)
         quality: JPEG quality 1-100 (default: 85)
     """
     # Open the image
