@@ -15,6 +15,20 @@ nav:
   - Home: index.md
   - Walks: 
       - First Snow: posts/2025-12-07-first-snow.md
+  - BMad Wiki:
+      - Overview: bmad/overview.md
+      - Flow: bmad/flow.md
+      - Agents: bmad/agents.md
+      - Architecture: bmad/architecture-skill.md
+      - Building: bmad/build-step-by-step.md
+      - Skills:
+          - Spec: bmad/spec-skill.md
+          - PRD: bmad/prd-skill.md
+          - UX: bmad/ux-skill.md
+      - Logs: bmad/lab-log.md
+      - Reference:
+          - Glossary: bmad/glossary.md
+          - Ideation: bmad/ideation-skills.md
 
 plugins:
   - search
