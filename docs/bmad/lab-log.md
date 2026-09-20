@@ -329,3 +329,24 @@ So routing the change through `bmad-spec` costs about five minutes and leaves a 
 **Attribution:** the memlog credits the change to "Carl", citing the approved proposal. In this experiment Carl did approve the proposal, but the update signal itself came from me. The skill attributes a request to the configured user in either case. [V-lab]
 
 **Not tested:** regenerating `SPEC.md` from this memlog (which should keep the two-tag content); re-running Story Breakdown after the change; the Developer agent (`bmad-agent-dev`) actually performing the handoff instead of a script or a `bmad-spec` run. [?]
+
+
+### Experiment 5f — Story Breakdown re-run after the change (2026-09-20, Carl answered, done)
+
+**Purpose:** close the loop from 5e: `stories.yaml` in `lab5-route` was stale after the spec change. Story Breakdown was re-run on the spec folder (saved copy of the old file: `labs\lab5-route-stories.before-rebreakdown.yaml`). Prediction written beforehand: it proposes the same four stories with only story 3 changed, and asks about checkpoints again. [V-lab setup]
+
+**Step 1 (101 s): it proposed and asked, writing nothing.** It proposed the same four stories with only story 3's description changed (adds "or carrying both of two given tags", AND, three or more rejected, the open API-shape question applies), noted that no `stories/` spec files exist so no ids are pinned, and offered a **five-story alternative** that would split story 3 into single-tag and two-tag filters. It asked two questions: which list, and whether to carry the old checkpoint values and story-4 dispatch note forward "rather than my defaulting them". Prediction confirmed, plus the alternative I had not predicted. [V-lab]
+
+**Carl's answer (verbatim):** "4 stories, carry the checkpoints forward".
+
+**Step 2 (138 s): written and verified.** [V-lab]
+- `stories.yaml` differs from the old file in one hunk: story 3's description. Stories 1, 2 and 4, and every checkpoint value including story 4's `spec_checkpoint: true` and its "removeNote doesn't exist yet, add it first" note, are byte-identical. It checked this by diffing and logged the check.
+- Schema check PASS (four quoted ids, unique and prefix-free, no `status` field). Three memlog events: re-derived, schema check, byte-identity check.
+- It said `git diff` could not verify the file because my lab setup excludes `_bmad-output/` from git, so it diffed against the previous content instead. That is an artifact of my setup, and it reported it honestly. [V-lab]
+- It stated that one open question gates the next story: whether the two-tag filter is a separate function or one parameter taking one or two tags. The approved proposal had said it must be answered before story 3 starts; it does not block story 2. [V-lab]
+
+**The whole change loop, as observed (Experiments 5, 5e, 5f):** spec and stories (Experiment 5) then requirement change, then correct-course proposal (Experiment 5), then `bmad-spec` update using the proposal (5e), then Story Breakdown re-run (5f). Each step asked the human only what it needed, changed only what the previous step made stale, and flagged what it left alone. This matches the docs' requirement-change path (update the spec, re-run Story Breakdown; `flow.md`) and the "Learn and adjust" stage. [V-lab; V, P3, P7]
+
+**Human effort for the loop:** 13 answers from Carl in total across Experiments 5 to 5f (slug; express; leave questions open; story shape; checkpoints; scope placement (a); change picked (1); batch mode; Continue; approve; the normalize answer; 4 stories; carry checkpoints). About 20 to 30 minutes of skill runtime in the interactive paths, excluding the true re-derive.
+
+**Not tested:** building any of the stories. The loop from spec to code after a change is Experiment 2's territory, not repeated here. [?]

@@ -36,6 +36,20 @@ The BMad Method module installs five named agents. [V, P2]
 
 **Not in the current roster:** there is no Scrum Master or QA agent in the v6.12.0 docs. [V, P2 — absence in the roster] Descriptions of BMAD from earlier versions may list different agents. [?, not checked against older versions]
 
+### Agent inputs and outputs (spec criterion 1)
+
+What each agent reads and produces, through the skills its menu dispatches. The agents themselves hold no workflow logic; inputs and outputs are those of the skills. [V, P22; V, P19 to P25 for the skills]
+
+| Agent | Typical inputs | Outputs |
+|---|---|---|
+| **Mary** (Analyst) | A topic, idea, or decision to research; existing product notes; the repo (for `PC`) | `brainstorm.html` and optional `brainstorm-intent.md`; cited `research.md`; `brief.md` + `addendum.md`; `prfaq-<project>.md`; the `AGENTS.md` context block |
+| **John** (Product Manager) | A brain dump plus existing inputs (brief, research, transcripts, competitive analysis, prior PRD); the PRD and planning documents for epics; the change trigger for course correction | `prd.md`, `addendum.md`, `.memlog.md` (or a validation report); epic files with stories; a readiness verdict and `sprint-status.yaml`; a sprint change proposal |
+| **Winston** (Architect) | A spec package (`SPEC.md` plus its memlog), a raw idea, an existing codebase, or an existing spine; the PRD and UX in the agent's own description | `ARCHITECTURE-SPINE.md` (numbered `AD` decisions with Binds, Prevents, Rule); a readiness verdict |
+| **Sally** (UX Designer) | User needs, the PRD, product sources, user-supplied visuals (Figma, sketches, brand decks) | `DESIGN.md` (visual identity tokens and rules) and `EXPERIENCE.md` (behavior, states, flows); optional mockups and wireframes |
+| **Amelia** (Developer) | An approved story, spec, or plain intent (a sentence or issue is enough); the repo | Code and tests; the per-change build spec with review triage log; `deferred-work.md`; test suites (`QA`); a code review with patches; a sprint plan; an epic retrospective |
+
+**Caveats:** these are the artifacts each skill documents; the agent adds only a persona and a menu. The lab exercised the skills without loading an agent persona, so no agent session was run. [V, P22; V-lab for the absence]
+
 ## Core skills (any project, any phase, no agent session needed)
 
 Eight skills ship in the core module. [V, P2]

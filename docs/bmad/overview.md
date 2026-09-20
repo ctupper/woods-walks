@@ -1,16 +1,16 @@
 # BMAD in One Page
 
-*For someone who has never seen BMAD. Describes BMAD-METHOD v6.12.0. Tags: [V] traced to the project's own docs or skill files (detail and source IDs on the linked pages), [V-lab] seen in a lab run, [I] inferred. Draft written unattended 2026-09-19; **not yet cold-read by a human**, which the project's success criteria require.*
+*For someone who has never seen BMAD. Describes BMAD-METHOD v6.12.0. Tags: [V] traced to the project's own docs or skill files (detail and source IDs on the linked pages), [V-lab] seen in a lab run, [I] inferred. Drafted unattended 2026-09-19 and read by the project owner on 2026-09-20, who found it good. The owner had followed the research closely, so a read by someone who has never seen BMAD would still be stronger evidence.*
 
 ## What it is
 
 BMAD is a set of named commands ("skills") you add to an AI coding tool such as Claude Code. Some help you think (explore an idea, research a decision, write down what you settled on). Others help you build (turn a described change into reviewed, tested code). You can use either group alone. [V, `agents.md`]
 
-Its central bet: the AI writes better code when the human intent is written down first, briefly and precisely, and when the AI's work is checked by reviewers who don't share the author's assumptions. [I, from `flow.md`, `build-step-by-step.md`]
+Its central bet: the AI writes better code when the human intent is written down first, briefly and precisely, and when the AI's work is checked by reviewers who don't share the author's assumptions. [I, from [flow.md](flow.md), [build-step-by-step.md](build-step-by-step.md)]
 
 ## The loop
 
-The released docs' delivery diagram shows one loop of four steps: **Clarify, Plan, Build and verify, Learn and adjust.** Bigger work enters earlier (the sizing table in `flow.md` supports this), rather than using a different method. [V for the diagram labels, I for the rest; see `flow.md`]
+The released docs' delivery diagram shows one loop of four steps: **Clarify, Plan, Build and verify, Learn and adjust.** Bigger work enters earlier (the sizing table in [flow.md](flow.md) supports this), rather than using a different method. [V for the diagram labels, I for the rest; see [flow.md](flow.md)]
 
 | Your starting point | Enter at |
 |---|---|
@@ -43,12 +43,18 @@ For a change that fits in one session, you can skip planning documents entirely:
 - Install works on Windows with Node, git, and `uv` (a Python tool the installer requires). [V-lab, `lab-log.md`]
 - A larger build with three independent reviewers took about 32 minutes; a small change in an existing codebase, with one reviewer, took about 6.5. [V-lab, `lab-log.md`]
 - In a code-review test, both review modes caught all six planted flaws in a small flawed commit, but the review workflow stopped three times for human decisions until they were answered in advance. [V-lab, `lab-log.md`]
+- A requirement change went through the whole loop (spec, stories, change proposal, spec update, stories re-run) with a person answering each question. Routing the change through `bmad-spec`, not by hand-editing `SPEC.md`, kept it in the spec's log; hand-edits were lost when the spec was regenerated. [V-lab, [lab-log.md](lab-log.md)]
 - Your own instructions still apply: a personal "confirm before committing" rule overrode BMAD's default commit step. [V-lab, `lab-log.md`]
 
 ## Where to go next
 
-`flow.md` (the loop and its artifacts), `agents.md` (agents and skills), `build-step-by-step.md`, `spec-skill.md`, `prd-skill.md`, `architecture-skill.md`, `ux-skill.md`, `glossary.md`, `lab-log.md` (what actually happened).
+- [Flow](flow.md): the loop, the flow diagram, and the artifact each step leaves
+- [Agents](agents.md): the five agents, their inputs and outputs, and the skills
+- [Building](build-step-by-step.md): how `bmad-build` runs, step by step
+- Skills: [spec](spec-skill.md), [PRD](prd-skill.md), [architecture](architecture-skill.md), [UX](ux-skill.md), [ideation](ideation-skills.md)
+- [Glossary](glossary.md)
+- [Lab log](lab-log.md): what actually happened in each experiment
 
 ## Known gaps
 
-Not yet covered: customization for teams, the retrospective and course-correction skills in a lab run, and the ideation skills (brainstorming, forge idea). Lab experiments run so far: install, one small idea through the loop, code review on a flawed commit, and an existing-codebase change. `bmad-ux` is read but not run. [I]
+Not yet covered or run: customization for teams; the PRD, architecture, UX and sprint-planning skills in a lab run (all four are read, none run); the retrospective skill; the ideation skills beyond their opening steps (both stopped for human input when run unattended, so the ideas they produce were not judged); and building a story after a requirement change. Lab experiments run so far: install, one small idea through the loop, code review on a flawed commit, a change in an existing codebase, unattended runs of the ideation skills, and a spec-backed epic taken through a requirement change. [I]

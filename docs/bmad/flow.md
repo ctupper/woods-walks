@@ -108,6 +108,42 @@ When several people must agree, several engineers build in parallel, or someone 
 
 `bmad-preview-ticketing` is a prerelease alternative to `bmad-create-epics-and-stories` plus `bmad-sprint-planning`, organized as initiatives → epics → stories/spikes/bugs in an "initiative store" folder, with optional publishing to GitHub Issues, Jira, Linear, Notion, or Trello (repo markdown is the default and most tested). Its stories are **not read by `bmad-sprint-planning`**, don't appear in `sprint-status.yaml`, and `bmad-build` doesn't update their status yet. Stories start thin and are refined just before building. Trackers only sync when you run the skill; hooks aren't integrated. [V, P17] So this changes the story-tracking stage only if it ships, and only as an alternative. [I]
 
+## Flow diagram: rough idea to shipped story, with what each hand-off leaves
+
+Boxes are skills; labels on arrows are the artifact handed on. Bold-bordered boxes and thick arrows mark the paths run in a lab (Experiments 1 to 5f). Everything else is from the docs and skill files, not run. [V, P3, P5, P6, P7, P8, P9, P16, P19 to P25; V-lab for the marked paths]
+
+```mermaid
+flowchart TD
+  N["Vague notion"] --> BS["bmad-brainstorming"]
+  N --> FG["bmad-forge-idea"]
+  BS -- "brainstorm.html, brainstorm-intent.md" --> BR
+  FG -- "forge-report.html, forged-idea.md (if hardened)" --> BR
+  DR["bmad-deep-recon"] -- "research.md" --> BR
+  BR["bmad-product-brief or bmad-prfaq"] -- "brief.md + addendum.md / prfaq-project.md" --> PRD
+  PRD["bmad-prd"] -- "prd.md, addendum.md, .memlog.md" --> UX
+  PRD --> SPEC
+  UX["bmad-ux"] -- "DESIGN.md, EXPERIENCE.md" --> SPEC
+  BIG["Big, clear idea"] --> SPEC
+  SPEC["bmad-spec"] -- "SPEC.md + companions, .memlog.md" --> ARCH
+  ARCH["bmad-architecture"] -- "ARCHITECTURE-SPINE.md" --> SB
+  SPEC ==> SB["Story Breakdown (in bmad-spec)"]
+  SB == "stories.yaml" ==> BUILD
+  ARCH --> EP["bmad-create-epics-and-stories + bmad-sprint-planning"]
+  EP -- "epic files, sprint-status.yaml (readiness gate PASS/CONCERNS/FAIL)" --> BUILD
+  SMALL["Small change, one session"] ==> BUILD
+  BUILD["bmad-build (oneshot or dispatch)"] == "code + tests, spec-slug.md, deferred-work.md" ==> REV
+  REV["Review layers (inside build) / bmad-code-review"] -- "triage log, patches" --> DONE["Shipped story"]
+  DONE -- "all stories done" --> RETRO["bmad-retrospective"]
+  RETRO -- "RETROSPECTIVE.md, verdict" --> NEXT["Next epic or stop"]
+  CHG["Requirement change mid-way"] ==> CC["bmad-correct-course"]
+  CC == "sprint change proposal" ==> SPEC
+  RETRO -- "lessons" --> SPEC
+```
+
+**Sizing shortcuts drawn from the docs:** a trivial edit skips BMAD; one session goes straight to `bmad-build`; an epic uses `bmad-spec`, Story Breakdown, then `bmad-build` per story; a project adds brief/PRD/UX/architecture and sprint planning first. [V, P3]
+
+**Paths run in a lab:** small idea to spec to build (Experiment 2); an existing codebase straight to build (Experiment 4); spec to stories to correct-course to spec update to Story Breakdown re-run (Experiments 5 to 5f). Not run: brief, PRFAQ, PRD, UX, architecture, sprint planning, epics, retrospective. [V-lab]
+
 ## Artifact trail: what each hand-off leaves behind
 
 | Stage | Artifact |
