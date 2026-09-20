@@ -1,0 +1,20 @@
+site_name: Woods Walks
+site_url: https://ctupper.github.io/woods-walks/
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: green
+      accent: green
+  features:
+    - navigation.tabs
+    - navigation.sections
+
+nav:
+  - Home: index.md
+  - Walks: 
+      - First Snow: posts/2025-12-07-first-snow.md
+
+plugins:
+  - search
