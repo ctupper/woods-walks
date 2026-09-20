@@ -3,13 +3,14 @@ site_url: https://ctupper.github.io/woods-walks/
 
 theme:
   name: material
-  palette:
-    - scheme: slate
+  palette: 
+    - scheme: slate 
       primary: green
       accent: green
   features:
-    - navigation.tabs
+    - navigation.tabs 
     - navigation.sections
+  mermaid: true
 
 nav:
   - Home: index.md
