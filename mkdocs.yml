@@ -12,6 +12,10 @@ theme:
     - navigation.sections
   mermaid: true
 
+markdown_extensions:
+  - pymdownx.superfences
+
+
 nav:
   - Home: index.md
   - Walks: 
@@ -34,5 +38,3 @@ nav:
 plugins:
   - search
 
-extra_javascript:
-  - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js
