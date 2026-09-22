@@ -350,3 +350,46 @@ So routing the change through `bmad-spec` costs about five minutes and leaves a 
 **Human effort for the loop:** 13 answers from Carl in total across Experiments 5 to 5f (slug; express; leave questions open; story shape; checkpoints; scope placement (a); change picked (1); batch mode; Continue; approve; the normalize answer; 4 stories; carry checkpoints). About 20 to 30 minutes of skill runtime in the interactive paths, excluding the true re-derive.
 
 **Not tested:** building any of the stories. The loop from spec to code after a change is Experiment 2's territory, not repeated here. [?]
+
+
+## Follow-ups with Carl's answers (2026-09-21)
+
+Carl answered the questions the earlier headless runs had left open, through the relay method (each question quoted to him, his answer passed back verbatim). **A tooling mistake of mine:** in these runs I passed the tool allow-list through an unquoted shell variable, which split it and produced "Ignoring --allowedTools rule" warnings; `uv run` was then blocked in the session that hit it (a run reported "`uv run` is blocked in this session; `python` runs the same scripts fine") while the runs still completed. Results were not affected as far as I can tell, but a later run used a quoted array. [V-lab]
+
+### Experiment 3, patch menu ("apply all") (Carl chose option 1)
+
+Both flawed-commit labs (`lab3-quick`, `lab3-thorough`) resumed at the menu "apply every patch, or walk through each". **Apply all worked in both**, in 63 s and 49 s. [V-lab]
+
+| | Quick lab | Thorough lab |
+|---|---|---|
+| Patches applied | 7 | 6 |
+| Tests after | 10 pass, 0 fail (was 3 pass, 1 fail) | 8 pass, 0 fail (was 3 pass, 1 fail) |
+| `qty` guard, coupon-lookup guard, non-mutating discount | Fixed | Fixed |
+| Per-item rounding | **Patched** (rounds once per line; `333 x 10` with SAVE10 gives 2997) | **Deferred**, untouched |
+| `applyDiscount` exported without validation | Left exported, **deferred** to the human | **Removed from the exports** (patch 5) |
+| The assert-free "coupon works" test | Replaced by 7 real cases | Now asserts 900, plus SAVE25, unknown coupon, omitted coupon, non-mutation |
+
+- The two runs made different calls on the same underlying findings (rounding: patch versus defer; the exported function: defer versus unexport). Consistent with the triage variance seen before. [V-lab; I]
+- Nothing was committed. Each run then reached a **new menu**: "Start the next story, Re-run code review, or Done". I did not answer it. [V-lab]
+- The runs applied patches without a spec file, so they skipped the spec status and sprint sync steps ("no spec file"). [V-lab]
+
+### Experiment 4, project context, answered (Carl's answers: none; don't know; current; don't know; don't know)
+
+Answers were mapped in the order asked: rules regardless of the repo (none), outside documents (don't know), Node version (current), where planning documents and tickets live (don't know), whether an agent has gotten something wrong here (don't know). [V-lab]
+
+- **The skill proposed a block and asked for approval before writing (118 s).** It said the interview "returned nothing new". The block: a one-paragraph orientation, plus two convention lines: throw `NoteError` with an `E_*` code and never a bare `Error`, and the store is injected so `src/notes.js` never touches the filesystem. [V-lab]
+- **What it left out, with reasons:** policy (none brought), a file map ("a map costs every session and saves no search"), the test command (`package.json` already states it), and pitfalls. On pitfalls it said it had found that a `node --test` glob matching nothing reports "0 tests" with no failure, but that it "manufactured that by running a deliberately non-matching glob; a constructed trap isn't evidence, so it stays out". That is the docs' rule that a pitfall needs evidence, applied to its own finding. [V-lab; V, P24]
+- **It asked one more question:** whether to also create a `CLAUDE.md` containing `@AGENTS.md`, since it could not verify the harness reads `AGENTS.md` natively. Carl approved the block and said yes to the `CLAUDE.md`. [V-lab]
+- **Written (17 s):** `AGENTS.md` (exactly the approved block) and `CLAUDE.md` (`@AGENTS.md`), both untracked and not committed. It said committing is the human's to run. It noted that rules repeating across projects belong in global config, and that Carl's `~/.claude/CLAUDE.md` already carries those, so it had read the global file. [V-lab]
+- **Compared with the planted conventions:** the block records 2 of the 5 (`NoteError` codes, injected store); the other three (tests in `tests/*.spec.js` with `node:test`, `nN` ids, exports at the bottom) are discoverable from the code, and the skill judged them not worth a line. Its docs-stated rule is to include only what is expensive to rediscover. [V-lab; V, P24]
+- **Not yet tested:** whether a later build in this repo behaves differently with `AGENTS.md` present. Experiment 4's build without it followed 5 of 5 conventions and asked nothing, so a difference would be small. [?]
+
+### Experiment 5g, open questions answered and applied to the change-loop spec
+
+In `lab5-route` (the spec after the requirement change, routed through `bmad-spec`), Carl answered three of the open questions. [V-lab]
+
+- **API shape ("single parameter", 293 s):** one constraint was added ("filtering is a single operation that takes its one or two tags in one parameter; there is no separate two-tag function"), the question was dropped, and the other sections were left untouched. It flagged story 3's closing sentence ("the open API-shape question applies") as now false and offered a Story Breakdown re-run. Open questions: 8. [V-lab]
+- **Lowercase = normalize, and removing a tag the note lacks = no-op (76 s):** CAP-1's success now includes uppercase input being lowercased and stored; a new constraint and CAP-2's success state the no-op; and the first answer opened a new question ("if someone removes or filters by `Work`, does it match a stored `work`?"). Story 1's "the open case question still applies" and story 3's API-shape sentence are both stale; the skill left `stories.yaml` alone and offered a re-run. Open questions: 7. [V-lab]
+- Each answer changed the spec surgically and left the memlog with a record, as in 5c and 5e. [V-lab]
+
+**A correction to something I told Carl:** I said building story 2 needed only open questions #2 and #4. That was wrong. Story 2 (remove a tag) depends on story 1 (tag storage and add), which does not exist in the code yet, and the stories run in order. Story 1 needs #3 (adding a tag the note already carries), #5 (which `E_*` codes), and #6 (which characters are legal), on top of #2 already answered. [V-lab; my error]
