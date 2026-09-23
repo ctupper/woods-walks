@@ -44,7 +44,8 @@ For a change that fits in one session, you can skip planning documents entirely:
 - A larger build with three independent reviewers took about 32 minutes; a small change in an existing codebase, with one reviewer, took about 6.5. [V-lab, `lab-log.md`]
 - In a code-review test, both review modes caught all six planted flaws in a small flawed commit, but the review workflow stopped three times for human decisions until they were answered in advance. [V-lab, `lab-log.md`]
 - A requirement change went through the whole loop (spec, stories, change proposal, spec update, stories re-run) with a person answering each question. Routing the change through `bmad-spec`, not by hand-editing `SPEC.md`, kept it in the spec's log; hand-edits were lost when the spec was regenerated. [V-lab, [lab-log.md](lab-log.md)]
-- Your own instructions still apply: a personal "confirm before committing" rule overrode BMAD's default commit step. [V-lab, `lab-log.md`]
+- That epic was then built end to end: four stories, each gated by real checkpoints (dirty tree, approval, token count), each reviewed independently, 61 tests passing at the end. Review caught one real bug (an id gets reissued after its note is deleted) and correctly left it deferred rather than smuggling a fix into an unrelated story. A different finding was raised and rejected three separate times across three stories — and BMAD flagged that pattern to the human itself, unprompted, as the likely place its own reasoning was wrong. [V-lab, [lab-log.md](lab-log.md)]
+- Your own instructions still apply: a personal "confirm before committing" rule overrode BMAD's default commit step, on every single story, not just once. [V-lab, `lab-log.md`]
 
 ## Where to go next
 
@@ -57,4 +58,4 @@ For a change that fits in one session, you can skip planning documents entirely:
 
 ## Known gaps
 
-Not yet covered or run: customization for teams; the PRD, architecture, UX and sprint-planning skills in a lab run (all four are read, none run); the retrospective skill; the ideation skills beyond their opening steps (both stopped for human input when run unattended, so the ideas they produce were not judged); and building a story after a requirement change. Lab experiments run so far: install, one small idea through the loop, code review on a flawed commit, a change in an existing codebase, unattended runs of the ideation skills, and a spec-backed epic taken through a requirement change. [I]
+Not yet covered or run: customization for teams; the PRD, architecture, UX and sprint-planning skills in a lab run (all four are read, none run); the retrospective and walkthrough skills (offered at the end of every build in the lab, never taken); the ideation skills beyond their opening steps (both stopped for human input when run unattended, so the ideas they produce were not judged). Lab experiments run so far: install, one small idea through the loop, code review on a flawed commit, a change in an existing codebase, unattended runs of the ideation skills, and a spec-backed epic taken through a requirement change and built out story by story. [I]

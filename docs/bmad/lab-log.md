@@ -393,3 +393,56 @@ In `lab5-route` (the spec after the requirement change, routed through `bmad-spe
 - Each answer changed the spec surgically and left the memlog with a record, as in 5c and 5e. [V-lab]
 
 **A correction to something I told Carl:** I said building story 2 needed only open questions #2 and #4. That was wrong. Story 2 (remove a tag) depends on story 1 (tag storage and add), which does not exist in the code yet, and the stories run in order. Story 1 needs #3 (adding a tag the note already carries), #5 (which `E_*` codes), and #6 (which characters are legal), on top of #2 already answered. [V-lab; my error]
+
+
+## Experiment 5h — all four stories built interactively (2026-09-21 to 2026-09-23, done)
+
+**Purpose:** finish the loop Experiments 5 to 5g left at "spec, stories, requirement change, correct-course, spec update, stories re-run": build every story of the tags epic (`lab5-route`) through `bmad-build`, with Carl answering every open question and checkpoint through the relay method. Also resolved several open questions the earlier experiments had left standing. [V-lab]
+
+**Method note:** each story ran as multiple headless `claude -p --continue` calls per story (plan, question round, approval, implement/review/present), same relay discipline as before — every BMAD question relayed to Carl verbatim, every answer passed back verbatim, nothing chosen on his behalf. A run I killed with too short a timeout during story 3's review step left implementation and tests fully done (61/61 later, 47/47 then) with only the review step interrupted; resuming with no timeout cap picked up cleanly at `status: in-review`, confirming the build spec's status field is safe to interrupt against. [V-lab]
+
+**Open questions Carl answered along the way, applied through `bmad-spec` before building (not by hand-edit, learning Experiment 5b to 5e's lesson):**
+
+| # | Question | Answer |
+|---|---|---|
+| — | Two-tag filter: separate function or one parameter | single parameter |
+| — | Tags are lowercase: reject or normalize | normalize |
+| — | Removing a tag the note doesn't carry | no-op |
+| — | Adding a tag the note already carries | idempotent no-op |
+| — | New `E_*` codes: new or reuse | new, one per failure |
+| — | Characters beyond lowercase+length | exactly lowercase letters, digits, hyphens (ASCII) |
+| — | Filtering by the same tag twice | single-tag case |
+| — | (Story 3) function name/signature | `listNotesByTag(store, tags)`, bare string or array |
+| — | (Story 3) does filter lowercase `Work`→`work` | yes, symmetric with add/remove |
+| — | (Story 3) duplicates collapsing to 1–2 distinct tags, and `[]` | collapse first, check distinct count; `[]` rejected |
+| — | (Story 3) third error code name | `E_FILTER_ARITY` (also covers the `[]` case) |
+| — | (Story 4) unknown note id on remove | `E_NOT_FOUND` (not idempotent) |
+| — | (Story 4) what a successful `removeNote` returns | `undefined` |
+
+Each answer went through `bmad-spec`'s update path and landed in the memlog, matching Experiment 5e, not 5b's hand-edit route. Two of Carl's answers ("new codes", "digits, hyphens") were incomplete on their own terms, and the skill would not fill the gap itself — it opened a follow-on question each time (naming the codes; whether non-ASCII letters count) rather than guessing. [V-lab]
+
+**Story Breakdown was re-run twice** as the spec changed (once after the API-shape/case/no-op answers, once more not needed — the token-code and character answers didn't touch story descriptions). Each re-run asked to confirm the story list (it proposed the same stories with only the stale sentence fixed) and whether to carry the checkpoints forward; Carl said yes both times, and the diff really was single-hunk each time, verified. [V-lab]
+
+**All four stories, committed to the lab repo in order (`72dce13`, `2248ecf`, `ce33364`, `7ab412b`):**
+
+| Story | Route | Human decisions before implementation | Findings (patch/false-or-rejected/deferred) | Tests after |
+|---|---|---|---|---|
+| 1 Tag storage and add | dispatch | Code names (2), checkpoint carry-forward | 3 patched / rest rejected | 18/18 |
+| 2 Remove a tag | dispatch | Case symmetry, malformed-input handling (2) | 2 real gaps patched / 11 rejected | 28/28 |
+| 3 List notes by tag | dispatch | Signature, case, duplicate/arity, code name (4) | 3 patched / 10 rejected | 47/47 |
+| 4 Remove a note, tags with it | dispatch | Token-count accept, unknown-id behavior, return value (3) | 2 patched / 4 rejected / 2 deferred | 61/61 |
+
+All [V-lab]. Every story took the `dispatch` route (none was small enough for `oneshot`), matching the release's route gate (`build-step-by-step.md`).
+
+**Findings across the four builds**
+
+- **Every checkpoint fired as documented, every time.** Dirty-tree checks (story 2's build halted immediately when story 1's work was uncommitted, and asked how to proceed — not scripted wording, the model's own judgment call at an unscripted checkpoint), subagent-permission asks (once per workflow run, as `SKILL.md` prescribes), approval checkpoints (all three options offered every time), token-count gates (story 4, over 1600, Carl chose to accept). None were skipped. [V-lab; V, P18r]
+- **The commit step is the one place "confirm before committing" bites on every single story.** Each story's presentation step said it would normally commit locally and then didn't, correctly attributing this to Carl's standing rule rather than to a workflow default. Commits were made by me, as a person, after Carl approved each message — not by the skill. [V-lab]
+- **Cross-story consistency held without being asked to.** Story 2 and 3 both independently proposed lowercasing input to match `addTag`, framing it as "symmetric with add/remove" before Carl answered. Story 3's implementation reused `addTag`'s validation regex rather than reinventing one. [V-lab]
+- **The same finding was raised three separate times by three separate review runs and rejected each time on the same grounds** (a note with a non-array `tags` field would substring-match a filter) — and the build itself flagged this pattern to Carl unprompted, naming it as the most likely place its own reasoning could be wrong. This is a review behavior not observed in Experiments 2 or 3: a system noticing its own repeated dismissal of a finding and surfacing that as a signal, rather than just repeating the dismissal. [V-lab]
+- **The deferred finding across stories (`nextId` reissuing a deleted note's id) was verified empirically before being filed**, with a concrete repro in `deferred-work.md`: create n1/n2/n3, remove n3, add a new note, and the new note gets id `n3` — then `getNote(s,'n3')` silently resolves to the new note. This is the planning-stage prediction from stories 1 and 2 made concrete once `removeNote` existed to trigger it. It was correctly barred from being fixed inside story 4 by the frozen spec's Never clause. [V-lab]
+- **Design Notes and Deferred Work as a paper trail:** the id-reuse issue is recorded in three places by the end (spec Design Notes from story 1 onward, the story 4 spec, and `deferred-work.md`) with increasing precision each time, never resolved and never silently dropped. [V-lab]
+
+**What the finished epic demonstrates, end to end:** idea and constraints (Experiment 5) → express spec + Story Breakdown → requirement change mid-epic → correct-course proposal → change routed through `bmad-spec`, not hand-edited (Experiment 5e) → Story Breakdown re-run → four stories built one at a time, each gated by real human decisions, each reviewed by independent subagent layers, each committed only on explicit confirmation → one real bug found and left properly documented rather than smoothed over. This is the "one toy idea through the flow" success criterion (criterion 3) met at full scale rather than the wordfreq-CLI scale of Experiment 2. [V-lab]
+
+**Not tested:** `bmad-retrospective` on the finished epic (a natural next unit); `bmad-walkthrough`, which was offered at every story's end and never taken.
