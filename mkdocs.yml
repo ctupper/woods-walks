@@ -13,7 +13,11 @@ theme:
   mermaid: true
 
 markdown_extensions:
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          start_chars: '```mermaid'
 
 
 nav:

@@ -1,0 +1,1619 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ctupper.github.io/woods-walks/bmad/agents/">
+      
+      
+        <link rel="prev" href="../flow/">
+      
+      
+        <link rel="next" href="../architecture-skill/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Agents - Woods Walks</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bmad-agents-and-skills" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Woods Walks" class="md-header__button md-logo" aria-label="Woods Walks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Woods Walks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Agents
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../posts/2025-12-07-first-snow/" class="md-tabs__link">
+          
+  
+  
+  Walks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+  BMad Wiki
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Woods Walks" class="md-nav__button md-logo" aria-label="Woods Walks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Woods Walks
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Walks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Walks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../posts/2025-12-07-first-snow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First Snow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BMad Wiki
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    BMad Wiki
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agents
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The core idea
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-ways-to-start-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two ways to start work
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-five-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The five agents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The five agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-inputs-and-outputs-spec-criterion-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent inputs and outputs (spec criterion 1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-skills-any-project-any-phase-no-agent-session-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core skills (any project, any phase, no agent session needed)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method-skills-bmad-method-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method skills (BMad Method module)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#persona-anatomy-from-the-developer-agent-amelia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persona anatomy (from the Developer agent, Amelia)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-other-four-personas-p22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The other four personas (P22)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-skills-worth-knowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other skills worth knowing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-step-by-step/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skills
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spec-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prd-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PRD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ux-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ideation-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The core idea
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-ways-to-start-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two ways to start work
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-five-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The five agents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The five agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agent-inputs-and-outputs-spec-criterion-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent inputs and outputs (spec criterion 1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-skills-any-project-any-phase-no-agent-session-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core skills (any project, any phase, no agent session needed)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method-skills-bmad-method-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method skills (BMad Method module)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#persona-anatomy-from-the-developer-agent-amelia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persona anatomy (from the Developer agent, Amelia)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-other-four-personas-p22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The other four personas (P22)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-skills-worth-knowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other skills worth knowing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="bmad-agents-and-skills">BMAD — Agents and Skills</h1>
+<p><em>Describes BMAD-METHOD v6.12.0 (see <code>../sources.md</code>). Tags: [V] traced to a primary doc, [I] inferred, [?] unclear. Source IDs (P2 etc.) refer to the ledger.</em></p>
+<h2 id="the-core-idea">The core idea</h2>
+<p>BMAD adds named commands called <strong>skills</strong> to AI coding tools such as Claude Code and Cursor. [V, P1] Some skills help you <em>think</em> (explore, research, argue against an idea, write down what you settled on). Others help you <em>build</em>. [V, P1] Either group works alone; a small fix can go straight to building with no planning. [V, P1]</p>
+<p>A skill does one of three things: loads an <strong>agent persona</strong>, runs a <strong>multi-step workflow</strong>, or runs a <strong>single task</strong>. [V, P2] On Claude Code, skills are installed into <code>.claude/skills/</code>, one directory per skill holding a <code>SKILL.md</code>. [V, P2]</p>
+<h2 id="two-ways-to-start-work">Two ways to start work</h2>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>How</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Skill</td>
+<td>Type the skill name (e.g. <code>bmad-help</code>)</td>
+<td>Loads an agent, runs a workflow, or runs a task directly [V, P2]</td>
+</tr>
+<tr>
+<td>Agent menu trigger</td>
+<td>Load an agent, then type a short code (e.g. <code>BD</code>)</td>
+<td>The agent starts the matching workflow and stays in character [V, P2]</td>
+</tr>
+</tbody>
+</table>
+<p>Codes are scoped to the agent that shows them: <code>CR</code> is competitive teardown for the Analyst and code review for the Developer. [V, P2]</p>
+<h2 id="the-five-agents">The five agents</h2>
+<p>The BMad Method module installs five named agents. [V, P2]</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Skill ID</th>
+<th>Codes</th>
+<th>What its menu offers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Analyst (Mary)</strong></td>
+<td><code>bmad-agent-analyst</code></td>
+<td><code>BP</code> <code>MR</code> <code>DR</code> <code>TR</code> <code>TS</code> <code>CR</code> <code>UV</code> <code>CB</code> <code>WB</code> <code>PC</code></td>
+<td>Brainstorm; market, domain, technical research; technology selection; competitive teardown; user-voice research; product brief; PRFAQ challenge; project context</td>
+</tr>
+<tr>
+<td><strong>Product Manager (John)</strong></td>
+<td><code>bmad-agent-pm</code></td>
+<td><code>PRD</code> <code>CE</code> <code>IR</code> <code>CC</code></td>
+<td>Create/update/validate a PRD; epics and stories; implementation readiness; correct course</td>
+</tr>
+<tr>
+<td><strong>Architect (Winston)</strong></td>
+<td><code>bmad-agent-architect</code></td>
+<td><code>CA</code> <code>IR</code></td>
+<td>Architecture spine; implementation readiness</td>
+</tr>
+<tr>
+<td><strong>Developer (Amelia)</strong></td>
+<td><code>bmad-agent-dev</code></td>
+<td><code>BD</code> <code>QA</code> <code>CR</code> <code>SP</code> <code>ER</code></td>
+<td>Build; QA test generation; code review; sprint plan; epic retrospective</td>
+</tr>
+<tr>
+<td><strong>UX Designer (Sally)</strong></td>
+<td><code>bmad-agent-ux-designer</code></td>
+<td><code>CU</code></td>
+<td>UX design</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The Technical Writer (Paige) is <strong>on hiatus</strong>; project context lives on via the Analyst's <code>PC</code> code or <code>bmad-project-context</code>. [V, P2]</li>
+<li>The Developer's <code>QA</code> runs <code>bmad-qa-generate-e2e-tests</code>; the full Test Architect is a <strong>separate module</strong>. [V, P2]</li>
+<li>Each agent is "an identity plus a customizable layer." [V, P2]</li>
+<li>All five agent skill directories exist in the repo's <code>skills/</code> folder. [V, P11]</li>
+</ul>
+<p><strong>Not in the current roster:</strong> there is no Scrum Master or QA agent in the v6.12.0 docs. [V, P2 — absence in the roster] Descriptions of BMAD from earlier versions may list different agents. [?, not checked against older versions]</p>
+<h3 id="agent-inputs-and-outputs-spec-criterion-1">Agent inputs and outputs (spec criterion 1)</h3>
+<p>What each agent reads and produces, through the skills its menu dispatches. The agents themselves hold no workflow logic; inputs and outputs are those of the skills. [V, P22; V, P19 to P25 for the skills]</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Typical inputs</th>
+<th>Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mary</strong> (Analyst)</td>
+<td>A topic, idea, or decision to research; existing product notes; the repo (for <code>PC</code>)</td>
+<td><code>brainstorm.html</code> and optional <code>brainstorm-intent.md</code>; cited <code>research.md</code>; <code>brief.md</code> + <code>addendum.md</code>; <code>prfaq-&lt;project&gt;.md</code>; the <code>AGENTS.md</code> context block</td>
+</tr>
+<tr>
+<td><strong>John</strong> (Product Manager)</td>
+<td>A brain dump plus existing inputs (brief, research, transcripts, competitive analysis, prior PRD); the PRD and planning documents for epics; the change trigger for course correction</td>
+<td><code>prd.md</code>, <code>addendum.md</code>, <code>.memlog.md</code> (or a validation report); epic files with stories; a readiness verdict and <code>sprint-status.yaml</code>; a sprint change proposal</td>
+</tr>
+<tr>
+<td><strong>Winston</strong> (Architect)</td>
+<td>A spec package (<code>SPEC.md</code> plus its memlog), a raw idea, an existing codebase, or an existing spine; the PRD and UX in the agent's own description</td>
+<td><code>ARCHITECTURE-SPINE.md</code> (numbered <code>AD</code> decisions with Binds, Prevents, Rule); a readiness verdict</td>
+</tr>
+<tr>
+<td><strong>Sally</strong> (UX Designer)</td>
+<td>User needs, the PRD, product sources, user-supplied visuals (Figma, sketches, brand decks)</td>
+<td><code>DESIGN.md</code> (visual identity tokens and rules) and <code>EXPERIENCE.md</code> (behavior, states, flows); optional mockups and wireframes</td>
+</tr>
+<tr>
+<td><strong>Amelia</strong> (Developer)</td>
+<td>An approved story, spec, or plain intent (a sentence or issue is enough); the repo</td>
+<td>Code and tests; the per-change build spec with review triage log; <code>deferred-work.md</code>; test suites (<code>QA</code>); a code review with patches; a sprint plan; an epic retrospective</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Caveats:</strong> these are the artifacts each skill documents; the agent adds only a persona and a menu. The lab exercised the skills without loading an agent persona, so no agent session was run. [V, P22; V-lab for the absence]</p>
+<h2 id="core-skills-any-project-any-phase-no-agent-session-needed">Core skills (any project, any phase, no agent session needed)</h2>
+<p>Eight skills ship in the core module. [V, P2]</p>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>What it does</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bmad-help</code></td>
+<td>Inspects the project for existing artifacts and installed modules, recommends the next skill</td>
+<td>Prioritized next steps [V, P2]</td>
+</tr>
+<tr>
+<td><code>bmad-advanced-elicitation</code></td>
+<td>Second pass over recent output through a named reasoning method (pre-mortem, first principles, red team, etc.)</td>
+<td>Proposed improvements to accept or discard [V, P2]</td>
+</tr>
+<tr>
+<td><code>bmad-review</code></td>
+<td>Reviews a diff or document through lenses: adversarial, edge case, verification gap, structure, prose. Zero findings is valid</td>
+<td>Findings grouped by lens [V, P2]</td>
+</tr>
+<tr>
+<td><code>bmad-customize</code></td>
+<td>Writes and verifies customization overrides under <code>_bmad/custom/</code></td>
+<td>Override files [V, P2]</td>
+</tr>
+<tr>
+<td><code>bmad-brainstorming</code></td>
+<td>Facilitated session aiming for 100+ ideas</td>
+<td><code>brainstorm.html</code> + optional <code>brainstorm-intent.md</code> [V, P2]</td>
+</tr>
+<tr>
+<td><code>bmad-deep-recon</code></td>
+<td>Researches a topic to support a decision</td>
+<td>Cited <code>research.md</code> + optional HTML briefing [V, P2]</td>
+</tr>
+<tr>
+<td><code>bmad-forge-idea</code></td>
+<td>Pressure-tests a half-formed idea, one question at a time, with personas</td>
+<td><code>forge-report.html</code> always; <code>forged-idea.md</code> if it hardens [V, P2, P4]</td>
+</tr>
+<tr>
+<td><code>bmad-party-mode</code></td>
+<td>Puts installed agents or custom personas in one conversation</td>
+<td>A discussion [V, P2]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="method-skills-bmad-method-module">Method skills (BMad Method module)</h2>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Purpose</th>
+<th>Produces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bmad-product-brief</code></td>
+<td>Write down a clear product concept</td>
+<td><code>brief.md</code> + <code>addendum.md</code> [V, P3, P5]</td>
+</tr>
+<tr>
+<td><code>bmad-prfaq</code></td>
+<td>Working Backwards stress test of a concept</td>
+<td><code>prfaq-&lt;project&gt;.md</code> [V, P3, P5]</td>
+</tr>
+<tr>
+<td><code>bmad-prd</code></td>
+<td>Create, update, or validate a PRD</td>
+<td><code>prd.md</code>, <code>addendum.md</code>, <code>.memlog.md</code> (create/update); HTML + <code>.md</code> report (validate) [V, P3]</td>
+</tr>
+<tr>
+<td><code>bmad-ux</code></td>
+<td>Capture UX vision</td>
+<td><code>DESIGN.md</code>, <code>EXPERIENCE.md</code>, <code>.memlog.md</code> [V, P3, P6]</td>
+</tr>
+<tr>
+<td><code>bmad-spec</code></td>
+<td>Condense any intent into a short contract; optionally break into stories</td>
+<td><code>SPEC.md</code> + companions under <code>specs/spec-&lt;slug&gt;/</code>; optional <code>stories.yaml</code> [V, P3, P5]</td>
+</tr>
+<tr>
+<td><code>bmad-architecture</code></td>
+<td>Record decisions that would conflict if made independently</td>
+<td><code>ARCHITECTURE-SPINE.md</code> [V, P3, P6]</td>
+</tr>
+<tr>
+<td><code>bmad-create-epics-and-stories</code></td>
+<td>Break requirements into epics and stories</td>
+<td>Epic files with stories [V, P3, P7]</td>
+</tr>
+<tr>
+<td><code>bmad-sprint-planning</code></td>
+<td>Readiness gate, then sprint tracking</td>
+<td>PASS/CONCERNS/FAIL + <code>sprint-status.yaml</code> [V, P3, P7]</td>
+</tr>
+<tr>
+<td><code>bmad-correct-course</code></td>
+<td>Assess a significant mid-sprint change</td>
+<td>Change proposal [V, P2, P7]</td>
+</tr>
+<tr>
+<td><code>bmad-project-context</code></td>
+<td>Set up/refresh/audit the repo's agent instructions</td>
+<td>Project context [V, P2]</td>
+</tr>
+<tr>
+<td><code>bmad-build</code></td>
+<td>Turn a work item into reviewed, verified code</td>
+<td>Code + implementation record [V, P2, P8]</td>
+</tr>
+<tr>
+<td><code>bmad-build-auto</code></td>
+<td>One unattended build iteration for an orchestrator</td>
+<td>Code + record + terminal status [V, P2, P8]</td>
+</tr>
+<tr>
+<td><code>bmad-code-review</code></td>
+<td>Review code with several independent reviewers, then triage</td>
+<td>Findings + applied patches [V, P2, P8]</td>
+</tr>
+<tr>
+<td><code>bmad-walkthrough</code></td>
+<td>Guided human review of a commit/PR/file</td>
+<td>Walkthrough [V, P2]</td>
+</tr>
+<tr>
+<td><code>bmad-qa-generate-e2e-tests</code></td>
+<td>Generate API and e2e tests</td>
+<td>Tests [V, P2]</td>
+</tr>
+<tr>
+<td><code>bmad-retrospective</code></td>
+<td>Judge a completed epic against its evidence</td>
+<td>Retro doc, action items, verdict [V, P2, P9]</td>
+</tr>
+</tbody>
+</table>
+<p>Old names (<code>bmad-create-prd</code>, <code>bmad-edit-prd</code>, <code>bmad-market-research</code>, etc.) still resolve as forwarders. [V, P2]</p>
+<h2 id="persona-anatomy-from-the-developer-agent-amelia">Persona anatomy (from the Developer agent, Amelia)</h2>
+<p>Read from <code>skills/bmad-agent-dev/SKILL.md</code> and <code>customize.toml</code> (P12) and confirmed present in the lab install. [V, P12; V-lab]</p>
+<ul>
+<li><strong>Fixed identity:</strong> <code>name</code> and <code>title</code> are hardcoded (Amelia, Senior Software Engineer). "Create a custom agent if you need a new name/title." [V, P12]</li>
+<li><strong>Configurable layer:</strong> <code>icon</code>, <code>role</code>, <code>identity</code>, <code>communication_style</code>, <code>principles</code> (array), <code>persistent_facts</code> (array; literal sentences or <code>file:</code> paths/globs), <code>activation_steps_prepend</code> / <code>_append</code>, and the menu (<code>[[agent.menu]]</code> entries, each with a <code>code</code>, a <code>description</code>, and either a <code>skill</code> or a <code>prompt</code>). [V, P12]</li>
+<li><strong>Amelia's content:</strong> role "implement approved stories with test-first discipline"; identity cites Kent Beck's TDD and the Pragmatic Programmer; style "ultra-succinct, speaks in file paths and AC IDs"; principles include red-green-refactor, tasks in written order, no epic/story references in code comments, comments explain why. [V, P12]</li>
+<li><strong>Activation sequence (8 steps):</strong> resolve the agent block (base → team → user override files, via a <code>uv run</code> Python script, with a manual fallback) → run prepend steps → adopt persona and stay in character → load persistent facts → load config (planning_artifacts, project_knowledge) → greet with the agent's icon and mention <code>bmad-help</code> → run append steps → dispatch a menu item directly if the user's message already names one, otherwise show the menu and wait. [V, P12]</li>
+<li><strong>Override layers:</strong> <code>customize.toml</code> (defaults, overwritten on update) → <code>_bmad/custom/&lt;skill&gt;.toml</code> (team) → <code>_bmad/custom/&lt;skill&gt;.user.toml</code> (personal). Scalars override, tables deep-merge, arrays of tables keyed by <code>code</code>/<code>id</code> replace matching entries and append new ones, other arrays append. [V, P12]</li>
+<li>So an agent is mostly <strong>a prompt-defined persona plus a menu that routes to other skills.</strong> Amelia's menu items are all skill dispatches (<code>bmad-build</code>, <code>bmad-qa-generate-e2e-tests</code>, <code>bmad-code-review</code>, <code>bmad-sprint-planning</code>, <code>bmad-retrospective</code>). [V, P12] The other four agents' personas are in the next section. [V, P22]</li>
+</ul>
+<h2 id="the-other-four-personas-p22">The other four personas (P22)</h2>
+<p>Read from each agent's <code>customize.toml</code> (P22, 2026-09-19, unattended run). All five share one structure: fixed <code>name</code> and <code>title</code>, configurable <code>icon</code>, <code>role</code>, <code>identity</code>, <code>communication_style</code>, <code>principles</code>, and a menu. Diffing the four <code>SKILL.md</code> files against Amelia's shows they differ only in name, description, and title: the same activation sequence is templated across all five. [V, P22]</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Role (phase)</th>
+<th>Identity (named influences)</th>
+<th>Style</th>
+<th>Principles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mary</strong>, Business Analyst</td>
+<td>Ideate, research, and analyze before committing to a project (analysis phase)</td>
+<td>Michael Porter's strategic rigor, Barbara Minto's Pyramid Principle</td>
+<td>"Treasure hunter's excitement for patterns, McKinsey memo's structure for findings"</td>
+<td>Findings grounded in verifiable evidence; requirements stated with absolute precision; every stakeholder voice represented</td>
+</tr>
+<tr>
+<td><strong>John</strong>, Product Manager</td>
+<td>Turn vision into a validated PRD, epics, and stories (planning phase)</td>
+<td>Marty Cagan, Teresa Torres; Bezos's six-pager discipline</td>
+<td>"Detective's 'why?' relentless. Direct, data-sharp"</td>
+<td>PRDs come from user interviews, not template filling; ship the smallest thing that validates the assumption; user value first, feasibility is a constraint</td>
+</tr>
+<tr>
+<td><strong>Winston</strong>, System Architect</td>
+<td>Turn PRD and UX into architecture decisions (solutioning phase)</td>
+<td>Martin Fowler's pragmatism, Werner Vogels's cloud-scale realism</td>
+<td>"Calm and pragmatic ... Answers with trade-offs, not verdicts"</td>
+<td>Rule of Three before abstraction; boring technology for stability; developer productivity is architecture</td>
+</tr>
+<tr>
+<td><strong>Sally</strong>, UX Designer</td>
+<td>Turn user needs and the PRD into UX specifications (planning phase)</td>
+<td>Don Norman's human-centered design, Alan Cooper's persona discipline</td>
+<td>"Paints pictures with words ... Empathetic advocate"</td>
+<td>Every decision serves a genuine user need; start simple, evolve through feedback; data-informed but always creative</td>
+</tr>
+</tbody>
+</table>
+<p>All [V, P22]. Amelia (Developer) is in the anatomy section above [V, P12].</p>
+<p><strong>Menus, as coded in the files:</strong> [V, P22]</p>
+<ul>
+<li><strong>Mary:</strong> <code>BP</code> brainstorming (skill <code>bmad-brainstorming</code>); <code>MR</code> market, <code>DR</code> domain, <code>TR</code> technical, <code>CR</code> competitive, <code>UV</code> user-voice research and <code>TS</code> technology selection, all six dispatched as prompts into <code>bmad-deep-recon</code> with the research type pre-selected; <code>CB</code> <code>bmad-product-brief</code>; <code>WB</code> <code>bmad-prfaq</code>; <code>PC</code> <code>bmad-project-context</code>.</li>
+<li><strong>John:</strong> <code>PRD</code> <code>bmad-prd</code>; <code>CE</code> <code>bmad-create-epics-and-stories</code>; <code>IR</code> <code>bmad-sprint-planning</code> (readiness gate; can stop after the gate or continue into tracking); <code>CC</code> <code>bmad-correct-course</code>.</li>
+<li><strong>Winston:</strong> <code>CA</code> <code>bmad-architecture</code>; <code>IR</code> <code>bmad-sprint-planning</code>.</li>
+<li><strong>Sally:</strong> <code>CU</code> <code>bmad-ux</code> (single item).</li>
+</ul>
+<p><strong>Observations</strong></p>
+<ul>
+<li>Every agent menu item resolves to a skill or a prompt that invokes one; none contains workflow logic itself. The agents are entry points and personas over the same skills anyone can invoke directly. [V, P22 menus; I, the generalization]</li>
+<li>Six of Mary's ten codes are one skill, <code>bmad-deep-recon</code>, entered with a different pre-selected type. [V, P22]</li>
+<li><code>IR</code> (implementation readiness) appears on both John and Winston and both open <code>bmad-sprint-planning</code>. [V, P22] This matches the docs' note that codes are scoped per agent but not shared across agents. [I]</li>
+<li>Each agent's <code>role</code> names a BMad Method phase (analysis, planning, solutioning), so the roster reads as a phase-ordered handoff: Mary, John and Sally, Winston, Amelia. [I]</li>
+<li>Personas cite real practitioners as shorthand (Porter, Minto, Cagan, Torres, Fowler, Vogels, Norman, Cooper, Beck). Whether the model's behavior changes measurably because of these names is not tested. [?]</li>
+</ul>
+<h2 id="other-skills-worth-knowing">Other skills worth knowing</h2>
+<ul>
+<li><strong><code>bmad-deep-recon</code></strong> has three modes: <strong>Draft</strong> (writes a research prompt for your own deep-research tool such as ChatGPT, Gemini, Grok or Perplexity), <strong>Process</strong> (files a finished report, extracts claims, flags what it never covered, writes a standard <code>research.md</code> summary), and <strong>Run</strong> (does the research in-session after you approve a plan). Types: market, domain, technical, competitive, user-voice, academic-lit; plus Explore vs Select. Claims come from sources retrieved during the run, not model memory, and each carries publisher, date, and inline citation. Stale figures are reported as history. Refresh re-checks only fast-aging claims. [V, P13]</li>
+<li><strong><code>bmad-code-review</code>:</strong> reviewers each take a different lens and run in parallel on the same diff, then triage verifies each finding, assigns severity, dismisses noise with a recorded reason, and routes survivors to patch, defer, or decision-needed. <code>thorough</code> is the default, <code>quick</code> is one reviewer. Quality depends on being given intent (a spec) as well as the diff. Several rounds of review that keep finding non-trivial issues signal a problem upstream (weak spec, contradiction), not more review passes. [V, P14] <strong>Corrected against the v6.12.0 tag:</strong> the <code>thorough</code> default and <code>quick</code> single-reviewer text above (P14) is from the clone's docs and is <strong>not in the release</strong>. The release runs four layers: Blind Hunter, Edge Case Hunter, Verification Gap, and an Acceptance Auditor when a spec is given, with no depth selector (tag docs P14; Experiment 3, <code>lab-log.md</code>).</li>
+<li><strong><code>bmad-build-auto</code>:</strong> the unattended worker for one unit. Needs subagents (otherwise halts <code>blocked</code>: <code>no subagents</code>). Reads <code>stories.yaml</code> for a story by id, writes <code>stories/&lt;id&gt;-&lt;slug&gt;.md</code>, ends with a machine-readable status in the spec's frontmatter: <code>draft</code>, <code>ready-for-dev</code>, <code>in-progress</code>, <code>in-review</code>, <code>done</code>, <code>blocked</code>. It commits but does not push. Blocked is "a routing signal, not just a failure signal." An orchestrator (a coding session or the optional <code>bmad-loop</code> tool) picks the next story; build-auto never does. [V, P15]</li>
+</ul>
+<h2 id="open">Open</h2>
+<ul>
+<li>Which skills spawn subagents and which run in one context. <code>bmad-build</code>, <code>bmad-code-review</code> and <code>bmad-build-auto</code> are documented as needing or preferring subagents. [V, P8, P14, P15] Not yet observed. [?]</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
