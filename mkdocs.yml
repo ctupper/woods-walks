@@ -28,18 +28,18 @@ nav:
       - Overview: bmad/overview.md
       - Flow: bmad/flow.md
       - Agents: bmad/agents.md
-      - Architecture: bmad/architecture-skill.md
       - Building: bmad/build-step-by-step.md
       - Skills:
           - Spec: bmad/spec-skill.md
           - PRD: bmad/prd-skill.md
+          - Architecture: bmad/architecture-skill.md
           - UX: bmad/ux-skill.md
-      - Logs: bmad/lab-log.md
-      - Systemic Findings: bmad/systemic-findings.md
+          - Ideation: bmad/ideation-skills.md
+      - Lab:
+          - Logs: bmad/lab-log.md
+          - Systemic Findings: bmad/systemic-findings.md
       - Reference:
           - Glossary: bmad/glossary.md
-          - Ideation: bmad/ideation-skills.md
 
 plugins:
   - search
-
