@@ -55,7 +55,8 @@ For a change that fits in one session, you can skip planning documents entirely:
 - Skills: [spec](spec-skill.md), [PRD](prd-skill.md), [architecture](architecture-skill.md), [UX](ux-skill.md), [ideation](ideation-skills.md)
 - [Glossary](glossary.md)
 - [Lab log](lab-log.md): what actually happened in each experiment
+- [Systemic findings](systemic-findings.md): patterns that only show up across several experiments at once
 
 ## Known gaps
 
-Not yet covered or run: customization for teams; the PRD, architecture, UX and sprint-planning skills in a lab run (all four are read, none run); the retrospective and walkthrough skills (offered at the end of every build in the lab, never taken); the ideation skills beyond their opening steps (both stopped for human input when run unattended, so the ideas they produce were not judged). Lab experiments run so far: install, one small idea through the loop, code review on a flawed commit, a change in an existing codebase, unattended runs of the ideation skills, and a spec-backed epic taken through a requirement change and built out story by story. [I]
+Not yet covered or run: customization for teams; the PRD, architecture, UX and sprint-planning skills in a lab run (all four are read, none run); the walkthrough skill (offered at the end of every build in the lab, never taken); the ideation skills beyond their opening steps (both stopped for human input when run unattended, so the ideas they produce were not judged). Lab experiments run so far: install, one small idea through the loop, code review on a flawed commit, a change in an existing codebase, unattended runs of the ideation skills, a spec-backed epic taken through a requirement change and built out story by story, and a retrospective on that finished epic that found a defect no single story's review could have (see `lab-log.md`, Experiment 5i). [I]

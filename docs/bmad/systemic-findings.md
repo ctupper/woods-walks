@@ -1,0 +1,61 @@
+# Systemic Findings
+
+*Patterns that only show up by looking across several experiments or several stories at once — not new claims about BMAD, but connections between claims already tagged and sourced elsewhere in this wiki. Same discipline as every other page: [V-lab] traced to a specific lab observation (source pointed to below), [I] inferred, [?] unclear. Nothing here is evidence on its own; each pattern links back to the pages and experiments that are. Written 2026-09-24, unattended, folding in a reader suggestion Carl asked for by name.*
+
+## A story-level review cannot see an epic-level defect
+
+The most serious bug found anywhere in this research (`build-step-by-step.md`'s B1: live-object aliasing that lets a caller bypass every validation rule silently) was not found by any of the four stories' own reviews. Each story's review was scoped to that story's diff, and each triage decision that touched the issue was locally correct — story 1 and story 2 both checked the aliasing against the existing convention and correctly matched it. What changed was invisible from inside any single story: story 1 added a mutable field to a record that an old convention already handed out by reference, and story 3 handed that same mutable field out from a fourth entry point. Only `bmad-retrospective`'s own review pass over the *combined* four-commit diff caught the compound effect. [V-lab, `lab-log.md` Experiment 5i, finding B1]
+
+This is a structural gap, not a one-off miss: nothing in `bmad-build`'s own review step ever sees more than one story's diff (`build-step-by-step.md`), so a defect that only exists in the combination of two stories has exactly one place in the whole loop where it can be caught — the retrospective, which is optional and comes after the code already shipped. [I]
+
+## A `false` verdict has no expiry date
+
+Review triage renders `false` on a finding by checking whether the claimed problem is reachable *right now*. Nothing records the condition that verdict depends on, so when a later story changes that condition, the earlier `false` doesn't get re-examined — it gets cited. Story 1 verdicted a duplicate-id concern `false` on "no path creates duplicates" (true at the time, since nothing could delete a note yet). Story 2 hit the same concern and re-cited story 1's verdict *by reference* instead of re-deriving it. Story 4 added the first path that deletes, and the original premise had already been false for one story before anyone reproduced it. [V-lab, `lab-log.md` Experiment 5i, finding A1; `spec-skill.md`]
+
+The lesson isn't that the verdicts were wrong — each was correct when written. It's that "verified false" and "verified false, and here is what would have to change for that to stop being true" are different claims, and BMAD's triage format only records the first one. [I]
+
+## Ownership rules that protect a story can also protect a defect
+
+Each story's frozen block bars touching a previous story's code, so a later story cannot "fix" an earlier one even when it should. Three separate stories in the tags epic independently found the same three-way code duplication and rejected fixing it, each time for the identical reason: the smallest fix touches a prior story's frozen code. Every rejection was individually correct. The result was duplication visible to every reviewer and fixable by none, in a 103-line file. [V-lab, `lab-log.md` Experiment 5i, finding A4]
+
+This is the same mechanism working as designed (frozen intent doesn't drift under a later story's hands) producing a cost the design doesn't have an answer for (a cross-story cleanup nobody is allowed to schedule). BMAD's own process has no escape hatch for "this needs touching something frozen, and the frozen owner would agree." [I]
+
+## The record for the next reader drifts; the record nobody reads stays accurate
+
+This shape repeats across three different kinds of artifact:
+
+- **`SPEC.md`**, the document that calls itself "the complete, preservation-validated contract," was five answered questions and two contradicted constraints out of date by the time all four stories were done — every one of those seven decisions was made correctly, inside a story, and never written back. [V-lab, `lab-log.md` Experiment 5i, findings A2/A3/B2/B5]
+- **Story `Implementation Notes`**, meant for the next story's Code Map to read, quoted test counts that were already wrong once review patched in more tests — twice, off by 1 and by 2. [V-lab, `lab-log.md` Experiment 5i, finding A6]
+- **Hand-edits to `SPEC.md`** made outside `bmad-spec` survive small updates (the file looks current) but vanish the moment the file is truly re-derived from the memlog, because the memlog never recorded them — and nothing flags the mismatch while it's sitting there silently wrong. [V-lab, `lab-log.md` Experiments 5b through 5e; `spec-skill.md`]
+
+In all three cases, a different artifact stayed accurate the whole time: commit messages had the correct test counts every time (`build-step-by-step.md`'s A6), and the memlog itself never lies about what it does and doesn't contain — the drift is always between a summary artifact and the ground truth underneath it, not inside the ground truth. [I]
+
+## Available context changes what gets escalated, not what gets found
+
+Running the identical small change twice — once with no project context file, once with `AGENTS.md` present and pinning the exact shape of a data contract — produced the same code, the same tests, and the same defect found by review both times (an id gets silently reissued after deletion). What differed was the triage outcome: without `AGENTS.md`, the finding was a quiet note in `deferred-work.md`; with it, the same finding routed to a HALT, because the triage rule needs something concrete to weigh a fix's cost against, and only one of the two runs had it. [V-lab, `lab-log.md` Experiment 4b; `build-step-by-step.md`]
+
+Project context, in other words, doesn't make review find more. It makes review escalate more of what it already finds. [I]
+
+## A model can notice that it keeps rejecting the same claim
+
+Three independent review passes across three different stories raised the same finding (a note record with a non-array `tags` field would substring-match a filter) and rejected it each time on the same structural grounds. On the third occurrence, the build told Carl, unprompted, that being raised three times independently made this "the most likely place my reasoning is wrong" — not defending the rejection a fourth time, naming the pattern in its own verdicts as a signal worth surfacing. [V-lab, `lab-log.md` Experiment 5h]
+
+This is a different thing than the review layers themselves, which are deliberately kept blind to each other and to prior verdicts (`build-step-by-step.md`'s "information withheld on purpose"). This was the main session, which does see every prior triage row, drawing a conclusion about its own history of dismissals that none of the individual dismissals could have contained. [I]
+
+## The open-question list is a moving target, not a shrinking one
+
+Answering a spec's open question routinely opens a new, narrower one, because the answer settles the general case and exposes a case the input never addressed. Across the tags epic the open-question count moved 7 → 8 → 9 → 8 → 7 → 5, never monotonically down, as settling "lowercase" for adding a tag opened whether removing also lowercases, and settling a two-tag filter's shape opened what three duplicate entries should do. [V-lab, `spec-skill.md`; `lab-log.md` Experiments 5g/5h]
+
+BMAD never closed a gap by assuming an answer to get the count down, and it never accepted an incomplete human answer either — "new codes" with no names stayed open until named. The count is a proxy for "how much of this has been decided," not "how much work is left," and it can go up on a correct step. [I]
+
+## What this project's own retrospective on BMAD does *not* close
+
+Folding in a reader's suggestion: `bmad-retrospective`'s Phase 4 produces action items, and six of the sixteen from Experiment 5i are about gaps in BMAD's process itself, not about the code (`build-step-by-step.md`, `spec-skill.md`). It is tempting to read this as BMAD closing a loop on itself — the method learning from being run.
+
+That is not what was observed, and it's worth stating exactly what the gap is. `bmad-retrospective`'s own Phase 5 finalizes a document and, in stories mode, stops — "no edits to `SPEC.md`, `stories.yaml`, or any story artifact" (`spec-skill.md`; `RETROSPECTIVE.md`'s own text). Nothing reads P1 through P6 back into a skill definition, a `customize.toml`, or any file BMAD itself consults on a later run. The six process-lesson action items sit in a markdown file with `Carl (proposed)` as owner, same as every other action item, waiting on a human to decide whether and how to act on them — by hand-editing a skill override, by changing how this project runs BMAD next time, or by doing nothing. [V-lab, `lab-log.md` Experiment 5i]
+
+So the loop that closes is: an epic ships, `bmad-build`'s Learn-and-adjust stage retrospects on *that epic*, and produces proposals a human routes back into Plan for the *next* epic (`flow.md`). The loop that does not exist is: BMAD's own process definitions absorbing what a retrospective learned about BMAD's own process definitions. If that second loop is ever going to close, this research project is the only thing positioned to close it — by feeding P1 through P6 somewhere BMAD itself will be run from next, which nothing does automatically today. [I]
+
+## Not yet checked
+
+Whether any of these patterns hold on a larger epic (more than four stories), on a team with more than one human in the loop, or on a codebase where `AGENTS.md` names the specific risk a later review escalates (rather than only the data contract shape, as in the one case tested). [?]
