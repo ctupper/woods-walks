@@ -446,3 +446,28 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 **What the finished epic demonstrates, end to end:** idea and constraints (Experiment 5) → express spec + Story Breakdown → requirement change mid-epic → correct-course proposal → change routed through `bmad-spec`, not hand-edited (Experiment 5e) → Story Breakdown re-run → four stories built one at a time, each gated by real human decisions, each reviewed by independent subagent layers, each committed only on explicit confirmation → one real bug found and left properly documented rather than smoothed over. This is the "one toy idea through the flow" success criterion (criterion 3) met at full scale rather than the wordfreq-CLI scale of Experiment 2. [V-lab]
 
 **Not tested:** `bmad-retrospective` on the finished epic (a natural next unit); `bmad-walkthrough`, which was offered at every story's end and never taken.
+
+
+## Experiment 4b — does `AGENTS.md` change a build, once it exists? (2026-09-23, Carl answered, done)
+
+**Purpose:** the follow-up Experiment 4 left open. `labs\lab4-context` already had `AGENTS.md`/`CLAUDE.md` approved and written in Experiment 4 but never committed; `labs\lab4-build` had already built the same request without any context file. Ran the identical request in `lab4-context` — "Add `removeNote(store, id)` ... An unknown id must fail" — to compare against the un-primed build. [V-lab]
+
+**Setup wrinkle, itself a finding:** the run halted at step 1's version-control check before doing anything, because two *untracked* files (`AGENTS.md`, `CLAUDE.md`, sitting there since Experiment 4's approval) were enough to fail the "is the working tree clean?" gate — no tracked file needed to be modified. This is the first observed case of the dirty-tree checkpoint firing on untracked-only state; every prior instance (Experiment 5h story 2) was modified tracked files. [V-lab] Carl chose to commit the context files first, which was done (`9e3303f`), and the build restarted clean.
+
+**Result: the code came out the same; review's judgment did not.** [V-lab]
+
+| | `lab4-build` (no context, Experiment 4) | `lab4-context` (with `AGENTS.md`, this experiment) |
+|---|---|---|
+| Route | oneshot | oneshot |
+| Reviewer | Blind Hunter | Blind Hunter |
+| Tests after | 7/7 | 7/7 |
+| Id-reuse finding | Logged to `deferred-work.md` as a pre-existing-adjacent low/medium note, no human asked | **Routed to HALT** — build stopped and asked Carl to decide |
+
+- The underlying bug is identical in both runs: `nextId` takes `max` of currently stored ids, so removing a note and adding a new one can reissue the freed id, and a stale reference then silently resolves to the wrong record. Both reviewers found and verified it the same way (traced through code, reproduced by running it). [V-lab]
+- **What changed is the reviewer's own reasoning for why it's non-trivial.** The triage log in this run states the reason explicitly: "a monotonic counter needs somewhere to persist, and `AGENTS.md` pins the store to `{ load(): Note[], save(Note[]) }` with no slot for one." Because a documented contract now existed to weigh the fix against, the smallest-fix test that routes findings to `patch` vs `HALT` (`build-step-by-step.md`'s triage categories) came out differently: fixing it would mean either violating the pinned contract or changing it, and step-oneshot's own classify rule sends exactly that case to HALT rather than patch. Without `AGENTS.md`, there was no documented contract to violate, so the same underlying tradeoff read as a lower-stakes, deferrable note. [V-lab; V, `build-step-by-step.md` triage categories]
+- **Carl's decision — accept id reuse, document it — was applied as: a comment above `nextId` plus a new test pinning the reissue and the stale-reference resolution**, not a code fix. This is `patch`-shaped work (a test and a comment) that only became visible as a distinct step because the finding was elevated to a human decision first. [V-lab]
+- Six other findings in this run's triage: two low patches (weak assertions strengthened), two low rejects (missing arg validation on `removeNote`, matching `getNote`'s existing behavior; three lines of duplicated find-and-throw logic, rejected as matching the file's own idiom), and the stale `AGENTS.md` summary line (still says `addNote`/`getNote`/`listNotes`, omits `removeNote`) correctly deferred rather than fixed inline — `AGENTS.md`, being project context rather than the changed contract, wasn't the target of this build. [V-lab]
+
+**Reading:** project context did not change what got built, and it did not change what review found. It changed which findings become the human's decision to make versus a note left for later — by giving review something concrete to check a fix against. This is a different mechanism than Experiment 5h's repeated-finding self-flag (that was the model noticing a pattern in its own verdicts across separate builds); here a single artifact changed a single verdict, once, by supplying context the reviewer didn't have before. [I]
+
+**Not tested:** whether a stricter or more detailed `AGENTS.md` (naming the id-reuse risk explicitly, or committing to "ids are never reused") would route the finding differently again; whether the same effect holds for findings unrelated to anything `AGENTS.md` states.
