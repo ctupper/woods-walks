@@ -2,6 +2,8 @@
 
 *Observations from running BMAD in throwaway repos under `C:\Users\ctupp\labs\`. Tag [V-lab] = seen happening. Each entry says what the docs predicted and what actually happened.*
 
+*This is a log: entries are kept as written at the time. Where a later experiment answered an entry's "not tested" or "unconfirmed" line, a `→ Later:` pointer was added (Carl review pass, 2026-09-24) instead of rewriting the entry.*
+
 ## Experiment 1 — Install and skill load (2026-09-19)
 
 **Setup:** fresh folder `labs\lab1-toy`, `git init`, then `npx bmad-method install --yes --modules bmm --tools claude-code --directory <path> --user-name Carl`.
@@ -63,8 +65,8 @@
 | Build halts on intent gaps as open questions before a plan [P8] | Matched, even though the intent was called complete |
 | Review runs independent reviewers, triage verifies and dismisses with reasons [P14] | Matched, with 17 findings and a reasoned verdict on each |
 | Non-trivial findings after repeated review mean an upstream problem [P14] | Not tested; one review round only |
-| Build commits locally [P8] | Unconfirmed at 08:05 |
-| Light path for clean designs [P8] | Not exercised; the open questions forced the full path |
+| Build commits locally [P8] | Unconfirmed at 08:05. → Later: did not commit; Carl's global confirm-before-committing rule overrode it (Step 3 result above) |
+| Light path for clean designs [P8] | Not exercised; the open questions forced the full path. → Later: Experiment 4 took `oneshot` |
 
 **What a human still had to do:** answer the three intent questions. Here I answered them, which the run's design leaves to a human.
 
@@ -86,7 +88,7 @@
 - **Side observation (from the thorough run):** `npm test` on HEAD fails (`addItem rejects bad qty`), i.e. planted flaw C is visible to a plain test run, before any review. It mentioned this as a "pre-review fact, not a finding".
 - **Docs vs observed:** docs say "quality depends on being given intent (a spec) as well as the diff" [P14]. Observed: the skill enforces this with a hard question rather than a soft preference. [V-lab] Two reads of that, untested: a strict gate that prevents context-free reviews, or friction for automated use. [?]
 
-**Resolved:** Carl chose "no spec" and a rerun followed (below). Original question kept for the record: how to rerun. (1) provide a spec file path (I'd have to write one for the toy, which tests the full four-layer path including the acceptance layer), or (2) say "no spec" (three layers). Either way the prompt should also pre-approve the step-1 checkpoint. Quick vs thorough comparison against A to G has not happened; scores are blank.
+**Resolved:** Carl chose "no spec" and a rerun followed (below). Original question kept for the record: how to rerun. (1) provide a spec file path (I'd have to write one for the toy, which tests the full four-layer path including the acceptance layer), or (2) say "no spec" (three layers). Either way the prompt should also pre-approve the step-1 checkpoint. Quick vs thorough comparison against A to G has not happened; scores are blank. → Later: scored in the rerun below.
 
 
 ### Rerun with "no spec" (Carl's choice, 2026-09-19)
@@ -95,7 +97,7 @@ Same labs. The prompt now said "no spec (no-spec mode)", supplied the intent as 
 
 **Both runs ran the same three layers: Blind Hunter, Edge Case Hunter, Verification Gap.** The Acceptance Auditor was skipped because there was no spec. [V-lab] So "quick" and "thorough" did not select different reviewer sets. Cause: the installed skill's `customize.toml` has `[[workflow.review_layers]]` (four layers, the Acceptance Auditor gated on `review_mode = full`) and no quick/thorough selection. [V-lab, installed file] The quick/thorough behavior in the repo docs [P14] and in the cloned repo's `bmad-code-review` (`quick_lenses` / `thorough_lenses`, an Intent Alignment lens instead of an Acceptance Auditor) is not what the npm-installed 6.12.0 does. [V-lab vs V, `f033e70` files]
 
-**Version finding, important for the wiki:** the clone (`f033e70`, 2026-09-18, main) is **ahead of the npm 6.12.0 package** for at least this skill. Several installed skill files differ from the clone's (`bmad-build`, `bmad-spec`, `bmad-code-review` all show file differences). Some differences may be installer processing; the review-layer structure difference is real. Wiki pages built from the clone describe unreleased main, not the installed release, wherever they touch these skills. [V-lab diff; cause inferred, I]
+**Version finding, important for the wiki:** the clone (`f033e70`, 2026-09-18, main) is **ahead of the npm 6.12.0 package** for at least this skill. Several installed skill files differ from the clone's (`bmad-build`, `bmad-spec`, `bmad-code-review` all show file differences). Some differences may be installer processing; the review-layer structure difference is real. Wiki pages built from the clone describe unreleased main, not the installed release, wherever they touch these skills. [V-lab diff; cause inferred, I] → Later: the CRLF-normalized diff and re-pin (same day) showed only `bmad-build` and `bmad-code-review` differ substantively; `bmad-spec` differs only in activation lines. See `build-step-by-step.md`, last section.
 
 **Scoring against the planted flaws (ground truth written before the run):**
 
@@ -121,7 +123,7 @@ Both caught all six main flaws (A to F); quick also touched G. Every claim was r
 **Observations**
 - **The narrative worked as the claims input:** the quick run opened with a table of the four narrative claims, three of them false on the code. [V-lab] This is the Edge Case Hunter's claims check (`claims-check.md`) working even without a spec. [I]
 - **Triage variance between two runs of the same skill is real:** the same rounding finding was high-and-patch in one run, medium-and-defer in the other; the unit-ambiguity finding was kept in one and refuted in the other. Two runs is a small sample. [V-lab; I on significance]
-- **Both runs halted at the next human decision, and I did not answer it.** Verbatim: "How would you like to handle the N `patch` findings? 1. Apply every patch, 2. Walk through each patch." The workflow does not apply patches without that choice. [V-lab] Neither run modified source; the thorough run wrote `_bmad-output/implementation-artifacts/deferred-work.md` with the deferred item. [V-lab]
+- **Both runs halted at the next human decision, and I did not answer it.** Verbatim: "How would you like to handle the N `patch` findings? 1. Apply every patch, 2. Walk through each patch." The workflow does not apply patches without that choice. [V-lab] → Later: Carl chose "apply all" on 2026-09-21 (Follow-ups section). Neither run modified source; the thorough run wrote `_bmad-output/implementation-artifacts/deferred-work.md` with the deferred item. [V-lab]
 - **Headless BMAD needs three pre-approvals to finish a review:** no-spec declared, checkpoint approved, patch handling chosen. A fully unattended run needs all three in the prompt. [V-lab; I]
 
 
@@ -159,7 +161,7 @@ Both caught all six main flaws (A to F); quick also touched G. Every claim was r
 | Small change goes straight to build, light path | Yes; `route: oneshot` |
 | Never commits (project-context) | Not reached; the build declined to commit under my instruction |
 
-**Not tested:** whether adding project context changes a later build's result (would need answers to the five questions, which a human owns); a change big enough for the dispatch route in an existing codebase; the docs' "Try It on a Known Tree" walkthrough (`getting-deeper.md`).
+**Not tested:** whether adding project context changes a later build's result (would need answers to the five questions, which a human owns; → Later: answered 2026-09-21, tested in Experiment 4b); a change big enough for the dispatch route in an existing codebase; the docs' "Try It on a Known Tree" walkthrough (`getting-deeper.md`).
 
 ## Experiment 6 — ideation skills, unattended (2026-09-20, done; both halted on human input as predicted)
 
@@ -171,7 +173,7 @@ Both caught all six main flaws (A to F); quick also touched G. Every claim was r
 - Because topic and goal were in the prompt, it skipped the kickoff question, as the skill allows ("if the kickoff already made both clear, skip the question and confirm"). It stopped at the next required step: the stance (Facilitator, Creative Partner, Ideate for me, quoted from the skill) and technique batch.
 - It tried to open the composer page and reported that the session "can't get approval to launch it", then gave the file path (`.claude\skills\bmad-brainstorming\assets\brain-selector.html`) and offered the in-chat alternative ("let's do it in chat", 3 to 4 techniques). It did not claim the page had opened, following the skill's rule.
 - It also asked the skill's other opening question, "any inputs or special requests?", and mentioned that `bmad-party-mode` and `bmad-advanced-elicitation` are installed.
-- **Answers the open question from the wiki:** a plain `claude -p` prompt does **not** count as headless for `bmad-brainstorming`. The skill's rule is that a present human message makes it interactive ("no payload shape or phrasing overrides that"), and the run followed it. A real headless run would need the flag or a prepend step. [V-lab; V, P25]
+- **Answers the open question from the wiki:** a plain `claude -p` prompt does **not** count as headless for `bmad-brainstorming`. The skill's rule is that a present human message makes it interactive ("no payload shape or phrasing overrides that"), and the run followed it. A real headless run would need the flag or a prepend step. [V-lab; V, P25] → Later: Experiment 7 showed neither works under `claude -p`; a present user message overrides both.
 - Nothing was written: no memlog, no `_bmad-output/` file. State is only created once topic, goal, and stance are known. [V-lab]
 
 **Forge idea (79 s): halted at intent discovery with two questions, wrote nothing. Prediction confirmed.** [V-lab]
@@ -182,7 +184,7 @@ Both caught all six main flaws (A to F); quick also touched G. Every claim was r
 
 **Both skills honor "ask only what's missing":** each accepted what the prompt supplied (topic and goal, or the idea) and asked only for the next required input. [V-lab; I on the generalization]
 
-**Not tested, and what would test it:** the ideation content itself (idea quality, the attack/defend modes, the two-voice persona turns, the HTML outputs). Two follow-ups are possible without a human: (a) pass a real headless signal to `bmad-brainstorming` (`headless: true` and a topic in the payload) and check for `brainstorm.html`, a memlog, and a JSON return; (b) run brainstorming in the "Ideate for me" stance, which the skill says a human can choose in advance and which would need the stance stated in the prompt (a choice the docs put on the user, so it is Carl's call). Forge idea has no unattended path in the file, so it cannot be run to completion without answers. [I]
+**Not tested, and what would test it:** the ideation content itself (idea quality, the attack/defend modes, the two-voice persona turns, the HTML outputs). Two follow-ups are possible without a human: (a) pass a real headless signal to `bmad-brainstorming` (`headless: true` and a topic in the payload) and check for `brainstorm.html`, a memlog, and a JSON return; (b) run brainstorming in the "Ideate for me" stance, which the skill says a human can choose in advance and which would need the stance stated in the prompt (a choice the docs put on the user, so it is Carl's call). Forge idea has no unattended path in the file, so it cannot be run to completion without answers. [I] → Later: (a) and, by the model's own stance choice, (b) were run as Experiment 7. Ideation quality is still unjudged.
 
 
 ## Experiment 5 — a spec-backed epic, then `bmad-correct-course` (2026-09-20, done, interactive with Carl)
@@ -226,11 +228,11 @@ Carl picked the trigger from three options: "filtering notes by tag must now sup
 - **Six specific edits** (Non-goals, CAP-3, a Constraint, the Success signal, two new open questions, story 3's description); stories 1, 2 and 4 and all source files listed as not changed. Path: Direct Adjustment, effort Low, risk Low. Scope: Minor. [V-lab]
 - **The workflow changed exactly one file, the proposal.** After approval, `SPEC.md` and `stories.yaml` were byte-identical to before (checked by diff). Applying the six edits was left to the Developer agent, with success criteria listed in the closing message. `sprint-status.yaml` was N/A (none exists). [V-lab]
 - **Docs vs observed:** the tag's doc says apply the proposal then re-run Story Breakdown; the release skill's checklist says update `sprint-status.yaml` (`flow.md`). Observed: proposal written and approved, nothing else touched, `sprint-status.yaml` N/A. Consistent with the skill file; no `sprint-status.yaml` to update. [V-lab; V, skill files at v6.12.0]
-- **A tension the proposal does not resolve:** `bmad-spec` says `SPEC.md` is derived from `.memlog.md` and "a hand-edit to `SPEC.md` from outside is unsupported and is overwritten on the next derive" (`spec-skill.md`). The proposal tells the Developer agent to edit `SPEC.md` and `stories.yaml` directly, and never mentions `bmad-spec`, the memlog, or re-deriving (checked by search). Following it literally would put the change only in the derived file. Whether the Developer agent, or a later `bmad-spec` run, would reconcile this is untested. [V-lab for the proposal text; ? for the consequence]
+- **A tension the proposal does not resolve:** `bmad-spec` says `SPEC.md` is derived from `.memlog.md` and "a hand-edit to `SPEC.md` from outside is unsupported and is overwritten on the next derive" (`spec-skill.md`). The proposal tells the Developer agent to edit `SPEC.md` and `stories.yaml` directly, and never mentions `bmad-spec`, the memlog, or re-deriving (checked by search). Following it literally would put the change only in the derived file. Whether the Developer agent, or a later `bmad-spec` run, would reconcile this is untested. [V-lab for the proposal text; ? for the consequence] → Later: tested in 5b to 5e (hand-edits survive small updates, are lost on a true re-derive; routing through `bmad-spec` is durable).
 - **Confound:** because my prompt told it which documents to use, the run does not show what `bmad-correct-course` does when the planning documents it expects (PRD, epics) are missing and nobody says otherwise. It said "no PRD/epics" and used my substitution. [V-lab; ?]
 - **Human decisions:** 9 answers from Carl across about 12 minutes of skill time (the skill time excludes waiting for the answers). Every decision was a real branch (slug, mode, whether to leave questions open, story shape, checkpoints, scope placement, propose mode, approve).
 
-**Not done:** applying the six edits and re-running `bmad-spec`; building any story after the change; the seven original open questions.
+**Not done:** applying the six edits and re-running `bmad-spec`; building any story after the change; the seven original open questions. → Later: all three done in 5b to 5h.
 
 ## Experiment 7 — real-headless brainstorming (2026-09-20, done; both predictions wrong)
 
@@ -258,7 +260,7 @@ Follow-up to Experiment 6. Two copies of `lab6-base`: `lab7-flag` (prompt carrie
 - **Doc vs behavior:** `spec-skill.md` quotes "a hand-edit ... is overwritten on the next derive" [V, P19]. Observed for one editorial change: not overwritten, and not detected. [V-lab] The practical risk is silent drift, not silent loss. [I]
 - **Attribution note:** the memlog entry credits the trim to "Carl", although I issued the signal. The skill assumes the configured user (`user_name`) is the author of any instruction it receives. In a relay setup like this one, memlog authorship is unreliable. [V-lab]
 
-**Not tested:** a derive that regenerates sections (for example, answering one of the open questions, which is Carl's decision), and applying the Developer-agent handoff through `bmad-agent-dev` instead of by script.
+**Not tested:** a derive that regenerates sections (for example, answering one of the open questions, which is Carl's decision), and applying the Developer-agent handoff through `bmad-agent-dev` instead of by script. → Later: the first was run as 5c and 5d. The second is still untested (no agent persona has been loaded in any experiment; candidate in `STATE.md` Next).
 
 
 ### Experiment 5c — a real decision as the update signal (2026-09-20, Carl's answer, done)
@@ -277,7 +279,7 @@ Follow-up to Experiment 6. Two copies of `lab6-base`: `lab7-flag` (prompt carrie
 
 **Conclusion across 5b and 5c:** in two updates the skill edited `SPEC.md` surgically, keeping everything it was not asked to change, whether or not that content was in the memlog. So the documented rule ("re-derived on every run ... a hand-edit is overwritten") is not how it behaves in practice for these updates. What breaks is the record: the memlog stays incomplete, so anyone who relies on it (a resume, an audit, a future full re-derive) will not see the two-tag change. The change proposal's direct-edit route is therefore workable but leaves the memlog behind. [V-lab; I]
 
-**Still untested:** a run from a nearly empty `SPEC.md` (a true re-derive), which is what the docs promise the memlog enables; and whether a new-session `bmad-spec` run with no `SPEC.md` at all rebuilds the two-tag content (it would not, the memlog lacks it). [?]
+**Still untested:** a run from a nearly empty `SPEC.md` (a true re-derive), which is what the docs promise the memlog enables; and whether a new-session `bmad-spec` run with no `SPEC.md` at all rebuilds the two-tag content (it would not, the memlog lacks it). [?] → Later: both answered by 5d.
 
 
 ### Experiment 5d — true re-derive from the memlog (2026-09-20, done)
@@ -328,7 +330,7 @@ So routing the change through `bmad-spec` costs about five minutes and leaves a 
 
 **Attribution:** the memlog credits the change to "Carl", citing the approved proposal. In this experiment Carl did approve the proposal, but the update signal itself came from me. The skill attributes a request to the configured user in either case. [V-lab]
 
-**Not tested:** regenerating `SPEC.md` from this memlog (which should keep the two-tag content); re-running Story Breakdown after the change; the Developer agent (`bmad-agent-dev`) actually performing the handoff instead of a script or a `bmad-spec` run. [?]
+**Not tested:** regenerating `SPEC.md` from this memlog (which should keep the two-tag content); re-running Story Breakdown after the change; the Developer agent (`bmad-agent-dev`) actually performing the handoff instead of a script or a `bmad-spec` run. [?] → Later: Story Breakdown re-run done (5f). Regenerating from this memlog and the agent-persona handoff are still untested.
 
 
 ### Experiment 5f — Story Breakdown re-run after the change (2026-09-20, Carl answered, done)
@@ -349,7 +351,7 @@ So routing the change through `bmad-spec` costs about five minutes and leaves a 
 
 **Human effort for the loop:** 13 answers from Carl in total across Experiments 5 to 5f (slug; express; leave questions open; story shape; checkpoints; scope placement (a); change picked (1); batch mode; Continue; approve; the normalize answer; 4 stories; carry checkpoints). About 20 to 30 minutes of skill runtime in the interactive paths, excluding the true re-derive.
 
-**Not tested:** building any of the stories. The loop from spec to code after a change is Experiment 2's territory, not repeated here. [?]
+**Not tested:** building any of the stories. The loop from spec to code after a change is Experiment 2's territory, not repeated here. [?] → Later: all four built in 5h.
 
 
 ## Follow-ups with Carl's answers (2026-09-21)
@@ -382,7 +384,7 @@ Answers were mapped in the order asked: rules regardless of the repo (none), out
 - **It asked one more question:** whether to also create a `CLAUDE.md` containing `@AGENTS.md`, since it could not verify the harness reads `AGENTS.md` natively. Carl approved the block and said yes to the `CLAUDE.md`. [V-lab]
 - **Written (17 s):** `AGENTS.md` (exactly the approved block) and `CLAUDE.md` (`@AGENTS.md`), both untracked and not committed. It said committing is the human's to run. It noted that rules repeating across projects belong in global config, and that Carl's `~/.claude/CLAUDE.md` already carries those, so it had read the global file. [V-lab]
 - **Compared with the planted conventions:** the block records 2 of the 5 (`NoteError` codes, injected store); the other three (tests in `tests/*.spec.js` with `node:test`, `nN` ids, exports at the bottom) are discoverable from the code, and the skill judged them not worth a line. Its docs-stated rule is to include only what is expensive to rediscover. [V-lab; V, P24]
-- **Not yet tested:** whether a later build in this repo behaves differently with `AGENTS.md` present. Experiment 4's build without it followed 5 of 5 conventions and asked nothing, so a difference would be small. [?]
+- **Not yet tested:** whether a later build in this repo behaves differently with `AGENTS.md` present. Experiment 4's build without it followed 5 of 5 conventions and asked nothing, so a difference would be small. [?] → Later: Experiment 4b. The code was the same; review escalated a finding it had previously deferred.
 
 ### Experiment 5g, open questions answered and applied to the change-loop spec
 
@@ -445,7 +447,7 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 **What the finished epic demonstrates, end to end:** idea and constraints (Experiment 5) → express spec + Story Breakdown → requirement change mid-epic → correct-course proposal → change routed through `bmad-spec`, not hand-edited (Experiment 5e) → Story Breakdown re-run → four stories built one at a time, each gated by real human decisions, each reviewed by independent subagent layers, each committed only on explicit confirmation → one real bug found and left properly documented rather than smoothed over. This is the "one toy idea through the flow" success criterion (criterion 3) met at full scale rather than the wordfreq-CLI scale of Experiment 2. [V-lab]
 
-**Not tested:** `bmad-retrospective` on the finished epic (a natural next unit); `bmad-walkthrough`, which was offered at every story's end and never taken.
+**Not tested:** `bmad-retrospective` on the finished epic (a natural next unit; → Later: Experiment 5i); `bmad-walkthrough`, which was offered at every story's end and never taken.
 
 
 ## Experiment 4b — does `AGENTS.md` change a build, once it exists? (2026-09-23, Carl answered, done)

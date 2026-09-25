@@ -1,6 +1,6 @@
 # The Ideation Skills: `bmad-brainstorming` and `bmad-forge-idea`
 
-*Describes BMAD-METHOD v6.12.0, read from the release tag (source P25, see `../sources.md`): `src/core-skills/bmad-forge-idea/SKILL.md`, `src/core-skills/bmad-brainstorming/SKILL.md`, `references/headless.md`, the first lines of `references/mode-autonomous.md`, and the first rows and category counts of `assets/brain-methods.csv`. Tags: [V, P25] traced to those files, [I] inferred, [?] unclear. Run unattended in Experiment 6 (halted on human input, as the files predict). Written unattended 2026-09-19.*
+*Describes BMAD-METHOD v6.12.0, read from the release tag (source P25, see `../sources.md`): `src/core-skills/bmad-forge-idea/SKILL.md`, `src/core-skills/bmad-brainstorming/SKILL.md`, `references/headless.md`, the first lines of `references/mode-autonomous.md`, and the first rows and category counts of `assets/brain-methods.csv`. Tags: [V, P25] traced to those files, [I] inferred, [?] unclear. Run unattended in Experiment 6 (both halted on human input, as the files predict) and Experiment 7 (headless flag and prepend tests for brainstorming). Written unattended 2026-09-19; reviewed by Carl 2026-09-24.*
 
 Both are **core** skills: they need no PRD, spec, or agent, and they end in a record of thinking rather than code. [V, P2, P25] They are the Clarify-stage tools for "a clear idea, or confidence the idea is good" (`flow.md`). [V, P3]
 

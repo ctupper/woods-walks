@@ -1,6 +1,8 @@
 # `bmad-ux`: DESIGN.md and EXPERIENCE.md
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-ux/SKILL.md` (P23, see `../sources.md`); directory listing only for `assets/` and `references/`. Tags: [V, P23] traced to that file, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19.*
+*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-ux/SKILL.md` (P23, see `../sources.md`); directory listing only for `assets/` and `references/`. Tags: [V, P23] traced to that file, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19; reviewed by Carl 2026-09-24.*
+
+*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); substantive claims stand at the release. See `build-step-by-step.md`, last section.*
 
 ## What it produces
 

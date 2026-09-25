@@ -1,6 +1,6 @@
 # BMAD — The Flow: How an Idea Moves
 
-*Describes BMAD-METHOD v6.12.0. Tags: [V] traced to primary doc (source IDs in `../sources.md`), [I] inferred, [?] unclear. Nothing here has been run in the lab yet.*
+*Describes BMAD-METHOD v6.12.0. Tags: [V] traced to primary doc (source IDs in `../sources.md`), [I] inferred, [?] unclear, [V-lab] observed in a lab run (Experiments 1 to 5i; see `lab-log.md`). First written 2026-09-19; lab notes added through 2026-09-24; reviewed by Carl 2026-09-24.*
 
 ## The one-sentence version
 
@@ -40,7 +40,7 @@ A Forge Idea session ends **hardened**, **killed**, or **clearer**, and each is 
 
 ## Plan: write the contract
 
-**`bmad-spec` is the hub.** Every epic ends up as a `SPEC.md` that Build reads. [V, P5] Its five fields: Why, Capabilities (each with an intent and a success condition), Constraints, Non-goals, Success signal. [V, P5] It is the only writer of `SPEC.md`; don't hand-edit. [V, P5]
+**`bmad-spec` is the hub.** Every epic ends up as a `SPEC.md` that Build reads. [V, P5] Its five fields: Why, Capabilities (each with an intent and a success condition), Constraints, Non-goals, Success signal. [V, P5] It is the only writer of `SPEC.md`; don't hand-edit. [V, P5] In the lab, hand-edits (including ones a `bmad-correct-course` proposal prescribed) survived small updates and were lost only on a full re-derive; see `spec-skill.md`. [V-lab]
 
 - Input ceiling is roughly a few tens of thousands of tokens (about a 40-page doc). Bigger piles get silently lossy, so condense first. [V, P3, P5]
 - Too-thin input ("an app for hikers") is sent to `bmad-prd`. [V, P5]
@@ -113,7 +113,7 @@ When several people must agree, several engineers build in parallel, or someone 
 
 ## Flow diagram: rough idea to shipped story, with what each hand-off leaves
 
-Boxes are skills; labels on arrows are the artifact handed on. Bold-bordered boxes and thick arrows mark the paths run in a lab (Experiments 1 to 5f). Everything else is from the docs and skill files, not run. [V, P3, P5, P6, P7, P8, P9, P16, P19 to P25; V-lab for the marked paths]
+Boxes are skills; labels on arrows are the artifact handed on. Thick arrows mark the paths run in a lab (Experiments 1 to 5i). Everything else is from the docs and skill files, not run. [V, P3, P5, P6, P7, P8, P9, P16, P19 to P25; V-lab for the marked paths]
 
 ```mermaid
 flowchart TD
@@ -135,17 +135,17 @@ flowchart TD
   EP -- "epic files, sprint-status.yaml (readiness gate PASS/CONCERNS/FAIL)" --> BUILD
   SMALL["Small change, one session"] ==> BUILD
   BUILD["bmad-build (oneshot or dispatch)"] == "code + tests, spec-slug.md, deferred-work.md" ==> REV
-  REV["Review layers (inside build) / bmad-code-review"] -- "triage log, patches" --> DONE["Shipped story"]
-  DONE -- "all stories done" --> RETRO["bmad-retrospective"]
-  RETRO -- "RETROSPECTIVE.md, verdict" --> NEXT["Next epic or stop"]
+  REV["Review layers (inside build) / bmad-code-review"] == "triage log, patches" ==> DONE["Shipped story"]
+  DONE == "all stories done" ==> RETRO["bmad-retrospective"]
+  RETRO == "RETROSPECTIVE.md, verdict" ==> NEXT["Next epic or stop"]
   CHG["Requirement change mid-way"] ==> CC["bmad-correct-course"]
   CC == "sprint change proposal" ==> SPEC
-  RETRO -- "lessons" --> SPEC
+  RETRO -- "proposed action items (human applies)" --> SPEC
 ```
 
 **Sizing shortcuts drawn from the docs:** a trivial edit skips BMAD; one session goes straight to `bmad-build`; an epic uses `bmad-spec`, Story Breakdown, then `bmad-build` per story; a project adds brief/PRD/UX/architecture and sprint planning first. [V, P3]
 
-**Paths run in a lab:** small idea to spec to build (Experiment 2); an existing codebase straight to build (Experiment 4); spec to stories to correct-course to spec update to Story Breakdown re-run (Experiments 5 to 5f). Not run: brief, PRFAQ, PRD, UX, architecture, sprint planning, epics, retrospective. [V-lab]
+**Paths run in a lab:** small idea to spec to build (Experiment 2); an existing codebase straight to build (Experiment 4, oneshot route); spec to stories to correct-course to spec update to Story Breakdown re-run (Experiments 5 to 5f); all four stories of that epic built, reviewed, and committed (Experiment 5h); retrospective on the finished epic (Experiment 5i: verdict `accepted-with-open-items`, 16 action items proposed, none applied automatically). Not run: brief, PRFAQ, PRD, UX, architecture, sprint planning, epic files. [V-lab]
 
 ## Artifact trail: what each hand-off leaves behind
 
@@ -167,8 +167,10 @@ All [V, P2, P3, P5, P7, P8, P9]. Exact paths belong to each skill. [V, P5]
 
 ## Open questions for the lab
 
-- Does the "light path" vs "full plan" routing behave as described on a toy change? Partly answered: Experiment 2 took the full-plan path (spec `route: dispatch`), and the **installed** `bmad-build` routes on exactly the three checks named in the docs (diff of 2026-09-19, `build-step-by-step.md`). A clean toy taking the light path has not been observed. [V-lab files; ?]
-- What does a real `SPEC.md` and `stories.yaml` look like, and how big does a spec get in practice? [?]
-- Where does a human actually get pulled in during a `bmad-build` run? [?]
+All three original questions are answered:
+
+- ~~Does the "light path" vs "full plan" routing behave as described?~~ Yes: Experiment 2 took the full plan (`route: dispatch`), Experiment 4 took the light path (`oneshot`) on a small change to an existing repo, and the installed skill routes on the docs' three checks. [V-lab]
+- ~~What does a real `SPEC.md` and `stories.yaml` look like?~~ Experiments 5 to 5h produced and evolved both through a full epic; see `spec-skill.md`. (Story 4's spec went over the 1600-token flag; Carl accepted.) [V-lab]
+- ~~Where does a human actually get pulled in during a `bmad-build` run?~~ At the checkpoints the step files name (dirty tree, subagent permission, Open Questions, approval, token count), every one of which fired as documented across Experiment 5h; see `build-step-by-step.md`. [V-lab]
 
 One lab observation so far: `bmad-help` on a tiny idea recommended skipping the planning pipeline and going straight to `bmad-spec` then `bmad-build`, consistent with the sizing rule above. [V-lab, see `lab-log.md`]

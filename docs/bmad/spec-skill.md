@@ -1,6 +1,8 @@
 # `bmad-spec`: How the Hub Skill Works
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-spec/` (P19, see `../sources.md`): `SKILL.md`, `assets/spec-template.md`, `assets/stories-schema.md`. Tags: [V, P19] traced to those files, [I] inferred, [?] unclear. Not yet run in a lab except as noted. Written unattended 2026-09-19.*
+*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-spec/` (P19, see `../sources.md`): `SKILL.md`, `assets/spec-template.md`, `assets/stories-schema.md`. Tags: [V, P19] traced to those files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 5 to 5i; see `lab-log.md`). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24.*
+
+*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); spec assets and templates are identical. Substantive claims stand at the release. See `build-step-by-step.md`, last section.*
 
 `flow.md` calls `bmad-spec` the hub of Plan. This page covers what it actually does.
 
@@ -24,7 +26,7 @@ The same slug means the same folder: a second run updates in place. [V, P19]
 ## The memlog: the real source of truth
 
 - `.memlog.md` is canonical: append-only, one line per decision, constraint, capability (with stable `CAP-N`), assumption, question, or direction. Written through `_bmad/scripts/memlog.py` (`init`, `append --type ...`). [V, P19]
-- `SPEC.md` and spec-authored companions are **re-derived on every run** from the log plus cited sources. A later entry supersedes an earlier one while history stays. A hand-edit to `SPEC.md` "is overwritten on the next derive." [V, P19]
+- `SPEC.md` and spec-authored companions are **re-derived on every run** from the log plus cited sources. A later entry supersedes an earlier one while history stays. A hand-edit to `SPEC.md` "is overwritten on the next derive." [V, P19] **In the lab this held only for a true re-derive (`SPEC.md` missing); small updates edited in place and kept hand-edits, leaving memlog and spec silently out of sync.** See "Observed in a lab" below (Experiments 5b to 5e). [V-lab]
 - Stated reason: this lets PRD, UX, architecture, and epics run in any order and feed the same spec without merge drift. [V, P19]
 
 ## The five-field kernel
@@ -57,7 +59,7 @@ Content that does not fit one kernel-shape line (catalogs, tables, long referenc
 - `stories.yaml` is a list in execution order. Fields: `id` (quoted string, unique, no zero-padding), `title`, `description` (two sentences, points into SPEC.md), `spec_checkpoint`, `done_checkpoint` (both caller-only: read by the dispatcher, never by the dev skill), `invoke_dev_with` (free text appended verbatim to the dispatch prompt). **No `status` field, ever.** [V, P19]
 - An id is pinned once its story spec file exists (`stories/<id>-*.md`); retired ids are never reassigned. Ids must be prefix-free (`"3"` and `"3-2"` cannot coexist). [V, P19]
 - An update to a spec never rewrites `stories.yaml`; it flags stale descriptions and offers to re-run breakdown. [V, P19]
-- **`spec_checkpoint: true` has no completion condition, observed to pass through empty (Experiment 5i).** The field only means a human reviews the story spec before implementation happens; nothing requires that review to actually resolve anything, or checks afterward that it did. Observed: the one story in a four-story epic carrying `spec_checkpoint: true` was the story that happened to answer an open question about its own capability — and its `## Spec Change Log` (the section that exists precisely to record such answers) was left empty, same as the three stories with no checkpoint at all. A checkpoint satisfiable by doing nothing with it isn't a gate. [V-lab, `lab-log.md`]
+- **`spec_checkpoint: true` has no completion condition, observed to pass through empty (Experiment 5i).** The field only means a human reviews the story spec before implementation happens; nothing requires that review to actually resolve anything, or checks afterward that it did. Observed: the one story in a four-story epic carrying `spec_checkpoint: true` was the story that happened to answer an open question about its own capability — and its `## Spec Change Log` (the section that exists precisely to record such answers) was left empty, same as the three stories with no checkpoint at all. [V-lab, `lab-log.md`] A checkpoint satisfiable by doing nothing with it isn't a gate. [I]
 
 This matches how `bmad-build` step 1 looks up a story: `{spec_folder}/stories.yaml` by `id`, then `stories/{id}-*.md` (see `build-step-by-step.md`). [V, P18, P19]
 
@@ -66,7 +68,7 @@ This matches how `bmad-build` step 1 looks up a story: `{spec_folder}/stories.ya
 - Because the spec is derived from a log, "edit the spec" is really "append to the memlog and re-run `bmad-spec`". This changes how a team would handle a requirement change: the human owner talks to the skill, not the file. [I]
 - No status in `stories.yaml` fits `flow.md`'s finding that status lives in `sprint-status.yaml`, not in the story list. [I]
 
-## Observed in a lab (Experiment 5, `lab-log.md`)
+## Observed in a lab (Experiments 5 to 5i, `lab-log.md`)
 
 - Interactive spec run: asked a slug, then express or guided, then wrote `SPEC.md` (3 capabilities, 4 assumptions, 7 open questions), both self-validate passes PASS. [V-lab]
 - Story Breakdown ran on request, asked for each story's `spec_checkpoint`, `done_checkpoint`, and `invoke_dev_with`, wrote `stories.yaml`, and then **refused to let a scope decision live in `invoke_dev_with`**, requiring it to land in `SPEC.md` (mint a new capability, or resolve the open question in place). Re-derivation kept ids stable. [V-lab]
@@ -79,5 +81,4 @@ This matches how `bmad-build` step 1 looks up a story: `{spec_folder}/stories.ya
 ## Not yet checked
 
 - `assets/headless-schemas.md` (JSON contract for headless runs). [?]
-- What a real memlog and rendered SPEC.md look like in practice; Experiment 2's lab spec may show this. [?]
 - Whether `spec_checkpoint` and `done_checkpoint` are honored by `bmad-build-auto` or only by `bmad-loop`. [?]

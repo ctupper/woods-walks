@@ -1,6 +1,6 @@
 # BMAD — Agents and Skills
 
-*Describes BMAD-METHOD v6.12.0 (see `../sources.md`). Tags: [V] traced to a primary doc, [I] inferred, [?] unclear. Source IDs (P2 etc.) refer to the ledger.*
+*Describes BMAD-METHOD v6.12.0 (see `../sources.md`). Tags: [V] traced to a primary doc, [I] inferred, [?] unclear. Source IDs (P2 etc.) refer to the ledger. Reviewed by Carl 2026-09-24.*
 
 ## The core idea
 
@@ -32,9 +32,9 @@ The BMad Method module installs five named agents. [V, P2]
 - The Technical Writer (Paige) is **on hiatus**; project context lives on via the Analyst's `PC` code or `bmad-project-context`. [V, P2]
 - The Developer's `QA` runs `bmad-qa-generate-e2e-tests`; the full Test Architect is a **separate module**. [V, P2]
 - Each agent is "an identity plus a customizable layer." [V, P2]
-- All five agent skill directories exist in the repo's `skills/` folder. [V, P11]
+- All five agent skill directories exist in the clone's `skills/` folder [V, P11], and at the `v6.12.0` tag under `src/bmm-skills/`, identical to the lab install [V-lab, re-pin 2026-09-19].
 
-**Not in the current roster:** there is no Scrum Master or QA agent in the v6.12.0 docs. [V, P2 — absence in the roster] Descriptions of BMAD from earlier versions may list different agents. [?, not checked against older versions]
+**Not in the current roster:** there is no Scrum Master or QA agent in the v6.12.0 docs. [V, P2 — absence in the roster] Descriptions of BMAD from earlier versions may list different agents. [?, not checked against older versions] `bmad-correct-course` still hands Moderate and Major changes to "Product Owner" and "Solution Architect", neither of which is one of the five agents (see `flow.md`). [V, skill files at v6.12.0; I on the mismatch]
 
 ### Agent inputs and outputs (spec criterion 1)
 
@@ -90,7 +90,7 @@ Old names (`bmad-create-prd`, `bmad-edit-prd`, `bmad-market-research`, etc.) sti
 
 ## Persona anatomy (from the Developer agent, Amelia)
 
-Read from `skills/bmad-agent-dev/SKILL.md` and `customize.toml` (P12) and confirmed present in the lab install. [V, P12; V-lab]
+Read from the clone's `skills/bmad-agent-dev/SKILL.md` and `customize.toml` (P12) and confirmed present in the lab install. [V, P12; V-lab] **Release difference:** at the `v6.12.0` tag the agents' `customize.toml` is identical to the clone, but `SKILL.md` activation also loads `user_name` and `communication_language` from config and greets the user by name; the clone dropped those lines. The activation sequence below is the clone's; the release adds that config load and named greeting. [V-lab, installed-vs-clone diff 2026-09-19]
 
 - **Fixed identity:** `name` and `title` are hardcoded (Amelia, Senior Software Engineer). "Create a custom agent if you need a new name/title." [V, P12]
 - **Configurable layer:** `icon`, `role`, `identity`, `communication_style`, `principles` (array), `persistent_facts` (array; literal sentences or `file:` paths/globs), `activation_steps_prepend` / `_append`, and the menu (`[[agent.menu]]` entries, each with a `code`, a `description`, and either a `skill` or a `prompt`). [V, P12]
@@ -123,16 +123,18 @@ All [V, P22]. Amelia (Developer) is in the anatomy section above [V, P12].
 
 - Every agent menu item resolves to a skill or a prompt that invokes one; none contains workflow logic itself. The agents are entry points and personas over the same skills anyone can invoke directly. [V, P22 menus; I, the generalization]
 - Six of Mary's ten codes are one skill, `bmad-deep-recon`, entered with a different pre-selected type. [V, P22]
-- `IR` (implementation readiness) appears on both John and Winston and both open `bmad-sprint-planning`. [V, P22] This matches the docs' note that codes are scoped per agent but not shared across agents. [I]
+- `IR` (implementation readiness) appears on both John and Winston and both open `bmad-sprint-planning`. [V, P22] So a code is scoped to the agent showing it: the same code can mean different things on different agents (`CR`: competitive teardown for Mary, code review for Amelia) or the same thing on two (`IR`). [V, P2; I on the pattern]
 - Each agent's `role` names a BMad Method phase (analysis, planning, solutioning), so the roster reads as a phase-ordered handoff: Mary, John and Sally, Winston, Amelia. [I]
 - Personas cite real practitioners as shorthand (Porter, Minto, Cagan, Torres, Fowler, Vogels, Norman, Cooper, Beck). Whether the model's behavior changes measurably because of these names is not tested. [?]
 
 ## Other skills worth knowing
 
 - **`bmad-deep-recon`** has three modes: **Draft** (writes a research prompt for your own deep-research tool such as ChatGPT, Gemini, Grok or Perplexity), **Process** (files a finished report, extracts claims, flags what it never covered, writes a standard `research.md` summary), and **Run** (does the research in-session after you approve a plan). Types: market, domain, technical, competitive, user-voice, academic-lit; plus Explore vs Select. Claims come from sources retrieved during the run, not model memory, and each carries publisher, date, and inline citation. Stale figures are reported as history. Refresh re-checks only fast-aging claims. [V, P13]
-- **`bmad-code-review`:** reviewers each take a different lens and run in parallel on the same diff, then triage verifies each finding, assigns severity, dismisses noise with a recorded reason, and routes survivors to patch, defer, or decision-needed. `thorough` is the default, `quick` is one reviewer. Quality depends on being given intent (a spec) as well as the diff. Several rounds of review that keep finding non-trivial issues signal a problem upstream (weak spec, contradiction), not more review passes. [V, P14] **Corrected against the v6.12.0 tag:** the `thorough` default and `quick` single-reviewer text above (P14) is from the clone's docs and is **not in the release**. The release runs four layers: Blind Hunter, Edge Case Hunter, Verification Gap, and an Acceptance Auditor when a spec is given, with no depth selector (tag docs P14; Experiment 3, `lab-log.md`).
+- **`bmad-code-review`:** at the release, four review layers run in parallel on the same diff (Blind Hunter, Edge Case Hunter, Verification Gap, and an Acceptance Auditor when a spec is given), with no depth selector. [V, tag docs P14; V-lab, Experiment 3] Triage then verifies each finding, assigns severity, dismisses noise with a recorded reason, and routes survivors to patch, defer, or decision-needed. Quality depends on being given intent (a spec) as well as the diff. Several rounds of review that keep finding non-trivial issues signal a problem upstream (weak spec, contradiction), not more review passes. [V, P14] ~~`thorough` is the default, `quick` is one reviewer.~~ Clone-only (P14 as read from the clone's docs); not in the release.
+- **`bmad-project-context`:** reads what the repo already states, asks what a scan cannot answer (five questions in the lab), then proposes the complete `AGENTS.md` block and asks before writing; it never commits. [V, P24; V-lab, Experiment 4] It keeps only what is expensive to rediscover: of five planted conventions it recorded two, judging the other three discoverable from the code. It also refused its own evidence: it found a real test-glob pitfall only by running a deliberately non-matching glob, and left it out because "a constructed trap isn't evidence." [V-lab, `lab-log.md` Experiment 4 follow-up] Whether the resulting file changes a later build: see Experiment 4b (same code, different escalation; `systemic-findings.md`). [V-lab]
 - **`bmad-build-auto`:** the unattended worker for one unit. Needs subagents (otherwise halts `blocked`: `no subagents`). Reads `stories.yaml` for a story by id, writes `stories/<id>-<slug>.md`, ends with a machine-readable status in the spec's frontmatter: `draft`, `ready-for-dev`, `in-progress`, `in-review`, `done`, `blocked`. It commits but does not push. Blocked is "a routing signal, not just a failure signal." An orchestrator (a coding session or the optional `bmad-loop` tool) picks the next story; build-auto never does. [V, P15]
 
 ## Open
 
-- Which skills spawn subagents and which run in one context. `bmad-build`, `bmad-code-review` and `bmad-build-auto` are documented as needing or preferring subagents. [V, P8, P14, P15] Not yet observed. [?]
+- Which skills spawn subagents and which run in one context. `bmad-build`, `bmad-code-review` and `bmad-build-auto` are documented as needing or preferring subagents. [V, P8, P14, P15] **Observed for `bmad-build`:** headless `claude -p` spawned implementation and review subagents once permission was given (Experiment 5h, `build-step-by-step.md`). [V-lab] `bmad-code-review` and `bmad-build-auto` not observed; the no-subagent fallback not observed. [?]
+- What loading an agent persona changes. Every lab run invoked skills directly; no agent session (e.g. Amelia's `BD`) has been run. [?] Candidate experiment in `STATE.md` Next.

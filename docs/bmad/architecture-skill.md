@@ -1,6 +1,8 @@
 # `bmad-architecture`: The Architecture Spine
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-architecture/` (P21, see `../sources.md`): `SKILL.md`, first ~70 lines of `assets/spine-template.md`, first ~25 lines of `references/reviewer-gate.md` and of `scripts/lint_spine.py`. Tags: [V, P21] traced to those files, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19.*
+*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-architecture/` (P21, see `../sources.md`): `SKILL.md`, first ~70 lines of `assets/spine-template.md`, first ~25 lines of `references/reviewer-gate.md` and of `scripts/lint_spine.py`. Tags: [V, P21] traced to those files, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19; reviewed by Carl 2026-09-24.*
+
+*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting plus Python floor (3.10 release, 3.11 clone); substantive claims stand at the release. See `build-step-by-step.md`, last section.*
 
 ## What it produces
 
@@ -41,9 +43,8 @@ Resume from the memlog, not the rendered spine. Keep `AD` IDs stable: amend a Ru
 ## Inference
 
 - The spine's `AD` IDs play the same role for architecture that `CAP-N` plays for the spec and FR/UJ/SM IDs play for the PRD: stable handles for downstream citation. [I]
-- The linter is the first piece of deterministic tooling seen in the planning skills; the others read so far rely on prompts and subagents. [I, from the skills read so far]
+- The linter is the first deterministic *checker* seen in the planning skills; the others read so far rely on prompts and subagents for validation (`memlog.py` is deterministic too, but it writes, it does not check). [I, from the skills read so far] Whether `lint_spine.py` is architecture-only is unclear: the installed-vs-clone diff table in `build-step-by-step.md` lists it on the row covering spec, prd, architecture, and ux together. [?]
 
 ## Not yet checked
 
 - The rest of `spine-template.md`, the remaining reviewer-gate text, the linter's checks beyond its header, `references/headless.md`, and `customize.toml`'s default `finalize_reviewers`. [?]
-- `bmad-ux` (the parallel skill for UX docs). [?]
