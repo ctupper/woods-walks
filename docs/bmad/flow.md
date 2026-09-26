@@ -1,6 +1,6 @@
 # BMAD — The Flow: How an Idea Moves
 
-*Describes BMAD-METHOD v6.12.0. Tags: [V] traced to primary doc (source IDs in `../sources.md`), [I] inferred, [?] unclear, [V-lab] observed in a lab run (Experiments 1 to 5i; see [lab-log.md](lab-log.md)). First written 2026-09-19; lab notes added through 2026-09-24; reviewed by Carl 2026-09-24.*
+*Describes BMAD-METHOD v6.12.0. Tags: [V] traced to primary doc (source IDs in `../sources.md`), [I] inferred, [?] unclear, [V-lab] observed in a lab run (Experiments 1 to 5i; see [lab-log.md](lab-log.md)). First written 2026-09-19; lab notes added through 2026-09-24; reviewed by Carl 2026-09-24. "After the build: generating more tests" added unattended 2026-09-26 (P29), not yet reviewed.*
 
 !!! tip "TL;DR"
     The delivery diagram frames every path as one loop: **Clarify → Plan → Build and verify → Learn and adjust**, entered at three points (vague notion, big clear idea, small change). [V, P10 labels at the v6.12.0 tag] That bigger work "enters the loop earlier and goes round it more often" and "does not become a different way of delivering" is prose from the unreleased clone's `docs/index.md` (P1) and is not in the released docs. [clone-only; not [V] for 6.12.0] The released sizing table (`bmad-build` for one session, `bmad-spec` plus stories for an epic, planning documents for a project, below) supports the same idea. [V, P3]
@@ -76,6 +76,24 @@ Extra signals for more planning: high risk, unclear requirements, broad architec
 Each run stays on one goal; extra goals and unrelated findings go to `deferred-work.md`. [V, P8] `bmad-build` handles one unit and does not own the backlog or pick the next story. [V, P8]
 
 **Human attention is called "the most expensive resource," which is the stated reason for the extra review passes.** [V, P8] `bmad-build-auto` runs one unit unattended and is meant for after important decisions are stable. [V, P3, P8]
+
+### After the build: generating more tests
+
+A separate, optional decision once a change is implemented: does it need more automated coverage? Two "generate" skills produce tests from code that already exists. [V, P29]
+
+| | `bmad-qa-generate-e2e-tests` | `bmad-testarch-automate` |
+|---|---|---|
+| Comes with | BMM (built in; the Developer's `QA` menu item) | The TEA add-on module |
+| Covers | API and E2E: happy path plus one or two errors | API, E2E, fixtures, more patterns; optional component tests |
+| Docs' advice | Start here | Use when you want the heavier version of the same job |
+
+[V, P29; the Developer's `QA` menu item is from P2, see [agents.md](agents.md)]
+
+- The built-in skill detects the test framework (or suggests one), asks what to test or discovers features itself, generates API tests when there are endpoints and E2E tests when there is a UI, runs them and fixes failures, and writes `tests/test-summary.md` listing what is still uncovered. [V, P29]
+- It generates tests only. The docs say plainly that it is not code review and not a walkthrough; happy path plus a few critical errors is its ceiling. [V, P29]
+- It can run after a single change; there is no need to wait for an epic to finish. The docs set it apart from `bmad-retrospective`, which judges the epic against its spec, not the test suite. [V, P29]
+- TEA's other skills (test design, trace, ATDD, test review, NFRs, gates) are described as available but "not the default generate path." Test design optionally improves an Automate run; trace optionally checks coverage afterward; ATDD is for features that don't exist yet. [V, P29]
+- **Lab note (Experiment 8):** reading TEA's test-review criteria and trace gate found both operate on test quality and named-requirement coverage, not production-code correctness, so neither would have caught the tags epic's live-object aliasing defect (B1). The docs' own framing ("not code review") agrees. [V-lab; V, P29] Whether either generate skill would have *written* a test exposing B1 is untested; given the happy-path ceiling on the built-in skill, it seems unlikely without a requirement naming it. [I] Neither generate skill has been run in the lab.
 
 ## Learn and adjust
 
