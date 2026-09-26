@@ -2,7 +2,7 @@
 
 *Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-architecture/` (P21, see `../sources.md`): `SKILL.md`, first ~70 lines of `assets/spine-template.md`, first ~25 lines of `references/reviewer-gate.md` and of `scripts/lint_spine.py`. Tags: [V, P21] traced to those files, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19; reviewed by Carl 2026-09-24.*
 
-*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting plus Python floor (3.10 release, 3.11 clone); substantive claims stand at the release. See `build-step-by-step.md`, last section.*
+*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting plus Python floor (3.10 release, 3.11 clone); substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
 
 ## What it produces
 
@@ -12,7 +12,7 @@ An **architecture spine** (`ARCHITECTURE-SPINE.md`): a "consistency contract" fi
 
 > If two units one level down built this independently, could they choose incompatibly? Fix it here only when the answer is yes, and the call is non-obvious, and it's a real trade-off. Otherwise name it under Deferred.
 
-[V, P21] (Same test as `flow.md`'s architecture-spine test, [V, P6].) Decisions are recorded, rationale is not: rationale lives in the memlog. Shape goes in diagrams, not prose. Named technologies must be verified current on the web before being bound. [V, P21]
+[V, P21] (Same test as [flow.md](flow.md)'s architecture-spine test, [V, P6].) Decisions are recorded, rationale is not: rationale lives in the memlog. Shape goes in diagrams, not prose. Named technologies must be verified current on the web before being bound. [V, P21]
 
 ## Purposes and altitudes
 
@@ -24,7 +24,7 @@ An **architecture spine** (`ARCHITECTURE-SPINE.md`): a "consistency contract" fi
 
 - **Coaching path is the default.** The skill's own words: the elicitation "cuts against the instinct to just produce an architecture, so hold the line." Fast path drafts everything with `[ASSUMPTION]` tags. The load-bearing calls (paradigm, stack or starter, major boundaries) are "shown, not silently made": alternatives laid out, then the user chooses. [V, P21]
 - **Greenfield:** recommend a well-known current starter, checked on the web. **Brownfield:** read the real code first and ratify existing conventions rather than invent new ones. [V, P21]
-- **Memlog again.** Working memory is the append-only `.memlog.md` (types: decision, constraint, version, assumption, question, direction, event). The spine is distilled from it at the end, not written as you go. Each surviving decision becomes an `AD-n` with **Binds / Prevents / Rule**, tagged `[ADOPTED]` if already settled. Same pattern as `spec-skill.md` and `prd-skill.md`. [V, P21]
+- **Memlog again.** Working memory is the append-only `.memlog.md` (types: decision, constraint, version, assumption, question, direction, event). The spine is distilled from it at the end, not written as you go. Each surviving decision becomes an `AD-n` with **Binds / Prevents / Rule**, tagged `[ADOPTED]` if already settled. Same pattern as [spec-skill.md](spec-skill.md) and [prd-skill.md](prd-skill.md). [V, P21]
 - **Template sections:** Design Paradigm, Inherited Invariants (epic only), Invariants and Rules (the `AD` blocks, plus a dependency-direction mermaid diagram that "IS a rule"), Consistency Conventions (naming, data formats, state and cross-cutting), Stack (name plus pinned version), Structural Seed (diagrams, tree), Capability to Architecture Map. Empty sections are cut. [V, P21]
 - **Altitude sweep:** every structural dimension must be decided, deferred, or an open question. A whole dimension left silent, such as deployment, infra, or operations, "is the failure, not a clean spine." [V, P21]
 
@@ -43,7 +43,7 @@ Resume from the memlog, not the rendered spine. Keep `AD` IDs stable: amend a Ru
 ## Inference
 
 - The spine's `AD` IDs play the same role for architecture that `CAP-N` plays for the spec and FR/UJ/SM IDs play for the PRD: stable handles for downstream citation. [I]
-- The linter is the first deterministic *checker* seen in the planning skills; the others read so far rely on prompts and subagents for validation (`memlog.py` is deterministic too, but it writes, it does not check). [I, from the skills read so far] Whether `lint_spine.py` is architecture-only is unclear: the installed-vs-clone diff table in `build-step-by-step.md` lists it on the row covering spec, prd, architecture, and ux together. [?]
+- The linter is the first deterministic *checker* seen in the planning skills; the others read so far rely on prompts and subagents for validation (`memlog.py` is deterministic too, but it writes, it does not check). [I, from the skills read so far] Whether `lint_spine.py` is architecture-only is unclear: the installed-vs-clone diff table in [build-step-by-step.md](build-step-by-step.md) lists it on the row covering spec, prd, architecture, and ux together. [?]
 
 ## Not yet checked
 

@@ -2,7 +2,7 @@
 
 *Describes BMAD-METHOD v6.12.0, read from the release tag (source P25, see `../sources.md`): `src/core-skills/bmad-forge-idea/SKILL.md`, `src/core-skills/bmad-brainstorming/SKILL.md`, `references/headless.md`, the first lines of `references/mode-autonomous.md`, and the first rows and category counts of `assets/brain-methods.csv`. Tags: [V, P25] traced to those files, [I] inferred, [?] unclear. Run unattended in Experiment 6 (both halted on human input, as the files predict) and Experiment 7 (headless flag and prepend tests for brainstorming). Written unattended 2026-09-19; reviewed by Carl 2026-09-24.*
 
-Both are **core** skills: they need no PRD, spec, or agent, and they end in a record of thinking rather than code. [V, P2, P25] They are the Clarify-stage tools for "a clear idea, or confidence the idea is good" (`flow.md`). [V, P3]
+Both are **core** skills: they need no PRD, spec, or agent, and they end in a record of thinking rather than code. [V, P2, P25] They are the Clarify-stage tools for "a clear idea, or confidence the idea is good" ([flow.md](flow.md)). [V, P3]
 
 ## Side by side
 
@@ -29,7 +29,7 @@ All [V, P25].
 
 - There is a headless mode, loaded from `references/headless.md` only when headless. Headless is defined by **absence of a human**: a `headless: true` flag, another skill or non-interactive runner (no TTY, no user message stream), or a prepend step that declares it. "If a human is sending messages in this session, you are interactive — no payload shape or phrasing overrides that." [V, P25]
 - In headless the skill inverts: it becomes the brainstormer, using the whole catalog, logging every idea, synthesizing, and writing `brainstorm.html` and/or `brainstorm-intent.md` with no questions and no greeting. Assumptions go in `assumptions[]` of its JSON return. Required input: `topic`; optional: `goal`, `techniques`, `context`, `doc_workspace`, `artifacts`. Missing topic halts `blocked`. [V, P25]
-- **Answered by Experiment 6:** a plain `claude -p` run does **not** count as headless; the skill stayed interactive and halted for a stance and technique choice. **Experiment 7 then showed the flag and the prepend step do not help either:** with `claude -p`, a payload flag was overruled by the skill's own human-presence rule (the model then chose the "Ideate for me" stance itself and ran to completion, 25 min, 108 ideas, both artifacts), and a prepend declaration was rejected on the same rule (halted). So headless here needs a caller with no user message stream, which `claude -p` is not. [V-lab, `lab-log.md`]
+- **Answered by Experiment 6:** a plain `claude -p` run does **not** count as headless; the skill stayed interactive and halted for a stance and technique choice. **Experiment 7 then showed the flag and the prepend step do not help either:** with `claude -p`, a payload flag was overruled by the skill's own human-presence rule (the model then chose the "Ideate for me" stance itself and ran to completion, 25 min, 108 ideas, both artifacts), and a prepend declaration was rejected on the same rule (halted). So headless here needs a caller with no user message stream, which `claude -p` is not. [V-lab, [lab-log.md](lab-log.md)]
 
 ## `bmad-forge-idea`
 
@@ -45,7 +45,7 @@ All [V, P25].
 
 ## Shared pattern
 
-Both use the append-only memlog and `memlog.py` (`init`, `append --type`, `set --key status --value complete`) as canonical memory and derive their artifacts from it, the same mechanism as `spec-skill.md`, `prd-skill.md`, `architecture-skill.md`, and `ux-skill.md`. [V, P25] Both also greet by name and use the configured language, which the later unreleased clone dropped from activation (see `build-step-by-step.md`, last section). [V, P25]
+Both use the append-only memlog and `memlog.py` (`init`, `append --type`, `set --key status --value complete`) as canonical memory and derive their artifacts from it, the same mechanism as [spec-skill.md](spec-skill.md), [prd-skill.md](prd-skill.md), [architecture-skill.md](architecture-skill.md), and [ux-skill.md](ux-skill.md). [V, P25] Both also greet by name and use the configured language, which the later unreleased clone dropped from activation (see [build-step-by-step.md](build-step-by-step.md), last section). [V, P25]
 
 ## Inference
 

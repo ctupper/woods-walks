@@ -1,10 +1,10 @@
 # `bmad-spec`: How the Hub Skill Works
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-spec/` (P19, see `../sources.md`): `SKILL.md`, `assets/spec-template.md`, `assets/stories-schema.md`. Tags: [V, P19] traced to those files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 5 to 5i; see `lab-log.md`). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24.*
+*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-spec/` (P19, see `../sources.md`): `SKILL.md`, `assets/spec-template.md`, `assets/stories-schema.md`. Tags: [V, P19] traced to those files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 5 to 5i; see [lab-log.md](lab-log.md)). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24.*
 
-*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); spec assets and templates are identical. Substantive claims stand at the release. See `build-step-by-step.md`, last section.*
+*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); spec assets and templates are identical. Substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
 
-`flow.md` calls `bmad-spec` the hub of Plan. This page covers what it actually does.
+[flow.md](flow.md) calls `bmad-spec` the hub of Plan. This page covers what it actually does.
 
 ## What it is
 
@@ -59,16 +59,16 @@ Content that does not fit one kernel-shape line (catalogs, tables, long referenc
 - `stories.yaml` is a list in execution order. Fields: `id` (quoted string, unique, no zero-padding), `title`, `description` (two sentences, points into SPEC.md), `spec_checkpoint`, `done_checkpoint` (both caller-only: read by the dispatcher, never by the dev skill), `invoke_dev_with` (free text appended verbatim to the dispatch prompt). **No `status` field, ever.** [V, P19]
 - An id is pinned once its story spec file exists (`stories/<id>-*.md`); retired ids are never reassigned. Ids must be prefix-free (`"3"` and `"3-2"` cannot coexist). [V, P19]
 - An update to a spec never rewrites `stories.yaml`; it flags stale descriptions and offers to re-run breakdown. [V, P19]
-- **`spec_checkpoint: true` has no completion condition, observed to pass through empty (Experiment 5i).** The field only means a human reviews the story spec before implementation happens; nothing requires that review to actually resolve anything, or checks afterward that it did. Observed: the one story in a four-story epic carrying `spec_checkpoint: true` was the story that happened to answer an open question about its own capability — and its `## Spec Change Log` (the section that exists precisely to record such answers) was left empty, same as the three stories with no checkpoint at all. [V-lab, `lab-log.md`] A checkpoint satisfiable by doing nothing with it isn't a gate. [I]
+- **`spec_checkpoint: true` has no completion condition, observed to pass through empty (Experiment 5i).** The field only means a human reviews the story spec before implementation happens; nothing requires that review to actually resolve anything, or checks afterward that it did. Observed: the one story in a four-story epic carrying `spec_checkpoint: true` was the story that happened to answer an open question about its own capability — and its `## Spec Change Log` (the section that exists precisely to record such answers) was left empty, same as the three stories with no checkpoint at all. [V-lab, [lab-log.md](lab-log.md)] A checkpoint satisfiable by doing nothing with it isn't a gate. [I]
 
-This matches how `bmad-build` step 1 looks up a story: `{spec_folder}/stories.yaml` by `id`, then `stories/{id}-*.md` (see `build-step-by-step.md`). [V, P18, P19]
+This matches how `bmad-build` step 1 looks up a story: `{spec_folder}/stories.yaml` by `id`, then `stories/{id}-*.md` (see [build-step-by-step.md](build-step-by-step.md)). [V, P18, P19]
 
 ## Inference
 
 - Because the spec is derived from a log, "edit the spec" is really "append to the memlog and re-run `bmad-spec`". This changes how a team would handle a requirement change: the human owner talks to the skill, not the file. [I]
-- No status in `stories.yaml` fits `flow.md`'s finding that status lives in `sprint-status.yaml`, not in the story list. [I]
+- No status in `stories.yaml` fits [flow.md](flow.md)'s finding that status lives in `sprint-status.yaml`, not in the story list. [I]
 
-## Observed in a lab (Experiments 5 to 5i, `lab-log.md`)
+## Observed in a lab (Experiments 5 to 5i, [lab-log.md](lab-log.md))
 
 - Interactive spec run: asked a slug, then express or guided, then wrote `SPEC.md` (3 capabilities, 4 assumptions, 7 open questions), both self-validate passes PASS. [V-lab]
 - Story Breakdown ran on request, asked for each story's `spec_checkpoint`, `done_checkpoint`, and `invoke_dev_with`, wrote `stories.yaml`, and then **refused to let a scope decision live in `invoke_dev_with`**, requiring it to land in `SPEC.md` (mint a new capability, or resolve the open question in place). Re-derivation kept ids stable. [V-lab]
@@ -76,7 +76,7 @@ This matches how `bmad-build` step 1 looks up a story: `{spec_folder}/stories.ya
 
 - **Hand-edits and re-derivation (Experiment 5b):** a one-sentence editorial update kept all six hand-applied edits and did not flag that the memlog lacked them; only the requested line changed. The "overwritten on the next derive" rule was not borne out for a small change. The memlog and `SPEC.md` silently disagree afterward. [V-lab] **Experiment 5c** repeated it with a real decision (Carl's "normalize" answer): three surgical edits, every hand-edit kept, nine memlog entries, no mention of the drift; it did spot a stale clause in `stories.yaml` and asked before touching it. [V-lab] **Experiment 5d then removed `SPEC.md`:** the skill regenerated it wholesale from the memlog (345 s, 66 lines reworded), lost all content that existed only in the old file (the six two-tag edits), and flagged that `stories.yaml` no longer matched. So the "derived from the memlog" rule holds for a true re-derive; small updates edit in place. [V-lab] **Experiment 5e:** routing the same requirement change through `bmad-spec` found the approved change proposal in the folder, logged 15 memlog entries, produced the same spec content, and left `stories.yaml` alone (stale, flagged). [V-lab] **Experiment 5f:** Story Breakdown re-run after the change confirmed the same four stories with only the stale one changed, carried every checkpoint value forward on request, and verified the result by diff. [V-lab]
 - **Answering an open question routinely opens a new one, so the list never fully empties.** Across Experiments 5g and 5h, the open-question count on this one spec moved 7 → 8 (minting a capability) → 9 (a requirement change) → 8 → 7 → 5, as each answer settled one gap and often exposed an adjacent one the input hadn't covered (settling "lowercase" for adding a tag opened whether removing or filtering also lowercases; settling the API shape for a two-tag filter opened what happens with three entries that collapse to fewer after duplicates are removed). The skill never closed a gap by assuming an answer, and it would not fill an incomplete human answer either — "new codes" with no names, or "digits, hyphens" with spaces left unstated, both stayed open until asked again. [V-lab]
-- **The whole epic was built out (Experiment 5h):** all four stories, in order, with Story Breakdown re-run twice as the spec changed underneath it, each re-run correctly proposing the same story list with only the stale description touched. Full detail in `build-step-by-step.md`'s lab-findings section and `lab-log.md`. [V-lab]
+- **The whole epic was built out (Experiment 5h):** all four stories, in order, with Story Breakdown re-run twice as the spec changed underneath it, each re-run correctly proposing the same story list with only the stale description touched. Full detail in [build-step-by-step.md](build-step-by-step.md)'s lab-findings section and [lab-log.md](lab-log.md). [V-lab]
 
 ## Not yet checked
 

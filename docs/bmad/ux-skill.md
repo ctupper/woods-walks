@@ -2,7 +2,7 @@
 
 *Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-ux/SKILL.md` (P23, see `../sources.md`); directory listing only for `assets/` and `references/`. Tags: [V, P23] traced to that file, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19; reviewed by Carl 2026-09-24.*
 
-*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); substantive claims stand at the release. See `build-step-by-step.md`, last section.*
+*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
 
 ## What it produces
 
@@ -14,7 +14,7 @@ Two peer contracts: **`DESIGN.md`** (how the product looks) and **`EXPERIENCE.md
 
 ## Stance
 
-"Elicit and capture the user's vision, never impose yours." The skill must never volunteer colors, patterns, or directions; creative tools render options when seeing helps, and the picks are the user's. [V, P23] Same elicitation-not-authoring stance as `prd-skill.md`. [V, P20, P23]
+"Elicit and capture the user's vision, never impose yours." The skill must never volunteer colors, patterns, or directions; creative tools render options when seeing helps, and the picks are the user's. [V, P23] Same elicitation-not-authoring stance as [prd-skill.md](prd-skill.md). [V, P20, P23]
 
 ## How a run goes
 

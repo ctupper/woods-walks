@@ -2,11 +2,11 @@
 
 *Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-prd/` (P20, see `../sources.md`): `SKILL.md`, `assets/prd-template.md`, first ~30 lines of `references/validate.md` and `references/headless.md`. Tags: [V, P20] traced to those files, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19; reviewed by Carl 2026-09-24.*
 
-*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting; substantive claims stand at the release. See `build-step-by-step.md`, last section.*
+*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting; substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
 
 ## What it is
 
-One skill with three intents: **Create** (no PRD yet), **Update** (reconcile an existing PRD with a change), **Validate** (critique only, change nothing). [V, P20] In `flow.md` terms it is the Clarify-stage tool for "agreement and sign-off among people". [V, P3]
+One skill with three intents: **Create** (no PRD yet), **Update** (reconcile an existing PRD with a change), **Validate** (critique only, change nothing). [V, P20] In [flow.md](flow.md) terms it is the Clarify-stage tool for "agreement and sign-off among people". [V, P3]
 
 ## Stance
 
@@ -26,7 +26,7 @@ Brain dump, then stakes calibration (hobby / internal / launch), then working mo
 ## Files
 
 - `prd.md` (frontmatter: title, status, created, updated; `status: final` only at finalize). [V, P20]
-- `.memlog.md`: canonical, append-only record of every decision, change, override, and assumption, written only through `memlog.py`. Same mechanism as `bmad-spec` (`spec-skill.md`). "Whatever isn't logged is lost on resume." [V, P20]
+- `.memlog.md`: canonical, append-only record of every decision, change, override, and assumption, written only through `memlog.py`. Same mechanism as `bmad-spec` ([spec-skill.md](spec-skill.md)). "Whatever isn't logged is lost on resume." [V, P20]
 - `addendum.md`: depth that belongs downstream or doesn't fit the PRD (rejected alternatives, technical-how, sizing data). Audit and override information never goes here. [V, P20]
 - Review and reconcile outputs: `review-{slug}.md`, `reconcile-{slug}.md`. [V, P20]
 - Run folders are found under a configurable output path; unfinished runs (`status` not `final`) are offered for resume. [V, P20]
