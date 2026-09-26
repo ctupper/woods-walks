@@ -2,9 +2,8 @@
 
 *Describes BMAD-METHOD v6.12.0. Tags: [V] traced to primary doc (source IDs in `../sources.md`), [I] inferred, [?] unclear, [V-lab] observed in a lab run (Experiments 1 to 5i; see [lab-log.md](lab-log.md)). First written 2026-09-19; lab notes added through 2026-09-24; reviewed by Carl 2026-09-24.*
 
-## The one-sentence version
-
-The delivery diagram frames every path as one loop: **Clarify → Plan → Build and verify → Learn and adjust**, entered at three points (vague notion, big clear idea, small change). [V, P10 labels at the v6.12.0 tag] That bigger work "enters the loop earlier and goes round it more often" and "does not become a different way of delivering" is prose from the unreleased clone's `docs/index.md` (P1) and is not in the released docs. [clone-only; not [V] for 6.12.0] The released sizing table (`bmad-build` for one session, `bmad-spec` plus stories for an epic, planning documents for a project, below) supports the same idea. [V, P3]
+!!! abstract "TL;DR"
+    The delivery diagram frames every path as one loop: **Clarify → Plan → Build and verify → Learn and adjust**, entered at three points (vague notion, big clear idea, small change). [V, P10 labels at the v6.12.0 tag] That bigger work "enters the loop earlier and goes round it more often" and "does not become a different way of delivering" is prose from the unreleased clone's `docs/index.md` (P1) and is not in the released docs. [clone-only; not [V] for 6.12.0] The released sizing table (`bmad-build` for one session, `bmad-spec` plus stories for an epic, planning documents for a project, below) supports the same idea. [V, P3]
 
 ## Entry points
 
@@ -105,11 +104,10 @@ When several people must agree, several engineers build in parallel, or someone 
 
 `bmad-build-auto` (unattended one-unit worker) plus an orchestrator: `bmad-loop` (a separate optional tool that walks `stories.yaml` in list order as a linear scheduler with no dependency inference) or an AI coding session dispatching one worker per story. Project-level parallel epic streams need a higher coordination layer or separate owners. [V, P15] Guidance: use `bmad-build` yourself for foundational or risky stories first, and hand repetitions to `bmad-build-auto` once the patterns are stable. [V, P3, P8]
 
-## Preview: v7 ticketing (not part of the current flow)
+??? info "Preview: v7 ticketing (not in v6.12.0, not part of the current flow)"
+    **Not in v6.12.0 (unreleased main; kept for reference).** `bmad-preview-ticketing` and its doc page (P17) exist only in the clone at `f033e70`; neither is at the release tag, and the lab install has no such skill. This section describes unreleased main.
 
-**Not in v6.12.0 (unreleased main; kept for reference).** `bmad-preview-ticketing` and its doc page (P17) exist only in the clone at `f033e70`; neither is at the release tag, and the lab install has no such skill. This section describes unreleased main.
-
-`bmad-preview-ticketing` is a prerelease alternative to `bmad-create-epics-and-stories` plus `bmad-sprint-planning`, organized as initiatives → epics → stories/spikes/bugs in an "initiative store" folder, with optional publishing to GitHub Issues, Jira, Linear, Notion, or Trello (repo markdown is the default and most tested). Its stories are **not read by `bmad-sprint-planning`**, don't appear in `sprint-status.yaml`, and `bmad-build` doesn't update their status yet. Stories start thin and are refined just before building. Trackers only sync when you run the skill; hooks aren't integrated. [V, P17] So this changes the story-tracking stage only if it ships, and only as an alternative. [I]
+    `bmad-preview-ticketing` is a prerelease alternative to `bmad-create-epics-and-stories` plus `bmad-sprint-planning`, organized as initiatives → epics → stories/spikes/bugs in an "initiative store" folder, with optional publishing to GitHub Issues, Jira, Linear, Notion, or Trello (repo markdown is the default and most tested). Its stories are **not read by `bmad-sprint-planning`**, don't appear in `sprint-status.yaml`, and `bmad-build` doesn't update their status yet. Stories start thin and are refined just before building. Trackers only sync when you run the skill; hooks aren't integrated. [V, P17] So this changes the story-tracking stage only if it ships, and only as an alternative. [I]
 
 ## Flow diagram: rough idea to shipped story, with what each hand-off leaves
 
