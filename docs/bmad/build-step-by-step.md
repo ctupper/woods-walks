@@ -6,6 +6,9 @@
 
 This page is the mechanism behind the "Build and verify" stage in [flow.md](flow.md). That page says what `bmad-build` does. This one says how the skill is put together.
 
+!!! abstract "TL;DR"
+    `bmad-build` runs as a step-file workflow: clarify and route, plan, implement, review, present. It picks `oneshot` (small, no intent gaps, nothing irreversible) or `dispatch` (a full spec, subagent implementation, three independent reviewers) based on three facts it writes down about the request, not a guess. Every review finding gets a human-assignable verdict and a fixed routing (fix now, ask the human, or defer) — nothing is silently dropped or silently applied. It halts for a human at specific, named points (dirty tree, open questions, approval, an ambiguous edge case, a loop past 5 tries) and never pushes code on its own.
+
 ## How it starts
 
 - `SKILL.md` is only a launcher. It runs `uv run ... _bmad/scripts/render_skill.py` once, which renders the skill's templates with the `customize.toml` values and prints the path of a rendered `workflow.md`. If `uv` is missing it halts. [V, P18]
@@ -98,33 +101,45 @@ Partial answer to the STATE.md open question "where does a human get pulled in" 
 
 ## Overlap with lab findings
 
-- Experiment 2 ran this workflow and logged that the commit step did not happen because of Carl's global confirm-before-committing rule. Step 5 says to commit locally when the tree is dirty, so that is a real conflict between a user rule and BMAD's default. [V-lab, [lab-log.md](lab-log.md); V, P18] **Confirmed again on every story of a four-story epic (Experiment 5h):** the presentation step said each time it would normally commit, and correctly attributed skipping it to the standing rule rather than silently doing nothing. Commits happened afterward as a separate human action, never as part of the workflow. [V-lab]
-- **The dirty-tree checkpoint fires with an unscripted question, not boilerplate.** Story 2 of Experiment 5h halted at step 1 because story 1's work was uncommitted, and rather than a fixed message it reasoned through the options itself (commit first, build on the mixed diff, or branch/stash) and asked which the human wanted. The workflow gives step 1 no set wording for this case; the question was the model's own judgment, not a template. [V-lab]
-- **A review finding raised and rejected three separate times, across three different stories, was self-flagged.** Across Experiment 5h's stories 1 to 3, three independent review passes each raised the same finding (a note with a non-array `tags` field would substring-match a filter) and it was rejected each time on the same grounds. On the third occurrence the build told the human, unprompted, that being raised three times independently made this "the most likely place my reasoning is wrong" — noticing its own repeated dismissal and surfacing that as a signal, rather than just repeating the dismissal a fourth time. Not seen in Experiments 2 or 3, where review variance existed but nothing flagged a pattern in its own verdicts. [V-lab]
-- **A deferred finding was verified empirically before being filed, with a runnable repro.** Story 4's `deferred-work.md` entry (the `nextId` id-reuse issue predicted as early as story 1's Design Notes) states the reproduction steps directly: create three notes, remove the highest-numbered one, add a new note, and the new note's id resolves an old lookup to the wrong record. It was correctly left deferred rather than fixed, because the frozen spec's Never clause barred changing `nextId` inside that story. [V-lab]
-- **Whether a finding gets routed to `patch` or `HALT` depends on what documented context exists to weigh it against, not just the finding itself (Experiment 4b).** The same id-reuse bug, found by the same reviewer type, was a quiet `deferred-work.md` note with no `AGENTS.md` present and a routed `HALT` once one existed pinning the store's exact shape — the triage log named the pinned contract as the reason the fix was non-trivial. Context that exists to be checked against is what turns "deferrable" into "ask the human." [V-lab]
-- **An interrupted build resumes cleanly from its `status` field.** In Experiment 5h, a run killed by a too-short timeout during story 3's review step left implementation and tests done and the spec at `status: in-review`. Re-invoking `bmad-build` picked up at review with no rework, as the step files' status checks promise ("so a run can resume mid-way", above). [V-lab]
-- **Headless `claude -p` does spawn both implementation and review subagents, when given explicit permission.** Step 1's "ask once for the whole workflow run" subagent gate fired mid-build in Experiment 5h (dispatch route); once answered yes, review ran three parallel layers and the presentation step's findings distinguish reviewer-found issues from the main session's own triage, consistent with independent subagents rather than one session role-playing several. [V-lab; answers the STATE.md open question "which skills actually spawn subagents" for `bmad-build`, other skills untested]
+Seven things a real build run showed that the step files alone don't say, each collapsed by default.
+
+??? note "A user rule can override BMAD's default commit step, every time, not just once"
+    Experiment 2 ran this workflow and logged that the commit step did not happen because of Carl's global confirm-before-committing rule. Step 5 says to commit locally when the tree is dirty, so that is a real conflict between a user rule and BMAD's default. [V-lab, [lab-log.md](lab-log.md); V, P18] **Confirmed again on every story of a four-story epic (Experiment 5h):** the presentation step said each time it would normally commit, and correctly attributed skipping it to the standing rule rather than silently doing nothing. Commits happened afterward as a separate human action, never as part of the workflow. [V-lab]
+
+??? note "The dirty-tree checkpoint fires with an unscripted question, not boilerplate"
+    Story 2 of Experiment 5h halted at step 1 because story 1's work was uncommitted, and rather than a fixed message it reasoned through the options itself (commit first, build on the mixed diff, or branch/stash) and asked which the human wanted. The workflow gives step 1 no set wording for this case; the question was the model's own judgment, not a template. [V-lab]
+
+??? note "A review finding raised and rejected three separate times was self-flagged"
+    Across Experiment 5h's stories 1 to 3, three independent review passes each raised the same finding (a note with a non-array `tags` field would substring-match a filter) and it was rejected each time on the same grounds. On the third occurrence the build told the human, unprompted, that being raised three times independently made this "the most likely place my reasoning is wrong" — noticing its own repeated dismissal and surfacing that as a signal, rather than just repeating the dismissal a fourth time. Not seen in Experiments 2 or 3, where review variance existed but nothing flagged a pattern in its own verdicts. [V-lab]
+
+??? note "A deferred finding was verified empirically before being filed, with a runnable repro"
+    Story 4's `deferred-work.md` entry (the `nextId` id-reuse issue predicted as early as story 1's Design Notes) states the reproduction steps directly: create three notes, remove the highest-numbered one, add a new note, and the new note's id resolves an old lookup to the wrong record. It was correctly left deferred rather than fixed, because the frozen spec's Never clause barred changing `nextId` inside that story. [V-lab]
+
+??? note "Whether a finding gets routed to patch or HALT depends on what documented context exists to weigh it against"
+    The same id-reuse bug, found by the same reviewer type, was a quiet `deferred-work.md` note with no `AGENTS.md` present and a routed `HALT` once one existed pinning the store's exact shape — the triage log named the pinned contract as the reason the fix was non-trivial. Context that exists to be checked against is what turns "deferrable" into "ask the human." (Experiment 4b) [V-lab]
+
+??? note "An interrupted build resumes cleanly from its status field"
+    In Experiment 5h, a run killed by a too-short timeout during story 3's review step left implementation and tests done and the spec at `status: in-review`. Re-invoking `bmad-build` picked up at review with no rework, as the step files' status checks promise ("so a run can resume mid-way", above). [V-lab]
+
+??? note "Headless claude -p does spawn both implementation and review subagents, when given explicit permission"
+    Step 1's "ask once for the whole workflow run" subagent gate fired mid-build in Experiment 5h (dispatch route); once answered yes, review ran three parallel layers and the presentation step's findings distinguish reviewer-found issues from the main session's own triage, consistent with independent subagents rather than one session role-playing several. [V-lab; answers the STATE.md open question "which skills actually spawn subagents" for `bmad-build`, other skills untested]
 
 ## Not yet checked
 
 - `compile-epic-context.md` and `sync-sprint-status.md`; the second half of the Edge Case Hunter and Verification Gap prompts (output formats). [?]
 
-## What the clone changed (kept for the record; all clone-only)
+??? info "What the clone changed (superseded — kept for the record, not needed to understand the release)"
+    Method: `diff -r --strip-trailing-cr` of a fresh `npx bmad-method install` (`labs\lab3-review\.claude\skills`) against `labs\BMAD-METHOD\skills` at `f033e70`. The installer writes CRLF, so a plain diff shows every file as changed; normalizing that leaves the real differences. [V-lab]
 
-Method: `diff -r --strip-trailing-cr` of a fresh `npx bmad-method install` (`labs\lab3-review\.claude\skills`) against `labs\BMAD-METHOD\skills` at `f033e70`. The installer writes CRLF, so a plain diff shows every file as changed; normalizing that leaves the real differences. [V-lab]
+    | Skill | Real differences | Effect on the wiki |
+    |---|---|---|
+    | `bmad-build` | 16 files. Installed: `route` is `oneshot` or `dispatch`, chosen by a route gate in step 2 on three facts (intent gaps, irreversibles, footprint); review is a single `review_layers` list of three layers; no route/review invocation arguments. Clone: `oneshot`/`full`, `route` and `review` settings, a line-count route rule, quick/thorough lens sets plus an Intent Alignment lens, `lenses_ran` and `review_source` frontmatter. | Route and review claims on this page are clone-only, marked above. Explains Experiment 2's unexplained `route: dispatch`. |
+    | `bmad-code-review` | Installed: `steps/` folder, four `review_layers` (Blind Hunter, Edge Case Hunter, Verification Gap, Acceptance Auditor gated on a spec), no quick/thorough. Clone: step files at top level, `review = "thorough"`, quick/thorough lens sets. | [agents.md](agents.md) code-review bullet and the docs page it cites (P14) describe the clone. Marked. |
+    | `bmad-spec`, `bmad-prd`, `bmad-architecture`, `bmad-ux` | `SKILL.md` activation lines only: installed loads `user_name` / `communication_language` config and greets by name; the clone dropped those. `lint_spine.py` differs in formatting and a Python floor (3.10 installed, 3.11 clone). One example file and one comment line differ. Spec assets and templates are identical. | Substantive claims stand. |
+    | Five agents | `SKILL.md` config-loading lines only (same language-config change); `customize.toml` identical. | Persona claims stand. |
 
-| Skill | Real differences | Effect on the wiki |
-|---|---|---|
-| `bmad-build` | 16 files. Installed: `route` is `oneshot` or `dispatch`, chosen by a route gate in step 2 on three facts (intent gaps, irreversibles, footprint); review is a single `review_layers` list of three layers; no route/review invocation arguments. Clone: `oneshot`/`full`, `route` and `review` settings, a line-count route rule, quick/thorough lens sets plus an Intent Alignment lens, `lenses_ran` and `review_source` frontmatter. | Route and review claims on this page are clone-only, marked above. Explains Experiment 2's unexplained `route: dispatch`. |
-| `bmad-code-review` | Installed: `steps/` folder, four `review_layers` (Blind Hunter, Edge Case Hunter, Verification Gap, Acceptance Auditor gated on a spec), no quick/thorough. Clone: step files at top level, `review = "thorough"`, quick/thorough lens sets. | [agents.md](agents.md) code-review bullet and the docs page it cites (P14) describe the clone. Marked. |
-| `bmad-spec`, `bmad-prd`, `bmad-architecture`, `bmad-ux` | `SKILL.md` activation lines only: installed loads `user_name` / `communication_language` config and greets by name; the clone dropped those. `lint_spine.py` differs in formatting and a Python floor (3.10 installed, 3.11 clone). One example file and one comment line differ. Spec assets and templates are identical. | Substantive claims stand. |
-| Five agents | `SKILL.md` config-loading lines only (same language-config change); `customize.toml` identical. | Persona claims stand. |
+    Reading: the clone is a later snapshot of main. It removed the language config from activation and reworked build/review (route setting, quick/thorough). The npm release is what a user gets today. [I]
 
-Reading: the clone is a later snapshot of main. It removed the language config from activation and reworked build/review (route setting, quick/thorough). The npm release is what a user gets today. [I]
+    **Superseded by the re-pin below:** the installed skills were then shown identical to the `v6.12.0` tag, and docs P1 to P17 were diffed against the tag (material differences in P1, P7, P14, P17; see `../sources.md`).
 
-**Superseded by the re-pin below:** the installed skills were then shown identical to the `v6.12.0` tag, and docs P1 to P17 were diffed against the tag (material differences in P1, P7, P14, P17; see `../sources.md`).
-
-### Re-pin result (2026-09-19)
-
-The installed 29 skills are **byte-identical (CRLF-normalized) to the `v6.12.0` git tag** (commit `05bfbd4`, which is also the npm package's `gitHead`). Skills at the tag live under `src/bmm-skills/...`, not the top-level `skills/` of the clone. A worktree of the tag is at `C:\Users\ctupp\labs\BMAD-METHOD-v6.12.0`. So the installed behavior *is* the release; the clone at `f033e70` is a later main snapshot. [V-lab] The marks that were on this page have been resolved against the tag; see the top note. [I]
+    **Re-pin result (2026-09-19):** the installed 29 skills are **byte-identical (CRLF-normalized) to the `v6.12.0` git tag** (commit `05bfbd4`, which is also the npm package's `gitHead`). Skills at the tag live under `src/bmm-skills/...`, not the top-level `skills/` of the clone. A worktree of the tag is at `C:\Users\ctupp\labs\BMAD-METHOD-v6.12.0`. So the installed behavior *is* the release; the clone at `f033e70` is a later main snapshot. [V-lab] The marks that were on this page have been resolved against the tag; see the top note. [I]
