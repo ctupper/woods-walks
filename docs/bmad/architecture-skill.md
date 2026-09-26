@@ -4,7 +4,7 @@
 
 *Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting plus Python floor (3.10 release, 3.11 clone); substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
 
-!!! abstract "TL;DR"
+!!! tip "TL;DR"
     `bmad-architecture` produces a "consistency contract," `ARCHITECTURE-SPINE.md`, fixing only the invariants that would let two independently built units diverge incompatibly — not the stack, source tree, or full data shape, which stay owned by the code once it exists. The inclusion test is narrow on purpose: fix it here only if two units built separately could choose incompatibly, the call is non-obvious, and it's a real trade-off; everything else goes to Deferred. Same memlog-then-derive pattern as `bmad-spec` and `bmad-prd`, plus a deterministic linter ahead of the reviewer gate.
 
 ## What it produces

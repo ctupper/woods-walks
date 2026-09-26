@@ -6,7 +6,7 @@
 
 This page is the mechanism behind the "Build and verify" stage in [flow.md](flow.md). That page says what `bmad-build` does. This one says how the skill is put together.
 
-!!! abstract "TL;DR"
+!!! tip "TL;DR"
     `bmad-build` runs as a step-file workflow: clarify and route, plan, implement, review, present. It picks `oneshot` (small, no intent gaps, nothing irreversible) or `dispatch` (a full spec, subagent implementation, three independent reviewers) based on three facts it writes down about the request, not a guess. Every review finding gets a human-assignable verdict and a fixed routing (fix now, ask the human, or defer) — nothing is silently dropped or silently applied. It halts for a human at specific, named points (dirty tree, open questions, approval, an ambiguous edge case, a loop past 5 tries) and never pushes code on its own.
 
 ## How it starts

@@ -4,7 +4,7 @@
 
 *Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting; substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
 
-!!! abstract "TL;DR"
+!!! tip "TL;DR"
     `bmad-prd` is the tool for "agreement and sign-off among people" — one skill with three intents: **Create** a PRD from scratch, **Update** an existing one against a change, or **Validate** one without changing anything. It elicits rather than authors (it hands the pen back rather than proposing MVP cuts itself), keeps an append-only memlog like `bmad-spec`, and gates finalizing behind a parallel-subagent reviewer pass.
 
 ## What it is

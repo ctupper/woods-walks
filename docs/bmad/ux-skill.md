@@ -4,7 +4,7 @@
 
 *Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
 
-!!! abstract "TL;DR"
+!!! tip "TL;DR"
     `bmad-ux` produces two peer contracts — `DESIGN.md` (how it looks) and `EXPERIENCE.md` (how it behaves) — both of which win over any mock, wireframe, or import on conflict. Same elicit-don't-author stance and memlog-then-derive pattern as the PRD and architecture skills, plus a third mode unique to UX: handing Discovery's output off to an external design tool and folding the result back in later.
 
 ## What it produces

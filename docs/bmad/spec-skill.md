@@ -6,7 +6,7 @@
 
 [flow.md](flow.md) calls `bmad-spec` the hub of Plan. This page covers what it actually does.
 
-!!! abstract "TL;DR"
+!!! tip "TL;DR"
     `bmad-spec` turns any intent input (idea, brief, PRD, transcript, mixed notes) into `SPEC.md`, a short contract downstream skills build from. The spec isn't the source of truth — an append-only memlog is, and `SPEC.md` is re-derived from it on every run. It can also break an approved spec into `stories.yaml` for a multi-story epic.
 
 ## What it is

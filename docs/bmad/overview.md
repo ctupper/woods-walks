@@ -2,7 +2,7 @@
 
 *For someone who has never seen BMAD. Describes BMAD-METHOD v6.12.0. Tags: [V] traced to the project's own docs or skill files (detail and source IDs on the linked pages), [V-lab] seen in a lab run, [I] inferred. Drafted unattended 2026-09-19 and read by the project owner on 2026-09-20, who found it good. The owner had followed the research closely, so a read by someone who has never seen BMAD would still be stronger evidence.*
 
-!!! abstract "TL;DR"
+!!! tip "TL;DR"
     BMAD adds named commands ("skills") to an AI coding tool. A few turn a written-down intent into a one-page spec, then implement and independently review the change against it. Small work can skip straight to building; bigger work starts with planning skills instead. It halts and asks rather than guessing when your intent is unclear, and it doesn't sync with your tracker or decide what you want. The rest of this page is the detail, with a citation for every claim.
 
 ## What it is

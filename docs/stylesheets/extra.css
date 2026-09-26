@@ -12,3 +12,23 @@
   color: var(--md-default-fg-color--light);
   padding: 0 0.2em;
 }
+
+/* Tie the "tip" admonition (used for every page's TL;DR / index box) to the
+   site's own green accent instead of Material's default teal, so the "read
+   me first" box reads as this site's own convention rather than a
+   generic bolted-on component. Every other admonition type (note, warning,
+   info, etc.) keeps Material's stock color - only tip is overridden, which
+   is also what keeps it visually distinct from the other admonitions on a
+   page like systemic-findings.md. */
+.md-typeset .admonition.tip,
+.md-typeset details.tip {
+  border-color: var(--md-primary-fg-color);
+}
+.md-typeset .tip > .admonition-title,
+.md-typeset .tip > summary {
+  background-color: var(--md-primary-fg-color--transparent, rgba(0, 0, 0, 0.05));
+}
+.md-typeset .tip > .admonition-title::before,
+.md-typeset .tip > summary::before {
+  background-color: var(--md-primary-fg-color);
+}

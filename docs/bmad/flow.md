@@ -2,7 +2,7 @@
 
 *Describes BMAD-METHOD v6.12.0. Tags: [V] traced to primary doc (source IDs in `../sources.md`), [I] inferred, [?] unclear, [V-lab] observed in a lab run (Experiments 1 to 5i; see [lab-log.md](lab-log.md)). First written 2026-09-19; lab notes added through 2026-09-24; reviewed by Carl 2026-09-24.*
 
-!!! abstract "TL;DR"
+!!! tip "TL;DR"
     The delivery diagram frames every path as one loop: **Clarify → Plan → Build and verify → Learn and adjust**, entered at three points (vague notion, big clear idea, small change). [V, P10 labels at the v6.12.0 tag] That bigger work "enters the loop earlier and goes round it more often" and "does not become a different way of delivering" is prose from the unreleased clone's `docs/index.md` (P1) and is not in the released docs. [clone-only; not [V] for 6.12.0] The released sizing table (`bmad-build` for one session, `bmad-spec` plus stories for an epic, planning documents for a project, below) supports the same idea. [V, P3]
 
 ## Entry points

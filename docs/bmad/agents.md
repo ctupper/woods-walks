@@ -2,7 +2,7 @@
 
 *Describes BMAD-METHOD v6.12.0 (see `../sources.md`). Tags: [V] traced to a primary doc, [I] inferred, [?] unclear. Source IDs (P2 etc.) refer to the ledger. Reviewed by Carl 2026-09-24.*
 
-!!! abstract "TL;DR"
+!!! tip "TL;DR"
     BMAD adds named commands called **skills** to AI coding tools such as Claude Code and Cursor. Some help you *think*, others help you *build*, and either group works alone. [V, P1] A skill does one of three things: loads an **agent persona**, runs a **multi-step workflow**, or runs a **single task**. [V, P2] Five named agent personas route to the real work, which lives in the skills — an agent is mostly a personality plus a menu.
 
 ## The core idea

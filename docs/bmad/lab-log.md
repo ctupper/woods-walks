@@ -4,20 +4,20 @@
 
 *This is a log: entries are kept as written at the time. Where a later experiment answered an entry's "not tested" or "unconfirmed" line, a `→ Later:` pointer was added (Carl review pass, 2026-09-24) instead of rewriting the entry.*
 
-!!! abstract "Index — one line per entry, in order run"
-    - [Experiment 1](#experiment-1--install-and-skill-load-2026-09-19) — full install works; 29 skills confirmed.
-    - [Experiment 2](#experiment-2--one-toy-idea-through-the-loop-2026-09-19-done) — spec through build round trip, dispatch route, 18/18 tests, review found real issues.
-    - [Experiment 3](#experiment-3--bmad-code-review-on-a-flawed-diff-2026-09-19-done-first-attempt-halted-rerun-ran) — caught all six planted flaws; surfaced that the clone repo was ahead of the npm release.
-    - [Experiment 4](#experiment-4--existing-codebase-start-2026-09-19-done-project-context-halted-on-questions) — project-context halted with five questions; a small oneshot build followed five of five planted conventions.
-    - [Experiment 6](#experiment-6--ideation-skills-unattended-2026-09-20-done-both-halted-on-human-input-as-predicted) — both ideation skills halted for human input unattended, as the files predict.
-    - [Experiment 5](#experiment-5--a-spec-backed-epic-then-bmad-correct-course-2026-09-20-done-interactive-with-carl) — a spec-backed epic, then a requirement change handled through a Sprint Change Proposal, interactively with Carl.
-    - [Experiment 7](#experiment-7--real-headless-brainstorming-2026-09-20-done-both-predictions-wrong) — both predictions about what makes a run headless were wrong; a present human message always means interactive.
+!!! tip "Index — one line per entry, in order run"
+    - [Experiment 1](#experiment-1-install-and-skill-load-2026-09-19) — full install works; 29 skills confirmed.
+    - [Experiment 2](#experiment-2-one-toy-idea-through-the-loop-2026-09-19-done) — spec through build round trip, dispatch route, 18/18 tests, review found real issues.
+    - [Experiment 3](#experiment-3-bmad-code-review-on-a-flawed-diff-2026-09-19-done-first-attempt-halted-rerun-ran) — caught all six planted flaws; surfaced that the clone repo was ahead of the npm release.
+    - [Experiment 4](#experiment-4-existing-codebase-start-2026-09-19-done-project-context-halted-on-questions) — project-context halted with five questions; a small oneshot build followed five of five planted conventions.
+    - [Experiment 6](#experiment-6-ideation-skills-unattended-2026-09-20-done-both-halted-on-human-input-as-predicted) — both ideation skills halted for human input unattended, as the files predict.
+    - [Experiment 5](#experiment-5-a-spec-backed-epic-then-bmad-correct-course-2026-09-20-done-interactive-with-carl) — a spec-backed epic, then a requirement change handled through a Sprint Change Proposal, interactively with Carl.
+    - [Experiment 7](#experiment-7-real-headless-brainstorming-2026-09-20-done-both-predictions-wrong) — both predictions about what makes a run headless were wrong; a present human message always means interactive.
     - [Follow-ups with Carl's answers](#follow-ups-with-carls-answers-2026-09-21) — smaller open questions from earlier experiments, answered.
-    - [Experiment 5h](#experiment-5h--all-four-stories-built-interactively-2026-09-21-to-2026-09-23-done) — the full four-story epic built end to end, 61/61 tests, every checkpoint fired as documented.
-    - [Experiment 4b](#experiment-4b--does-agentsmd-change-a-build-once-it-exists-2026-09-23-carl-answered-done) — same code, same bug found either way; project context changed only whether it escalated to a human.
-    - [Experiment 5i](#experiment-5i--bmad-retrospective-on-the-finished-tags-epic-202609-2324-carl-answered-done) — retrospective on the finished epic found B1 (a live-object aliasing defect) and 16 action items.
-    - [R1/R1b](#r1r1b--fixing-retrospective-finding-b1-2026-09-2425-carl-answered-done) — B1 fixed and committed: all eight leaking exits closed across two builds.
-    - [Experiment 8](#experiment-8--add-on-setup--tea-2026-09-26-done) — TEA/BMB/CIS installed and pinned; TEA would not have caught B1 through any workflow examined.
+    - [Experiment 5h](#experiment-5h-all-four-stories-built-interactively-2026-09-21-to-2026-09-23-done) — the full four-story epic built end to end, 61/61 tests, every checkpoint fired as documented.
+    - [Experiment 4b](#experiment-4b-does-agentsmd-change-a-build-once-it-exists-2026-09-23-carl-answered-done) — same code, same bug found either way; project context changed only whether it escalated to a human.
+    - [Experiment 5i](#experiment-5i-bmad-retrospective-on-the-finished-tags-epic-2026-09-2324-carl-answered-done) — retrospective on the finished epic found B1 (a live-object aliasing defect) and 16 action items.
+    - [R1/R1b](#r1r1b-fixing-retrospective-finding-b1-2026-09-2425-carl-answered-done) — B1 fixed and committed: all eight leaking exits closed across two builds.
+    - [Experiment 8](#experiment-8-add-on-setup-tea-2026-09-26-done) — TEA/BMB/CIS installed and pinned; TEA would not have caught B1 through any workflow examined.
 
 ## Experiment 1 — Install and skill load (2026-09-19)
 
