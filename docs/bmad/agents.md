@@ -21,13 +21,34 @@ Codes are scoped to the agent that shows them: `CR` is competitive teardown for 
 
 The BMad Method module installs five named agents. [V, P2]
 
-| Agent | Skill ID | Codes | What its menu offers |
-|---|---|---|---|
-| **Analyst (Mary)** | `bmad-agent-analyst` | `BP` `MR` `DR` `TR` `TS` `CR` `UV` `CB` `WB` `PC` | Brainstorm; market, domain, technical research; technology selection; competitive teardown; user-voice research; product brief; PRFAQ challenge; project context |
-| **Product Manager (John)** | `bmad-agent-pm` | `PRD` `CE` `IR` `CC` | Create/update/validate a PRD; epics and stories; implementation readiness; correct course |
-| **Architect (Winston)** | `bmad-agent-architect` | `CA` `IR` | Architecture spine; implementation readiness |
-| **Developer (Amelia)** | `bmad-agent-dev` | `BD` `QA` `CR` `SP` `ER` | Build; QA test generation; code review; sprint plan; epic retrospective |
-| **UX Designer (Sally)** | `bmad-agent-ux-designer` | `CU` | UX design |
+<div class="grid cards" markdown>
+
+- !!! info "Analyst (Mary)"
+      **Skill ID:** `bmad-agent-analyst`
+      **Codes:** `BP` `MR` `DR` `TR` `TS` `CR` `UV` `CB` `WB` `PC`
+      **Focus:** Brainstorm; market, domain, technical research; technology selection; competitive teardown; user-voice research; product brief; PRFAQ challenge; project context.
+
+- !!! info "Product Manager (John)"
+      **Skill ID:** `bmad-agent-pm`
+      **Codes:** `PRD` `CE` `IR` `CC`
+      **Focus:** Create/update/validate a PRD; epics and stories; implementation readiness; correct course.
+
+- !!! info "Architect (Winston)"
+      **Skill ID:** `bmad-agent-architect`
+      **Codes:** `CA` `IR`
+      **Focus:** Architecture spine; implementation readiness.
+
+- !!! info "Developer (Amelia)"
+      **Skill ID:** `bmad-agent-dev`
+      **Codes:** `BD` `QA` `CR` `SP` `ER`
+      **Focus:** Build; QA test generation; code review; sprint plan; epic retrospective.
+
+- !!! info "UX Designer (Sally)"
+      **Skill ID:** `bmad-agent-ux-designer`
+      **Codes:** `CU`
+      **Focus:** UX design.
+
+</div>
 
 - The Technical Writer (Paige) is **on hiatus**; project context lives on via the Analyst's `PC` code or `bmad-project-context`. [V, P2]
 - The Developer's `QA` runs `bmad-qa-generate-e2e-tests`; the full Test Architect is a **separate module**. [V, P2]

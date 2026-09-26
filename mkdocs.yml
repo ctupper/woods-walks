@@ -18,6 +18,12 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           start_chars: '```mermaid'
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.grid
+  - admonition
+
 
 
 nav:
