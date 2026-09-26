@@ -1,0 +1,1461 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ctupper.github.io/woods-walks/bmad/spec-skill/">
+      
+      
+        <link rel="prev" href="../build-step-by-step/">
+      
+      
+        <link rel="next" href="../prd-skill/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Spec - Woods Walks</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bmad-spec-how-the-hub-skill-works" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Woods Walks" class="md-header__button md-logo" aria-label="Woods Walks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Woods Walks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spec
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../posts/2025-12-07-first-snow/" class="md-tabs__link">
+          
+  
+  
+  Walks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+  BMad Wiki
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Woods Walks" class="md-nav__button md-logo" aria-label="Woods Walks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Woods Walks
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Walks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Walks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../posts/2025-12-07-first-snow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First Snow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BMad Wiki
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    BMad Wiki
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-step-by-step/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skills
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it is
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workspace-a-folder-not-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace: a folder, not a file
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-memlog-the-real-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The memlog: the real source of truth
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-five-field-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The five-field kernel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spec-law-eight-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spec Law (eight rules)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#companions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Companions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#behavior-worth-knowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Behavior worth knowing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#story-breakdown-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Story Breakdown (optional)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observed-in-a-lab-experiments-5-to-5i-lab-logmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observed in a lab (Experiments 5 to 5i, lab-log.md)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#not-yet-checked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not yet checked
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prd-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PRD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ux-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ideation-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../systemic-findings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systemic Findings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it is
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workspace-a-folder-not-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace: a folder, not a file
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-memlog-the-real-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The memlog: the real source of truth
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-five-field-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The five-field kernel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spec-law-eight-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spec Law (eight rules)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#companions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Companions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#behavior-worth-knowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Behavior worth knowing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#story-breakdown-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Story Breakdown (optional)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observed-in-a-lab-experiments-5-to-5i-lab-logmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observed in a lab (Experiments 5 to 5i, lab-log.md)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#not-yet-checked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not yet checked
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="bmad-spec-how-the-hub-skill-works"><code>bmad-spec</code>: How the Hub Skill Works</h1>
+<p><em>Describes BMAD-METHOD v6.12.0. Source: <code>skills/bmad-spec/</code> (P19, see <code>../sources.md</code>): <code>SKILL.md</code>, <code>assets/spec-template.md</code>, <code>assets/stories-schema.md</code>. Tags: [V, P19] traced to those files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 5 to 5i; see <a href="../lab-log/">lab-log.md</a>). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24.</em></p>
+<p><em>Release check: read from the clone's <code>skills/</code> path. The installed-vs-clone diff (2026-09-19) found this skill differs from the <code>v6.12.0</code> release only in <code>SKILL.md</code> activation lines (the release loads <code>user_name</code>/language and greets by name); spec assets and templates are identical. Substantive claims stand at the release. See <a href="../build-step-by-step/">build-step-by-step.md</a>, last section.</em></p>
+<p><a href="../flow/">flow.md</a> calls <code>bmad-spec</code> the hub of Plan. This page covers what it actually does.</p>
+<div class="admonition tip">
+<p class="admonition-title">TL;DR</p>
+<p><code>bmad-spec</code> turns any intent input (idea, brief, PRD, transcript, mixed notes) into <code>SPEC.md</code>, a short contract downstream skills build from. The spec isn't the source of truth — an append-only memlog is, and <code>SPEC.md</code> is re-derived from it on every run. It can also break an approved spec into <code>stories.yaml</code> for a multi-story epic.</p>
+</div>
+<h2 id="what-it-is">What it is</h2>
+<p>The one skill that turns any intent input (idea, brief, PRD, transcript, Slack thread, mixed notes) into <code>SPEC.md</code>, a short contract downstream skills build from. It also updates and validates specs and can break one into stories. [V, P19]</p>
+<h2 id="workspace-a-folder-not-a-file">Workspace: a folder, not a file</h2>
+<p><code>{output_folder}/specs/spec-{slug}/</code> by default. [V, P19]</p>
+<div class="highlight"><pre><span></span><code>SPEC.md         the kernel; derived, never hand-edited
+&lt;companion&gt;.md  optional, named for the content type (glossary.md, stack.md ...)
+stories.yaml    optional; only written by Story Breakdown
+.memlog.md      canonical append-only log SPEC.md is derived from
+</code></pre></div>
+<p>The same slug means the same folder: a second run updates in place. [V, P19]</p>
+<h2 id="the-memlog-the-real-source-of-truth">The memlog: the real source of truth</h2>
+<ul>
+<li><code>.memlog.md</code> is canonical: append-only, one line per decision, constraint, capability (with stable <code>CAP-N</code>), assumption, question, or direction. Written through <code>_bmad/scripts/memlog.py</code> (<code>init</code>, <code>append --type ...</code>). [V, P19]</li>
+<li><code>SPEC.md</code> and spec-authored companions are <strong>re-derived on every run</strong> from the log plus cited sources. A later entry supersedes an earlier one while history stays. A hand-edit to <code>SPEC.md</code> "is overwritten on the next derive." [V, P19] <strong>In the lab this held only for a true re-derive (<code>SPEC.md</code> missing); small updates edited in place and kept hand-edits, leaving memlog and spec silently out of sync.</strong> See "Observed in a lab" below (Experiments 5b to 5e). [V-lab]</li>
+<li>Stated reason: this lets PRD, UX, architecture, and epics run in any order and feed the same spec without merge drift. [V, P19]</li>
+</ul>
+<h2 id="the-five-field-kernel">The five-field kernel</h2>
+<p>Why, Capabilities (each with <code>intent</code> and <code>success</code>, ID'd <code>CAP-N</code>), Constraints, Non-goals, Success signal. Optional Assumptions and Open Questions sections. Frontmatter carries <code>id</code>, <code>companions:</code> (files downstream must read), and <code>sources:</code> (files fully absorbed, audit only). [V, P19]</p>
+<h2 id="spec-law-eight-rules">Spec Law (eight rules)</h2>
+<ol>
+<li>Each capability has both intent and success. 2. Intents say WHAT, not HOW. 3. Constraints must actually bend design. 4. At least one explicit non-goal. 5. Success signal concrete enough to test or demo. 6. Capability IDs stable, unique, never reused or renumbered. 7. Preservation: every load-bearing source claim lands in the spec or a companion. 8. Lean prose. [V, P19]</li>
+</ol>
+<p>"Load-bearing" is defined as: a claim any consumer would change a decision without. [V, P19]</p>
+<h2 id="companions">Companions</h2>
+<p>Content that does not fit one kernel-shape line (catalogs, tables, long reference) goes into a companion; the kernel cites it. Two kinds: <strong>spec-authored</strong> (written and owned by <code>bmad-spec</code>) and <strong>adopted</strong> (written by another skill, such as <code>DESIGN.md</code> from UX; referenced, never edited). <strong>Diagrams always go in a companion</strong>; the kernel is prose only. [V, P19]</p>
+<h2 id="behavior-worth-knowing">Behavior worth knowing</h2>
+<ul>
+<li><strong>Express vs guided</strong> for sparse input: express drafts best-effort and turns every gap into an open question; guided walks the five fields with the user. Headless defaults to express. [V, P19]</li>
+<li><strong>Headless vs interactive</strong> is detected (no TTY, programmatic caller, or all inputs pre-supplied). Headless with no input returns <code>error_code: "insufficient_intent"</code>; missing slug returns <code>missing_slug</code>. [V, P19]</li>
+<li><strong>Too thin</strong> ("an app for hikers") is refused and redirected to <code>bmad-prd</code>: "This skill distills; it does not coach." [V, P19]</li>
+<li><strong>Domain gaps are flagged, not filled:</strong> input silent on PHI/HIPAA, PCI, or fail-safe becomes an open question. [V, P19]</li>
+<li><strong>Two-pass self-validate</strong> after every create or update: coherence (Spec Law 1 to 6, 8) and preservation (walk the source claim by claim; drops of wrapper ceremony are logged as "Wrapper-only content"). Verdicts are appended to the memlog as <code>event</code> entries. [V, P19]</li>
+<li><strong>Conflicting live sources</strong> are surfaced to the user, not silently chosen between. [V, P19]</li>
+</ul>
+<h2 id="story-breakdown-optional">Story Breakdown (optional)</h2>
+<ul>
+<li>Interactive only. Headless runs never do it, "even when the invocation text asks for it." Requires <code>SPEC.md</code> on disk. Offered at most once per run. [V, P19]</li>
+<li>A conversation, not a silent render: for each story, the user is asked for <code>spec_checkpoint</code>, <code>done_checkpoint</code>, and any <code>invoke_dev_with</code> note. [V, P19]</li>
+<li><code>stories.yaml</code> is a list in execution order. Fields: <code>id</code> (quoted string, unique, no zero-padding), <code>title</code>, <code>description</code> (two sentences, points into SPEC.md), <code>spec_checkpoint</code>, <code>done_checkpoint</code> (both caller-only: read by the dispatcher, never by the dev skill), <code>invoke_dev_with</code> (free text appended verbatim to the dispatch prompt). <strong>No <code>status</code> field, ever.</strong> [V, P19]</li>
+<li>An id is pinned once its story spec file exists (<code>stories/&lt;id&gt;-*.md</code>); retired ids are never reassigned. Ids must be prefix-free (<code>"3"</code> and <code>"3-2"</code> cannot coexist). [V, P19]</li>
+<li>An update to a spec never rewrites <code>stories.yaml</code>; it flags stale descriptions and offers to re-run breakdown. [V, P19]</li>
+<li><strong><code>spec_checkpoint: true</code> has no completion condition, observed to pass through empty (Experiment 5i).</strong> The field only means a human reviews the story spec before implementation happens; nothing requires that review to actually resolve anything, or checks afterward that it did. Observed: the one story in a four-story epic carrying <code>spec_checkpoint: true</code> was the story that happened to answer an open question about its own capability — and its <code>## Spec Change Log</code> (the section that exists precisely to record such answers) was left empty, same as the three stories with no checkpoint at all. [V-lab, <a href="../lab-log/">lab-log.md</a>] A checkpoint satisfiable by doing nothing with it isn't a gate. [I]</li>
+</ul>
+<p>This matches how <code>bmad-build</code> step 1 looks up a story: <code>{spec_folder}/stories.yaml</code> by <code>id</code>, then <code>stories/{id}-*.md</code> (see <a href="../build-step-by-step/">build-step-by-step.md</a>). [V, P18, P19]</p>
+<h2 id="inference">Inference</h2>
+<ul>
+<li>Because the spec is derived from a log, "edit the spec" is really "append to the memlog and re-run <code>bmad-spec</code>". This changes how a team would handle a requirement change: the human owner talks to the skill, not the file. [I]</li>
+<li>No status in <code>stories.yaml</code> fits <a href="../flow/">flow.md</a>'s finding that status lives in <code>sprint-status.yaml</code>, not in the story list. [I]</li>
+</ul>
+<h2 id="observed-in-a-lab-experiments-5-to-5i-lab-logmd">Observed in a lab (Experiments 5 to 5i, <a href="../lab-log/">lab-log.md</a>)</h2>
+<ul>
+<li>Interactive spec run: asked a slug, then express or guided, then wrote <code>SPEC.md</code> (3 capabilities, 4 assumptions, 7 open questions), both self-validate passes PASS. [V-lab]</li>
+<li>Story Breakdown ran on request, asked for each story's <code>spec_checkpoint</code>, <code>done_checkpoint</code>, and <code>invoke_dev_with</code>, wrote <code>stories.yaml</code>, and then <strong>refused to let a scope decision live in <code>invoke_dev_with</code></strong>, requiring it to land in <code>SPEC.md</code> (mint a new capability, or resolve the open question in place). Re-derivation kept ids stable. [V-lab]</li>
+<li>Story Breakdown was not offered unprompted after the express spec. [V-lab]</li>
+</ul>
+<details class="note">
+<summary>Hand-edits and re-derivation (Experiments 5b–5f)</summary>
+<p>A one-sentence editorial update kept all six hand-applied edits and did not flag that the memlog lacked them; only the requested line changed. The "overwritten on the next derive" rule was not borne out for a small change. The memlog and <code>SPEC.md</code> silently disagree afterward. [V-lab] <strong>Experiment 5c</strong> repeated it with a real decision (Carl's "normalize" answer): three surgical edits, every hand-edit kept, nine memlog entries, no mention of the drift; it did spot a stale clause in <code>stories.yaml</code> and asked before touching it. [V-lab] <strong>Experiment 5d then removed <code>SPEC.md</code>:</strong> the skill regenerated it wholesale from the memlog (345 s, 66 lines reworded), lost all content that existed only in the old file (the six two-tag edits), and flagged that <code>stories.yaml</code> no longer matched. So the "derived from the memlog" rule holds for a true re-derive; small updates edit in place. [V-lab] <strong>Experiment 5e:</strong> routing the same requirement change through <code>bmad-spec</code> found the approved change proposal in the folder, logged 15 memlog entries, produced the same spec content, and left <code>stories.yaml</code> alone (stale, flagged). [V-lab] <strong>Experiment 5f:</strong> Story Breakdown re-run after the change confirmed the same four stories with only the stale one changed, carried every checkpoint value forward on request, and verified the result by diff. [V-lab]</p>
+</details>
+<details class="note">
+<summary>Answering an open question routinely opens a new one, so the list never fully empties</summary>
+<p>Across Experiments 5g and 5h, the open-question count on this one spec moved 7 → 8 (minting a capability) → 9 (a requirement change) → 8 → 7 → 5, as each answer settled one gap and often exposed an adjacent one the input hadn't covered (settling "lowercase" for adding a tag opened whether removing or filtering also lowercases; settling the API shape for a two-tag filter opened what happens with three entries that collapse to fewer after duplicates are removed). The skill never closed a gap by assuming an answer, and it would not fill an incomplete human answer either — "new codes" with no names, or "digits, hyphens" with spaces left unstated, both stayed open until asked again. [V-lab]</p>
+</details>
+<details class="note">
+<summary>The whole epic was built out (Experiment 5h)</summary>
+<p>All four stories, in order, with Story Breakdown re-run twice as the spec changed underneath it, each re-run correctly proposing the same story list with only the stale description touched. Full detail in <a href="../build-step-by-step/">build-step-by-step.md</a>'s lab-findings section and <a href="../lab-log/">lab-log.md</a>. [V-lab]</p>
+</details>
+<h2 id="not-yet-checked">Not yet checked</h2>
+<ul>
+<li><code>assets/headless-schemas.md</code> (JSON contract for headless runs). [?]</li>
+<li>Whether <code>spec_checkpoint</code> and <code>done_checkpoint</code> are honored by <code>bmad-build-auto</code> or only by <code>bmad-loop</code>. [?]</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

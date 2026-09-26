@@ -1,0 +1,1584 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ctupper.github.io/woods-walks/bmad/build-step-by-step/">
+      
+      
+        <link rel="prev" href="../agents/">
+      
+      
+        <link rel="next" href="../spec-skill/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Building - Woods Walks</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bmad-build-step-by-step" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Woods Walks" class="md-header__button md-logo" aria-label="Woods Walks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Woods Walks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Building
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../posts/2025-12-07-first-snow/" class="md-tabs__link">
+          
+  
+  
+  Walks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+  BMad Wiki
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Woods Walks" class="md-nav__button md-logo" aria-label="Woods Walks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Woods Walks
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Walks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Walks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../posts/2025-12-07-first-snow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First Snow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BMad Wiki
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    BMad Wiki
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-starts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it starts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-standards-the-whole-run-is-judged-against" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two standards the whole run is judged against
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#route-choice-oneshot-vs-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Route choice: oneshot vs dispatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-the-part-with-the-most-machinery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review: the part with the most machinery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-review-layers-what-each-subagent-is-told" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The review layers (what each subagent is told)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-spec-file-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The spec file (template)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-frozen-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The frozen block
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-a-human-is-pulled-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where a human is pulled in
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overlap-with-lab-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overlap with lab findings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#not-yet-checked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not yet checked
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skills
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spec-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prd-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PRD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ux-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ideation-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../systemic-findings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systemic Findings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-starts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it starts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-standards-the-whole-run-is-judged-against" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two standards the whole run is judged against
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#route-choice-oneshot-vs-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Route choice: oneshot vs dispatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-the-part-with-the-most-machinery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review: the part with the most machinery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-review-layers-what-each-subagent-is-told" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The review layers (what each subagent is told)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-spec-file-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The spec file (template)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-frozen-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The frozen block
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-a-human-is-pulled-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where a human is pulled in
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overlap-with-lab-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overlap with lab findings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#not-yet-checked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not yet checked
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="bmad-build-step-by-step"><code>bmad-build</code> Step by Step</h1>
+<blockquote>
+<p><strong>Re-verified against the v6.12.0 release (2026-09-19).</strong> This page was first written from a later, unreleased clone (<code>f033e70</code>). The route, review, and step-3 sections below were re-read from the release tag (<code>labs\BMAD-METHOD-v6.12.0\src\bmm-skills\ship\bmad-build</code>, identical to the installed skill) and rewritten. The clone-only differences are kept in the last section. Tags [V, P18r] mean the release-tag files.</p>
+</blockquote>
+<p><em>Describes BMAD-METHOD v6.12.0. Source: <code>skills/bmad-build/</code> (source ID P18, see <code>../sources.md</code>). Tags: [V, P18] traced to the skill's own files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 2, 3, 4b, 5h, 5i; see <a href="../lab-log/">lab-log.md</a>). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24.</em></p>
+<p>This page is the mechanism behind the "Build and verify" stage in <a href="../flow/">flow.md</a>. That page says what <code>bmad-build</code> does. This one says how the skill is put together.</p>
+<div class="admonition tip">
+<p class="admonition-title">TL;DR</p>
+<p><code>bmad-build</code> runs as a step-file workflow: clarify and route, plan, implement, review, present. It picks <code>oneshot</code> (small, no intent gaps, nothing irreversible) or <code>dispatch</code> (a full spec, subagent implementation, three independent reviewers) based on three facts it writes down about the request, not a guess. Every review finding gets a human-assignable verdict and a fixed routing (fix now, ask the human, or defer) — nothing is silently dropped or silently applied. It halts for a human at specific, named points (dirty tree, open questions, approval, an ambiguous edge case, a loop past 5 tries) and never pushes code on its own.</p>
+</div>
+<h2 id="how-it-starts">How it starts</h2>
+<ul>
+<li><code>SKILL.md</code> is only a launcher. It runs <code>uv run ... _bmad/scripts/render_skill.py</code> once, which renders the skill's templates with the <code>customize.toml</code> values and prints the path of a rendered <code>workflow.md</code>. If <code>uv</code> is missing it halts. [V, P18]</li>
+<li><strong>The release <code>SKILL.md</code> takes no route or review arguments.</strong> It runs the launcher and follows the rendered workflow. (The clone added <code>--set workflow.route</code> / <code>workflow.review</code>.) [V, P18r]</li>
+<li><code>workflow.md</code> is a step-file workflow: read one step file at a time, in order, and halt at checkpoints for the human. Steps carry state in the spec's frontmatter. [V, P18]</li>
+<li>Goal stated there: "Turn user intent into a hardened, reviewable artifact." [V, P18]</li>
+</ul>
+<h2 id="two-standards-the-whole-run-is-judged-against">Two standards the whole run is judged against</h2>
+<ul>
+<li><strong>Ready for Development:</strong> every task has a file path and action, ordered by dependency, acceptance criteria in Given/When/Then, no placeholders or TBDs, no unresolved gaps or contradictions. [V, P18]</li>
+<li><strong>Scope:</strong> one user-facing goal, 900 to 1600 tokens. "Neither limit is a gate"; both are proposals the user can override. Multi-goal means two or more independently shippable deliverables. [V, P18] [?] re-check: the template section below gives a 900 to 1300 target with 1600 as the flag point; whether "900 to 1600" here is the workflow's own wording or a merge of the two is unverified against the tag.</li>
+</ul>
+<h2 id="the-steps">The steps</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What it does</th>
+<th>Human checkpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 Clarify and route</td>
+<td>Resolves state: explicit spec path, else recent conversation, else scans for active specs and asks. Loads planning artifacts (an epic-story gets a cached <code>epic-&lt;N&gt;-context.md</code>, compiled by a subagent if stale). Halts if the git tree is dirty. Multi-goal check; splits go to <code>deferred-work.md</code>. Picks the spec filename.</td>
+<td>Dirty tree; multiple goals; which spec to resume</td>
+</tr>
+<tr>
+<td>2 Plan</td>
+<td>Investigates the codebase, writing findings into the spec's Code Map. Chooses route. Fills the spec template, self-reviews against Ready for Development. Open Questions must be answered by the human.</td>
+<td>Open Questions; token-count split; <strong>Checkpoint 1: approve</strong></td>
+</tr>
+<tr>
+<td>3 Implement</td>
+<td>Records <code>baseline_commit</code>, sets status <code>in-progress</code>, dispatches implementation to a subagent (or does it directly if none). Stages the diff to a temp file and reads it ("judge against the diff, not against the implementation subagent's report"). Verifies every task in the spec is done and every acceptance criterion is satisfied, ticking tasks <code>[x]</code>. Audits the I/O &amp; Edge-Case Matrix: every row needs a test that actually ran and passed. [V, P18r]</td>
+<td>Only if a matrix row is ambiguous</td>
+</tr>
+<tr>
+<td>4 Review</td>
+<td>Sets status <code>in-review</code>. Runs review lenses as parallel subagents against the diff file. Triage, then route findings.</td>
+<td>Loopbacks, or after 5 loops</td>
+</tr>
+<tr>
+<td>5 Present</td>
+<td>Sets status <code>done</code>, makes a <strong>local commit</strong> if the tree is dirty, prints a one or two sentence summary, offers PR or walkthrough. Never pushes.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>All [V, P18]. Step 1 and 2 check <code>status</code> frontmatter (<code>draft</code>, <code>ready-for-dev</code>, <code>in-progress</code>, <code>in-review</code>, <code>done</code>) so a run can resume mid-way. [V, P18]</p>
+<h2 id="route-choice-oneshot-vs-dispatch">Route choice: oneshot vs dispatch</h2>
+<p>At the release, step 2 investigates the codebase, then "writes down three facts about the plan, as it is now, not as a guess": [V, P18r]</p>
+<ul>
+<li><strong>Intent gaps:</strong> things the request does not say, the code cannot settle, and the user would notice in the result. Only the human can answer these. Choices the user would not notice are the skill's to decide and record.</li>
+<li><strong>Irreversibles:</strong> migrations, data deletion or mutation, external side effects, deploy or config triggers.</li>
+<li><strong>Footprint:</strong> files to change, and anything new that other code will call or depend on.</li>
+</ul>
+<p><strong>No intent gaps, nothing irreversible, and a small change: <code>route: oneshot</code>.</strong> The skill writes a minimal spec (frontmatter, Intent inside the frozen block, Implementation Notes; every other section deleted), sets status <code>in-progress</code>, and goes straight to <code>step-oneshot.md</code>: implement in the same session, review, classify, present. <strong>Otherwise the full spec is written and <code>route: dispatch</code></strong>: Code Map, Open Questions, tasks, and the step 3 subagent handoff. [V, P18r]</p>
+<ul>
+<li>This is exactly the docs' "three checks: intent gaps, irreversible actions, footprint" (<a href="../flow/">flow.md</a>). Experiment 2 took the dispatch path and left <code>route: dispatch</code> in its spec. [V, P18r; V-lab]</li>
+<li>A oneshot run that discovers something step 2 missed stops and replans: the request left out something the user would notice, it needs something irreversible, or the change is growing beyond the plan. It records the trigger in Implementation Notes, restores Code Map and Open Questions, sets <code>route: dispatch</code> and <code>status: draft</code>, and returns to step 2 step 6. [V, P18r]</li>
+<li>The clone replaced this gate with <code>route</code> and <code>review</code> settings and a line-count estimate ("100 lines or fewer: oneshot"); that is not in the release. [V, clone <code>customize.toml</code>]</li>
+</ul>
+<h2 id="review-the-part-with-the-most-machinery">Review: the part with the most machinery</h2>
+<ul>
+<li>Review layers run as subagents at the same model level as the session, launched together and awaited in the same turn. At the release there is no quick/thorough choice: the <strong>dispatch</strong> route runs <code>workflow.review_layers</code> (three layers), and the <strong>oneshot</strong> route runs <code>workflow.oneshot_review_layers</code> (<strong>Blind Hunter only</strong>). [V, P18r]</li>
+<li>Reviewers' own severity ratings are discarded. The main session verifies each finding at the cited location and gives exactly one verdict: <code>high</code>, <code>medium</code>, <code>low</code>, <code>false</code>, or <code>maybe-false</code>. Every finding gets a row in a <code>## Review Triage Log</code> in the spec; none may be dropped. [V, P18]</li>
+<li>Survivors are grouped by shared root cause and routed to one of four categories: <strong>intent_gap</strong> (frozen intent incomplete; revert code, ask the human, re-plan), <strong>bad_spec</strong> (the spec should have prevented it; revert, amend the non-frozen sections, log it in <code>## Spec Change Log</code>, re-implement), <strong>patch</strong> (trivial fix; send back to the same implementer subagent), <strong>defer</strong> (pre-existing; append to <code>deferred-work.md</code>). [V, P18]</li>
+<li>Loopbacks are capped: <code>review_loop_iteration</code> above 5 halts and escalates to the human. [V, P18]</li>
+<li>Two guard rules: a finding whose fix would edit this build's spec is rejected, and a finding whose fix edits agent-context files (CLAUDE.md, AGENTS.md) is deferred. [V, P18]</li>
+<li>Without subagents, the workflow writes each lens's full prompt to a file and halts, asking the human to run it in a separate session (ideally a different LLM) and paste the findings back. [V, P18]</li>
+<li><strong>Two gaps in this mechanism, found by running a real epic through it and then retrospecting on the result (Experiment 5i):</strong></li>
+<li>A <code>false</code> verdict has no expiry. Triage renders <code>false</code> from what is true <em>right now</em>; nothing records the condition a "no path does X" refutation depends on, so a later story that introduces path X has no prompt to revisit an earlier story's <code>false</code>. Observed: story 1 verdicted a duplicate-id finding <code>false</code> on "no path creates duplicates" (true then); story 2 re-cited that verdict by reference rather than re-deriving it; story 4 introduced the first path that deletes, and the original premise was already false by the time anyone re-checked. [V-lab, <a href="../lab-log/">lab-log.md</a>]</li>
+<li><code>bad_spec</code> routing logs to <code>## Spec Change Log</code> only when observable behavior changes — a triage decision that changes a frozen bullet's <em>stated mechanism</em> while producing the same output (the exact case is documented, not what actually runs) leaves no record at all, because "changes no matrix row" reads as nothing to log. Observed: a triage row changed a frozen boundary from checking a tag after lowercasing to checking it on raw input (correctly, to reject Unicode confusables); the frozen text, the spec, and the eventual commit message all still describe the old order, three artifacts out of sync with the one comment that's right. [V-lab, <a href="../lab-log/">lab-log.md</a>]</li>
+</ul>
+<h2 id="the-review-layers-what-each-subagent-is-told">The review layers (what each subagent is told)</h2>
+<p>Definitions live in <code>customize.toml</code> and <code>review-prompts/</code>. [V, P18r]</p>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>Layers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>oneshot</td>
+<td><strong>Blind Hunter</strong> only.</td>
+</tr>
+<tr>
+<td>dispatch</td>
+<td><strong>Blind Hunter</strong>, <strong>Edge Case Hunter</strong>, <strong>Verification Gap Reviewer</strong>, run together.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Blind Hunter:</strong> sees only the diff, no spec. Told to look for what is missing, with a finding floor N = min(floor(sqrt(kB)+1), 10) from diff size, and not to stop at zero findings. [V, P18r; the first-pass text came from the clone and matches]</li>
+<li><strong>Edge Case Hunter:</strong> a "pure path tracer" that lists only unhandled branches; reads the spec's claims only after tracing, then tests each claim ("exactly as X does") against the code. Adds a deletion check when code was removed. [V, P18r]</li>
+<li><strong>Verification Gap Reviewer:</strong> asks whether the changed behavior could break without any test failing (regression gap, missing-adoption gap, broken-verification gap); must read a test before claiming what it covers. Its gap findings arrive pre-verified. [V, P18r]</li>
+<li>There is no Intent Alignment or Quick layer at the release. Those are clone-only. <code>bmad-code-review</code> (a separate skill) adds an Acceptance Auditor when a spec exists. [V, P18r; V-lab]</li>
+<li>Every layer is told it is the reviewer: no skills, no sub-subagents, return findings as text. Layers report no severity; the main session assigns verdicts (see above). [V, P18r]</li>
+<li>Information is withheld on purpose: Blind Hunter never sees the spec, the Edge Case Hunter sees the claims last, and the spec is "the change's own account of itself," testimony not evidence. [V, P18r] Intent: prevent reviewers from inheriting the author's assumptions. [I]</li>
+<li>Layers are overridable: <code>instruction</code> can run anything (an external reviewer via bash), an empty <code>instruction</code> disables a layer, a new <code>id</code> appends. [V, P18r]</li>
+</ul>
+<h2 id="the-spec-file-template">The spec file (template)</h2>
+<p><code>spec-template.md</code> sets the artifact <code>bmad-build</code> writes and updates. [V, P18]</p>
+<ul>
+<li><strong>Frontmatter (release):</strong> title, <code>type</code> (feature, bugfix, refactor, chore), date, <code>status</code>, <code>route</code> (<code>oneshot</code> or <code>dispatch</code>), <code>review_loop_iteration</code>, optional <code>context:</code> list of project docs the implementer loads itself. (The clone added <code>route_source</code>, <code>review</code>, <code>review_source</code>, <code>lenses_ran</code>.) [V, P18r]</li>
+<li><strong>Human-owned (frozen after approval):</strong> Intent (Problem, Approach), Boundaries and Constraints (Always / Never), an I/O and Edge-Case Matrix.</li>
+<li><strong>Agent-owned:</strong> Code Map, Tasks and Acceptance (file, action, rationale; Given/When/Then), Implementation Notes (append-only), Spec Change Log (append-only, filled on bad_spec loopbacks), Review Triage Log (append-only, every pass), Design Notes, Verification (commands with expected results).</li>
+<li>Target size 900 to 1300 tokens; over 1600 is flagged as context-rot risk. Oneshot specs drop Boundaries, Matrix, Code Map, Tasks, and Design Notes. "Never over-specify how" (boundaries and examples instead). [V, P18]</li>
+<li><strong>Implementation Notes can go stale the moment review patches land, with nothing to catch it (Experiment 5i).</strong> The template says Implementation Notes is agent-owned and append-only, but nothing requires a second write after the review loop finishes. Observed across a four-story epic: two stories' Implementation Notes quoted test counts that were already wrong by the time review patched in more tests (off by 2 and by 1), while the corresponding commit <em>messages</em>, written after review, had the correct counts the whole time. The artifact meant for the next story's Code Map to read is the one surface that doesn't get a second pass. [V-lab, <a href="../lab-log/">lab-log.md</a>]</li>
+<li><strong>A review pass that discovers a better test shape has no mechanism to propose it for stories already closed.</strong> Observed: a reviewer on the fourth story of an epic invented a mutation-guard assertion (capture the pre-call array, assert it untouched after) that would have caught the same class of bug in the first two stories, neither of which had it. Verified by mutation testing during a later retrospective: rewriting an earlier story's function to mutate in place still passed its full test suite. The gap is structural, not a one-off miss — nothing in the review loop generates a backfill task across already-<code>done</code> stories when a later one finds a stronger check. [V-lab, <a href="../lab-log/">lab-log.md</a>]</li>
+<li><strong>A deferred defect can end up pinned by a test as if it were intended.</strong> In the tags epic, the <code>nextId</code> id-reuse bug was deferred and also covered by a test asserting the reissue happens, with no marker saying "this documents a known defect, not the contract." Whoever fixes the bug must first find and invert that test. The deferral mechanism (<code>deferred-work.md</code>) and the test suite do not reference each other. [V-lab, <a href="../lab-log/">lab-log.md</a> Experiment 5i, finding A7]</li>
+<li><strong>A testable spec line can be asserted nowhere, and no review layer notices across stories.</strong> <code>SPEC.md</code> said the epic introduces "three distinct new error codes." The codes appear 25 times in the tests, always as an individual expected value, never compared to each other; a refactor collapsing two of them would pass all 61 tests. The Verification Gap Reviewer runs per story, and each story introduced one code, so no single review saw the spec line as unverified. [V-lab, <a href="../lab-log/">lab-log.md</a> Experiment 5i, finding B7]</li>
+</ul>
+<h2 id="the-frozen-block">The frozen block</h2>
+<p>Everything inside <code>&lt;frozen-after-approval&gt;</code> in the spec is locked after approval. Only the human changes it. Implementation, review, and patching must not edit it. [V, P18] This is how BMAD keeps intent from drifting as code is re-derived. [I]</p>
+<ul>
+<li><strong>The frozen-Never rule has no escape hatch for cross-story cleanup, observed to cost real findings (Experiment 5i).</strong> A story's Never clause bars touching any earlier story's code; three consecutive stories in one epic independently found the same duplication and rejected fixing it for that exact reason. Each rejection was locally correct — extracting a shared helper really would have edited a prior story's frozen code — and the aggregate result was duplication every reviewer saw and none could act on. Nothing in the workflow schedules a cross-story refactor slice at the end of a spec to absorb exactly this kind of finding. [V-lab, <a href="../lab-log/">lab-log.md</a>]</li>
+</ul>
+<h2 id="where-a-human-is-pulled-in">Where a human is pulled in</h2>
+<p>Partial answer to the STATE.md open question "where does a human get pulled in" (from the files, not a run). From the step files: dirty git tree, choosing among multiple goals, choosing among active specs, Open Questions, token count over 1600, Checkpoint 1 approval, an ambiguous matrix row, an intent_gap finding, a loopback past 5, missing subagents for review. [V, P18] Everything else runs without asking. [I]</p>
+<h2 id="overlap-with-lab-findings">Overlap with lab findings</h2>
+<p>Seven things a real build run showed that the step files alone don't say, each collapsed by default.</p>
+<details class="note">
+<summary>A user rule can override BMAD's default commit step, every time, not just once</summary>
+<p>Experiment 2 ran this workflow and logged that the commit step did not happen because of Carl's global confirm-before-committing rule. Step 5 says to commit locally when the tree is dirty, so that is a real conflict between a user rule and BMAD's default. [V-lab, <a href="../lab-log/">lab-log.md</a>; V, P18] <strong>Confirmed again on every story of a four-story epic (Experiment 5h):</strong> the presentation step said each time it would normally commit, and correctly attributed skipping it to the standing rule rather than silently doing nothing. Commits happened afterward as a separate human action, never as part of the workflow. [V-lab]</p>
+</details>
+<details class="note">
+<summary>The dirty-tree checkpoint fires with an unscripted question, not boilerplate</summary>
+<p>Story 2 of Experiment 5h halted at step 1 because story 1's work was uncommitted, and rather than a fixed message it reasoned through the options itself (commit first, build on the mixed diff, or branch/stash) and asked which the human wanted. The workflow gives step 1 no set wording for this case; the question was the model's own judgment, not a template. [V-lab]</p>
+</details>
+<details class="note">
+<summary>A review finding raised and rejected three separate times was self-flagged</summary>
+<p>Across Experiment 5h's stories 1 to 3, three independent review passes each raised the same finding (a note with a non-array <code>tags</code> field would substring-match a filter) and it was rejected each time on the same grounds. On the third occurrence the build told the human, unprompted, that being raised three times independently made this "the most likely place my reasoning is wrong" — noticing its own repeated dismissal and surfacing that as a signal, rather than just repeating the dismissal a fourth time. Not seen in Experiments 2 or 3, where review variance existed but nothing flagged a pattern in its own verdicts. [V-lab]</p>
+</details>
+<details class="note">
+<summary>A deferred finding was verified empirically before being filed, with a runnable repro</summary>
+<p>Story 4's <code>deferred-work.md</code> entry (the <code>nextId</code> id-reuse issue predicted as early as story 1's Design Notes) states the reproduction steps directly: create three notes, remove the highest-numbered one, add a new note, and the new note's id resolves an old lookup to the wrong record. It was correctly left deferred rather than fixed, because the frozen spec's Never clause barred changing <code>nextId</code> inside that story. [V-lab]</p>
+</details>
+<details class="note">
+<summary>Whether a finding gets routed to patch or HALT depends on what documented context exists to weigh it against</summary>
+<p>The same id-reuse bug, found by the same reviewer type, was a quiet <code>deferred-work.md</code> note with no <code>AGENTS.md</code> present and a routed <code>HALT</code> once one existed pinning the store's exact shape — the triage log named the pinned contract as the reason the fix was non-trivial. Context that exists to be checked against is what turns "deferrable" into "ask the human." (Experiment 4b) [V-lab]</p>
+</details>
+<details class="note">
+<summary>An interrupted build resumes cleanly from its status field</summary>
+<p>In Experiment 5h, a run killed by a too-short timeout during story 3's review step left implementation and tests done and the spec at <code>status: in-review</code>. Re-invoking <code>bmad-build</code> picked up at review with no rework, as the step files' status checks promise ("so a run can resume mid-way", above). [V-lab]</p>
+</details>
+<details class="note">
+<summary>Headless claude -p does spawn both implementation and review subagents, when given explicit permission</summary>
+<p>Step 1's "ask once for the whole workflow run" subagent gate fired mid-build in Experiment 5h (dispatch route); once answered yes, review ran three parallel layers and the presentation step's findings distinguish reviewer-found issues from the main session's own triage, consistent with independent subagents rather than one session role-playing several. [V-lab; answers the STATE.md open question "which skills actually spawn subagents" for <code>bmad-build</code>, other skills untested]</p>
+</details>
+<h2 id="not-yet-checked">Not yet checked</h2>
+<ul>
+<li><code>compile-epic-context.md</code> and <code>sync-sprint-status.md</code>; the second half of the Edge Case Hunter and Verification Gap prompts (output formats). [?]</li>
+</ul>
+<details class="info">
+<summary>What the clone changed (superseded — kept for the record, not needed to understand the release)</summary>
+<p>Method: <code>diff -r --strip-trailing-cr</code> of a fresh <code>npx bmad-method install</code> (<code>labs\lab3-review\.claude\skills</code>) against <code>labs\BMAD-METHOD\skills</code> at <code>f033e70</code>. The installer writes CRLF, so a plain diff shows every file as changed; normalizing that leaves the real differences. [V-lab]</p>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Real differences</th>
+<th>Effect on the wiki</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bmad-build</code></td>
+<td>16 files. Installed: <code>route</code> is <code>oneshot</code> or <code>dispatch</code>, chosen by a route gate in step 2 on three facts (intent gaps, irreversibles, footprint); review is a single <code>review_layers</code> list of three layers; no route/review invocation arguments. Clone: <code>oneshot</code>/<code>full</code>, <code>route</code> and <code>review</code> settings, a line-count route rule, quick/thorough lens sets plus an Intent Alignment lens, <code>lenses_ran</code> and <code>review_source</code> frontmatter.</td>
+<td>Route and review claims on this page are clone-only, marked above. Explains Experiment 2's unexplained <code>route: dispatch</code>.</td>
+</tr>
+<tr>
+<td><code>bmad-code-review</code></td>
+<td>Installed: <code>steps/</code> folder, four <code>review_layers</code> (Blind Hunter, Edge Case Hunter, Verification Gap, Acceptance Auditor gated on a spec), no quick/thorough. Clone: step files at top level, <code>review = "thorough"</code>, quick/thorough lens sets.</td>
+<td><a href="../agents/">agents.md</a> code-review bullet and the docs page it cites (P14) describe the clone. Marked.</td>
+</tr>
+<tr>
+<td><code>bmad-spec</code>, <code>bmad-prd</code>, <code>bmad-architecture</code>, <code>bmad-ux</code></td>
+<td><code>SKILL.md</code> activation lines only: installed loads <code>user_name</code> / <code>communication_language</code> config and greets by name; the clone dropped those. <code>lint_spine.py</code> differs in formatting and a Python floor (3.10 installed, 3.11 clone). One example file and one comment line differ. Spec assets and templates are identical.</td>
+<td>Substantive claims stand.</td>
+</tr>
+<tr>
+<td>Five agents</td>
+<td><code>SKILL.md</code> config-loading lines only (same language-config change); <code>customize.toml</code> identical.</td>
+<td>Persona claims stand.</td>
+</tr>
+</tbody>
+</table>
+<p>Reading: the clone is a later snapshot of main. It removed the language config from activation and reworked build/review (route setting, quick/thorough). The npm release is what a user gets today. [I]</p>
+<p><strong>Superseded by the re-pin below:</strong> the installed skills were then shown identical to the <code>v6.12.0</code> tag, and docs P1 to P17 were diffed against the tag (material differences in P1, P7, P14, P17; see <code>../sources.md</code>).</p>
+<p><strong>Re-pin result (2026-09-19):</strong> the installed 29 skills are <strong>byte-identical (CRLF-normalized) to the <code>v6.12.0</code> git tag</strong> (commit <code>05bfbd4</code>, which is also the npm package's <code>gitHead</code>). Skills at the tag live under <code>src/bmm-skills/...</code>, not the top-level <code>skills/</code> of the clone. A worktree of the tag is at <code>C:\Users\ctupp\labs\BMAD-METHOD-v6.12.0</code>. So the installed behavior <em>is</em> the release; the clone at <code>f033e70</code> is a later main snapshot. [V-lab] The marks that were on this page have been resolved against the tag; see the top note. [I]</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
