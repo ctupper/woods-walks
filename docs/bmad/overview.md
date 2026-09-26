@@ -2,6 +2,9 @@
 
 *For someone who has never seen BMAD. Describes BMAD-METHOD v6.12.0. Tags: [V] traced to the project's own docs or skill files (detail and source IDs on the linked pages), [V-lab] seen in a lab run, [I] inferred. Drafted unattended 2026-09-19 and read by the project owner on 2026-09-20, who found it good. The owner had followed the research closely, so a read by someone who has never seen BMAD would still be stronger evidence.*
 
+!!! abstract "TL;DR"
+    BMAD adds named commands ("skills") to an AI coding tool. A few turn a written-down intent into a one-page spec, then implement and independently review the change against it. Small work can skip straight to building; bigger work starts with planning skills instead. It halts and asks rather than guessing when your intent is unclear, and it doesn't sync with your tracker or decide what you want. The rest of this page is the detail, with a citation for every claim.
+
 ## What it is
 
 BMAD is a set of named commands ("skills") you add to an AI coding tool such as Claude Code. Some help you think (explore an idea, research a decision, write down what you settled on). Others help you build (turn a described change into reviewed, tested code). You can use either group alone. [V, `agents.md`]
@@ -17,8 +20,6 @@ The released docs' delivery diagram shows one loop of four steps: **Clarify, Pla
 | A vague notion | Clarify |
 | A big, clear idea | Plan |
 | A small change | Build and verify |
-
-[V, `flow.md`]
 
 ## The shortest path
 
@@ -40,12 +41,25 @@ For a change that fits in one session, you can skip planning documents entirely:
 
 ## Practical facts from the lab
 
-- Install works on Windows with Node, git, and `uv` (a Python tool the installer requires). [V-lab, `lab-log.md`]
-- A larger build with three independent reviewers took about 32 minutes; a small change in an existing codebase, with one reviewer, took about 6.5. [V-lab, `lab-log.md`]
-- In a code-review test, both review modes caught all six planted flaws in a small flawed commit, but the review workflow stopped three times for human decisions until they were answered in advance. [V-lab, `lab-log.md`]
-- A requirement change went through the whole loop (spec, stories, change proposal, spec update, stories re-run) with a person answering each question. Routing the change through `bmad-spec`, not by hand-editing `SPEC.md`, kept it in the spec's log; hand-edits were lost when the spec was regenerated. [V-lab, [lab-log.md](lab-log.md)]
-- That epic was then built end to end: four stories, each gated by real checkpoints (dirty tree, approval, token count), each reviewed independently, 61 tests passing at the end. Review caught one real bug (an id gets reissued after its note is deleted) and correctly left it deferred rather than smuggling a fix into an unrelated story. A different finding was raised and rejected three separate times across three stories — and BMAD flagged that pattern to the human itself, unprompted, as the likely place its own reasoning was wrong. [V-lab, [lab-log.md](lab-log.md)]
-- Your own instructions still apply: a personal "confirm before committing" rule overrode BMAD's default commit step, on every single story, not just once. [V-lab, `lab-log.md`]
+Six things observed running BMAD for real, each collapsed by default — expand the ones you care about.
+
+??? note "Install requirements"
+    Install works on Windows with Node, git, and `uv` (a Python tool the installer requires). [V-lab, `lab-log.md`]
+
+??? note "How long a build actually takes"
+    A larger build with three independent reviewers took about 32 minutes; a small change in an existing codebase, with one reviewer, took about 6.5. [V-lab, `lab-log.md`]
+
+??? note "Review catches real flaws, but stops for human decisions"
+    In a code-review test, both review modes caught all six planted flaws in a small flawed commit, but the review workflow stopped three times for human decisions until they were answered in advance. [V-lab, `lab-log.md`]
+
+??? note "A requirement change, routed the right way"
+    A requirement change went through the whole loop (spec, stories, change proposal, spec update, stories re-run) with a person answering each question. Routing the change through `bmad-spec`, not by hand-editing `SPEC.md`, kept it in the spec's log; hand-edits were lost when the spec was regenerated. [V-lab, [lab-log.md](lab-log.md)]
+
+??? note "A four-story epic, built end to end"
+    That epic was then built end to end: four stories, each gated by real checkpoints (dirty tree, approval, token count), each reviewed independently, 61 tests passing at the end. Review caught one real bug (an id gets reissued after its note is deleted) and correctly left it deferred rather than smuggling a fix into an unrelated story. A different finding was raised and rejected three separate times across three stories — and BMAD flagged that pattern to the human itself, unprompted, as the likely place its own reasoning was wrong. [V-lab, [lab-log.md](lab-log.md)]
+
+??? note "Your own rules still apply"
+    A personal "confirm before committing" rule overrode BMAD's default commit step, on every single story, not just once. [V-lab, `lab-log.md`]
 
 ## Where to go next
 

@@ -1,0 +1,14 @@
+/* Soften inline code so a trailing citation like [V, `lab-log.md`] reads as
+   a reference note instead of competing visually with the surrounding
+   prose. There's no markup that distinguishes a citation's code span from
+   an ordinary one (e.g. `bmad-spec` mid-sentence), so this applies to all
+   inline code, not just citations - a deliberate, blunt trade-off rather
+   than rewriting every citation in the wiki to wrap it in its own span.
+   Code *blocks* (fenced ``` ```) are untouched: the `:not(pre) >` guard
+   excludes them. */
+.md-typeset :not(pre) > code {
+  font-size: 0.8em;
+  background-color: transparent;
+  color: var(--md-default-fg-color--light);
+  padding: 0 0.2em;
+}
