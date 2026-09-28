@@ -580,3 +580,21 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 2. It notices the underscore rule contradicts `spec-note-tag/SPEC.md` only if it reads that spec; I expect it to mention it (it found an existing change proposal unprompted in 5e), maybe as an open question. [prediction]
 3. Nothing in BMAD enforces a frozen block from another epic's story file: `bmad-build` for the new story edits `addTag`'s validation without refusing, though its review or investigation may flag the old story's frozen text or the old `SPEC.md` as stale. [prediction]
 4. The old `spec-note-tag/SPEC.md` is left saying underscores are rejected; no skill updates it. [prediction]
+
+**Spec and story stage (relay method; Carl's answers verbatim):**
+
+| Step | BMAD asked | Carl | Time |
+|---|---|---|---|
+| 1 | Update `spec-note-tag` (recommended) or new folder; rename vs "renaming or merging" non-goal; underscore everywhere or rename-only; uncarried `from`; express/guided | go with recommendation; drop both; everywhere; raise an error; express | 161 s |
+| 2 | (CAP-5 written) which error code; return value; re-run Story Breakdown?; story 1's frozen lines now false, flagged not edited | existing; return the note | 337 s |
+| 3 | which existing code; "the note" has no referent for a multi-note rename; Story Breakdown?; edit the frozen story-1 lines or leave flagged? | E_NOT_FOUND; array of every changed note; yes; edit as needed | 104 s |
+| 4 | (edited frozen story 1 and 3 lines, left both Review Triage Logs untouched as history; fixed two SPEC.md wording errors unasked) two stories or one?; checkpoints per story | two stories; carry the checkpoints forward | 257 s |
+| 5 | "carry forward" has nothing to carry for new stories: A (1–3 shape) or B (gate story 6 like story 4)? | A | 39 s |
+| 6 | (wrote stories 5, 6) disclosed it went past confirmed scope: edited two shipped stories' descriptions | — | 117 s |
+
+**Findings so far:** [V-lab]
+- Prediction 1 wrong: `bmad-spec` recommended updating the existing epic's spec, not opening a new one, because a second spec would disagree on what a legal tag is. Carl accepted, so this became an in-epic change to a finished epic rather than a true cross-epic test. The cross-epic question itself (does another epic's freeze apply?) remains untested.
+- Prediction 2 confirmed, more strongly than expected: it read the shipped spec, named the exact contradicting constraint and non-goal lines, and mapped the blast radius of the shared `TAG_PATTERN` to three shipped entry points before writing anything.
+- **Frozen block handling:** it flagged story 1's falsified frozen lines twice and would not edit them until Carl explicitly said to. Once authorized, it edited the contract lines but refused to touch the Review Triage Logs ("rewriting them falsifies history rather than fixing a contract").
+- It refused to invent a value from an ambiguous answer three times ("existing" named no code; "the note" had no referent; "carry forward" had nothing to carry for new stories).
+- It overstepped once and disclosed it: edited two shipped stories' descriptions after three prior runs had left them byte-identical, and offered to revert.
