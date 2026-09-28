@@ -598,3 +598,8 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - **Frozen block handling:** it flagged story 1's falsified frozen lines twice and would not edit them until Carl explicitly said to. Once authorized, it edited the contract lines but refused to touch the Review Triage Logs ("rewriting them falsifies history rather than fixing a contract").
 - It refused to invent a value from an ambiguous answer three times ("existing" named no code; "the note" had no referent; "carry forward" had nothing to carry for new stories).
 - It overstepped once and disclosed it: edited two shipped stories' descriptions after three prior runs had left them byte-identical, and offered to revert.
+- Carl: keep the two description edits. Stories 5–6 left unbuilt in `lab9-crossepic`. Re-running the true cross-epic version as **Experiment 9b** in a fresh copy, with Carl's instruction that the second epic gets its own new spec folder.
+
+### Experiment 9b — same intent, forced into a new spec folder (2026-09-28)
+
+**Setup:** `labs\lab9b-crossepic`, fresh copy of `lab5-route` at `ed2c9c0`. Same two-item intent as 9; Carl's up-front instruction: new epic, its own spec folder. Predictions 3 and 4 from Experiment 9 carry over unchanged.
