@@ -626,3 +626,14 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - Carl: "please commit." Committed `b29066a` in `lab9b-crossepic` (lab repo only; `src/notes.js`, `tests/notes.spec.js`). Story 2 (`renameTag`) left unbuilt: the experiment's question is answered.
 
 **Experiment 9 result (9 + 9b):** within one spec, a frozen story block is guarded (flagged, edited only on explicit human authorization, review history preserved). From a second epic, it is not consulted at all: `bmad-spec` records the override only in the new spec, and `bmad-build` plus review change the frozen story's code and shipped tests without mention. The first epic's spec and story files are left stating the old rule. [V-lab; I on the generalization]
+
+## Experiment 10 — `bmad-code-review` over the whole tags epic (2026-09-29, in progress, interactive with Carl)
+
+**Question:** each story's own review missed B1 (live store objects returned through the public API); only the retrospective's `bmad-review` pass over the combined diff found it (Experiment 5i). Does `bmad-code-review`, pointed at the whole epic's commit range with the spec, find it mid-epic, without waiting for a retrospective?
+
+**Setup:** `labs\lab10-epicreview`, copy of `lab5-route`, checked out at `7ab412b` (end of story 4, before the B1 fixes) on branch `epic-review`. Removed from the gitignored `_bmad-output/` because they postdate the epic and name B1: `RETROSPECTIVE.md`, the two B1/B2 fix specs, and the B1/B2 entries in `deferred-work.md` (the story-4 `nextId` entry kept). **Residual contamination, accepted:** `SPEC.md` and `.memlog.md` were reconciled after the retrospective, so the memlog mentions that a retrospective and "remediation items R1-R5" exist, without describing B1. Story 1's triage log (row 11, "duplicate path returns the live stored object", rated `false`) is genuine epic history and stays. Range: `846e9dc..7ab412b`.
+
+**Predictions (written before the run):**
+1. It finds B1 or a close variant: the retrospective's `bmad-review` found it over the same combined diff, and two lenses found it independently there. [prediction]
+2. If found, it ties it to the tags field added in story 1 plus the live returns, not just "getNote returns a live object" (a pre-existing convention it may dismiss as out of scope). [prediction]
+3. It halts at least once for a human: the spec question or subagent permission, then the patch-handling menu (as in Experiment 3). [prediction]
