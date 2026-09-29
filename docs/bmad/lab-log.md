@@ -18,6 +18,7 @@
     - [Experiment 5i](#experiment-5i-bmad-retrospective-on-the-finished-tags-epic-2026-09-2324-carl-answered-done) — retrospective on the finished epic found B1 (a live-object aliasing defect) and 16 action items.
     - [R1/R1b](#r1r1b-fixing-retrospective-finding-b1-2026-09-2425-carl-answered-done) — B1 fixed and committed: all eight leaking exits closed across two builds.
     - [Experiment 8](#experiment-8-add-on-setup-tea-2026-09-26-done) — TEA/BMB/CIS installed and pinned; TEA would not have caught B1 through any workflow examined.
+    - [Experiment 9 / 9b](#experiment-9-cross-epic-frozen-test-2026-09-27-to-09-29-done-interactive-with-carl) — frozen story blocks are guarded within their own spec, but a second epic changes their code without anything noticing.
 
 ## Experiment 1 — Install and skill load (2026-09-19)
 
@@ -569,7 +570,7 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 **Not tested:** actually running any TEA workflow interactively (TD, TF, RV, or TR) against `lab8-tea`'s real code and tests — this unit stayed at "read the files and reason about what the criteria/gate logic covers," a static read like Experiments 1's skill-load check rather than a live run like Experiment 2 onward. A live `RV` run against `notes.spec.js` would confirm or correct the "no row fires" reading empirically. BMB and CIS were installed and pinned successfully but not read or exercised at all — reserved for Experiments 13 and 14 per the queue. `bmad-teach-me-testing`'s curriculum, and six of TEA's eight workflow skill bodies (TD, TF, CI, AT, TA, NR), were not opened.
 
-## Experiment 9 — cross-epic frozen test (2026-09-27, in progress, interactive with Carl)
+## Experiment 9 — cross-epic frozen test (2026-09-27 to 09-29, done, interactive with Carl)
 
 **Question:** within one epic, a story's frozen Never clause protects earlier stories' code (Experiments 5h, 5i). Across epics, does it? A second epic's story must change a function the first (tags) epic built and froze. Does the new spec or story freeze the old code, does `bmad-build` refuse, ask, or just edit it, and does anything flag the conflict with the first epic's `SPEC.md`?
 
@@ -622,3 +623,6 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - Route **oneshot**, 190 s. It widened `TAG_PATTERN`, flipped the two shipped tests at `:93` and `:365` to acceptance, and reworded the error message. Review raised 9 points: 6 patched (the message plus 5 missing edge tests), 3 rejected. 82/82 tests pass. It stopped before committing, as instructed.
 - **The cross-epic answer: nothing froze and nothing asked.** `bmad-build` changed code that spec-note-tag's story 1 frozen block pins (`^[a-z0-9-]{1,20}$`, `a_b` illegal), and flipped two tests that story's work shipped, without mentioning that frozen block anywhere. Neither did the review. The new story's intent line cites the supersession ("supersedes spec-note-tag's underscore rejection"), inherited from the new SPEC.md, so the override is recorded, but only in the new epic. spec-note-tag's SPEC.md and story 1 file still say underscore is rejected. Prediction 3 confirmed; prediction 4 confirmed for 9b (in 9, the in-place update did fix them, on Carl's authorization).
 - Contrast: in Experiment 9 (same spec), `bmad-spec` refused to edit story 1's frozen lines without authorization. Across epics, the frozen block is simply not consulted: **frozen-after-approval protects a story's intent within its own spec's workflow, not the code it produced.** [I, from 9 vs 9b]
+- Carl: "please commit." Committed `b29066a` in `lab9b-crossepic` (lab repo only; `src/notes.js`, `tests/notes.spec.js`). Story 2 (`renameTag`) left unbuilt: the experiment's question is answered.
+
+**Experiment 9 result (9 + 9b):** within one spec, a frozen story block is guarded (flagged, edited only on explicit human authorization, review history preserved). From a second epic, it is not consulted at all: `bmad-spec` records the override only in the new spec, and `bmad-build` plus review change the frozen story's code and shipped tests without mention. The first epic's spec and story files are left stating the old rule. [V-lab; I on the generalization]
