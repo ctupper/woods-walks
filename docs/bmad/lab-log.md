@@ -603,3 +603,15 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 ### Experiment 9b — same intent, forced into a new spec folder (2026-09-28)
 
 **Setup:** `labs\lab9b-crossepic`, fresh copy of `lab5-route` at `ed2c9c0`. Same two-item intent as 9; Carl's up-front instruction: new epic, its own spec folder. Predictions 3 and 4 from Experiment 9 carry over unchanged.
+
+| Step | BMAD asked | Answer | Time |
+|---|---|---|---|
+| 1 | slug; express/guided; conflict with spec-note-tag: (a) supersede + adopt as companion, (b) stand alone, (c) other; listed 10 gaps | Carl asked for suggestions; Claude drafted answers reusing Experiment 9's (slug `tag-rename`, express, (a), dedupe merge, `E_NOT_FOUND`, array of changed notes, underscore everywhere, all-or-nothing, no new codes); Carl: "Go with suggestions" | 32 s |
+| 2 | (my first relay was truncated to "Go" by a PowerShell quoting bug) it refused to treat "Go" as answers and re-asked | resent in full | 11 s |
+| 3 | (wrote `spec-tag-rename`, 2 capabilities, spec-note-tag untouched, supersession stated, verified the 2-test regression claim by running the suite on a scratch copy) 4 open questions: tag position after rename/collapse, error order, return order, non-array stored `tags`; split into stories? | — | 236 s |
+
+**Findings:** [V-lab]
+- With a new folder, `bmad-spec` never edits the other epic's files: spec-note-tag is untouched and the override is stated only in the new spec (supersedes two lines, adopted as companion).
+- **Contrast with Experiment 9:** there, updating the same spec, it flagged story 1's falsified frozen lines immediately and would not edit them unauthorized. Here, the new spec has **no mention of story 1's frozen block at all** (grep for frozen / story 1 / `1-tag-storage`: no hits). The contradiction with the first epic's frozen story is invisible from the new epic's side. Whether `bmad-build` notices it is the next step.
+- It checked a regression claim empirically (ran the suite with the pattern widened on a scratch copy: exactly 2 of 76 fail) instead of asserting it.
+- It self-corrected twice before finishing: removed two non-goals it had invented, and cut a false clause from the Why.
