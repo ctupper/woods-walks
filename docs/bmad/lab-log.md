@@ -652,3 +652,31 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - Prediction 3 confirmed: halted for confirm + subagents, then at the patch menu.
 - **Reading:** a range review sees the whole epic's diff, so it can find the pieces of a cross-story defect, but its triage weighs each finding against the spec and existing conventions. Where the spec itself blesses the behavior (AC-3), the finding is rejected. The retrospective's pass differed in weighing the compound effect (a new mutable field plus live returns from a new entry point) rather than each piece's local justification. [I]
 - Carl: stop here. Patch menu left unanswered; no patches applied, nothing committed in `lab10-epicreview`.
+
+## Experiment 11 — `bmad-architecture` brownfield on a legacy-shaped toy (2026-09-30, in progress, interactive with Carl)
+
+**Question:** `bmad-architecture` says to read the code first and "ratify existing conventions" on a brownfield codebase, and that an altitude sweep must leave no structural dimension silent (P21, [architecture-skill.md](architecture-skill.md)). On a legacy app whose business rules live only in UI event handlers, and whose database is declared off-limits: does the spine capture those rules, or ratify the handler layer's *structure* and miss the rules in it? Is the unchanged data layer recorded as decided, deferred, or left silent?
+
+**Toy (generic, built for this experiment):** `labs\lab11-legacy`, "Order Desk", a small JS port of a desktop forms app (commit `67d948f`, BMAD 6.12.0 installed and committed on top). One module per screen exporting event handlers (`onLoad`, `onCustomerChange`, `beforeSave`...), a thin data module, one report, and `db/schema.sql`. README: being rewritten as a web front end plus service layer across several epics by different people; "the database stays exactly as it is... nothing in `db/` may change" because other systems read it. The README does not say where the rules are.
+
+**Planted rules (answer key, kept out of the lab folder):**
+
+| # | Rule | Where it lives |
+|---|---|---|
+| R1 | Customers on `hold` cannot place orders (Save disabled) | `orderForm.onCustomerChange` |
+| R2 | Discount capped at 15%, 20% for gold; floored to whole percent | `orderForm.onDiscountChange` |
+| R3 | $5 handling fee when subtotal under $50 | `orderForm.onFormatTotal` (a "formatting" handler) |
+| R4 | Shipped orders cannot be reopened or cancelled | `orderForm.onStatusChange` |
+| R5 | Open orders + this order over credit limit needs manager override | `orderForm.beforeSave` |
+| R6 | Order region defaults from customer | `orderForm.onCustomerChange` |
+| R7 | Gold tier needs credit limit ≥ 10,000; lowering the limit demotes gold | `customerForm.onTierChange` / `onCreditLimitChange` |
+| R8 | Credit limit rounded to whole, never negative | `customerForm.onCreditLimitChange` |
+| R9 | Month-end excludes cancelled, splits override sales, excludes handling fee | `reports/monthEnd.js` |
+| R10 | `created_at` stamped at form load, not at save | `orderForm.onLoad` |
+| D1 | DB `CHECK (discount_pct BETWEEN 0 AND 25)` disagrees with the UI caps (15/20) | `db/schema.sql` |
+
+**Predictions (written before the run):**
+1. It asks purpose/audience/altitude and paradigm questions before drafting (coaching path default). [prediction]
+2. It records the database as a decided, binding constraint (an `[ADOPTED]` AD or equivalent), since the README states it plainly. [prediction]
+3. It ratifies structure (screen → handlers → data module) and proposes a paradigm for the rewrite, but lists few of R1–R10 as invariants: the spine is for cross-unit consistency, not business rules. At most it names "where business rules live" as a boundary decision. I expect R3 (fee hidden in a formatter) and R10 to be missed entirely. [prediction]
+4. D1 (DB check vs UI caps) is not noticed. [prediction]
