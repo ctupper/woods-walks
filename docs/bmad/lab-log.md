@@ -637,3 +637,16 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 1. It finds B1 or a close variant: the retrospective's `bmad-review` found it over the same combined diff, and two lenses found it independently there. [prediction]
 2. If found, it ties it to the tags field added in story 1 plus the live returns, not just "getNote returns a live object" (a pre-existing convention it may dismiss as out of scope). [prediction]
 3. It halts at least once for a human: the spec question or subagent permission, then the patch-handling menu (as in Experiment 3). [prediction]
+
+| Step | BMAD asked | Answer | Time |
+|---|---|---|---|
+| 1 | Confirm target (4 commits, +556/−1, mode `full` against SPEC.md); launch subagents for four reviewers (Blind Hunter, Edge Case Hunter, Verification Gap, Acceptance Auditor)? | Claude suggested yes/yes; Carl: "Go with suggestions" | 27 s |
+| 2 | (review done) 3 patch, 2 defer, 11 reject, 0 decision-needed; patch menu: apply all, or walk through | — | 149 s |
+
+**Findings:** [V-lab]
+- **B1 was found and rejected.** A reviewer raised it ("`listNotesByTag` returns the stored note objects rather than copies"), and triage rated it `false`: "Story 3 requires this, and it matches `listNotes`." The same defect the retrospective called the epic's most serious was dismissed on exactly the grounds each story's own review used: a spec acceptance criterion (story 3's AC-3) and the pre-existing convention. Prediction 1 half right (found), prediction 2 wrong (not tied to story 1's mutable `tags` field; judged against convention instead).
+- **B6 was found and patched:** Verification Gap mutated `addTag`/`removeTag` to edit in place and all 61 tests still passed, and triage named the cross-story inconsistency (story 1 declined this test; story 4 added it for `removeNote`). This is a genuinely cross-story finding the per-story reviews could not make.
+- `nextId` id reuse (A1) raised by three reviewers, deferred again, flagged as the epic's most significant known defect.
+- Nothing written to SPEC.md: the workflow only records findings into a spec with a Tasks/Subtasks section, and an epic `SPEC.md` has none. Findings live only in chat plus two `deferred-work.md` entries.
+- Prediction 3 confirmed: halted for confirm + subagents, then at the patch menu.
+- **Reading:** a range review sees the whole epic's diff, so it can find the pieces of a cross-story defect, but its triage weighs each finding against the spec and existing conventions. Where the spec itself blesses the behavior (AC-3), the finding is rejected. The retrospective's pass differed in weighing the compound effect (a new mutable field plus live returns from a new entry point) rather than each piece's local justification. [I]
