@@ -19,6 +19,7 @@
     - [R1/R1b](#r1r1b-fixing-retrospective-finding-b1-2026-09-2425-carl-answered-done) — B1 fixed and committed: all eight leaking exits closed across two builds.
     - [Experiment 8](#experiment-8-add-on-setup-tea-2026-09-26-done) — TEA/BMB/CIS installed and pinned; TEA would not have caught B1 through any workflow examined.
     - [Experiment 9 / 9b](#experiment-9-cross-epic-frozen-test-2026-09-27-to-09-29-done-interactive-with-carl) — frozen story blocks are guarded within their own spec, but a second epic changes their code without anything noticing.
+    - [Experiment 10](#experiment-10-bmad-code-review-over-the-whole-tags-epic-2026-092930-done-interactive-with-carl) — a whole-epic range review found B1's pieces but rejected B1 as spec-sanctioned; it did catch the missing mutation test (B6) mid-epic.
 
 ## Experiment 1 — Install and skill load (2026-09-19)
 
@@ -627,7 +628,7 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 **Experiment 9 result (9 + 9b):** within one spec, a frozen story block is guarded (flagged, edited only on explicit human authorization, review history preserved). From a second epic, it is not consulted at all: `bmad-spec` records the override only in the new spec, and `bmad-build` plus review change the frozen story's code and shipped tests without mention. The first epic's spec and story files are left stating the old rule. [V-lab; I on the generalization]
 
-## Experiment 10 — `bmad-code-review` over the whole tags epic (2026-09-29, in progress, interactive with Carl)
+## Experiment 10 — `bmad-code-review` over the whole tags epic (2026-09-29/30, done, interactive with Carl)
 
 **Question:** each story's own review missed B1 (live store objects returned through the public API); only the retrospective's `bmad-review` pass over the combined diff found it (Experiment 5i). Does `bmad-code-review`, pointed at the whole epic's commit range with the spec, find it mid-epic, without waiting for a retrospective?
 
@@ -650,3 +651,4 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - Nothing written to SPEC.md: the workflow only records findings into a spec with a Tasks/Subtasks section, and an epic `SPEC.md` has none. Findings live only in chat plus two `deferred-work.md` entries.
 - Prediction 3 confirmed: halted for confirm + subagents, then at the patch menu.
 - **Reading:** a range review sees the whole epic's diff, so it can find the pieces of a cross-story defect, but its triage weighs each finding against the spec and existing conventions. Where the spec itself blesses the behavior (AC-3), the finding is rejected. The retrospective's pass differed in weighing the compound effect (a new mutable field plus live returns from a new entry point) rather than each piece's local justification. [I]
+- Carl: stop here. Patch menu left unanswered; no patches applied, nothing committed in `lab10-epicreview`.
