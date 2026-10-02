@@ -1,6 +1,6 @@
 # `bmad-prd`: How the PRD Skill Works
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-prd/` (P20, see `../sources.md`): `SKILL.md`, `assets/prd-template.md`, first ~30 lines of `references/validate.md` and `references/headless.md`. Tags: [V, P20] traced to those files, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19; reviewed by Carl 2026-09-24.*
+*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-prd/` (P20, see `../sources.md`): `SKILL.md`, `assets/prd-template.md`, first ~30 lines of `references/validate.md` and `references/headless.md`. Tags: [V, P20] traced to those files, [I] inferred, [?] unclear, [V-lab] observed in a lab run. Run in the lab once (Experiment 12, Update mode, see [lab-log.md](lab-log.md)). Written unattended 2026-09-19; reviewed by Carl 2026-09-24; lab section added 2026-10-02.*
 
 *Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting; substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
 
@@ -57,6 +57,17 @@ Sections 0 to 9: Document Purpose, Vision, Target User (JTBD, non-users, journey
 ## Update mode
 
 Source-extract against PRD, addendum, memlog, and original inputs. If the memlog is missing, a bootstrap subagent reverse-engineers a thin one from the PRD. Conflicts with prior decisions are surfaced before applying. [V, P20]
+
+### Observed in the lab: Update on a hand-written PRD (Experiment 12)
+
+Run on a one-page PRD written by hand for a community library's room-booking system (no memlog, never touched by BMAD), with a change that conflicts with it: weekly recurring 4-hour bookings for a season, against a board-decided 2-hour maximum, a "no recurring bookings" non-goal, a 2-booking limit and a 14-day window. [V-lab, [lab-log.md](lab-log.md) Experiment 12]
+
+- **Conflicts were surfaced before anything was written,** as documented. The first round changed no file and named every planted conflict, including the two implicit ones (the booking limit and the 14-day window), quoting the board's reason for the 2-hour rule and flagging the PRD's "approved by the board" status. [V-lab; V, P20]
+- **The bootstrap memlog was thin and sensible, but written with the first edit, not before the conflict check.** It opened with two "Recovered (Mar 2026)" decision entries reconstructed from the PRD, then the change and the answers. It credited every answer to the configured user, though they were relayed (same attribution gap as in [systemic-findings.md](systemic-findings.md)). [V-lab]
+- **An approved baseline was annotated, not overwritten.** The change went into a separate "Proposed change" section marked pending board approval, with "until the board approves it, the March 2026 rules and non-goals above stand", and the old rule and non-goal point to it. [V-lab]
+- **The reviewer gate caught a flaw in an answer the human had approved:** defining "evening" by start time let a session starting just before the cutoff take a whole evening uncounted, defeating the cap meant to protect the board's intent. It also found a counter-measure that could never fail. [V-lab]
+- **A pre-existing contradiction unrelated to the change was not caught.** The PRD lets walk-ins without a card book, while its user list says only cardholders book; both reviewers looked at the walk-in rule only in relation to the new feature. Update and its reviewers check the change against the PRD, not the PRD against itself. [V-lab; I on the generalization]
+- Not tested: finalize to `status: final`, input reconciliation, Validate mode on its own. [?]
 
 ## Inference
 

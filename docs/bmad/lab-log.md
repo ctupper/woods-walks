@@ -21,6 +21,7 @@
     - [Experiment 9 / 9b](#experiment-9-cross-epic-frozen-test-2026-09-27-to-09-29-done-interactive-with-carl) — frozen story blocks are guarded within their own spec, but a second epic changes their code without anything noticing.
     - [Experiment 10](#experiment-10-bmad-code-review-over-the-whole-tags-epic-2026-092930-done-interactive-with-carl) — a whole-epic range review found B1's pieces but rejected B1 as spec-sanctioned; it did catch the missing mutation test (B6) mid-epic.
     - [Experiment 11](#experiment-11-bmad-architecture-brownfield-on-a-legacy-shaped-toy-2026-09-30-to-10-01-done-interactive-with-carl) — on a legacy app with rules in UI handlers, the spine bound every rule by making the old code a frozen parity oracle, and found that the form wiring isn't in the code at all.
+    - [Experiment 12](#experiment-12-bmad-prd-update-mode-on-a-hand-written-prd-2026-10-02-done-interactive-with-carl) — Update mode surfaced every planted conflict before editing, kept the board decision as a baseline, and its reviewer gate caught a loophole in an approved answer.
 
 ## Experiment 1 — Install and skill load (2026-09-19)
 
@@ -706,7 +707,7 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 **Reading:** "ratify existing conventions" here meant ratifying *behavior* (the legacy code as executable spec), not *structure* (the handler layer moved server-side). The remaining risk is the one the spine itself names: what isn't in the code (form wiring, OQ-1) can't be in the oracle. [I]
 - Carl: stop here (2026-10-02). Open questions and AD sign-off left unanswered; spine stays `draft`. Lab repo holds only the baseline and BMAD install commits.
 
-## Experiment 12 — `bmad-prd` Update mode on a hand-written PRD (2026-10-02, in progress, interactive with Carl)
+## Experiment 12 — `bmad-prd` Update mode on a hand-written PRD (2026-10-02, done, interactive with Carl)
 
 **Question:** `bmad-prd` Update mode says that if the memlog is missing, "a bootstrap subagent reverse-engineers a thin one from the PRD", and that "conflicts with prior decisions are surfaced before applying" (P20, [prd-skill.md](prd-skill.md)). This is the "bring what you have" path: does it surface conflicts before editing, and is the bootstrapped memlog sensible?
 
@@ -743,3 +744,4 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - **The proposal was kept separate from the approved baseline:** "Until the board approves it, the March 2026 rules and non-goals above stand." The recorded decision was annotated, not rewritten.
 - **The reviewer gate caught a hole in an answer I drafted and Carl approved:** defining "evening" by start time (≥17:00) lets a 16:00–20:00 series take a whole evening without counting, so six contacts could hold every evening, "exactly what the board's 2-hour rule was meant to stop". It also found the counter-measure can never fail under FR14's cap, an FR16 vs FR6 cutoff conflict, and that the "one series per contact" control is easy to get around.
 - **C1 (walk-ins without a card vs members-only Users/FR7):** both reviewers noticed the walk-in rule, but only in relation to series (rubric: low, "not a conflict"; adversarial: M6). Neither named the pre-existing contradiction. Prediction 4 essentially confirmed.
+- Carl: stop here (2026-10-02). Review findings left unanswered; PRD not finalized; nothing committed in the lab beyond the baseline and BMAD install.
