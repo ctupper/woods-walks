@@ -653,7 +653,7 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - **Reading:** a range review sees the whole epic's diff, so it can find the pieces of a cross-story defect, but its triage weighs each finding against the spec and existing conventions. Where the spec itself blesses the behavior (AC-3), the finding is rejected. The retrospective's pass differed in weighing the compound effect (a new mutable field plus live returns from a new entry point) rather than each piece's local justification. [I]
 - Carl: stop here. Patch menu left unanswered; no patches applied, nothing committed in `lab10-epicreview`.
 
-## Experiment 11 — `bmad-architecture` brownfield on a legacy-shaped toy (2026-09-30, in progress, interactive with Carl)
+## Experiment 11 — `bmad-architecture` brownfield on a legacy-shaped toy (2026-09-30 to 10-01, interactive with Carl)
 
 **Question:** `bmad-architecture` says to read the code first and "ratify existing conventions" on a brownfield codebase, and that an altitude sweep must leave no structural dimension silent (P21, [architecture-skill.md](architecture-skill.md)). On a legacy app whose business rules live only in UI event handlers, and whose database is declared off-limits: does the spine capture those rules, or ratify the handler layer's *structure* and miss the rules in it? Is the unchanged data layer recorded as decided, deferred, or left silent?
 
@@ -680,3 +680,27 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 2. It records the database as a decided, binding constraint (an `[ADOPTED]` AD or equivalent), since the README states it plainly. [prediction]
 3. It ratifies structure (screen → handlers → data module) and proposes a paradigm for the rewrite, but lists few of R1–R10 as invariants: the spine is for cross-unit consistency, not business rules. At most it names "where business rules live" as a boundary decision. I expect R3 (fee hidden in a formatter) and R10 to be missed entirely. [prediction]
 4. D1 (DB check vs UI caps) is not noticed. [prediction]
+
+**Run (coaching path, relay method; every answer was Claude's suggestion, approved by Carl with "Go with suggestions"):**
+
+| Round | BMAD asked | Answer | Time |
+|---|---|---|---|
+| 1 | (read the code) mode; purpose/audience; DB engine; other writers. Opened by naming the core risk: "every business rule lives in the form event handlers", DB enforces almost none, and the 0–25 CHECK is looser than the form's 15/20 caps (D1) | coaching; spine only, build contract; SQLite; Order Desk sole writer | 83 s |
+| 2 | Faithful port or fix? Listed 7 behaviors from the code, incl. R2/R3/R4/R5/R7/R9 and real quirks not planted (cap not re-applied on customer change, hold only via disabled Save, override unaudited, Cancelled→Open allowed, float money, UTC month grouping) | faithful port, quirks included; assume billing/warehouse may rely on any stored value | 45 s |
+| 3 | Where do rules run once there is an API? A browser-only / B validate-on-save (breaks parity) / C service owns the draft, per-field round-trips (its lean) | C | 41 s |
+| 4 | DB location and readers, journal mode (switching to WAL would be a DB change by another route), sign-in and override, web search permission | one Windows server, readers local read-only, journal mode untouched; Windows login, anyone may override; web allowed | 42 s |
+| 5 | Stack: server OS; Node+TS vs ASP.NET Core (C# decimal breaks float parity); htmx vs SPA | Windows; Node 24 + TS, IIS gate; htmx 2.x | 58 s |
+| 6 | Concurrent edits (one transaction for credit check + write), unsaved drafts in memory, identity gate-only, cutover overlap, **old code as frozen parity oracle**, four epics | all accepted; single cutover | 44 s |
+| 7 | (drafted spine, 3 reviewer subagents: adversary, rubric, versions; applied fixes) 8 open questions + sign-off on 6 derived ADs | (pending) | 893 s |
+
+**Spine (`ARCHITECTURE-SPINE.md`, 285 lines, `status: draft`, paradigm "functional core / imperative shell, server-held drafts, htmx"):** 12 ADs. [V-lab]
+- **Rules are captured by reference to the code, not by listing them.** AD-1 (faithful port): "for the same starting data and the same sequence of user edits, the rewrite produces exactly the field values, messages, save outcomes and stored rows that `src/` produces, quirks included. `src/` is the authority." AD-2 freezes `src/` as an oracle and gates every port story on side-by-side parity tests. AD-1 names eight behaviors as "examples, not a complete list".
+- **Answer-key coverage.** Named in the spine: R1 (hold via `saveEnabled`), R4 (status rules), R5 (credit check incl. fees), R6 (region copy), R7 (gold demotion), R9 (UTC month grouping), plus float money/`round2`. Named during questioning but not in the spine: R2 caps, R3 handling fee. R10 (`created_at` stamped by `onLoad`) surfaces as OQ-2 (does `onLoad` run when an existing order is opened?). Not mentioned: R8 (credit-limit rounding). D1 named in round 1, not carried into the spine as such (UI caps are stricter than the CHECK, so it never trips; OQ-5 covers the general stub-vs-real-schema case). Under AD-1/AD-2 every rule, listed or not, is bound by the parity gate.
+- **The data layer is decided, not silent:** AD-7 "The database file is never changed": no DDL, no persistent PRAGMAs, explicit `foreign_keys = OFF` because the chosen driver defaults it on (a reviewer catch), writes only full legacy-shaped rows.
+- **The gap it found that I did not plant (OQ-1):** the desktop form definitions (which fields are editable, which event fires which handler, what type each control passes) are not in the repository, and the faithful port depends on them. Rules that live in the UI include the event wiring itself, which isn't in the code at all.
+- Reviewer gate changed two approved decisions and said so: FK default of the driver, IIS overlapping recycle and idle shutdown (would split or lose in-memory drafts).
+
+**Predictions:** 1 confirmed (questions first, coaching). 2 confirmed (AD-7). 3 wrong in its main claim: the spine did not ratify the handler structure and stop there; it made "rules live in UI handlers" the central risk, moved rule ownership to the service (AD-3), and bound every rule through the oracle and parity gate. Half right that it lists few rules as invariants, by design. 4 wrong: D1 was the first thing it named.
+
+**Reading:** "ratify existing conventions" here meant ratifying *behavior* (the legacy code as executable spec), not *structure* (the handler layer moved server-side). The remaining risk is the one the spine itself names: what isn't in the code (form wiring, OQ-1) can't be in the oracle. [I]
+
