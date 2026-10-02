@@ -1,6 +1,6 @@
 # `bmad-architecture`: The Architecture Spine
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-architecture/` (P21, see `../sources.md`): `SKILL.md`, first ~70 lines of `assets/spine-template.md`, first ~25 lines of `references/reviewer-gate.md` and of `scripts/lint_spine.py`. Tags: [V, P21] traced to those files, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19; reviewed by Carl 2026-09-24.*
+*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-architecture/` (P21, see `../sources.md`): `SKILL.md`, first ~70 lines of `assets/spine-template.md`, first ~25 lines of `references/reviewer-gate.md` and of `scripts/lint_spine.py`. Tags: [V, P21] traced to those files, [I] inferred, [?] unclear, [V-lab] observed in a lab run. Run in the lab once (Experiment 11, brownfield, see [lab-log.md](lab-log.md)). Written unattended 2026-09-19; reviewed by Carl 2026-09-24; lab section added 2026-10-02.*
 
 *Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting plus Python floor (3.10 release, 3.11 clone); substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
 
@@ -42,6 +42,17 @@ An **architecture spine** (`ARCHITECTURE-SPINE.md`): a "consistency contract" fi
 ## Update rule
 
 Resume from the memlog, not the rendered spine. Keep `AD` IDs stable: amend a Rule in place, add the next `AD-n` for a new decision, never renumber or reuse retired IDs. [V, P21]
+
+## Observed in the lab: brownfield on a legacy app (Experiment 11)
+
+Run on a small generic legacy toy: an order-entry app whose business rules live only in screen event handlers, with a database the README declares off-limits because other systems read it. Coaching path, seven rounds of questions, then a drafted spine checked by three reviewer subagents. [V-lab, [lab-log.md](lab-log.md) Experiment 11]
+
+- **It read the code first and opened with the real risk:** "every business rule lives in the form event handlers," the database enforces almost none of them, and the one database check is looser than the form's own limit. The questions that followed were about behavior, not structure: keep today's quirks or fix them, and where rules should run once an API exists alongside the screen. [V-lab]
+- **"Ratify existing conventions" meant ratifying behavior.** The spine did not list the rules as invariants. It made the legacy code itself the authority: AD-1 requires the rewrite to produce exactly what `src/` produces for the same data and edit sequence, "quirks included", and AD-2 freezes `src/` as an oracle with side-by-side parity tests gating every port story. AD-1 names eight behaviors as "examples, not a complete list"; six of the ten planted rules appear there, and the parity gate binds the rest. [V-lab]
+- **The off-limits data layer was decided, not silent.** AD-7 "The database file is never changed" covers DDL, persistent settings, and a driver default (foreign keys on) that the reviewers caught. The altitude sweep worked as documented on this dimension. [V-lab; V, P21]
+- **It found the gap a legacy port actually has:** the desktop form definitions (which fields are editable, which event fires which handler, what type each control passes) are not in the repository, so the oracle is incomplete. Rules that live in a UI include its wiring, and wiring often isn't code. Logged as its top open question. [V-lab]
+- The reviewer gate changed two decisions the human had already approved and said so explicitly; the spine stays `status: draft` until the open questions and six derived decisions are signed off. [V-lab]
+- Not tested: finalize to `status: final`, the optional renderings, or the hand-off to `bmad-spec`. [?]
 
 ## Inference
 

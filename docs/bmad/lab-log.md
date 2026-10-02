@@ -20,6 +20,7 @@
     - [Experiment 8](#experiment-8-add-on-setup-tea-2026-09-26-done) — TEA/BMB/CIS installed and pinned; TEA would not have caught B1 through any workflow examined.
     - [Experiment 9 / 9b](#experiment-9-cross-epic-frozen-test-2026-09-27-to-09-29-done-interactive-with-carl) — frozen story blocks are guarded within their own spec, but a second epic changes their code without anything noticing.
     - [Experiment 10](#experiment-10-bmad-code-review-over-the-whole-tags-epic-2026-092930-done-interactive-with-carl) — a whole-epic range review found B1's pieces but rejected B1 as spec-sanctioned; it did catch the missing mutation test (B6) mid-epic.
+    - [Experiment 11](#experiment-11-bmad-architecture-brownfield-on-a-legacy-shaped-toy-2026-09-30-to-10-01-done-interactive-with-carl) — on a legacy app with rules in UI handlers, the spine bound every rule by making the old code a frozen parity oracle, and found that the form wiring isn't in the code at all.
 
 ## Experiment 1 — Install and skill load (2026-09-19)
 
@@ -653,7 +654,7 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - **Reading:** a range review sees the whole epic's diff, so it can find the pieces of a cross-story defect, but its triage weighs each finding against the spec and existing conventions. Where the spec itself blesses the behavior (AC-3), the finding is rejected. The retrospective's pass differed in weighing the compound effect (a new mutable field plus live returns from a new entry point) rather than each piece's local justification. [I]
 - Carl: stop here. Patch menu left unanswered; no patches applied, nothing committed in `lab10-epicreview`.
 
-## Experiment 11 — `bmad-architecture` brownfield on a legacy-shaped toy (2026-09-30 to 10-01, interactive with Carl)
+## Experiment 11 — `bmad-architecture` brownfield on a legacy-shaped toy (2026-09-30 to 10-01, done, interactive with Carl)
 
 **Question:** `bmad-architecture` says to read the code first and "ratify existing conventions" on a brownfield codebase, and that an altitude sweep must leave no structural dimension silent (P21, [architecture-skill.md](architecture-skill.md)). On a legacy app whose business rules live only in UI event handlers, and whose database is declared off-limits: does the spine capture those rules, or ratify the handler layer's *structure* and miss the rules in it? Is the unchanged data layer recorded as decided, deferred, or left silent?
 
@@ -691,7 +692,7 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 | 4 | DB location and readers, journal mode (switching to WAL would be a DB change by another route), sign-in and override, web search permission | one Windows server, readers local read-only, journal mode untouched; Windows login, anyone may override; web allowed | 42 s |
 | 5 | Stack: server OS; Node+TS vs ASP.NET Core (C# decimal breaks float parity); htmx vs SPA | Windows; Node 24 + TS, IIS gate; htmx 2.x | 58 s |
 | 6 | Concurrent edits (one transaction for credit check + write), unsaved drafts in memory, identity gate-only, cutover overlap, **old code as frozen parity oracle**, four epics | all accepted; single cutover | 44 s |
-| 7 | (drafted spine, 3 reviewer subagents: adversary, rubric, versions; applied fixes) 8 open questions + sign-off on 6 derived ADs | (pending) | 893 s |
+| 7 | (drafted spine, 3 reviewer subagents: adversary, rubric, versions; applied fixes) 8 open questions + sign-off on 6 derived ADs | — (Carl stopped here) | 893 s |
 
 **Spine (`ARCHITECTURE-SPINE.md`, 285 lines, `status: draft`, paradigm "functional core / imperative shell, server-held drafts, htmx"):** 12 ADs. [V-lab]
 - **Rules are captured by reference to the code, not by listing them.** AD-1 (faithful port): "for the same starting data and the same sequence of user edits, the rewrite produces exactly the field values, messages, save outcomes and stored rows that `src/` produces, quirks included. `src/` is the authority." AD-2 freezes `src/` as an oracle and gates every port story on side-by-side parity tests. AD-1 names eight behaviors as "examples, not a complete list".
@@ -703,4 +704,4 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 **Predictions:** 1 confirmed (questions first, coaching). 2 confirmed (AD-7). 3 wrong in its main claim: the spine did not ratify the handler structure and stop there; it made "rules live in UI handlers" the central risk, moved rule ownership to the service (AD-3), and bound every rule through the oracle and parity gate. Half right that it lists few rules as invariants, by design. 4 wrong: D1 was the first thing it named.
 
 **Reading:** "ratify existing conventions" here meant ratifying *behavior* (the legacy code as executable spec), not *structure* (the handler layer moved server-side). The remaining risk is the one the spine itself names: what isn't in the code (form wiring, OQ-1) can't be in the oracle. [I]
-
+- Carl: stop here (2026-10-02). Open questions and AD sign-off left unanswered; spine stays `draft`. Lab repo holds only the baseline and BMAD install commits.
