@@ -730,3 +730,16 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 2. It surfaces K1 and K2 before applying anything and asks how to resolve them. [prediction]
 3. It catches K3 and K4 (implicit), probably K4 less reliably than K3. K5 maybe. [prediction]
 4. C1 is not mentioned; it's unrelated to the change. [prediction]
+
+| Round | BMAD asked / did | Answer (Claude-suggested, Carl-approved) | Time |
+|---|---|---|---|
+| 1 | **Wrote nothing.** Listed conflicts with recorded decisions: K1 (quoting the board's reason), K2, K3 and K4 together ("a September–December series breaks both"), plus the PRD's "approved by the board" status line. 10 questions, K5 among them ("who can book a series... how is a group identified?") | proposed, pending board; staff-only for a named contact member; 4 h for Oak Room series only; fixed seasons; reject whole series on clash; 1 series per group, max 2 Oak evenings/week; series exempt from FR4/FR2; cancel one or all, 1 h cutoff; one series email; counter-measure ≥50% Oak evenings free | 23 s |
+| 2 | Applied: new "Proposed change" section (FR9–FR17) marked pending board approval in header, section and Rules; the March 2026 rule and non-goal kept and pointed at it, not overwritten. Bootstrapped `docs/.memlog.md`. 3 new gaps opened by the answers | evening = starts at/after 17:00; one series per contact member; single email on whole-series cancel; then run reviewer + finalize, ask before commit | 59 s |
+| 3 | Reviewer pass (rubric + adversarial subagents, reports in `docs/`): 2 critical, 4 high, 9 medium, 6 low. Stopped for decisions | — | 206 s |
+
+**Findings:** [V-lab]
+- **Conflicts surfaced before applying, as documented (P20).** Round 1 changed no file. All four K-conflicts were named, including both implicit ones (K3, K4), and K5 became a question. Predictions 2 and 3 confirmed; K4 was not harder than K3.
+- **The bootstrap memlog was written with the first edit, not before the conflict check** (prediction 1 half right). It is thin, as documented: two `Recovered (Mar 2026)` decision entries (the 2 h cap with its board reason; FR4, FR2 and the non-goal), then the change and the answers. It credits every answer to "Carl" though Claude drafted them (same attribution gap as Experiments 5b/5e, `systemic-findings.md`).
+- **The proposal was kept separate from the approved baseline:** "Until the board approves it, the March 2026 rules and non-goals above stand." The recorded decision was annotated, not rewritten.
+- **The reviewer gate caught a hole in an answer I drafted and Carl approved:** defining "evening" by start time (≥17:00) lets a 16:00–20:00 series take a whole evening without counting, so six contacts could hold every evening, "exactly what the board's 2-hour rule was meant to stop". It also found the counter-measure can never fail under FR14's cap, an FR16 vs FR6 cutoff conflict, and that the "one series per contact" control is easy to get around.
+- **C1 (walk-ins without a card vs members-only Users/FR7):** both reviewers noticed the walk-in rule, but only in relation to series (rubric: low, "not a conflict"; adversarial: M6). Neither named the pre-existing contradiction. Prediction 4 essentially confirmed.
