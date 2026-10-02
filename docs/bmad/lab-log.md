@@ -705,3 +705,28 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 **Reading:** "ratify existing conventions" here meant ratifying *behavior* (the legacy code as executable spec), not *structure* (the handler layer moved server-side). The remaining risk is the one the spine itself names: what isn't in the code (form wiring, OQ-1) can't be in the oracle. [I]
 - Carl: stop here (2026-10-02). Open questions and AD sign-off left unanswered; spine stays `draft`. Lab repo holds only the baseline and BMAD install commits.
+
+## Experiment 12 — `bmad-prd` Update mode on a hand-written PRD (2026-10-02, in progress, interactive with Carl)
+
+**Question:** `bmad-prd` Update mode says that if the memlog is missing, "a bootstrap subagent reverse-engineers a thin one from the PRD", and that "conflicts with prior decisions are surfaced before applying" (P20, [prd-skill.md](prd-skill.md)). This is the "bring what you have" path: does it surface conflicts before editing, and is the bootstrapped memlog sensible?
+
+**Toy (generic):** `labs\lab12-prd`, a hand-written one-page PRD for a community library's room-booking system (`docs/prd.md`, no memlog, never touched by BMAD; commit `3ee7da8`, BMAD 6.12.0 installed on top as `ad168a5`).
+
+**Change request given to Update mode:** community groups want weekly recurring bookings of the Oak Room, up to 4 hours a session, for a whole season (for example September to December).
+
+**Planted (answer key, kept out of the lab folder):**
+
+| # | What | Where | Kind |
+|---|---|---|---|
+| K1 | 2-hour maximum, "decided by the board in March 2026" with a reason | Rules + FR3 | explicit conflict with a recorded decision |
+| K2 | Recurring bookings listed as a non-goal | Non-goals | explicit conflict |
+| K3 | A member holds at most 2 future bookings | FR4 | implicit conflict (a season series is many future bookings) |
+| K4 | Free slots shown for the next 14 days | FR2 | implicit conflict (a season runs months ahead) |
+| K5 | "Community groups" are not a user type; only members (cardholders) and staff exist | Users | implicit gap |
+| C1 | Walk-ins without a card can book via staff, but Users and FR7 say only members book | Rules vs Users/FR7 | pre-existing internal contradiction, unrelated to the change |
+
+**Predictions (written before the run):**
+1. It bootstraps a memlog before editing, and records K1 as a decision (it has a date and a reason) and K2 as a non-goal. [prediction]
+2. It surfaces K1 and K2 before applying anything and asks how to resolve them. [prediction]
+3. It catches K3 and K4 (implicit), probably K4 less reliably than K3. K5 maybe. [prediction]
+4. C1 is not mentioned; it's unrelated to the change. [prediction]
