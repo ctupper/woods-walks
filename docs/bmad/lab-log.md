@@ -803,3 +803,16 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 **Predictions:** 1 confirmed (U1, U4 reverted; U2, U3 byte-identical), with a detail the docs don't give: the installer-owned config gets a `.bak`, a skill's `customize.toml` does not. 2 confirmed (unknown skill folder left alone). 3 confirmed (BMB output survives, not installed as a usable skill). 4 confirmed (`lastUpdated` moves on every module, `installDate` stays), so `lastUpdated` records the last install run, not the last real change.
 
 - Carl's instruction was to run it; experiment complete 2026-10-03. Lab not committed (`_bmad/`, `.claude/` excluded there).
+
+## Experiment 14 — CIS: Carson vs `bmad-brainstorming` directly (2026-10-03, in progress, interactive with Carl)
+
+**What CIS is, read first** (installed CIS v0.3.2, `_bmad/cis/module-help.csv` and `bmad-cis-agent-brainstorming-coach/SKILL.md` + `customize.toml`): five workflows (innovation strategy, problem solving, design thinking, storytelling, and brainstorming) plus six agent personas. **CIS has no brainstorming skill of its own:** its Brainstorming menu row and Carson's only menu item (`BS`) both dispatch to the core `bmad-brainstorming`. Carson ("Elite Brainstorming Specialist") is a persona (role, identity, "enthusiastic improv coach" style, three principles) plus that one-item menu; Step 8 skips the menu and dispatches directly when the opening message names the intent. [V-lab, installed files]
+
+**So the question becomes the queued persona test (STATE Next item 0):** does running the same skill through a persona change the session, or only its voice? Every earlier lab run invoked skills directly.
+
+**Setup:** two copies of `lab8-tea` (separate folders so `claude -p --continue` sessions don't cross): `labs\lab14-direct` runs `/bmad-brainstorming`, `labs\lab14-cis` opens with "Hey Carson, let's brainstorm". Same generic topic and goal in both; same relayed answers in both.
+
+**Predictions (written before the run):**
+1. Carson dispatches straight to `bmad-brainstorming` without showing a menu (intent is named). [prediction]
+2. Both halt at the same stance/technique choice (Experiments 6 and 7: a present human message means interactive). [prediction]
+3. Same artifact shapes and similar idea counts; the persona changes chat voice (icon prefix, enthusiasm), not the session's structure or the ideas. [prediction]
