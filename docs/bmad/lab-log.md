@@ -23,6 +23,7 @@
     - [Experiment 11](#experiment-11-bmad-architecture-brownfield-on-a-legacy-shaped-toy-2026-09-30-to-10-01-done-interactive-with-carl) — on a legacy app with rules in UI handlers, the spine bound every rule by making the old code a frozen parity oracle, and found that the form wiring isn't in the code at all.
     - [Experiment 12](#experiment-12-bmad-prd-update-mode-on-a-hand-written-prd-2026-10-02-done-interactive-with-carl) — Update mode surfaced every planted conflict before editing, kept the board decision as a baseline, and its reviewer gate caught a loophole in an approved answer.
     - [Experiment 13](#experiment-13-bmb-build-what-survives-a-reinstall-2026-10-03-done-interactive-with-carl) — _bmad/custom overrides and hand-added skills survive a reinstall; direct edits to a skill's customize.toml are lost with no backup; a failed update is not atomic.
+    - [Experiment 14](#experiment-14-cis-carson-vs-bmad-brainstorming-directly-2026-10-03-done-interactive-with-carl) — CIS brainstorming is the core skill behind a persona; through Carson the session was structurally identical, but the shortlist came back prescriptive (one run each).
 
 ## Experiment 1 — Install and skill load (2026-09-19)
 
@@ -804,7 +805,7 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 - Carl's instruction was to run it; experiment complete 2026-10-03. Lab not committed (`_bmad/`, `.claude/` excluded there).
 
-## Experiment 14 — CIS: Carson vs `bmad-brainstorming` directly (2026-10-03, in progress, interactive with Carl)
+## Experiment 14 — CIS: Carson vs `bmad-brainstorming` directly (2026-10-03, done, interactive with Carl)
 
 **What CIS is, read first** (installed CIS v0.3.2, `_bmad/cis/module-help.csv` and `bmad-cis-agent-brainstorming-coach/SKILL.md` + `customize.toml`): five workflows (innovation strategy, problem solving, design thinking, storytelling, and brainstorming) plus six agent personas. **CIS has no brainstorming skill of its own:** its Brainstorming menu row and Carson's only menu item (`BS`) both dispatch to the core `bmad-brainstorming`. Carson ("Elite Brainstorming Specialist") is a persona (role, identity, "enthusiastic improv coach" style, three principles) plus that one-item menu; Step 8 skips the menu and dispatches directly when the opening message names the intent. [V-lab, installed files]
 
@@ -816,3 +817,26 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 1. Carson dispatches straight to `bmad-brainstorming` without showing a menu (intent is named). [prediction]
 2. Both halt at the same stance/technique choice (Experiments 6 and 7: a present human message means interactive). [prediction]
 3. Same artifact shapes and similar idea counts; the persona changes chat voice (icon prefix, enthusiasm), not the session's structure or the ideas. [prediction]
+
+**Round 1 (opening), both in parallel:** direct 18 s, Carson 31 s. Carson skipped his menu and went straight to `bmad-brainstorming` (prediction 1 confirmed), adding the 🧠 icon, a warmer opener and a `bmad-help` reminder. Otherwise the same session: the same stance question (Facilitator / Creative Partner / Ideate for me), the same technique-picker choice (composer page or in chat), the same ask for context, and the same blocked attempt to open the composer page. Prediction 2 confirmed. [V-lab]
+
+**Round 2:** identical answers to both (Claude-suggested, Carl-approved): Ideate for me; the coach chooses techniques; context (rooms seat 12 and 4, open Mon–Sat 9:00–20:00, $500 a year, nothing tried). [V-lab]
+
+| | Direct `/bmad-brainstorming` | Through Carson |
+|---|---|---|
+| Time | 377 s | 467 s |
+| Techniques | 8 (Job to Be Done, Persona Journey, Worst Possible Idea, $0 Mandate, Ecosystem Thinking, Crank the Dial, SCAMPER, Parallel Universe) | 6 (Job to Be Done, Persona Journey, Anti-Solution, $0 Mandate, SCAMPER, Pirate Code + Alien Anthropologist) |
+| Ideas | 102 | 105 |
+| Memlog | 121 entries | 120 entries |
+| `brainstorm.html` | 655 lines | 217 lines |
+| Shortlist | 9 candidates, explicitly unchosen: "I haven't chosen any of them" | 7 picks in a costed table summing to ~$475, "my suggestion for you to accept or change", plus "free fixes that come first" |
+| Extras | a cross-idea pattern ("friction and tone matter more than programming"); offers to summarize, plan or go deeper | a timing warning (college-essay workshops before ~Nov 1), flagged its own unverified FAFSA date; offers to switch stance |
+
+**Findings:** [V-lab]
+- **The session's structure didn't change.** Same skill, same checkpoints, same artifact types, near-identical idea and memlog counts, four of the opening techniques shared.
+- **The output's stance did.** The direct run left the shortlist to the human; the Carson run made a costed, prioritized recommendation and added urgency. Carson's configured style is "enthusiastic improv coach... YES AND everything", so a more prescriptive close is not what the persona text describes. Prediction 3 half wrong: the persona changed more than voice, but not in the direction its own description suggests.
+- **One run each.** Experiment 3 showed two runs of the same skill on the same input can make different judgment calls (`systemic-findings.md`, "Triage verdicts are one sample"). So the shortlist difference may be run-to-run variance rather than the persona. The structural sameness is solid; the stance difference is a single draw. [I]
+- Answers the persona-layer question (STATE Next item 0) for this skill: an agent persona wraps the same workflow and does not alter its mechanics. Whether it changes judgment needs repeated runs. [I]
+- Ideation quality was not judged, as in Experiments 6 and 7.
+
+- Experiment complete 2026-10-03; both sessions left waiting at their "what next" question. No lab commits (`_bmad-output/` and `_bmad/` excluded).
