@@ -70,6 +70,7 @@ Six things observed running BMAD for real, each collapsed by default — expand 
 - [Glossary](glossary.md)
 - [Lab log](lab-log.md): what actually happened in each experiment
 - [Systemic findings](systemic-findings.md): patterns that only show up across several experiments at once
+- [Updating BMAD](updating-bmad.md): what survives an update, where customizations belong, and how to check what's installed
 
 ## Known gaps
 
