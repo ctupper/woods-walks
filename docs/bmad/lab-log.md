@@ -745,3 +745,33 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - **The reviewer gate caught a hole in an answer I drafted and Carl approved:** defining "evening" by start time (≥17:00) lets a 16:00–20:00 series take a whole evening without counting, so six contacts could hold every evening, "exactly what the board's 2-hour rule was meant to stop". It also found the counter-measure can never fail under FR14's cap, an FR16 vs FR6 cutoff conflict, and that the "one series per contact" control is easy to get around.
 - **C1 (walk-ins without a card vs members-only Users/FR7):** both reviewers noticed the walk-in rule, but only in relation to series (rubric: low, "not a conflict"; adversarial: M6). Neither named the pre-existing contradiction. Prediction 4 essentially confirmed.
 - Carl: stop here (2026-10-02). Review findings left unanswered; PRD not finalized; nothing committed in the lab beyond the baseline and BMAD install.
+
+## Experiment 13 — BMB build + what survives a reinstall (2026-10-03, in progress, interactive with Carl)
+
+**Question:** what does a BMAD update overwrite and what survives? Feeds the queued `wiki/updating-bmad.md`. No release newer than 6.12.0 exists, so a same-version reinstall stands in for an update. Also: one small build with BMB (Builder module), to see where a custom skill lands and whether it survives.
+
+**Setup:** `labs\lab13-bmb`, a copy of `lab8-tea` (core/BMM 6.12.0 + TEA v1.26.0, BMB v2.2.2, CIS v0.3.2, pinned). `_bmad/` and `.claude/` are excluded from git there (`.git/info/exclude`), so before/after are compared by snapshot copies, not git.
+
+**Docs read first** (`docs/customize/customize-bmad.md` at the v6.12.0 tag, new ledger entry P30; BMB `bmad-workflow-builder/SKILL.md` + `customize.toml`):
+- `_bmad/custom/` override files: "Updates do not touch your files." [V, P30]
+- A skill's own `customize.toml`: "Never edit it; updates overwrite it." The installed file's header agrees: "DO NOT EDIT -- overwritten on every update." [V, P30; V-lab]
+- `_bmad/config.toml` and `config.user.toml` are installer-owned, "regenerated on every install"; `_bmad/custom/config.toml` is "never touched by the installer". [V, P30]
+- BMB's workflow builder writes new skills to `{bmad_builder_output_folder}`, default `{project-root}/skills`, not `.claude/skills`. [V, BMB SKILL.md]
+- Not documented: what a reinstall does to an unknown skill folder a user added under `.claude/skills/`.
+
+**Planted customizations (before the reinstall):**
+
+| # | Change | Where | Docs say |
+|---|---|---|---|
+| U1 | Direct edit: `icon` changed + a marker comment | `.claude/skills/bmad-agent-pm/customize.toml` | overwritten |
+| U2 | Team override: `icon` + one `persistent_facts` line | `_bmad/custom/bmad-agent-pm.toml` | survives |
+| U3 | Central override: PM descriptor `description` | `_bmad/custom/config.toml` | survives |
+| U4 | Direct edit: marker comment | `_bmad/config.toml` (installer-owned) | regenerated |
+| U5 | Hand-added skill folder `lab-marker-skill` | `.claude/skills/` | undocumented |
+| U6 | The skill BMB builds | `skills/` (BMB default) | undocumented |
+
+**Predictions (written before any change):**
+1. U1 and U4 are reverted; U2 and U3 survive byte-identical. [prediction]
+2. U5 survives: the installer writes its own skills and leaves unknown folders alone. Low confidence. [prediction]
+3. U6 survives (outside `_bmad/` and `.claude/`), but BMAD doesn't install it as a usable skill; it sits in `skills/` until someone moves it. [prediction]
+4. A quick-update (the non-interactive default) moves `lastUpdated` for every module even though nothing changed; `installDate` stays. [prediction]
