@@ -840,3 +840,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - Ideation quality was not judged, as in Experiments 6 and 7.
 
 - Experiment complete 2026-10-03; both sessions left waiting at their "what next" question. No lab commits (`_bmad-output/` and `_bmad/` excluded).
+
+### Experiment 14b — repeat runs (2026-10-03, in progress)
+
+**Why:** Experiment 14's one difference (Carson's shortlist was costed and prescriptive; the direct run left it unchosen) rested on one run each. Two more runs per arm, each in a fresh copy of `lab8-tea` (`lab14-direct-2/3`, `lab14-cis-2/3`), same two-step protocol, same opening and the same Carl-approved answers reused verbatim. Scored on: whether the shortlist is chosen or left to the human, whether it is costed, idea and technique counts, time.
+
+**Prediction:** if the persona drives the stance, all three Carson runs are prescriptive and all three direct runs leave the choice open. If it's variance, the stances mix within each arm. I expect a mix. [prediction]
