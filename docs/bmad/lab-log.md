@@ -23,7 +23,7 @@
     - [Experiment 11](#experiment-11-bmad-architecture-brownfield-on-a-legacy-shaped-toy-2026-09-30-to-10-01-done-interactive-with-carl) — on a legacy app with rules in UI handlers, the spine bound every rule by making the old code a frozen parity oracle, and found that the form wiring isn't in the code at all.
     - [Experiment 12](#experiment-12-bmad-prd-update-mode-on-a-hand-written-prd-2026-10-02-done-interactive-with-carl) — Update mode surfaced every planted conflict before editing, kept the board decision as a baseline, and its reviewer gate caught a loophole in an approved answer.
     - [Experiment 13](#experiment-13-bmb-build-what-survives-a-reinstall-2026-10-03-done-interactive-with-carl) — _bmad/custom overrides and hand-added skills survive a reinstall; direct edits to a skill's customize.toml are lost with no backup; a failed update is not atomic.
-    - [Experiment 14](#experiment-14-cis-carson-vs-bmad-brainstorming-directly-2026-10-03-done-interactive-with-carl) — CIS brainstorming is the core skill behind a persona; through Carson the session was structurally identical, but the shortlist came back prescriptive (one run each).
+    - [Experiment 14](#experiment-14-cis-carson-vs-bmad-brainstorming-directly-2026-10-03-done-interactive-with-carl) — CIS brainstorming is the core skill behind a persona; through Carson the session was structurally identical, but repeats (14b, three runs per arm) showed no mechanical difference and only a weak lean toward a costed shortlist.
 
 ## Experiment 1 — Install and skill load (2026-09-19)
 
@@ -841,8 +841,29 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 - Experiment complete 2026-10-03; both sessions left waiting at their "what next" question. No lab commits (`_bmad-output/` and `_bmad/` excluded).
 
-### Experiment 14b — repeat runs (2026-10-03, in progress)
+### Experiment 14b — repeat runs (2026-10-03, done)
 
 **Why:** Experiment 14's one difference (Carson's shortlist was costed and prescriptive; the direct run left it unchosen) rested on one run each. Two more runs per arm, each in a fresh copy of `lab8-tea` (`lab14-direct-2/3`, `lab14-cis-2/3`), same two-step protocol, same opening and the same Carl-approved answers reused verbatim. Scored on: whether the shortlist is chosen or left to the human, whether it is costed, idea and technique counts, time.
 
 **Prediction:** if the persona drives the stance, all three Carson runs are prescriptive and all three direct runs leave the choice open. If it's variance, the stances mix within each arm. I expect a mix. [prediction]
+
+**Results, all six runs** (runs 1 are Experiment 14's): [V-lab]
+
+| Run | Time (step 2) | Techniques | Ideas | Shortlist | Costed? | Who decides |
+|---|---|---|---|---|---|---|
+| Direct 1 | 377 s | 8 | 102 | 9 candidates | No | Explicitly left to the human, "I haven't chosen any" |
+| Direct 2 | 391 s | 7 | 104 | 7, "a recommendation, not a decision" | Yes, full $500 table | Human keeps/drops; asks if the split is right |
+| Direct 3 | 511 s | 9 | 97 | 6, "for you to accept, cut or change" | One item only (~$150) | Asks the human how to split the $500 |
+| Carson 1 | 467 s | 6 | 105 | 7, "my suggestion" | Yes, ~$475 | Human accepts or changes |
+| Carson 2 | 406 s | 8 | 101 | 8, "draft shortlist", "your call" | Yes, $500 | Human keeps/adds |
+| Carson 3 | 310 s | 5 | 104 | 7, sequenced by month | Yes, ~$385, rest left for the teen board | Plus six library-policy questions it won't decide |
+
+**Findings:**
+- **Mechanics: no persona effect.** Across six runs, ideas 97–105, techniques 5–9, times 5–9 minutes, the same checkpoints and artifacts, with no pattern by arm. [V-lab]
+- **No run made the final decision.** All six handed the shortlist back to the human, whatever the framing. [V-lab]
+- **Costing leans toward Carson, weakly.** All three Carson runs returned a fully costed shortlist; the direct runs were mixed (one full, one partial, one none). Experiment 14's single-pair contrast was partly variance: direct run 2 was as costed as any Carson run. With three per arm, this is a lean, not a result. [V-lab; I on the cause]
+- Prediction (a mix within each arm): right for the direct arm, wrong for Carson, which was consistent on costing.
+- Carson runs also tended to add concrete next-step framing (a timing warning, month-by-month sequencing, policy questions); direct run 3 asked policy questions too, so this isn't exclusive to the persona. [V-lab]
+- **Answer to the persona question for this skill:** the persona wraps the same workflow and leaves its mechanics and its "human decides" checkpoint intact. It may nudge the close toward a costed recommendation; three runs can't separate that from chance. [I]
+
+- Experiment 14b complete 2026-10-03. Labs `lab14-direct-2/3`, `lab14-cis-2/3`, sessions left at their closing question.
