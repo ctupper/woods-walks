@@ -22,6 +22,7 @@
     - [Experiment 10](#experiment-10-bmad-code-review-over-the-whole-tags-epic-2026-092930-done-interactive-with-carl) — a whole-epic range review found B1's pieces but rejected B1 as spec-sanctioned; it did catch the missing mutation test (B6) mid-epic.
     - [Experiment 11](#experiment-11-bmad-architecture-brownfield-on-a-legacy-shaped-toy-2026-09-30-to-10-01-done-interactive-with-carl) — on a legacy app with rules in UI handlers, the spine bound every rule by making the old code a frozen parity oracle, and found that the form wiring isn't in the code at all.
     - [Experiment 12](#experiment-12-bmad-prd-update-mode-on-a-hand-written-prd-2026-10-02-done-interactive-with-carl) — Update mode surfaced every planted conflict before editing, kept the board decision as a baseline, and its reviewer gate caught a loophole in an approved answer.
+    - [Experiment 13](#experiment-13-bmb-build-what-survives-a-reinstall-2026-10-03-done-interactive-with-carl) — _bmad/custom overrides and hand-added skills survive a reinstall; direct edits to a skill's customize.toml are lost with no backup; a failed update is not atomic.
 
 ## Experiment 1 — Install and skill load (2026-09-19)
 
@@ -746,7 +747,7 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - **C1 (walk-ins without a card vs members-only Users/FR7):** both reviewers noticed the walk-in rule, but only in relation to series (rubric: low, "not a conflict"; adversarial: M6). Neither named the pre-existing contradiction. Prediction 4 essentially confirmed.
 - Carl: stop here (2026-10-02). Review findings left unanswered; PRD not finalized; nothing committed in the lab beyond the baseline and BMAD install.
 
-## Experiment 13 — BMB build + what survives a reinstall (2026-10-03, in progress, interactive with Carl)
+## Experiment 13 — BMB build + what survives a reinstall (2026-10-03, done, interactive with Carl)
 
 **Question:** what does a BMAD update overwrite and what survives? Feeds the queued `wiki/updating-bmad.md`. No release newer than 6.12.0 exists, so a same-version reinstall stands in for an update. Also: one small build with BMB (Builder module), to see where a custom skill lands and whether it survives.
 
@@ -775,3 +776,30 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 2. U5 survives: the installer writes its own skills and leaves unknown folders alone. Low confidence. [prediction]
 3. U6 survives (outside `_bmad/` and `.claude/`), but BMAD doesn't install it as a usable skill; it sits in `skills/` until someone moves it. [prediction]
 4. A quick-update (the non-interactive default) moves `lastUpdated` for every module even though nothing changed; `installDate` stays. [prediction]
+
+**BMB build (relay method, answers Claude-suggested, Carl-approved):** [V-lab]
+- `/bmad-workflow-builder --headless` returned the documented headless shape, a JSON object with `"status": "blocked"` and a `reason`, even under `claude -p`. Three rounds: word rule and report shape and evals (whitespace like `wc -w`; "N words in <file>"; no evals); then a lint decision; then `"status": "complete"`. 107 s + 83 s + 13 s.
+- Output landed in `skills/lab-word-count/` as documented: a 12-line `SKILL.md`, `scripts/count_words.py`, 6 passing tests; it matched `wc -w` on a real file (119 words). It was **not** installed into `.claude/skills/`, so Claude Code would not load it until someone moves it.
+- **BMB contradicts itself on the memlog:** its own path-standards scan rated `.memlog.md` at the skill root a high-severity finding, while its own build rules put the memlog exactly there. It asked rather than choosing; Carl kept it.
+
+**Customizations planted, then a snapshot.** Two errors of mine first: PowerShell 5.1's `Set-Content -Encoding utf8` wrote a BOM that broke TOML parsing (`Invalid statement (at line 1, column 1)`), and reading then rewriting `_bmad/config.toml` mangled its box-drawing characters. Fixed by rewriting without BOM; the reinstall then restored the file anyway. Not BMAD findings. Before reinstalling, the resolver returned `icon = "U2"`: the team override beats a direct edit to the shipped file, as documented. [V-lab]
+
+**Quick-update (the non-interactive default, `install --yes` with no `--action`), 42 s:** "Updated 5 modules with preserved settings". Diff of `_bmad/`, `.claude/`, `skills/` before vs after: [V-lab]
+
+| # | Result |
+|---|---|
+| U1 direct edit to a skill's `customize.toml` | **Overwritten, no backup.** Icon and marker gone; no `.bak` written. |
+| U2 `_bmad/custom/bmad-agent-pm.toml` | Survived byte-identical. |
+| U3 `_bmad/custom/config.toml` | Survived byte-identical. |
+| U4 direct edit to `_bmad/config.toml` | **Regenerated, but backed up:** new `_bmad/config.toml.bak`, byte-identical to the edited file. |
+| U5 hand-added `.claude/skills/lab-marker-skill/` | Survived; the installer still reports "54 skills" and leaves the extra folder alone. |
+| U6 BMB-built `skills/lab-word-count/` | Survived (outside the installed folders). |
+| Manifest | `lastUpdated` moved for all 6 entries; `installDate` unchanged. Module `config.yaml` files regenerated (new date, keys reordered); `files-manifest.csv` updated. |
+
+**Full update (`--action update` with module list and pins):**
+- **First attempt failed, and a failed update is not atomic.** PowerShell split my unquoted `--modules bmm,tea,bmb,cis` into separate words, and the installer failed in 4 s: "Source for module 'bmm tea bmb cis' is not available." The trigger was my quoting, but the failure still **deleted** every module's `config.yaml` and `module-help.csv` (10 files), **added** 66 copies of core skill files under `_bmad/core/bmad-*`, and rewrote the manifest, then reported failure. Customization overrides and the resolver survived it. [V-lab]
+- **Re-run with quoted arguments, 10 s: repaired cleanly.** Versus the post-quick-update state, nothing removed, nothing added; only regenerated config/manifest files changed. U2, U3, U5, U6 and `config.toml.bak` all still present. U1/U4 were not re-planted before this run, so the full-update path's own treatment of direct edits is inferred to match quick-update, not observed. [V-lab; I]
+
+**Predictions:** 1 confirmed (U1, U4 reverted; U2, U3 byte-identical), with a detail the docs don't give: the installer-owned config gets a `.bak`, a skill's `customize.toml` does not. 2 confirmed (unknown skill folder left alone). 3 confirmed (BMB output survives, not installed as a usable skill). 4 confirmed (`lastUpdated` moves on every module, `installDate` stays), so `lastUpdated` records the last install run, not the last real change.
+
+- Carl's instruction was to run it; experiment complete 2026-10-03. Lab not committed (`_bmad/`, `.claude/` excluded there).
