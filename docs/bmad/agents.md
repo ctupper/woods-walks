@@ -83,7 +83,7 @@ Eight skills ship in the core module. [V, P2]
 | `bmad-build` | Turn a work item into reviewed, verified code | Code + implementation record [V, P2, P8] |
 | `bmad-build-auto` | One unattended build iteration for an orchestrator | Code + record + terminal status [V, P2, P8] |
 | `bmad-code-review` | Review code with several independent reviewers, then triage | Findings + applied patches [V, P2, P8] |
-| `bmad-walkthrough` | Guided human review of a commit/PR/file | Walkthrough [V, P2] |
+| `bmad-walkthrough` | Guided human review of a commit/PR/file (five steps, see [flow.md](flow.md)) | Walkthrough [V, P2, P31] |
 | `bmad-qa-generate-e2e-tests` | Generate API and e2e tests | Tests [V, P2] |
 | `bmad-retrospective` | Judge a completed epic against its evidence | Retro doc, action items, verdict [V, P2, P9] |
 

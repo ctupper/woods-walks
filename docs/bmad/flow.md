@@ -95,6 +95,25 @@ A separate, optional decision once a change is implemented: does it need more au
 - TEA's other skills (test design, trace, ATDD, test review, NFRs, gates) are described as available but "not the default generate path." Test design optionally improves an Automate run; trace optionally checks coverage afterward; ATDD is for features that don't exist yet. [V, P29]
 - **Lab note (Experiment 8):** reading TEA's test-review criteria and trace gate found both operate on test quality and named-requirement coverage, not production-code correctness, so neither would have caught the tags epic's live-object aliasing defect (B1). The docs' own framing ("not code review") agrees. [V-lab; V, P29] Whether either generate skill would have *written* a test exposing B1 is untested; given the happy-path ceiling on the built-in skill, it seems unlikely without a requirement naming it. [I] Neither generate skill has been run in the lab.
 
+### After the build: walking a human through the change
+
+`bmad-walkthrough` is the human-review step: it presents a finished change in the order that suits understanding (why, then core logic, then details, then side effects) instead of a diff's file order. The docs say it is not the review skill: it doesn't replace `bmad-build`'s review or `bmad-code-review`, runs no linters or tests, and gives no severity scores or pass/fail verdict. [V, P31]
+
+When: after one or more `bmad-build` runs ("take the wheel back"), on a PR with many files, when onboarding to a branch you didn't write, or at sprint review (picks up stories marked `review`). Start it by saying "walkthrough" in the same chat after a build, or `/bmad-walkthrough` in a fresh chat with a PR, branch, spec path, or the current git state. [V, P31]
+
+Five steps, each a single front-loaded message (no questions mid-step): [V, P31; skill files at the tag]
+
+1. **Orientation.** One-line intent plus surface stats (files, modules, lines of logic, boundary crossings, new public interfaces).
+2. **Walkthrough.** Grouped by concern (for example "input validation"), not by file; each concern gets a short why and clickable `path:line` stops, ordered top-down so nothing is referenced before it's shown.
+3. **Detail pass.** 2 to 5 risk spots tagged `[auth]`, `[public API]`, `[schema]`, `[billing]`, `[infra]`, `[security]`, `[config]`, or `[other]`, ordered by blast radius. Explicitly not a bug hunt; "dig into [area]" switches to a correctness re-review of that area. If the spec has a `## Spec Change Log`, decisions the build's review loop flagged are surfaced here.
+4. **Testing.** 2 to 5 manual observations with expected results; says so if nothing is user-visible.
+5. **Wrap-up.** The human chooses approve, rework, or discuss, and the skill halts until they do. Rework asks whether the problem was the approach, the spec, or the implementation. A PR approval via `gh pr review --approve` needs the human's confirmation first.
+
+- **The review trail is almost always generated.** Step 1 looks for a `## Suggested Review Order` section in the spec; at the tag, no other skill writes one (grep of `src/`, including `bmad-build`'s spec template), so the skill builds its own trail from the diff and labels it lower quality than an author-written one. [V, P31 skill files; the "no other skill writes it" part is a grep at the tag]
+- **`## Spec Change Log` does come from `bmad-build`:** its spec template and review step write it, so the detail pass's "machine hardening" section has a real source after a build. [V, `bmad-build` spec-template.md + step-04-review.md at the tag]
+- **Unreleased change:** the clone at `f033e70` rewrites this doc to three steps (orientation, a review-narrative file with an append-only review log, then a block-by-block walkthrough with "moves" such as Second opinion and Formal review). Not in 6.12.0. [V, clone diff; release status from the tag]
+- **Lab note:** `bmad-build` offered a walkthrough at the end of every run (Experiment 2, every story of Experiment 5h); it was never taken, and the skill has not been run. [V-lab] Whether its detail pass would have pointed a human at the tags epic's live-object aliasing defect (B1: the getters return store objects, a `[public API]` concern) is untested; it is framed as risk awareness, not detection, so it would at best point there, not find it. [I]
+
 ## Learn and adjust
 
 Named as the loop's fourth stage, but it is not a wrap-up step after the real work — it is the stage where a defect spanning several stories gets a chance to surface at all. A single story's review only ever sees that story's diff; nothing in Build and verify looks across an epic. Learn and adjust is the loop's only point that does. [I, from the lab observation below]
