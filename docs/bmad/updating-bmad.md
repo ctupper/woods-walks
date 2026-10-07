@@ -1,6 +1,6 @@
 # Updating BMAD: What Survives and What Doesn't
 
-*Describes BMAD-METHOD v6.12.0 and its installer. Sources: `docs/customize/customize-bmad.md` (P30) and `docs/customize/add-modules.md` (P27) at the release tag, see `../sources.md`. Tags: [V, Pn] traced to those docs, [V-lab] observed in a lab run (Experiments 8 and 13, see [lab-log.md](lab-log.md)), [I] inferred, [?] unclear. No release newer than 6.12.0 existed when this was written, so the "update" tested was a same-version reinstall. Written 2026-10-03.*
+*Describes BMAD-METHOD v6.12.0 and its installer. Sources: `docs/customize/customize-bmad.md` (P30) and `docs/customize/add-modules.md` (P27) at the release tag, see `../sources.md`. Tags: [V, Pn] traced to those docs, [V-lab] observed in a lab run (Experiments 8 and 13, see [lab-log.md](lab-log.md)), [I] inferred, [?] unclear. No release newer than 6.12.0 existed when this was written, so the "update" tested was a same-version reinstall. Written 2026-10-03. Re-pin notes for 6.12.1 added unattended 2026-10-07, not yet reviewed.*
 
 !!! tip "TL;DR"
     Put every customization in `_bmad/custom/`. Those files survived a reinstall byte for byte. A direct edit to a skill's own `customize.toml` was overwritten with no backup. A direct edit to the installer's `_bmad/config.toml` was regenerated but kept as `config.toml.bak`. Skill folders you add yourself were left alone. Check versions in `_bmad/_config/manifest.yaml`, not on npm, and read `lastUpdated` as "last install run", not "last real change".
@@ -25,6 +25,9 @@ Tested by planting one change of each kind, snapshotting, reinstalling, and diff
 | A skill folder you added under `.claude/skills/` | Not documented | Left alone |
 | A skill built with the Builder module (BMB), in `skills/` | Not documented | Left alone; it was never installed into `.claude/skills/` in the first place |
 
+!!! warning "[?] re-check after 6.12.1 (re-pin, 2026-10-07)"
+    The table shows that `_bmad/custom/config.toml` **survives**; it did not test whether every skill **applies** it. The 6.12.1 changelog says that at 6.12.0, 23 bmm skills (including `bmad-code-review`, `bmad-prd`, `bmad-ux`, `bmad-correct-course`, `bmad-retrospective`, `bmad-walkthrough`, the five agents, and the v6 shims) loaded config from `_bmad/bmm/config.yaml` directly, so central overrides in `_bmad/custom/config.toml` and `config.user.toml` did not reach them; 6.12.1 routes them through `resolve_config.py`. [V, CHANGELOG v6.12.1 and the tag diff] So on 6.12.0, a central override may survive an update and still be ignored by most skills. Not observed in the lab. [?] Also, 6.12.1's `_bmad/config.toml` additionally carries defaults for user-scope keys (row 4's file now holds more), and the fix needs a re-run of the installer to take effect. [V, P30 at v6.12.1; CHANGELOG]
+
 So the documented rule held, with one undocumented safety net: the installer-owned config gets a `.bak`, but a skill's `customize.toml` does not. An edit made there is simply gone. [V-lab]
 
 A per-skill override also wins at runtime over a direct edit to the shipped file, so there is no reason to edit the shipped file at all: the resolver returned the override's value while both existed. [V-lab, Experiment 13; V, P30] Keep overrides sparse: "A full copy locks in today's defaults, so the next update ships new values that your override silently shadows." [V, P30]
@@ -39,6 +42,8 @@ A per-skill override also wins at runtime over a direct edit to the shipped file
 
 Most skills changed only cosmetically between releases this project compared. The two that changed substantively between the 6.12.0 release and the later unreleased code were **`bmad-build`** (how it picks a route) and **`bmad-code-review`** (how its review layers are chosen). See [build-step-by-step.md](build-step-by-step.md), "What the clone changed". After a version bump, re-read those two first, and diff their installed `SKILL.md` and step files against the previous version. [V-lab; I on the priority]
 
+**The first real bump, 6.12.0 → 6.12.1 (2026-10-04), did not follow that pattern:** `bmad-build`, `bmad-build-auto`, and `bmad-spec` did not change at all; 23 other skills changed one config-loading line each; `bmad-create-epics-and-stories` now saves `epics.md` as `status: draft` and sets `status: final` only when every validation check passes; party mode's collision check now sees aliases. [V, CHANGELOG v6.12.1 and `git diff v6.12.0 v6.12.1`] The changelog is the faster first read; the "re-read build and review first" advice above is [?] re-check as a general rule. [I]
+
 ## A lightweight stance (options, not a recommendation)
 
 None of these were tested as a team practice; they follow from what was observed. [I]
@@ -51,6 +56,7 @@ None of these were tested as a team practice; they follow from what was observed
 
 ## Not yet checked
 
-- A real version-to-version update (no newer release existed). Whether a new release changes `customize.toml` fields that existing overrides depend on. [?]
+- Whether a central `_bmad/custom/config.toml` override actually reaches a skill like `bmad-code-review` on 6.12.0 vs 6.12.1 (see the warning above). [?]
+- A real version-to-version update. 6.12.1 now exists (2026-10-04) but no lab install has been updated to it. Whether a new release changes `customize.toml` fields that existing overrides depend on. [?]
 - Whether a full update treats direct edits the same way as a quick-update (the edits were not re-planted before the full run). [?]
 - Personal `.user.toml` overrides and `config.user.toml` (only team files were tested). [?]
