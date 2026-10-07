@@ -867,3 +867,25 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - **Answer to the persona question for this skill:** the persona wraps the same workflow and leaves its mechanics and its "human decides" checkpoint intact. It may nudge the close toward a costed recommendation; three runs can't separate that from chance. [I]
 
 - Experiment 14b complete 2026-10-03. Labs `lab14-direct-2/3`, `lab14-cis-2/3`, sessions left at their closing question.
+
+## Experiment 16 — does a central config override reach `bmad-code-review`, 6.12.0 vs 6.12.1? (2026-10-07, Carl-approved)
+
+*Numbered 16 because the skill's queue reserves 15 for `bmad-prd` create-then-validate.*
+
+**Question:** the v6.12.1 CHANGELOG (#3019) says 23 bmm skills at 6.12.0 read `_bmad/bmm/config.yaml` directly, so overrides in `_bmad/custom/config.toml` did not reach them. Does that show in a real run, and does a real 6.12.0 → 6.12.1 update fix it? Also the first real version-to-version update for [updating-bmad.md](updating-bmad.md).
+
+**Setup:** two copies of `lab3-review` (Experiment 3's flawed coupon commit `92c1ace`, BMAD 6.12.0): `labs\lab16-v0` (left at 6.12.0) and `labs\lab16-v1` (updated). Both got the same override appended to `_bmad/custom/config.toml`: `[core] communication_language = "French"`. Pre-update snapshot: `labs\lab16-v1-presnap`.
+
+**Deterministic checks (before any review run):**
+- `uv run _bmad/scripts/resolve_config.py --project-root .` returns `"communication_language": "French"` **at 6.12.0** (lab16-v0). The resolver already honored the override; what 6.12.1 changes is whether skills call it. [V-lab]
+- Installed `bmad-code-review/SKILL.md` Step 4 at 6.12.0: "Load config from `{project-root}/_bmad/bmm/config.yaml`", which says `communication_language: English`. At 6.12.1: "Run `uv run {project-root}/_bmad/scripts/resolve_config.py ...`". [V-lab]
+- **The update:** `npx -y bmad-method@6.12.1 install --directory . --modules bmm --tools claude-code --yes` (a quick-update, no `--action`) took core and bmm 6.12.0 → 6.12.1 ("Custom files preserved: 2"). Unlike Experiment 8's case of adding modules, a version bump of installed modules needed no `--action update`. Manifest shows 6.12.1 for both; `lastUpdated` moved. [V-lab]
+- After the update: `_bmad/custom/config.toml` byte-identical (hash match); no `.bak` (no direct edit planted); 235 files under `_bmad/` + `.claude/` before and after; lab git status clean. [V-lab]
+- **#3016 confirmed:** `_bmad/config.toml` now carries user-scope keys it lacked at 6.12.0: `user_name = "BMad"` (the module default, not the install answer), `communication_language`, `user_skill_level`. The resolver still returns `user_name: "Carl"`, because `config.user.toml` outranks it. Someone reading `config.toml` alone would see the wrong name. [V-lab; I on the risk]
+
+**Predictions (written before the review runs; source CHANGELOG v6.12.1 #3019):**
+1. v0 (6.12.0): the trace shows `_bmad/bmm/config.yaml` read and no `resolve_config.py` call; the review is presented in English.
+2. v1 (6.12.1): the trace shows `uv run ... resolve_config.py`; the review is presented in French.
+3. Risk: a French result could come from the model reading `custom/config.toml` itself, and an English one from the English prompt pulling it back. So the trace decides; language is supporting evidence only. If v1 can't run the script (Experiment 4 saw headless approval failures), the result is inconclusive, not negative.
+
+**Run:** same prompt in both arms (no-spec mode declared, step-1 checkpoint pre-approved, stop at the patch-handling menu without choosing), `claude -p ... --permission-mode acceptEdits --allowedTools "Bash(uv run:*)" "Bash(git:*)" "Bash(node:*)" "Bash(npm test:*)"`, `--output-format stream-json --verbose` saved to `labs\lab16-out\`.
