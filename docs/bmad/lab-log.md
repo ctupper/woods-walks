@@ -959,3 +959,18 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 3. The skill held its "elicit, don't author" line even on the fast path and when told "you decide". The cost is turns: six rounds for a two-page hobby PRD. [V-lab]
 
 - Experiment 15 complete 2026-10-08. Lab `lab15-prd`, outputs and traces in `lab15-out/`. Validate session left at its decision questions; PRD not updated.
+
+## Experiment 17 — `bmad-walkthrough` through an agent persona (Amelia) (2026-10-08, interactive with Carl, relay method)
+
+**Questions:** (1) Persona routing: `bmad-walkthrough` is on **no** agent's menu at 6.12.0 (Amelia's is BD, QA, CR, SP, ER; grep of all five `customize.toml`). Her activation rule: dispatch a clear menu match, otherwise "just continue the conversation". Asked for a walkthrough through Amelia, does she invoke the walkthrough skill, route to code review (CR), or do it in her own words? (2) The walkthrough itself, never run in the lab: does it find the spec, generate its own review trail, and stop for a human decision at wrap-up? (3) Does the persona change anything about the walkthrough (Experiment 14 found brainstorming's mechanics unchanged under a persona)?
+
+**Docs read first (at the v6.12.0 tag; extends P31):** `SKILL.md`, `step-01-orientation.md`, `step-02-walkthrough.md`, `step-04-testing.md` in full (03, 05, `generate-trail.md` read 2026-10-03). Orientation finds the change by a five-step cascade (explicit argument, conversation, sprint status, current git HEAD with a confirm question, ask); ENRICH looks for a spec whose `baseline_commit` is an ancestor of the commit; `review_mode` is `full-trail` / `spec-only` / `bare-commit`; non-full-trail generates a trail. Step 2 groups by concern, ends "say **next**". Step 4 is manual-observation suggestions, ends waiting for a decision. Global rule "front-load then shut up": one message per step, no mid-step questions.
+
+**Setup:** `labs\lab17-walk`, copy of `lab5-route` at `ed2c9c0` (the B2 fix, 2 files, +79/−12). Two specs in `implementation-artifacts` have a `baseline_commit` that is an ancestor of HEAD: `spec-b2-...` (baseline `d3c526c`, the right one) and `spec-b1-...` (baseline `7ab412b`, an older change). Neither has `## Suggested Review Order`; B2 has a Spec Change Log and Review Triage Log.
+
+**Predictions (before the run):**
+1. Routing: Amelia invokes `bmad-walkthrough` anyway. The request matches its description ("walk me through this change"), and nothing in her rules forbids invoking a skill off the menu. Moderate confidence; the alternative is CR as a fuzzy match.
+2. Orientation stops to confirm the change ("I see HEAD is `ed2c9c0` ... is this the change?"), since the prompt names no commit.
+3. ENRICH picks `spec-b2` (newest baseline), sets `spec-only`, and generates a trail. It may not notice that `spec-b1` also qualifies.
+4. It walks one step per human turn (needs "next"), and never gives an approve/rework verdict itself.
+5. Persona effect: the Amelia icon prefix and voice only; no change to the steps.
