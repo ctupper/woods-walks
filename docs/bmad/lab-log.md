@@ -908,3 +908,20 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - Side note: v1 reported "node was refused" for its own direct check, though `Bash(node:*)` was allowed; its Verification Gap subagent did run the code. Likely a compound command not matching the allowlist pattern. Not investigated. [V-lab; ? on cause]
 
 - Experiment 16 complete 2026-10-07. Labs `lab16-v0` (6.12.0), `lab16-v1` (6.12.1), `lab16-v1-presnap`; traces in `lab16-out/`. Both sessions left at the patch menu.
+
+## Experiment 15 — `bmad-prd` Create, finalize, then Validate (2026-10-07, interactive with Carl, relay method)
+
+**Question:** the untested half of `bmad-prd` (Experiment 12 ran Update only). Does Create elicit rather than author? Does Finalize reach `status: final`? Does a separate Validate run, against a PRD that already passed its own reviewer gate, still find things, and does it catch an internal contradiction planted by hand after finalize (Experiment 12's uncaught gap was a pre-existing contradiction)?
+
+**Docs read first** (at the v6.12.0 tag, folded into the ledger as an extension of P20): `references/validate.md` (Validate is critique-only, no Finalize; rubric-walker subagent plus `finalize_reviewers`, default adversarial-general; synthesis into `validation-report.html` + `.md`, grade Excellent/Good/Fair/Poor by fixed rules; opens the HTML with `start ""` on Windows, skipped headless; always offers to roll findings into an Update) and `assets/prd-validation-checklist.md` (seven dimensions: decision-readiness, substance over theater, strategic coherence, done-ness clarity, scope honesty, downstream usability, shape fit; mechanical notes tail covers glossary drift, ID continuity, Assumptions Index roundtrip).
+
+**Setup:** `labs\lab15-prd`, a copy of `lab6-base` (empty repo, BMAD 6.12.0, no PRD). Toy (generic): a neighborhood tool-lending shelf. Every discovery answer is Carl's, relayed verbatim.
+
+**Plan:** (1) Create, relaying questions. (2) Finalize to `status: final`. (3) By hand, plant one internal contradiction unrelated to any change: a Non-Goal (or rule) that directly contradicts an existing FR. Exact text recorded here after planting, before Validate. (4) Validate in a fresh session.
+
+**Predictions (before any run):**
+1. Create opens with a brain-dump request and the stakes question (hobby / internal / launch), not a drafted PRD. [P20]
+2. On a hobby-stakes answer, the PRD is short (~2 pages) and drops or downscales user journeys. [P20]
+3. Finalize runs the reviewer gate and reaches `status: final` only after a human decision on open items.
+4. Validate grades the finalized PRD *Good* or better on the unplanted content (it already passed a gate), but **does catch the planted contradiction**, because unlike Update, Validate reviews the whole PRD rather than a change against it; the rubric's mechanical notes and decision-readiness both point at it. Moderate confidence.
+5. Headless, Validate writes both report files and does not open the browser.
