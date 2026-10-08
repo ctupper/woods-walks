@@ -1,11 +1,11 @@
 # `bmad-prd`: How the PRD Skill Works
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-prd/` (P20, see `../sources.md`): `SKILL.md`, `assets/prd-template.md`, first ~30 lines of `references/validate.md` and `references/headless.md`. Tags: [V, P20] traced to those files, [I] inferred, [?] unclear, [V-lab] observed in a lab run. Run in the lab once (Experiment 12, Update mode, see [lab-log.md](lab-log.md)). Written unattended 2026-09-19; reviewed by Carl 2026-09-24; lab section added 2026-10-02.*
+*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-prd/` (P20, see `../sources.md`): `SKILL.md`, `assets/prd-template.md`, first ~30 lines of `references/validate.md` and `references/headless.md`. Tags: [V, P20] traced to those files, [I] inferred, [?] unclear, [V-lab] observed in a lab run. Run in the lab twice (Experiment 12, Update mode; Experiment 15, Create → finalize → Validate; see [lab-log.md](lab-log.md)). `references/validate.md` and `assets/prd-validation-checklist.md` read in full 2026-10-07. Written unattended 2026-09-19; reviewed by Carl 2026-09-24; lab sections added 2026-10-02 and 2026-10-08 (the latter not yet reviewed).*
 
 *Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting; substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
 
 !!! tip "TL;DR"
-    `bmad-prd` is the tool for "agreement and sign-off among people" — one skill with three intents: **Create** a PRD from scratch, **Update** an existing one against a change, or **Validate** one without changing anything. It elicits rather than authors (it hands the pen back rather than proposing MVP cuts itself), keeps an append-only memlog like `bmad-spec`, and gates finalizing behind a parallel-subagent reviewer pass.
+    `bmad-prd` is the tool for "agreement and sign-off among people" — one skill with three intents: **Create** a PRD from scratch, **Update** an existing one against a change, or **Validate** one without changing anything. It elicits rather than authors (it hands the pen back rather than proposing MVP cuts itself), keeps an append-only memlog like `bmad-spec`, and gates finalizing behind a parallel-subagent reviewer pass, except at hobby stakes, where the pass may be skipped (Experiment 15: it was).
 
 ## What it is
 
@@ -49,8 +49,10 @@ Sections 0 to 9: Document Purpose, Vision, Target User (JTBD, non-users, journey
 
 ## Reviewer gate and Validate
 
-- The gate assembles a rubric walker (against `assets/prd-validation-checklist.md`), any configured extra reviewers (default: adversarial-general), and ad-hoc reviewers, run as parallel subagents. Each writes a full review file and returns only a compact summary. Findings are surfaced tiered: verdict, then critical and high, then a tail count. [V, P20]
-- The rubric walker rates each of seven dimensions strong / adequate / thin / broken. [V, P20]
+- **Stakes-calibrated:** "hobby/solo may run quietly or skip; higher stakes get the explicit all/subset/skip menu." [V, SKILL.md:75]
+- The gate assembles a rubric walker (against `assets/prd-validation-checklist.md`), any configured extra reviewers, and ad-hoc reviewers, run as parallel subagents. `validate.md` says the extra list is adversarial-general "by default", but the shipped 6.12.0 `customize.toml` has `finalize_reviewers = []`. [V, validate.md; V-lab, installed `customize.toml`] Each writes a full review file and returns only a compact summary. Findings are surfaced tiered: verdict, then critical and high, then a tail count. [V, P20]
+- The rubric walker rates each of seven dimensions strong / adequate / thin / broken: decision-readiness, substance over theater, strategic coherence, done-ness clarity ("be unforgiving here"), scope honesty, downstream usability, shape fit; plus a mechanical-notes tail (glossary drift, ID continuity, Assumptions Index roundtrip). Severity ranks impact, not ease of fix. [V, `prd-validation-checklist.md`]
+- Grade rules: *Excellent* (all strong/adequate, no high/critical), *Good* (≤1 thin, no critical), *Fair* (several thin or any high), *Poor* (any broken or any critical). So one critical finding makes a PRD Poor regardless of the rest. [V, validate.md]
 - Under Validate the skill also synthesizes one HTML plus markdown report and opens it; it does not run Finalize. [V, P20]
 - Headless mode exists (caller supplies intent, inputs; gaps are recorded as `assumptions[]` and `open_questions[]`, never invented). [V, P20]
 
@@ -67,7 +69,19 @@ Run on a one-page PRD written by hand for a community library's room-booking sys
 - **An approved baseline was annotated, not overwritten.** The change went into a separate "Proposed change" section marked pending board approval, with "until the board approves it, the March 2026 rules and non-goals above stand", and the old rule and non-goal point to it. [V-lab]
 - **The reviewer gate caught a flaw in an answer the human had approved:** defining "evening" by start time let a session starting just before the cutoff take a whole evening uncounted, defeating the cap meant to protect the board's intent. It also found a counter-measure that could never fail. [V-lab]
 - **A pre-existing contradiction unrelated to the change was not caught.** The PRD lets walk-ins without a card book, while its user list says only cardholders book; both reviewers looked at the walk-in rule only in relation to the new feature. Update and its reviewers check the change against the PRD, not the PRD against itself. [V-lab; I on the generalization]
-- Not tested: finalize to `status: final`, input reconciliation, Validate mode on its own. [?]
+- Not tested: finalize to `status: final`, input reconciliation, Validate mode on its own. [?] → Later: finalize and Validate tested in Experiment 15 (below); input reconciliation still not (no source inputs given).
+
+### Observed in the lab: Create, finalize, then Validate (Experiment 15)
+
+A hobby-stakes PRD for a neighborhood tool-lending shelf, fast path, every answer Carl's (relayed). After finalize, one contradiction was planted by hand (a Non-Goal ruling out email, against an FR and the MVP scope that require it), then Validate ran in a fresh session. [V-lab, [lab-log.md](lab-log.md) Experiment 15]
+
+- **It elicited even on the fast path.** Told "you decide" on deposit rules, it declined and offered options instead. The cost was turns: six rounds for a two-page PRD, against the docs' "two or three". Each answer opened new questions (choosing in-app deposits added four). [V-lab]
+- **It proposed one thing itself and flagged it:** a counter-metric (loans per month), marked for confirmation, as the template asks. [V-lab; V, P20]
+- **`status: final` with no review.** At hobby stakes, finalize skipped the reviewer gate (allowed), ran the memlog audit and a wording pass, and surfaced two blockers at the top of the PRD as open items owned by Carl. "Final" here meant the human chose to stop, not that a review passed. [V-lab; V, SKILL.md:75; I on the reading]
+- **Validate caught the planted contradiction, with all four reviewers** (rubric walker, adversarial, edge-case, verification gap), checked it against the memlog, and noted the PRD file was edited after the finalize entry without a log record. That is the gap Experiment 12's Update missed: Validate reads the PRD against itself, Update reads a change against the PRD. [V-lab; I on the generalization]
+- **It also found real gaps the skipped gate would have caught:** an undefined Request/Loan lifecycle, a success metric that lost tools would inflate, `status: final` beside two blockers, and the finalize audit's own miscount (claimed 30 memlog entries, there were 26). Grade **Poor** (one critical); without the plant, 8 high findings would still grade *Fair*. [V-lab]
+- Read-only as documented: PRD and memlog untouched, report in `.html` + `.md`, no browser in headless mode, ends by offering an Update. [V-lab; V, validate.md]
+- Harness caveat: the fast path's `[ASSUMPTION]` tags became `[CONFIRM]` + Open Questions because the relay prompt said every decision must come from the human; the memlog records that as the reason. [V-lab]
 
 ## Inference
 
@@ -76,4 +90,5 @@ Run on a one-page PRD written by hand for a community library's room-booking sys
 
 ## Not yet checked
 
-- `assets/prd-validation-checklist.md` (the seven dimensions in full), the Adapt-In Menu section of the template, `assets/headless-schemas.md`, and the rest of `references/validate.md`. [?]
+- ~~`assets/prd-validation-checklist.md`, the rest of `references/validate.md`~~ (read 2026-10-07). Still unread: the Adapt-In Menu section of the template, `assets/headless-schemas.md`. [?]
+- Input reconciliation at finalize (needs source documents). A finalize at internal or launch stakes, where the gate should offer the all/subset/skip menu. [?]
