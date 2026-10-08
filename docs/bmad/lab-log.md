@@ -889,3 +889,22 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 3. Risk: a French result could come from the model reading `custom/config.toml` itself, and an English one from the English prompt pulling it back. So the trace decides; language is supporting evidence only. If v1 can't run the script (Experiment 4 saw headless approval failures), the result is inconclusive, not negative.
 
 **Run:** same prompt in both arms (no-spec mode declared, step-1 checkpoint pre-approved, stop at the patch-handling menu without choosing), `claude -p ... --permission-mode acceptEdits --allowedTools "Bash(uv run:*)" "Bash(git:*)" "Bash(node:*)" "Bash(npm test:*)"`, `--output-format stream-json --verbose` saved to `labs\lab16-out\`.
+
+**Result: both predictions confirmed, by trace and by language.** [V-lab]
+
+| | v0 (6.12.0) | v1 (6.12.1) |
+|---|---|---|
+| Config load (trace) | `cat _bmad/bmm/config.yaml` (English); no `resolve_config.py` call | `uv run _bmad/scripts/resolve_config.py --project-root .` (French) |
+| Read `_bmad/custom/config.toml` itself? | No (grep of the full trace) | No |
+| Language of the presented review | **English** | **French**, throughout, including the patch menu |
+| Time / turns | 117 s / 15 | 138 s / 20 |
+| Findings | 7 patch, 1 defer, 4 rejected | 8 patch, 0 defer, 3 rejected |
+| Stopped at | patch-handling menu, unanswered | patch-handling menu, unanswered |
+
+- **So on 6.12.0, a team override in `_bmad/custom/config.toml` survives every update and is still ignored by `bmad-code-review`.** The resolver honored it all along; the skill never asked the resolver. After the 6.12.1 update, the same file, untouched, took effect with no other change. [V-lab] By the changelog, the same holds for the other 22 skills on the #3019 list (not each tested). [V, CHANGELOG; I for the untested 22]
+- The English prompt and Carl's English global instructions did not pull v1 back to English: a resolved config value beat the prompt language. [V-lab]
+- Neither arm hit the headless approval problem Experiment 4 saw, because `Bash(uv run:*)` was pre-allowed. Without that allowlist, a 6.12.1 skill may not be able to run the resolver headless. [V-lab; I on the no-allowlist case]
+- Both caught planted flaws A to F again. The per-item rounding finding was **defer** in v0 and **patch** (low) in v1: the same split Experiment 3's two runs showed, now across a third pair. Not attributable to the version (no triage files changed in 6.12.1); two non-version candidates are run variance and the node refusal in v1 (below). [V-lab; I]
+- Side note: v1 reported "node was refused" for its own direct check, though `Bash(node:*)` was allowed; its Verification Gap subagent did run the code. Likely a compound command not matching the allowlist pattern. Not investigated. [V-lab; ? on cause]
+
+- Experiment 16 complete 2026-10-07. Labs `lab16-v0` (6.12.0), `lab16-v1` (6.12.1), `lab16-v1-presnap`; traces in `lab16-out/`. Both sessions left at the patch menu.
