@@ -1,6 +1,6 @@
 # BMAD — Agents and Skills
 
-*Describes BMAD-METHOD v6.12.0 (see `../sources.md`). Tags: [V] traced to a primary doc, [I] inferred, [?] unclear. Source IDs (P2 etc.) refer to the ledger. Reviewed by Carl 2026-09-24. `bmad-project-context` rationale (P32) added unattended 2026-10-07, not yet reviewed.*
+*Describes BMAD-METHOD v6.12.0 (see `../sources.md`). Tags: [V] traced to a primary doc, [I] inferred, [?] unclear. Source IDs (P2 etc.) refer to the ledger. Reviewed by Carl 2026-09-24. `bmad-project-context` rationale (P32) added unattended 2026-10-07; persona-routing note (Experiment 17) added 2026-10-09; not yet reviewed.*
 
 !!! tip "TL;DR"
     BMAD adds named commands called **skills** to AI coding tools such as Claude Code and Cursor. Some help you *think*, others help you *build*, and either group works alone. [V, P1] A skill does one of three things: loads an **agent persona**, runs a **multi-step workflow**, or runs a **single task**. [V, P2] Five named agent personas route to the real work, which lives in the skills — an agent is mostly a personality plus a menu.
@@ -141,4 +141,4 @@ All [V, P22]. Amelia (Developer) is in the anatomy section above [V, P12].
 ## Open
 
 - Which skills spawn subagents and which run in one context. `bmad-build`, `bmad-code-review` and `bmad-build-auto` are documented as needing or preferring subagents. [V, P8, P14, P15] **Observed for `bmad-build`:** headless `claude -p` spawned implementation and review subagents once permission was given (Experiment 5h, [build-step-by-step.md](build-step-by-step.md)). [V-lab] `bmad-code-review` and `bmad-build-auto` not observed; the no-subagent fallback not observed. [?]
-- What loading an agent persona changes. Every lab run invoked skills directly; no agent session (e.g. Amelia's `BD`) has been run. [?] Candidate experiment in `STATE.md` Next.
+- What loading an agent persona changes. Every lab run invoked skills directly; no agent session (e.g. Amelia's `BD`) has been run. [?] Candidate experiment in `STATE.md` Next. → Later: Experiment 17 ran `bmad-walkthrough` through Amelia (`/bmad-agent-dev`). **An agent dispatches to skills that are not on her menu:** the walkthrough isn't on any agent's menu, and Amelia invoked it anyway on a matching request, skipping the menu as her activation rule allows for a clear intent. The persona added only an icon prefix; the skill's steps ran as written. With Experiment 14 (CIS/Carson, brainstorming), two skills now show mechanics unchanged under a persona. [V-lab] Amelia's own `BD` route is still untested. [?]

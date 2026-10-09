@@ -974,3 +974,33 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 3. ENRICH picks `spec-b2` (newest baseline), sets `spec-only`, and generates a trail. It may not notice that `spec-b1` also qualifies.
 4. It walks one step per human turn (needs "next"), and never gives an approve/rework verdict itself.
 5. Persona effect: the Amelia icon prefix and voice only; no change to the steps.
+
+**Run (session `0829702e`, resumed per turn, Carl's answers relayed verbatim; traces `lab17-out/w1..w7.jsonl`):**
+
+| Turn | Carl | Time | What happened |
+|---|---|---|---|
+| 1 | (request) | 20 s | Amelia greeted, **invoked `bmad-walkthrough` via the Skill tool** (not on her menu), no sprint status found, asked "HEAD is `ed2c9c0` on `master` ... is this the change you want to review?" |
+| 2 | "Yes" | 41 s | Picked `spec-b2` by `baseline_commit`; `spec-only`, so it generated a trail; Orientation (intent verbatim from spec, stats: 2 files, ~60 logic lines, 0 new public interfaces) **and** the Walkthrough in one message: 4 concerns (close the leak at three exits; comment now claims a module-wide guarantee; six tests, one per I/O-matrix row; bookkeeping outside git in untracked `_bmad-output/`). Ended "say **next**". |
+| 3 | "Proceed" | 16 s | Treated as "next". Detail pass: 3 risk spots: `[public API]` `addNote` identity change (noted it overrides story 1's frozen Never "on your earlier decision"), `[public API]` same on `addTag`/`removeTag`, `[security]` copy depth (nested fields would leak; only a comment guards it). "The spec's Spec Change Log is empty." |
+| 4 | "deep dive on the 3 noted areas to come up with a better pattern and design" | 129 s | Copied src/tests to its scratchpad, confirmed the nested-field leak empirically, tested `structuredClone` in `copyNote` (76/76), proposed Option A (tested) / B (store-boundary clone, untested) + a cross-export identity test, **named which frozen-spec clauses each option overrides**, asked two decisions. Repo untouched (git status clean). |
+| 5 | "neither, no doc" | 8 s | "Recorded", but no file written; back to the detail-pass menu. |
+| 6 | "next" | 20 s | Testing: two `node -e` one-liners with expected output; **it ran the first on HEAD itself** ("I just ran it on HEAD and got exactly that"). |
+| 7 | "approve" | 9 s | Wrap-up: confirmed approval of `ed2c9c0` as committed, "no completion step configured", asked if anything else. Nothing written. |
+
+**Scored against predictions:**
+1. Routing: **right.** Amelia called the skill though it isn't on her menu. [V-lab, trace]
+2. Confirm-HEAD question: **right.** [V-lab]
+3. `spec-b2` picked, `spec-only`, trail generated, `spec-b1` not mentioned: **right on all four.** [V-lab]
+4. One step per human turn, no verdict of its own: **mostly.** Orientation and Walkthrough came in one message (step 1 has no halt, so that follows the files). It never judged the change; approval was Carl's. [V-lab; V, step-01/02]
+5. Persona effect icon/voice only: **right.** The 💻 prefix carried through every step, and no step changed. [V-lab]
+
+**Findings:**
+- **A persona reaches skills that aren't on its menu.** The menu is a shortcut, not a boundary. [V-lab]
+- **The Spec Change Log was empty after a real dispatch-route `bmad-build`.** The hardening history lived in the Review Triage Log, which the walkthrough isn't told to read; it cited those IDs anyway from reading the spec. The 2026-10-03 reading ("`## Spec Change Log` does come from `bmad-build`") is true of the template, but this build left it empty. [V-lab; I on how often]
+- **The walkthrough flagged out-of-git changes:** edits under untracked `_bmad-output/` don't appear in the diff, and it said so. [V-lab]
+- **"Dig into" goes beyond a correctness re-review when asked to design:** it ran prototypes and tests in its scratchpad, proposed designs, and stopped at the frozen-spec boundary. It wrote nothing to the repo and gave no verdict. [V-lab]
+- **Its decisions don't persist.** "Neither, no doc" and "approve" were both acknowledged and neither was written to any file (spec, memlog, `sprint-status.yaml`). Wrap-up has a configurable completion step (empty by default). A resumed session or a teammate would find no record. [V-lab; V, step-05 "no completion step configured"]
+- Template boilerplate leaked: the walkthrough's closing suggestion "party mode on whether this schema migration is safe" is the step file's example text, unrelated to this change. [V-lab; V, step-02 PRESENT block]
+- Testing step: it pre-ran its own suggestion on HEAD. Honest about it, but the step is framed as the human's observation. [V-lab]
+
+- Experiment 17 complete 2026-10-09. Lab `lab17-walk` (unchanged at `ed2c9c0`), traces `lab17-out/`.
