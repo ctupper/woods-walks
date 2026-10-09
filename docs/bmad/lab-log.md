@@ -1051,3 +1051,18 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - Both left at the id-reuse decision, unanswered (no need to answer for the research).
 
 - Experiment 18 complete 2026-10-09. Labs `lab18-direct`, `lab18-amelia` (uncommitted changes, specs `in-progress`).
+
+## Experiment 19 — v6 → v7 preview: install, `bmad setup`, `bmad migrate method` on the tags epic (2026-10-09, interactive with Carl, relay method)
+
+**Question:** what happens when a real v6 project (the tags epic, 6.12.0) moves onto the v7 preview? What does setup do with the v6 install, what does the migration ask, what does it move, and does the result still work (tests, build on the next story)? First lab test of [v7-preview.md](v7-preview.md).
+
+**Source pinned:** `main@bda3c59` (P34). Installed from the local worktree `labs\BMAD-METHOD-v7p-bda3c592` with the Skills CLI (`npx skills` 1.7.1, which accepts a local path, checked with `--list`), not from GitHub, so a moving `main` can't change the install mid-experiment.
+
+**Setup:** `labs\lab19-v7mig`, copy of `lab5-route` at `ed2c9c0` (the finished tags epic plus B1/B2 fixes; 76 tests). v6 state: 29 skills in `.claude/skills`, `_bmad/` at 6.12.0, 13 files under `_bmad-output/` (spec folder `specs/spec-note-tag/` with `SPEC.md`, `.memlog.md`, `stories/` ×4, `RETROSPECTIVE.md`; `implementation-artifacts/` with the B1/B2 specs and `deferred-work.md`; `planning-artifacts/` with a sprint change proposal). `.claude/`, `_bmad/`, `_bmad-output/` are git-excluded, so **the artifacts are not under git**: the migration's `git mv` path doesn't apply and its backup question matters. Pre-install snapshot: `labs\lab19-pre`.
+
+**Predictions (before the install; sources P34 migration-1 and install doc):**
+1. `npx skills add ... --skill '*' --agent claude-code --copy -y` installs 33 v7 skill folders beside the 29 v6 ones, overwriting the same-named ones (`bmad-build`, `bmad-spec`, ...); v6-only names (`bmad-help`, `bmad-sprint-planning`, shims) remain until `bmad setup`.
+2. `bmad setup` installs the shared runtime under `_bmad/`, offers to delete the v6 leftovers (asks, doesn't just delete), keeps `_bmad/custom/`, and then offers the migration because the v6 signals match (`specs/spec-*/SPEC.md`, v6 build-spec frontmatter).
+3. `bmad migrate method` asks its six questions together with defaults, writes only a plan file and a backup before approval, and on approval turns `spec-note-tag/` into `initiative-<slug>/epic-note-tag/` with the spec folder inside, four `[[entry]]`s with status `done`, four `story-<slug>-plan.md` files, the retrospective as `epic-<slug>-retrospective.md`, and `stories.yaml` archived. The B1/B2 specs (no epic) go to `backlog/` or stay as loose build records. It never touches `src/` or `tests/`, so 76/76 still pass.
+4. Because the artifacts aren't under git, it takes the backup route (`_bmad-output-bak`), not per-group commits.
+5. Something breaks or needs a judgment call (it's a preview): most likely the B1/B2 loose specs, or a path inside `RETROSPECTIVE.md`. Low confidence on which.
