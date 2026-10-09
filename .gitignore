@@ -23,3 +23,9 @@ Thumbs.db
 
 # Image backups (originals are kept but don't need to be tracked)
 *.original
+
+# MkDocs build output (gh-deploy builds it fresh)
+site/
+
+# Stray Windows venv created with a mangled temp path
+Users*AppData*/
