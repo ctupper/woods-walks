@@ -45,6 +45,9 @@ nav:
           - Architecture: bmad/architecture-skill.md
           - UX: bmad/ux-skill.md
           - Ideation: bmad/ideation-skills.md
+      - Versions:
+          - Updating BMad: bmad/updating-bmad.md
+          - v7 Preview: bmad/v7-preview.md
       - Lab:
           - Logs: bmad/lab-log.md
           - Systemic Findings: bmad/systemic-findings.md
