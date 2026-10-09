@@ -31,7 +31,9 @@ markdown_extensions:
 
 
 nav:
-  - Home: index.md
+  - Home:
+      - Start:
+          - Welcome: index.md
   - Walks:
       - "2025":
           - First Snow: posts/2025-12-07-first-snow.md
