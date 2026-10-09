@@ -4,7 +4,7 @@ Finding what matters in the Maine woods. One day at a time.
 
 ## Recent Posts
 
-- [First Snow](posts/2025-12-07-first-snow.md) - December 7, 2025
+- [First Snow](docs/posts/2025-12-07-first-snow.md) - December 7, 2025
 
 ---
 

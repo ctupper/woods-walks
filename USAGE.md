@@ -8,9 +8,9 @@ Simple workflow for creating and publishing blog posts.
 # 1. Create new post
 python new-post.py "Post Title"
 
-# 2. Add your images to images/YYYY-MM-DD/
+# 2. Add your images to docs/images/YYYY-MM-DD/
 
-# 3. Edit the post file
+# 3. Edit the post file (preview with: mkdocs serve)
 
 # 4. Optimize images and get markdown snippets
 python optimize_images.py
@@ -43,9 +43,10 @@ python new-post.py "Morning Walk" --style observation-first
 - `reflection` - Text-only thoughts
 
 **What it does:**
-- Creates `posts/YYYY-MM-DD-slug.md`
-- Creates `images/YYYY-MM-DD/` folder
-- Updates README.md with new post link
+- Creates `docs/posts/YYYY-MM-DD-slug.md`
+- Creates `docs/images/YYYY-MM-DD/` folder
+- Adds the post to "Recent Posts" in `docs/index.md` (site home page) and `README.md`
+- Adds the post to the top of the Walks section of the `mkdocs.yml` nav
 
 ---
 
@@ -57,7 +58,7 @@ python optimize_images.py
 ```
 
 **What it does:**
-- Finds all images in `images/` folder
+- Finds all images in `docs/images/` folder
 - Resizes to max 1600px width
 - Handles EXIF rotation automatically
 - Creates `.original` backups
@@ -86,7 +87,7 @@ python publish.py "Morning Walk" --message "Update post with new images"
 - Shows git status
 - Stages all changes (`git add .`)
 - Commits with message: `Add post: {title}`
-- Pushes to GitHub
+- Pushes to GitHub; on `main`, the publish-docs workflow rebuilds the site with `mkdocs gh-deploy`
 
 ---
 
@@ -115,12 +116,15 @@ python optimize_images.py
 
 ```
 woods-walks/
-├── README.md              # Homepage with recent posts
-├── posts/
-│   └── YYYY-MM-DD-title.md
-├── images/
-│   └── YYYY-MM-DD/
-│       └── image-name.jpg
+├── README.md              # GitHub landing page with recent posts
+├── mkdocs.yml             # Site config and nav (Walks section lists posts)
+├── docs/                  # Everything MkDocs publishes
+│   ├── index.md           # Site home page with recent posts
+│   ├── posts/
+│   │   └── YYYY-MM-DD-title.md
+│   └── images/
+│       └── YYYY-MM-DD/
+│           └── image-name.jpg
 └── .claude/
     └── instructions.md    # Full project context
 ```
@@ -132,8 +136,8 @@ woods-walks/
 ### Scenario 1: New post with photos
 ```bash
 python new-post.py "Morning Frost"
-# Add images to images/2025-12-24/
-# Edit posts/2025-12-24-morning-frost.md
+# Add images to docs/images/2025-12-24/
+# Edit docs/posts/2025-12-24-morning-frost.md
 python optimize_images.py
 # Copy markdown snippets into post
 python publish.py "Morning Frost"
@@ -147,7 +151,7 @@ python publish.py "Update" --message "Fix typo in Morning Frost"
 
 ### Scenario 3: Add more images to existing post
 ```bash
-# Add new images to images/2025-12-24/
+# Add new images to docs/images/2025-12-24/
 python optimize_images.py
 # Copy new markdown snippets into post
 python publish.py "Morning Frost" --message "Add more photos"

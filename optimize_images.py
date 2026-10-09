@@ -62,7 +62,7 @@ def optimize_image(image_path, max_width=800, quality=85):
 
 if __name__ == "__main__":
     # Find all images in the images directory
-    images_dir = "images"
+    images_dir = "docs/images"
 
     if not os.path.exists(images_dir):
         print(f"Error: {images_dir} directory not found")
@@ -114,8 +114,8 @@ if __name__ == "__main__":
             # Convert hyphens to spaces for better alt text
             alt_suggestion = name_without_ext.replace('-', ' ').title()
 
-            # Generate relative path from posts/ directory
-            relative_path = f"../{img_path}"
+            # Generate relative path from the docs/posts/ directory
+            relative_path = os.path.relpath(img_path, "docs/posts").replace('\\', '/')
 
             print(f"![{alt_suggestion}]({relative_path})")
             print()

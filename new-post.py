@@ -9,6 +9,12 @@ import sys
 import re
 from datetime import datetime
 
+# MkDocs builds the site from docs/; paths are relative to the repo root
+DOCS_DIR = "docs"
+POSTS_DIR = f"{DOCS_DIR}/posts"
+IMAGES_DIR = f"{DOCS_DIR}/images"
+SITE_INDEX = f"{DOCS_DIR}/index.md"
+
 def slugify(title):
     """Convert title to URL-friendly slug"""
     slug = title.lower()
@@ -31,7 +37,7 @@ Brief introduction or context (2-3 sentences).
 Your reflection or observation here (1-3 paragraphs).
 
 ---
-[← Back to all posts](../README.md)
+[← Back to all posts](../index.md)
 """,
         'observation-first': f"""# {title}
 
@@ -44,7 +50,7 @@ Your observation or what you found (2-3 sentences).
 Connection or meaning (1-2 sentences).
 
 ---
-[← Back to all posts](../README.md)
+[← Back to all posts](../index.md)
 """,
         'reflection': f"""# {title}
 
@@ -55,26 +61,24 @@ Your thoughts or reflection here.
 Continue the reflection (keep it focused and concise).
 
 ---
-[← Back to all posts](../README.md)
+[← Back to all posts](../index.md)
 """
     }
 
     return templates.get(style, templates['image-first'])
 
-def update_readme(post_filename, title, date_obj):
-    """Update README.md with new post link"""
-    readme_path = "README.md"
-
-    if not os.path.exists(readme_path):
-        print(f"Warning: {readme_path} not found, skipping README update")
+def update_post_list(list_path, post_link, title, date_obj):
+    """Add a post link under '## Recent Posts' in a markdown file"""
+    if not os.path.exists(list_path):
+        print(f"Warning: {list_path} not found, skipping")
         return
 
-    with open(readme_path, 'r', encoding='utf-8') as f:
+    with open(list_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
     # Format: - [Title](posts/YYYY-MM-DD-slug.md) - Month Day, Year
     date_display = date_obj.strftime("%B %d, %Y")
-    new_entry = f"- [{title}]({post_filename}) - {date_display}"
+    new_entry = f"- [{title}]({post_link}) - {date_display}"
 
     # Find the "## Recent Posts" section
     if "## Recent Posts" in content:
@@ -92,12 +96,44 @@ def update_readme(post_filename, title, date_obj):
             lines.insert(insert_index, new_entry)
             content = '\n'.join(lines)
 
-            with open(readme_path, 'w', encoding='utf-8') as f:
+            with open(list_path, 'w', encoding='utf-8') as f:
                 f.write(content)
 
-            print(f"[+] Updated {readme_path}")
+            print(f"[+] Updated {list_path}")
     else:
-        print(f"Warning: Could not find '## Recent Posts' section in {readme_path}")
+        print(f"Warning: Could not find '## Recent Posts' section in {list_path}")
+
+def yaml_quote(text):
+    """Quote a nav title when plain YAML would misread it"""
+    if re.search(r'[:#\[\]{},&*!|>\'"%@`]', text) or text[:1] in '-?' or text != text.strip():
+        return '"' + text.replace('\\', '\\\\').replace('"', '\\"') + '"'
+    return text
+
+def update_nav(post_link, title, config_path="mkdocs.yml"):
+    """Add the post at the top of the Walks section of the MkDocs nav"""
+    if not os.path.exists(config_path):
+        print(f"Warning: {config_path} not found, skipping nav update")
+        return
+
+    with open(config_path, 'r', encoding='utf-8') as f:
+        lines = f.read().split('\n')
+
+    for i, line in enumerate(lines):
+        if line.strip() == "- Walks:":
+            # Match the indentation of the existing entries
+            indent = "      "
+            if i + 1 < len(lines) and lines[i + 1].lstrip().startswith("- "):
+                next_line = lines[i + 1]
+                indent = next_line[:len(next_line) - len(next_line.lstrip())]
+            lines.insert(i + 1, f"{indent}- {yaml_quote(title)}: {post_link}")
+
+            with open(config_path, 'w', encoding='utf-8') as f:
+                f.write('\n'.join(lines))
+
+            print(f"[+] Updated {config_path} nav")
+            return
+
+    print(f"Warning: Could not find '- Walks:' in {config_path} nav")
 
 def create_post(title, style='image-first'):
     """Create a new post with all necessary files and folders"""
@@ -111,8 +147,9 @@ def create_post(title, style='image-first'):
     slug = slugify(title)
 
     # Create file paths
-    post_filename = f"posts/{date_str}-{slug}.md"
-    images_folder = f"images/{date_str}"
+    post_name = f"{date_str}-{slug}.md"
+    post_filename = f"{POSTS_DIR}/{post_name}"
+    images_folder = f"{IMAGES_DIR}/{date_str}"
 
     # Check if post already exists
     if os.path.exists(post_filename):
@@ -120,7 +157,7 @@ def create_post(title, style='image-first'):
         return None
 
     # Create posts folder if it doesn't exist
-    os.makedirs("posts", exist_ok=True)
+    os.makedirs(POSTS_DIR, exist_ok=True)
 
     # Create images folder
     os.makedirs(images_folder, exist_ok=True)
@@ -135,8 +172,10 @@ def create_post(title, style='image-first'):
 
     print(f"[+] Created post: {post_filename}")
 
-    # Update README
-    update_readme(post_filename, title, date_obj)
+    # List the post on the site home page, the repo README and the site nav
+    update_post_list(SITE_INDEX, f"posts/{post_name}", title, date_obj)
+    update_post_list("README.md", post_filename, title, date_obj)
+    update_nav(f"posts/{post_name}", title)
 
     return post_filename
 
@@ -164,10 +203,11 @@ def main():
     if post_file:
         print(f"\n[+] Post created successfully!")
         print(f"\nNext steps:")
-        print(f"1. Add your images to: images/{datetime.now().strftime('%Y-%m-%d')}/")
+        print(f"1. Add your images to: {IMAGES_DIR}/{datetime.now().strftime('%Y-%m-%d')}/")
         print(f"2. Edit your post: {post_file}")
         print(f"3. Run: python optimize_images.py")
-        print(f"4. Commit and push when ready")
+        print(f"4. Preview with: mkdocs serve")
+        print(f"5. Run: python publish.py \"{title}\"")
 
 if __name__ == "__main__":
     main()

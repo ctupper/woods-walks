@@ -70,18 +70,21 @@ Optional second image if it adds to story
 Closing thought (1-2 sentences)
 
 ---
-[← Back](../README.md)
+[← Back](../index.md)
 ```
 
 ### File Organization
 ```
 woods-walks/
-├── README.md (homepage, recent posts list)
-├── posts/
-│   └── YYYY-MM-DD-title.md
-├── images/
-│   └── YYYY-MM-DD/
-│       └── descriptive-name.jpg
+├── README.md (GitHub landing page, recent posts list)
+├── mkdocs.yml (site config; nav Walks section lists posts)
+├── docs/ (everything MkDocs publishes)
+│   ├── index.md (site home page, recent posts list)
+│   ├── posts/
+│   │   └── YYYY-MM-DD-title.md
+│   └── images/
+│       └── YYYY-MM-DD/
+│           └── descriptive-name.jpg
 └── .claude/
     └── instructions.md (this file)
 ```
@@ -183,8 +186,8 @@ woods-walks/
 # Ideal workflow (help me build this):
 ./new-post.sh "First Snow"
 # Creates:
-# - posts/2025-12-24-first-snow.md (from template)
-# - images/2025-12-24/ (empty folder)
+# - docs/posts/2025-12-24-first-snow.md (from template)
+# - docs/images/2025-12-24/ (empty folder)
 # - Opens editor with template filled in
 ```
 
@@ -192,7 +195,7 @@ woods-walks/
 ```bash
 # Current: Manual upload to GitHub
 # Desired: Script to resize and organize
-./add-images.sh posts/2025-12-24-first-snow.md image1.jpg image2.jpg
+./add-images.sh docs/posts/2025-12-24-first-snow.md image1.jpg image2.jpg
 # Resizes images, moves to correct folder, updates post with image markdown
 ```
 
@@ -303,7 +306,7 @@ First snow this week. Cold and frosty at sunrise.
 Most people miss their own shadow in the path. Sometimes you need to be in the moment and take it in.
 
 ---
-[← Back](../README.md)
+[← Back](../index.md)
 ```
 
 ### Style 2: Observation-First
@@ -319,7 +322,7 @@ Found ferns still bright green, tucked in a broken log. Everything else dormant,
 Life finds a way even in the cold. Just enough.
 
 ---
-[← Back](../README.md)
+[← Back](../index.md)
 ```
 
 ### Style 3: Reflection
@@ -333,7 +336,7 @@ The hunt is just as rewarding as capturing a special moment. Sometimes you see t
 Been thinking about that on these morning walks. The looking matters as much as the finding.
 
 ---
-[← Back](../README.md)
+[← Back](../index.md)
 ```
 
 ---
