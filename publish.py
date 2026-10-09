@@ -49,7 +49,7 @@ def publish_post(title, custom_message=None):
     slug = slugify(title)
 
     # Expected post filename
-    post_file = f"posts/{date_str}-{slug}.md"
+    post_file = f"docs/posts/{date_str}-{slug}.md"
 
     # Check if post exists
     if not os.path.exists(post_file):
@@ -104,7 +104,7 @@ def main():
         custom_message = sys.argv[3]
 
     if publish_post(title, custom_message):
-        print("\nDone! Your post is live on GitHub.")
+        print("\nDone! GitHub Actions will rebuild the site in a minute or two.")
     else:
         print("\nPublish failed. Check errors above.")
         sys.exit(1)
