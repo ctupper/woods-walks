@@ -1004,3 +1004,18 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - Testing step: it pre-ran its own suggestion on HEAD. Honest about it, but the step is framed as the human's observation. [V-lab]
 
 - Experiment 17 complete 2026-10-09. Lab `lab17-walk` (unchanged at `ed2c9c0`), traces `lab17-out/`.
+
+## Experiment 18 — the same build through Amelia (`BD`) vs `bmad-build` directly (2026-10-09, Carl-approved)
+
+**Question:** does loading the Developer persona change a build? Experiments 14 and 17 found persona mechanics unchanged for brainstorming and the walkthrough, but neither persona has principles about *how* to build. Amelia's do (`customize.toml` at the tag): "No task complete without passing tests", "Red, green, refactor — in that order", "Code comments explain why, not what", "production-ready ... free of AI-generated noise", communication style "Ultra-succinct. Speaks in file paths and AC IDs".
+
+**Setup:** two fresh copies of `lab4-base` (Experiment 4's `notes-lib`, baseline `846e9dc`, BMAD 6.12.0, no `AGENTS.md`): `labs\lab18-direct` and `labs\lab18-amelia`. Both run at once, headless, same allowlist, same request: "Add `removeNote(store, id)` to the notes library. It returns the removed note. An unknown id must fail. Do not commit." Direct arm: `/bmad-build <request>`. Amelia arm: `/bmad-agent-dev BD <request>`. A same-day direct arm controls for model drift since Experiment 4 (2026-09-19); Experiment 4's exact prompt wasn't saved, so this one is reconstructed from its spec. Traces: `labs\lab18-out\`.
+
+**Scoring:** Experiment 4's five conventions (`NoteError`/`E_*`; injected store, no filesystem; `tests/*.spec.js` with `node:test` + `memoryStore`; `nN` ids untouched; export at the bottom), route, questions asked, review counts, the `nextId` id-reuse finding, time, and from the trace: **the order of the first edit to `tests/` vs `src/`, and whether a failing test run comes before the first `src/` edit.**
+
+**Predictions:**
+1. Both arms: `oneshot` route, no questions, 5/5 conventions, the id-reuse finding deferred, no commit. Same as Experiment 4.
+2. **Amelia dispatches `BD` straight to `bmad-build`** (clear intent, no menu shown).
+3. **Test-first: no difference.** Once `bmad-build` loads, its own step files drive the implementation order, and the persona's principles are context, not instructions the build follows. Both arms edit `src/` first or both test first; neither runs a deliberate red test. Low-to-moderate confidence; this is the prediction most likely to be wrong.
+4. Final message: Amelia's shorter and more path-dense; the direct arm's more narrative.
+5. One run per arm, so any difference smaller than Experiment 3's triage variance (a finding patch-vs-defer) is noise.
