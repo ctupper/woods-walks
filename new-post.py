@@ -109,8 +109,11 @@ def yaml_quote(text):
         return '"' + text.replace('\\', '\\\\').replace('"', '\\"') + '"'
     return text
 
-def update_nav(post_link, title, config_path="mkdocs.yml"):
-    """Add the post at the top of the Walks section of the MkDocs nav"""
+def indent_of(line):
+    return len(line) - len(line.lstrip())
+
+def update_nav(post_link, title, year, config_path="mkdocs.yml"):
+    """Add the post at the top of its year's section under Walks in the MkDocs nav"""
     if not os.path.exists(config_path):
         print(f"Warning: {config_path} not found, skipping nav update")
         return
@@ -118,22 +121,34 @@ def update_nav(post_link, title, config_path="mkdocs.yml"):
     with open(config_path, 'r', encoding='utf-8') as f:
         lines = f.read().split('\n')
 
-    for i, line in enumerate(lines):
-        if line.strip() == "- Walks:":
-            # Match the indentation of the existing entries
-            indent = "      "
-            if i + 1 < len(lines) and lines[i + 1].lstrip().startswith("- "):
-                next_line = lines[i + 1]
-                indent = next_line[:len(next_line) - len(next_line.lstrip())]
-            lines.insert(i + 1, f"{indent}- {yaml_quote(title)}: {post_link}")
+    walks = next((i for i, line in enumerate(lines) if line.strip() == "- Walks:"), None)
+    if walks is None:
+        print(f"Warning: Could not find '- Walks:' in {config_path} nav")
+        return
 
-            with open(config_path, 'w', encoding='utf-8') as f:
-                f.write('\n'.join(lines))
+    # The Walks section's own lines run until indentation drops back to its level
+    walks_indent = indent_of(lines[walks])
+    section_end = walks + 1
+    while section_end < len(lines) and (not lines[section_end].strip() or indent_of(lines[section_end]) > walks_indent):
+        section_end += 1
+    year_indent = " " * (walks_indent + 4)
+    if section_end > walks + 1:
+        year_indent = " " * indent_of(lines[walks + 1])
+    post_indent = year_indent + "    "
+    post_line = f"{post_indent}- {yaml_quote(title)}: {post_link}"
 
-            print(f"[+] Updated {config_path} nav")
-            return
+    # Newest first: a post goes at the top of its year, a new year at the top of Walks
+    year_line = f'{year_indent}- "{year}":'
+    year_at = next((i for i in range(walks + 1, section_end) if lines[i].rstrip() == year_line), None)
+    if year_at is None:
+        lines[walks + 1:walks + 1] = [year_line, post_line]
+    else:
+        lines.insert(year_at + 1, post_line)
 
-    print(f"Warning: Could not find '- Walks:' in {config_path} nav")
+    with open(config_path, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(lines))
+
+    print(f"[+] Updated {config_path} nav")
 
 def create_post(title, style='image-first'):
     """Create a new post with all necessary files and folders"""
@@ -175,7 +190,7 @@ def create_post(title, style='image-first'):
     # List the post on the site home page, the repo README and the site nav
     update_post_list(SITE_INDEX, f"posts/{post_name}", title, date_obj)
     update_post_list("README.md", post_filename, title, date_obj)
-    update_nav(f"posts/{post_name}", title)
+    update_nav(f"posts/{post_name}", title, date_obj.strftime("%Y"))
 
     return post_filename
 

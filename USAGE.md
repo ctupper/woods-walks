@@ -46,7 +46,7 @@ python new-post.py "Morning Walk" --style observation-first
 - Creates `docs/posts/YYYY-MM-DD-slug.md`
 - Creates `docs/images/YYYY-MM-DD/` folder
 - Adds the post to "Recent Posts" in `docs/index.md` (site home page) and `README.md`
-- Adds the post to the top of the Walks section of the `mkdocs.yml` nav
+- Adds the post to the `mkdocs.yml` nav under Walks, at the top of its year's section (creating the year if needed)
 
 ---
 
@@ -117,7 +117,7 @@ python optimize_images.py
 ```
 woods-walks/
 ├── README.md              # GitHub landing page with recent posts
-├── mkdocs.yml             # Site config and nav (Walks section lists posts)
+├── mkdocs.yml             # Site config and nav (Walks lists posts by year)
 ├── docs/                  # Everything MkDocs publishes
 │   ├── index.md           # Site home page with recent posts
 │   ├── posts/
