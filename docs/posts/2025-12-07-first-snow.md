@@ -9,4 +9,4 @@ First snow this week. Cold and frosty at sunrise.
 Most people miss their own shadow in the path. Sometimes you need to be in the moment and take it in.
 
 ---
-[← Back to all posts](../README.md)
+[← Back to all posts](../index.md)
