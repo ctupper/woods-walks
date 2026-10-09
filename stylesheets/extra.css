@@ -1,0 +1,85 @@
+/* Soften inline code so a trailing citation like [V, `lab-log.md`] reads as
+   a reference note instead of competing visually with the surrounding
+   prose. There's no markup that distinguishes a citation's code span from
+   an ordinary one (e.g. `bmad-spec` mid-sentence), so this applies to all
+   inline code, not just citations - a deliberate, blunt trade-off rather
+   than rewriting every citation in the wiki to wrap it in its own span.
+   Code *blocks* (fenced ``` ```) are untouched: the `:not(pre) >` guard
+   excludes them. */
+.md-typeset :not(pre) > code {
+  font-size: 0.8em;
+  background-color: transparent;
+  color: var(--md-default-fg-color--light);
+  padding: 0 0.2em;
+}
+
+/* Tie the "tip" admonition (used for every page's TL;DR / index box) to the
+   site's own green accent instead of Material's default teal, so the "read
+   me first" box reads as this site's own convention rather than a
+   generic bolted-on component. Every other admonition type (note, warning,
+   info, etc.) keeps Material's stock color - only tip is overridden, which
+   is also what keeps it visually distinct from the other admonitions on a
+   page like systemic-findings.md. */
+.md-typeset .admonition.tip,
+.md-typeset details.tip {
+  border-color: var(--md-primary-fg-color);
+}
+.md-typeset .tip > .admonition-title,
+.md-typeset .tip > summary {
+  background-color: var(--md-primary-fg-color--transparent, rgba(0, 0, 0, 0.05));
+}
+.md-typeset .tip > .admonition-title::before,
+.md-typeset .tip > summary::before {
+  background-color: var(--md-primary-fg-color);
+}
+
+/* Sidebar grouping. With navigation.sections, Material styles section
+   labels (Skills, Lab, ...) as grey bold text only slightly different from
+   the page links, so on the slate scheme the groups blend together. On
+   desktop (where sections render expanded), make the labels small green
+   caps with a divider above, hang each group's pages off a faint left rule,
+   and give the current page a bar so it stands out from its siblings.
+   Scoped to sections one level inside a tab (data-md-level="1"): the tab
+   itself (e.g. "BMad Wiki") is also a section in the markup and keeps its
+   own heading style. The mobile drawer navigates sections as separate
+   panels, so it keeps Material's defaults. */
+@media screen and (min-width: 76.25em) {
+  /* Tab title at the top of the sidebar */
+  .md-nav--lifted > .md-nav__list > .md-nav__item--active > .md-nav__link {
+    color: var(--md-default-fg-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  /* Section labels */
+  .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item--section > .md-nav__link {
+    margin-top: 1em;
+    padding-top: 0.9em;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+    color: var(--md-primary-fg-color);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Pages within a section */
+  .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item--section > .md-nav {
+    margin-left: 0.2rem;
+    border-left: 1px solid var(--md-default-fg-color--lightest);
+  }
+  .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item--section > .md-nav > .md-nav__list {
+    padding-left: 0.6rem;
+  }
+
+  /* Current page */
+  .md-nav--primary .md-nav__link--active {
+    font-weight: 700;
+  }
+  .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link--active {
+    /* Pull the bar over the section's 1px rule; text stays aligned */
+    margin-left: calc(-0.6rem - 1px);
+    padding-left: calc(0.6rem - 1px);
+    border-left: 2px solid var(--md-primary-fg-color);
+  }
+}
