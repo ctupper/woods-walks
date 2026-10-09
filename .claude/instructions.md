@@ -77,7 +77,7 @@ Closing thought (1-2 sentences)
 ```
 woods-walks/
 ├── README.md (GitHub landing page, recent posts list)
-├── mkdocs.yml (site config; nav Walks section lists posts)
+├── mkdocs.yml (site config; nav Walks lists posts by year)
 ├── docs/ (everything MkDocs publishes)
 │   ├── index.md (site home page, recent posts list)
 │   ├── posts/
