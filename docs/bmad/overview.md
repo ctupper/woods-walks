@@ -71,6 +71,7 @@ Six things observed running BMAD for real, each collapsed by default — expand 
 - [Lab log](lab-log.md): what actually happened in each experiment
 - [Systemic findings](systemic-findings.md): patterns that only show up across several experiments at once
 - [Updating BMAD](updating-bmad.md): what survives an update, where customizations belong, and how to check what's installed
+- [v7 preview](v7-preview.md): what the unreleased v7 draft on BMAD's main branch changes (install, initiatives, the ticket tree, migration, review defaults); read only, not run
 
 ## Known gaps
 

@@ -2,6 +2,9 @@
 
 *Describes BMAD-METHOD v6.12.0 and its installer. Sources: `docs/customize/customize-bmad.md` (P30) and `docs/customize/add-modules.md` (P27) at the release tag, see `../sources.md`. Tags: [V, Pn] traced to those docs, [V-lab] observed in a lab run (Experiments 8 and 13, see [lab-log.md](lab-log.md)), [I] inferred, [?] unclear. No release newer than 6.12.0 existed when this was written, so the "update" tested was a same-version reinstall. Written 2026-10-03. Re-pin notes for 6.12.1 and Experiment 16 (first real update, 6.12.0 → 6.12.1) added 2026-10-07, not yet reviewed.*
 
+!!! note "v7 preview"
+    BMAD's unreleased v7 draft replaces this installer (`npx skills add` plus a `bmad setup` skill). Most of this page applies to 6.x only. See [v7-preview.md](v7-preview.md).
+
 !!! tip "TL;DR"
     Put every customization in `_bmad/custom/`. Those files survived a reinstall byte for byte. A direct edit to a skill's own `customize.toml` was overwritten with no backup. A direct edit to the installer's `_bmad/config.toml` was regenerated but kept as `config.toml.bak`. Skill folders you add yourself were left alone. On 6.12.0, a central override in `_bmad/custom/config.toml` survives but most skills ignore it; 6.12.1 fixes that. Check versions in `_bmad/_config/manifest.yaml`, not on npm, and read `lastUpdated` as "last install run", not "last real change".
 
