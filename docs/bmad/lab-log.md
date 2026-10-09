@@ -1019,3 +1019,35 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 3. **Test-first: no difference.** Once `bmad-build` loads, its own step files drive the implementation order, and the persona's principles are context, not instructions the build follows. Both arms edit `src/` first or both test first; neither runs a deliberate red test. Low-to-moderate confidence; this is the prediction most likely to be wrong.
 4. Final message: Amelia's shorter and more path-dense; the direct arm's more narrative.
 5. One run per arm, so any difference smaller than Experiment 3's triage variance (a finding patch-vs-defer) is noise.
+
+**Result (both arms 2026-10-09; traces `lab18-out/direct.jsonl`, `amelia.jsonl`; analysis script `lab18-out/analyze.py`):**
+
+| | Direct `/bmad-build` | Amelia `/bmad-agent-dev BD` |
+|---|---|---|
+| Dispatch | slash command loads the skill | Amelia called `bmad-build` via the Skill tool, no menu shown |
+| Route | `oneshot` | `oneshot` |
+| **Order** | spec → **`src/` edit** → tests → green (6/0) | spec → **tests (two edits) → run: 4 pass / 2 fail (red)** → `src/` edit → green (6/0) |
+| Review | Blind Hunter subagent | Blind Hunter subagent |
+| After review | 1 test tightened, 6/0 | 2 tests added, 7/0 |
+| `src/` code | `removeNote` 9 lines, `filter(n => n.id !== id)` | same 9 lines, `filter(n => n !== note)` |
+| Conventions | 5/5 | 5/5 |
+| Id-reuse finding | **halted for a decision** (3 options: accept, counter in the store, random ids; recommends accept) | **halted for a decision** (2 options: accept and pin with a test, or back to planning) |
+| Spec status | `in-progress` | `in-progress` |
+| Time / turns | 88 s / 18 | 134 s / 31 |
+| Commit | none | none |
+
+**Scored against predictions:**
+1. Same route, conventions and no commit: **right.** "No questions": **wrong for both arms.** Both halted on the id-reuse finding instead of deferring it (see below).
+2. Amelia dispatched `BD` straight to `bmad-build`: **right.** [V-lab]
+3. **Test-first, no difference: wrong.** Amelia's arm wrote the tests first, ran them red (2 failing), then wrote `src/`; the direct arm wrote `src/` first. `bmad-build`'s step files have no test-first instruction (grep for test-order wording across the installed skill), so the order came from the persona's "Red, green, refactor — in that order". **The persona's principles carry into the skill it dispatches.** One run per arm. [V-lab; I on the cause]
+4. Amelia's final message shorter: **wrong / no difference.** Similar length; Amelia's had the 💻 prefix and framed the choice as two options instead of three. [V-lab]
+5. Noise caveat stands: the 1-test vs 2-test patch difference and 3 vs 2 options are within Experiment 3's variance.
+
+**Findings:**
+- **First observed persona effect on behavior, not just voice.** Brainstorming (Experiment 14) and the walkthrough (Experiment 17) ran unchanged under a persona; a build under Amelia followed her TDD principle. The difference: those personas' principles didn't speak to the skill's work, and Amelia's do. It cost 46 s and 13 turns more here. [V-lab, one run per arm; I on the generalization]
+- **Both arms escalated the id-reuse bug to a human decision. Experiment 4 (2026-09-19, same repo, no `AGENTS.md`) deferred it silently, and Experiment 4b found that only the context-primed run escalated.** Today both arms escalated with no context file. So 4b's "context changes escalation" is confounded: either model behavior changed since 2026-09-19 or escalation varies run to run. Experiment 4b's result is now `[?] re-check`; one more pair of runs would be needed to separate the two. [V-lab; ? on the cause]
+- Both returned the stored `note` object from `removeNote`, the same live-reference pattern as retrospective finding B1. Neither review flagged it. Same in both arms, so not a persona effect. [V-lab]
+- Both runs took a third of Experiment 4's 389 s (88 s and 134 s). [V-lab]
+- Both left at the id-reuse decision, unanswered (no need to answer for the research).
+
+- Experiment 18 complete 2026-10-09. Labs `lab18-direct`, `lab18-amelia` (uncommitted changes, specs `in-progress`).

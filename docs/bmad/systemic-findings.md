@@ -43,6 +43,8 @@
 
     Project context, in other words, doesn't make review find more. It makes review escalate more of what it already finds. [I]
 
+    **[?] re-check (Experiment 18, 2026-10-09):** the same change in the same repo with **no** `AGENTS.md` escalated this bug to a human decision in both of two runs (direct and through Amelia). So the 4b difference may be model drift since 2026-09-19 or run-to-run variance rather than the context file. The claim above stands as observed on 2026-09-23 but is unconfirmed as a cause. [V-lab, [lab-log.md](lab-log.md) Experiment 18]
+
 !!! info "A model can notice that it keeps rejecting the same claim"
     Three independent review passes across three different stories raised the same finding (a note record with a non-array `tags` field would substring-match a filter) and rejected it each time on the same structural grounds. On the third occurrence, the build told Carl, unprompted, that being raised three times independently made this "the most likely place my reasoning is wrong" — not defending the rejection a fourth time, naming the pattern in its own verdicts as a signal worth surfacing. [V-lab, [lab-log.md](lab-log.md) Experiment 5h]
 
