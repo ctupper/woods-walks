@@ -58,11 +58,12 @@ python optimize_images.py
 ```
 
 **What it does:**
-- Finds all images in `docs/images/` folder
-- Resizes to max 1600px width
+- Finds new images in `docs/images/` (JPG, JPEG, PNG). Images that already have a `.original` backup are skipped, so re-running never re-compresses a photo
+- Resizes to max 800px width (JPEG quality 85; PNGs stay PNG and keep transparency)
 - Handles EXIF rotation automatically
-- Creates `.original` backups
-- Generates markdown snippets to copy/paste
+- Strips EXIF metadata, including GPS location
+- Keeps the untouched original as `<name>.original` (not committed to git)
+- Prints markdown snippets for the images it just optimized
 
 **Output example:**
 ```
@@ -88,6 +89,9 @@ python publish.py "Morning Walk" --message "Update post with new images"
 - Stages all changes (`git add .`)
 - Commits with message: `Add post: {title}`
 - Pushes to GitHub; on `main`, the publish-docs workflow rebuilds the site with `mkdocs gh-deploy`
+- Titles and messages can contain quotes or any other characters
+
+**Site check:** the "Check site" workflow runs `mkdocs build --strict` on every push to `main` and every pull request. It fails on broken internal links, links to headings that don't exist, and nav entries pointing at missing files. It doesn't block the publish, so a red X means fix the link, not that the post is missing. Run the same check locally with `mkdocs build --strict`.
 
 ---
 
@@ -174,3 +178,12 @@ python publish.py "Morning Frost" --message "Add more photos"
 **Markdown snippets not showing:**
 - Script only generates snippets for newly optimized images
 - Images with `.original` backup are skipped
+
+**Re-optimize an image (e.g. after changing the size):**
+- Delete the optimized image, rename `name.jpg.original` back to `name.jpg`, run the script again
+
+**Image disappeared after an error:**
+- It shouldn't: if saving fails, the script puts the original back. Check for a leftover `.original` file and rename it back
+
+**"Check site" workflow failed:**
+- Run `mkdocs build --strict` locally; the WARNING line names the file and the broken link
