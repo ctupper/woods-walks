@@ -34,17 +34,18 @@
 
 ## My Background (For Voice/Context)
 
-- 57 years old, computer programmer in Maine
-- Grew up in northern Maine (Perham), lumber jack family heritage
+- Computer programmer in Maine
 - Pattern recognition and systems thinking are core strengths
 - Value autonomy, intellectual challenge, efficiency
-- Introverted - the woods are restoration time
-- Recovery mindset: one day at a time, forward-looking
+- One day at a time, forward-looking
 - Direct communicator, no time for unnecessary complexity
 
+Personal background and life context live in `CLAUDE.local.md` at the repo
+root. It's gitignored, so it stays on my machine and never goes public.
+Claude Code loads it automatically.
+
 ### Why I Walk
-- Connection to late father (woods = where I feel him around)
-- Mental health and physical movement
+- Restoration and physical movement
 - Finding "special moments" at macro and micro levels
 - Escape from work chaos and life demands
 - Just being myself without roles/responsibilities
@@ -236,14 +237,8 @@ python publish.py "First Snow"       # git add, commit, push; Actions rebuilds t
 
 ## Important Context Notes
 
-### Current Life Situation
-- Work: Busy, sometimes chaotic, year-end crunch
-- Family: Wife (Jo-Ann) dealing with health issues, adult kids nearby
-- Financial: Working toward debt freedom, ~3-4 years out
-- Mindset: One day at a time, managing what I can control
-
 ### Why This Matters
-The walks are essential mental health time. The blog is:
+The walks are essential restoration time. The blog is:
 - Documentation of the journey
 - Practice in noticing/appreciating
 - Something that's mine (not work, not family obligations)
