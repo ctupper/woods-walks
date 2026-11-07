@@ -131,6 +131,7 @@ woods-walks/
 ├── README.md              # GitHub landing page with recent posts
 ├── mkdocs.yml             # Site config and nav (Walks lists posts by year)
 ├── requirements.txt       # Pinned MkDocs Material version (used by both workflows)
+├── hooks/lists.py         # Build-time fix: lists right under a line of text render as lists
 ├── docs/                  # Everything MkDocs publishes
 │   ├── index.md           # Site home page with recent posts
 │   ├── posts/
