@@ -1,16 +1,37 @@
-/* Soften inline code so a trailing citation like [V, `lab-log.md`] reads as
-   a reference note instead of competing visually with the surrounding
-   prose. There's no markup that distinguishes a citation's code span from
-   an ordinary one (e.g. `bmad-spec` mid-sentence), so this applies to all
-   inline code, not just citations - a deliberate, blunt trade-off rather
-   than rewriting every citation in the wiki to wrap it in its own span.
-   Code *blocks* (fenced ``` ```) are untouched: the `:not(pre) >` guard
-   excludes them. */
-.md-typeset :not(pre) > code {
-  font-size: 0.8em;
-  background-color: transparent;
+/* Inline code keeps Material's default look (normal size, faint background).
+   It used to be shrunk and greyed so citations like [V, `lab-log.md`] would
+   recede, but only a handful of citations use code while the wiki uses it
+   hundreds of times for commands, paths and skill names - inside tables and
+   admonitions that made it ~10px grey text. */
+
+/* Admonitions (every TL;DR box, all of Systemic Findings) and tables (the
+   lab log has 27) default to 0.64rem, well below body text, so the summary
+   meant to be read first was the hardest to read. Bring both closer to the
+   0.8rem body size. */
+.md-typeset .admonition,
+.md-typeset details,
+.md-typeset table:not([class]) {
+  font-size: 0.72rem;
+}
+
+/* Every wiki page opens with an all-italic paragraph of provenance notes
+   (version, source IDs, tag legend, review dates) - sometimes two, or after
+   a blockquote. Keep it, but read it as a quiet page note rather than
+   several lines of full-size italics ahead of the TL;DR. Matches only an
+   italic-only paragraph directly after the page title (or after the first
+   such note / an opening blockquote), so ordinary first paragraphs, such as
+   the blog's, are untouched. */
+.md-typeset h1 + p:has(> em:only-child),
+.md-typeset h1 + p:has(> em:only-child) + p:has(> em:only-child),
+.md-typeset h1 + blockquote + p:has(> em:only-child) {
+  font-size: 0.68rem;
+  line-height: 1.6;
   color: var(--md-default-fg-color--light);
-  padding: 0 0.2em;
+}
+.md-typeset h1 + p:has(> em:only-child) > em,
+.md-typeset h1 + p:has(> em:only-child) + p:has(> em:only-child) > em,
+.md-typeset h1 + blockquote + p:has(> em:only-child) > em {
+  font-style: normal;
 }
 
 /* Tie the "tip" admonition (used for every page's TL;DR / index box) to the
