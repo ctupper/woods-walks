@@ -1,6 +1,6 @@
 # BMAD in One Page
 
-*For someone who has never seen BMAD. Describes BMAD-METHOD v6.12.0. Tags: [V] traced to the project's own docs or skill files (detail and source IDs on the linked pages), [V-lab] seen in a lab run, [I] inferred. Drafted unattended 2026-09-19 and read by the project owner on 2026-09-20, who found it good. The owner had followed the research closely, so a read by someone who has never seen BMAD would still be stronger evidence.*
+*For someone who has never seen BMAD. Describes BMAD-METHOD v6.12.0. Tags: [V] traced to the project's own docs or skill files (detail and source IDs on the linked pages), [V-lab] seen in a lab run, [I] inferred. Drafted unattended 2026-09-19 and read by the project owner on 2026-09-20, who found it good. The owner had followed the research closely, so a read by someone who has never seen BMAD would still be stronger evidence. Install note corrected and shortest-path line added unattended 2026-10-18 from the Getting Started docs (P38, 6.12.1), not yet reviewed.*
 
 !!! tip "TL;DR"
     BMAD adds named commands ("skills") to an AI coding tool. A few turn a written-down intent into a one-page spec, then implement and independently review the change against it. Small work can skip straight to building; bigger work starts with planning skills instead. It halts and asks rather than guessing when your intent is unclear, and it doesn't sync with your tracker or decide what you want. The rest of this page is the detail, with a citation for every claim.
@@ -23,7 +23,7 @@ The released docs' delivery diagram shows one loop of four steps: **Clarify, Pla
 
 ## The shortest path
 
-For a change that fits in one session, you can skip planning documents entirely: write down the intent, let `bmad-spec` turn it into a one-page contract, and let `bmad-build` implement and review it. In a lab run, a small command-line tool went from idea to passing tests this way. [V, [flow.md](flow.md); V-lab, [lab-log.md](lab-log.md)]
+For a change that fits in one session, you can skip planning documents entirely: write down the intent, let `bmad-spec` turn it into a one-page contract, and let `bmad-build` implement and review it. In a lab run, a small command-line tool went from idea to passing tests this way. [V, [flow.md](flow.md); V-lab, [lab-log.md](lab-log.md)] The official Getting Started tutorial goes shorter still: one request straight to `bmad-build` (the Mars Rover kata), which asks what it needs, shows a plan for approval, then writes and checks the code. No spec step. [V, P38 `docs/start/build-your-first-change.md`] That matches Experiment 4, where `bmad-build` took a small change in an existing repo with no spec and no questions. [V-lab]
 
 ## What the parts do
 
@@ -44,7 +44,7 @@ For a change that fits in one session, you can skip planning documents entirely:
 Six things observed running BMAD for real, each collapsed by default — expand the ones you care about.
 
 ??? note "Install requirements"
-    Install works on Windows with Node, git, and `uv` (a Python tool the installer requires). [V-lab, [lab-log.md](lab-log.md)]
+    Install works on Windows with Node, git, and `uv` (a Python tool the installer requires). [V-lab, [lab-log.md](lab-log.md)] Correction from the install docs (P38, read 2026-10-18 at 6.12.1): the installer only *warns* when `uv` is missing and finishes anyway; `bmad-build` and `bmad-build-auto` are what fail without it. Node 20.12+ is required; git only for external or custom modules. [V, P38] The official tutorial asks for a macOS or Linux shell, but every lab run here was on Windows. [V, P38; V-lab]
 
 ??? note "How long a build actually takes"
     A larger build with three independent reviewers took about 32 minutes; a small change in an existing codebase, with one reviewer, took about 6.5. [V-lab, [lab-log.md](lab-log.md)]
@@ -71,6 +71,7 @@ Six things observed running BMAD for real, each collapsed by default — expand 
 - [Lab log](lab-log.md): what actually happened in each experiment
 - [Systemic findings](systemic-findings.md): patterns that only show up across several experiments at once
 - [Updating BMAD](updating-bmad.md): what survives an update, where customizations belong, and how to check what's installed
+- [Practitioner views](practitioner-views.md): outside write-ups about BMAD, checked claim by claim against the release and the lab
 - [v7 preview](v7-preview.md): what the unreleased v7 draft on BMAD's main branch changes (install, initiatives, the ticket tree, migration, review defaults); read only, not run
 
 ## Known gaps

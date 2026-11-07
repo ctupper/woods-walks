@@ -2,30 +2,40 @@
 
 *Observations from running BMAD in throwaway repos under `C:\Users\ctupp\labs\`. Tag [V-lab] = seen happening. Each entry says what the docs predicted and what actually happened.*
 
-*This is a log: entries are kept as written at the time. Where a later experiment answered an entry's "not tested" or "unconfirmed" line, a `→ Later:` pointer was added (Carl review pass, 2026-09-24) instead of rewriting the entry.*
+*This is a log: entries are kept as written at the time. Where a later experiment answered an entry's "not tested" or "unconfirmed" line, a `→ Later:` pointer was added (Carl review pass, 2026-09-24) instead of rewriting the entry. On 2026-11-07 each entry's date and status moved from its heading to the line under it, so the contents list stays short (formatting only, wording unchanged). Index lines for Experiments 15 to 22 added the same day.*
 
 !!! tip "Index — one line per entry, in order run"
-    - [Experiment 1](#experiment-1-install-and-skill-load-2026-09-19) — full install works; 29 skills confirmed.
-    - [Experiment 2](#experiment-2-one-toy-idea-through-the-loop-2026-09-19-done) — spec through build round trip, dispatch route, 18/18 tests, review found real issues.
-    - [Experiment 3](#experiment-3-bmad-code-review-on-a-flawed-diff-2026-09-19-done-first-attempt-halted-rerun-ran) — caught all six planted flaws; surfaced that the clone repo was ahead of the npm release.
-    - [Experiment 4](#experiment-4-existing-codebase-start-2026-09-19-done-project-context-halted-on-questions) — project-context halted with five questions; a small oneshot build followed five of five planted conventions.
-    - [Experiment 6](#experiment-6-ideation-skills-unattended-2026-09-20-done-both-halted-on-human-input-as-predicted) — both ideation skills halted for human input unattended, as the files predict.
-    - [Experiment 5](#experiment-5-a-spec-backed-epic-then-bmad-correct-course-2026-09-20-done-interactive-with-carl) — a spec-backed epic, then a requirement change handled through a Sprint Change Proposal, interactively with Carl.
-    - [Experiment 7](#experiment-7-real-headless-brainstorming-2026-09-20-done-both-predictions-wrong) — both predictions about what makes a run headless were wrong; a present human message always means interactive.
-    - [Follow-ups with Carl's answers](#follow-ups-with-carls-answers-2026-09-21) — smaller open questions from earlier experiments, answered.
-    - [Experiment 5h](#experiment-5h-all-four-stories-built-interactively-2026-09-21-to-2026-09-23-done) — the full four-story epic built end to end, 61/61 tests, every checkpoint fired as documented.
-    - [Experiment 4b](#experiment-4b-does-agentsmd-change-a-build-once-it-exists-2026-09-23-carl-answered-done) — same code, same bug found either way; project context changed only whether it escalated to a human.
-    - [Experiment 5i](#experiment-5i-bmad-retrospective-on-the-finished-tags-epic-2026-09-2324-carl-answered-done) — retrospective on the finished epic found B1 (a live-object aliasing defect) and 16 action items.
-    - [R1/R1b](#r1r1b-fixing-retrospective-finding-b1-2026-09-2425-carl-answered-done) — B1 fixed and committed: all eight leaking exits closed across two builds.
-    - [Experiment 8](#experiment-8-add-on-setup-tea-2026-09-26-done) — TEA/BMB/CIS installed and pinned; TEA would not have caught B1 through any workflow examined.
-    - [Experiment 9 / 9b](#experiment-9-cross-epic-frozen-test-2026-09-27-to-09-29-done-interactive-with-carl) — frozen story blocks are guarded within their own spec, but a second epic changes their code without anything noticing.
-    - [Experiment 10](#experiment-10-bmad-code-review-over-the-whole-tags-epic-2026-09-2930-done-interactive-with-carl) — a whole-epic range review found B1's pieces but rejected B1 as spec-sanctioned; it did catch the missing mutation test (B6) mid-epic.
-    - [Experiment 11](#experiment-11-bmad-architecture-brownfield-on-a-legacy-shaped-toy-2026-09-30-to-10-01-done-interactive-with-carl) — on a legacy app with rules in UI handlers, the spine bound every rule by making the old code a frozen parity oracle, and found that the form wiring isn't in the code at all.
-    - [Experiment 12](#experiment-12-bmad-prd-update-mode-on-a-hand-written-prd-2026-10-02-done-interactive-with-carl) — Update mode surfaced every planted conflict before editing, kept the board decision as a baseline, and its reviewer gate caught a loophole in an approved answer.
-    - [Experiment 13](#experiment-13-bmb-build-what-survives-a-reinstall-2026-10-03-done-interactive-with-carl) — _bmad/custom overrides and hand-added skills survive a reinstall; direct edits to a skill's customize.toml are lost with no backup; a failed update is not atomic.
-    - [Experiment 14](#experiment-14-cis-carson-vs-bmad-brainstorming-directly-2026-10-03-done-interactive-with-carl) — CIS brainstorming is the core skill behind a persona; through Carson the session was structurally identical, but repeats (14b, three runs per arm) showed no mechanical difference and only a weak lean toward a costed shortlist.
+    - [Experiment 1](#experiment-1-install-and-skill-load) — full install works; 29 skills confirmed.
+    - [Experiment 2](#experiment-2-one-toy-idea-through-the-loop) — spec through build round trip, dispatch route, 18/18 tests, review found real issues.
+    - [Experiment 3](#experiment-3-bmad-code-review-on-a-flawed-diff) — caught all six planted flaws; surfaced that the clone repo was ahead of the npm release.
+    - [Experiment 4](#experiment-4-existing-codebase-start) — project-context halted with five questions; a small oneshot build followed five of five planted conventions.
+    - [Experiment 6](#experiment-6-ideation-skills-unattended) — both ideation skills halted for human input unattended, as the files predict.
+    - [Experiment 5](#experiment-5-a-spec-backed-epic-then-bmad-correct-course) — a spec-backed epic, then a requirement change handled through a Sprint Change Proposal, interactively with Carl.
+    - [Experiment 7](#experiment-7-real-headless-brainstorming) — both predictions about what makes a run headless were wrong; a present human message always means interactive.
+    - [Follow-ups with Carl's answers](#follow-ups-with-carls-answers) — smaller open questions from earlier experiments, answered.
+    - [Experiment 5h](#experiment-5h-all-four-stories-built-interactively) — the full four-story epic built end to end, 61/61 tests, every checkpoint fired as documented.
+    - [Experiment 4b](#experiment-4b-does-agentsmd-change-a-build-once-it-exists) — same code, same bug found either way; project context changed only whether it escalated to a human.
+    - [Experiment 5i](#experiment-5i-bmad-retrospective-on-the-finished-tags-epic) — retrospective on the finished epic found B1 (a live-object aliasing defect) and 16 action items.
+    - [R1/R1b](#r1r1b-fixing-retrospective-finding-b1) — B1 fixed and committed: all eight leaking exits closed across two builds.
+    - [Experiment 8](#experiment-8-add-on-setup-tea) — TEA/BMB/CIS installed and pinned; TEA would not have caught B1 through any workflow examined.
+    - [Experiment 9 / 9b](#experiment-9-cross-epic-frozen-test) — frozen story blocks are guarded within their own spec, but a second epic changes their code without anything noticing.
+    - [Experiment 10](#experiment-10-bmad-code-review-over-the-whole-tags-epic) — a whole-epic range review found B1's pieces but rejected B1 as spec-sanctioned; it did catch the missing mutation test (B6) mid-epic.
+    - [Experiment 11](#experiment-11-bmad-architecture-brownfield-on-a-legacy-shaped-toy) — on a legacy app with rules in UI handlers, the spine bound every rule by making the old code a frozen parity oracle, and found that the form wiring isn't in the code at all.
+    - [Experiment 12](#experiment-12-bmad-prd-update-mode-on-a-hand-written-prd) — Update mode surfaced every planted conflict before editing, kept the board decision as a baseline, and its reviewer gate caught a loophole in an approved answer.
+    - [Experiment 13](#experiment-13-bmb-build-what-survives-a-reinstall) — _bmad/custom overrides and hand-added skills survive a reinstall; direct edits to a skill's customize.toml are lost with no backup; a failed update is not atomic.
+    - [Experiment 14](#experiment-14-cis-carson-vs-bmad-brainstorming-directly) — CIS brainstorming is the core skill behind a persona; through Carson the session was structurally identical, but repeats (14b, three runs per arm) showed no mechanical difference and only a weak lean toward a costed shortlist.
+    - [Experiment 16](#experiment-16-does-a-central-config-override-reach-bmad-code-review-6120-vs-6121) — at 6.12.0 a team override in `_bmad/custom/config.toml` was resolved correctly but ignored by `bmad-code-review`; after a quick-update to 6.12.1 the same untouched file took effect.
+    - [Experiment 15](#experiment-15-bmad-prd-create-finalize-then-validate) — a `status: final` PRD had never been reviewed; Validate graded it Poor, all four reviewers caught the planted contradiction, and it caught the finalize audit's own miscount.
+    - [Experiment 17](#experiment-17-bmad-walkthrough-through-an-agent-persona-amelia) — Amelia ran `bmad-walkthrough` though it isn't on her menu; the walkthrough flagged out-of-git changes, but none of its decisions were written down anywhere.
+    - [Experiment 18](#experiment-18-the-same-build-through-amelia-bd-vs-bmad-build-directly) — first persona effect on behavior: under Amelia the build followed her TDD principle; both arms escalated the id-reuse bug with no `AGENTS.md`, which puts 4b's result in doubt.
+    - [Experiment 19](#experiment-19-v6-v7-preview-install-bmad-setup-bmad-migrate-method-on-the-tags-epic) — the v7 preview migration worked, but its backup check was fooled by a git-ignored output folder and its checklist passed a "Done when" the code no longer meets.
+    - [Experiment 20](#experiment-20-a-v7-ticket-and-build-file-the-nextid-bug-with-bmad-ticket-then-bmad-build-it) — `bmad-ticket`'s own check caught conflicting criteria before any code, quick review found and fixed a real defect, and a git-ignored store fooled a second v7 skill.
+    - [Experiment 21](#experiment-21-a-true-headless-bmad-spec-call) — after three failed CLI logins, headless `bmad-spec` returned `complete` while three open questions sat in `SPEC.md`, and skipped the requested stories without saying so.
+    - [Experiment 22](#experiment-22-party-mode-session-vs-subagent-on-the-same-decision) — party mode: the one-model `session` room's dissent looked staged, while four independent `subagent` agents agreed and grounded the better recommendation, at 2.8x the cost.
 
-## Experiment 1 — Install and skill load (2026-09-19)
+## Experiment 1 — Install and skill load
+
+*2026-09-19*
 
 **Setup:** fresh folder `labs\lab1-toy`, `git init`, then `npx bmad-method install --yes --modules bmm --tools claude-code --directory <path> --user-name Carl`.
 
@@ -51,7 +61,9 @@
 
 **Minor:** some characters in the installed TOML (the agent's icon, an em dash) displayed as mojibake in Windows PowerShell output. This looks like a console encoding issue, not corrupted files, but the bytes were not checked [?].
 
-## Experiment 2 — one toy idea through the loop (2026-09-19, done)
+## Experiment 2 — one toy idea through the loop
+
+*2026-09-19, done*
 
 **Toy:** `wordfreq`, a Node CLI printing the N most frequent words in a UTF-8 file. Run headless with `claude -p ... --permission-mode acceptEdits` from `labs\lab1-toy`. Each `-p` call is a fresh session, so state passes between steps only through files.
 
@@ -68,6 +80,7 @@
 
 **Step 3: resume with answers.** I answered the questions myself, choosing the recommendations: Unicode letters with apostrophes stripped and no digits; `--top` out of range handled per option (a); wrong arity uses the same exit-1 path. **These were my choices, not Carl's**, made to keep the experiment moving; in real use they are the "most expensive kind of mistake" decisions the docs say a human should own [P8].
 - Observed by 07:56: `wordfreq.js`, `test/wordfreq.test.js`, `package.json` created and staged; spec status `in-review`, `review_loop_iteration: 0`, `baseline_commit` recorded. The build made a judgment call not in my answers: tokenizer `[\p{L}\p{M}]+` so decomposed accents stay in one word. Review triage log still empty; last file write 07:49, several minutes of quiet during the review stage.
+
 **Step 3 result (checked 08:05, about 28 minutes after the resume was launched).** [V-lab]
 - Spec status `done`. `node --test` passes 18 of 18 in the lab repo (13 when I peeked mid-review), with no `node_modules`.
 - **Review ran three lenses**, named in the triage log as blind-hunter, edge-case-hunter, and verification-gap. It logged **17 findings** in a table (finding, verdict, evidence, route). Every finding was verified at its cited location before grading: it reproduced the claim with a real input.
@@ -92,7 +105,9 @@
 **What a human still had to do:** answer the three intent questions. Here I answered them, which the run's design leaves to a human.
 
 
-## Experiment 3 — `bmad-code-review` on a flawed diff (2026-09-19, done; first attempt halted, rerun ran)
+## Experiment 3 — `bmad-code-review` on a flawed diff
+
+*2026-09-19, done; first attempt halted, rerun ran*
 
 **Setup:** `labs\lab3-review` (throwaway, outside Drive): a Node cart module, baseline commit `4580d6d` (3 tests passing), then a deliberately flawed commit `92c1ace` "Add coupon support". BMAD v6.12.0 installed with the same flags as Experiment 1 (29 skills; install files excluded via `.git/info/exclude` so the diff stayed clean). Copied to `lab3-quick` and `lab3-thorough`; both run headless at once with `claude -p ... --permission-mode acceptEdits`, prompt naming the mode, the commit, and a one-paragraph intent statement, and telling it to stop on any human question.
 
@@ -112,7 +127,9 @@
 **Resolved:** Carl chose "no spec" and a rerun followed (below). Original question kept for the record: how to rerun. (1) provide a spec file path (I'd have to write one for the toy, which tests the full four-layer path including the acceptance layer), or (2) say "no spec" (three layers). Either way the prompt should also pre-approve the step-1 checkpoint. Quick vs thorough comparison against A to G has not happened; scores are blank. → Later: scored in the rerun below.
 
 
-### Rerun with "no spec" (Carl's choice, 2026-09-19)
+### Rerun with "no spec"
+
+*Carl's choice, 2026-09-19*
 
 Same labs. The prompt now said "no spec (no-spec mode)", supplied the intent as the change narrative, and pre-approved the step-1 checkpoint. Both ran to the presented findings. **Times: quick 382 s, thorough 527 s.** [V-lab]
 
@@ -148,7 +165,9 @@ Both caught all six main flaws (A to F); quick also touched G. Every claim was r
 - **Headless BMAD needs three pre-approvals to finish a review:** no-spec declared, checkpoint approved, patch handling chosen. A fully unattended run needs all three in the prompt. [V-lab; I]
 
 
-## Experiment 4 — existing-codebase start (2026-09-19, done; project-context halted on questions)
+## Experiment 4 — existing-codebase start
+
+*2026-09-19, done; project-context halted on questions*
 
 **Docs read first (release tag, P24):** `docs/existing-codebases/start-in-an-existing-codebase.md` and `set-and-maintain-project-context.md`. Claims tested: (1) `bmad-project-context` reads what exists, shows the complete block, and asks before it writes; it never commits. (2) It skips what the repo already states and asks what a scan cannot answer. (3) Skipping it "does not fail a Build". (4) "You do not inventory conventions beforehand": `bmad-build` investigates the repo, follows what it finds, and does not stop to ask whether to match the codebase. (5) A small change goes straight to `bmad-build`.
 
@@ -184,7 +203,9 @@ Both caught all six main flaws (A to F); quick also touched G. Every claim was r
 
 **Not tested:** whether adding project context changes a later build's result (would need answers to the five questions, which a human owns; → Later: answered 2026-09-21, tested in Experiment 4b); a change big enough for the dispatch route in an existing codebase; the docs' "Try It on a Known Tree" walkthrough (`getting-deeper.md`).
 
-## Experiment 6 — ideation skills, unattended (2026-09-20, done; both halted on human input as predicted)
+## Experiment 6 — ideation skills, unattended
+
+*2026-09-20, done; both halted on human input as predicted*
 
 **Docs read first (release tag, P25):** `wiki/ideation-skills.md`. Claims tested: (1) `bmad-brainstorming` outside headless mode generates no ideas in the two dialogue stances and needs the user to choose a stance and technique batch; headless is defined by "the absence of a human", so a `claude -p` prompt may or may not count. (2) `bmad-forge-idea` has no headless mode and should stop at its opening questions.
 
@@ -208,7 +229,9 @@ Both caught all six main flaws (A to F); quick also touched G. Every claim was r
 **Not tested, and what would test it:** the ideation content itself (idea quality, the attack/defend modes, the two-voice persona turns, the HTML outputs). Two follow-ups are possible without a human: (a) pass a real headless signal to `bmad-brainstorming` (`headless: true` and a topic in the payload) and check for `brainstorm.html`, a memlog, and a JSON return; (b) run brainstorming in the "Ideate for me" stance, which the skill says a human can choose in advance and which would need the stance stated in the prompt (a choice the docs put on the user, so it is Carl's call). Forge idea has no unattended path in the file, so it cannot be run to completion without answers. [I] → Later: (a) and, by the model's own stance choice, (b) were run as Experiment 7. Ideation quality is still unjudged.
 
 
-## Experiment 5 — a spec-backed epic, then `bmad-correct-course` (2026-09-20, done, interactive with Carl)
+## Experiment 5 — a spec-backed epic, then `bmad-correct-course`
+
+*2026-09-20, done, interactive with Carl*
 
 **Method change:** first experiment where the human answers were Carl's, not mine. Each skill ran as one headless `claude -p` call per step (`--continue` to keep the session); I relayed every question to Carl verbatim in chat and passed his answer back verbatim. The prompt told the skill to ask, not choose. So the questions and answers below are real BMAD prompts and real human choices. [V-lab]
 
@@ -255,7 +278,9 @@ Carl picked the trigger from three options: "filtering notes by tag must now sup
 
 **Not done:** applying the six edits and re-running `bmad-spec`; building any story after the change; the seven original open questions. → Later: all three done in 5b to 5h.
 
-## Experiment 7 — real-headless brainstorming (2026-09-20, done; both predictions wrong)
+## Experiment 7 — real-headless brainstorming
+
+*2026-09-20, done; both predictions wrong*
 
 Follow-up to Experiment 6. Two copies of `lab6-base`: `lab7-flag` (prompt carries "headless: true" plus a topic, goal, and artifacts payload) and `lab7-prepend` (a team override `_bmad/custom/bmad-brainstorming.toml` whose `activation_steps_prepend` declares the run headless, the skill's documented third signal). **Predictions written beforehand: the flag alone stays interactive and halts; the prepend override goes headless and writes both artifacts. Both were wrong.** [V-lab]
 
@@ -267,7 +292,9 @@ Follow-up to Experiment 6. Two copies of `lab6-base`: `lab7-flag` (prompt carrie
 - **Ideation quality is a different question:** the 8 directions and the dormancy-versus-rot reframe look sensible, but no one has judged them. Not assessed. [?]
 
 
-### Experiment 5b — do hand-edits to `SPEC.md` survive a `bmad-spec` re-run? (2026-09-20, done)
+### Experiment 5b — do hand-edits to `SPEC.md` survive a `bmad-spec` re-run?
+
+*2026-09-20, done*
 
 **Question from Experiment 5:** the Sprint Change Proposal told the Developer agent to hand-edit `SPEC.md` and `stories.yaml`, but `bmad-spec` says `SPEC.md` is derived from `.memlog.md` and a hand-edit "is overwritten on the next derive". Which wins?
 
@@ -284,7 +311,9 @@ Follow-up to Experiment 6. Two copies of `lab6-base`: `lab7-flag` (prompt carrie
 **Not tested:** a derive that regenerates sections (for example, answering one of the open questions, which is Carl's decision), and applying the Developer-agent handoff through `bmad-agent-dev` instead of by script. → Later: the first was run as 5c and 5d. The second is still untested (no agent persona has been loaded in any experiment; candidate in `STATE.md` Next).
 
 
-### Experiment 5c — a real decision as the update signal (2026-09-20, Carl's answer, done)
+### Experiment 5c — a real decision as the update signal
+
+*2026-09-20, Carl's answer, done*
 
 **Purpose:** the stronger drift test from 5b. Carl answered one open question, and that answer was passed to `bmad-spec` on the hand-edited spec in `lab5-apply` (copies of `SPEC.md`, `stories.yaml`, and the memlog were saved beforehand as `labs\lab5-*.before-normalize.*`).
 
@@ -303,7 +332,9 @@ Follow-up to Experiment 6. Two copies of `lab6-base`: `lab7-flag` (prompt carrie
 **Still untested:** a run from a nearly empty `SPEC.md` (a true re-derive), which is what the docs promise the memlog enables; and whether a new-session `bmad-spec` run with no `SPEC.md` at all rebuilds the two-tag content (it would not, the memlog lacks it). [?] → Later: both answered by 5d.
 
 
-### Experiment 5d — true re-derive from the memlog (2026-09-20, done)
+### Experiment 5d — true re-derive from the memlog
+
+*2026-09-20, done*
 
 **Purpose:** the remaining test from 5c. `SPEC.md` was moved away in a copy of the hand-edited spec (`labs\lab5-rederive`, copy of `lab5-apply`; the old file is saved in `labs\lab5-rederive-saved\`), leaving `.memlog.md` and `stories.yaml`. `bmad-spec` was told SPEC.md was lost and to regenerate it. Prediction written beforehand: it regenerates from the memlog, and the two-tag content (which the memlog never recorded) is lost. [V-lab setup]
 
@@ -326,7 +357,9 @@ So the docs' rule ("re-derived from the memlog ... a hand-edit is overwritten") 
 **Practical consequence for the change-proposal route:** editing `SPEC.md` by hand (as the proposal prescribes) works day to day but is fragile: the change survives only as long as `SPEC.md` is never regenerated. Routing the change through `bmad-spec` (so it lands in the memlog) is the durable path, and it is what the requirement-change path in the docs describes (update the PRD, re-run `bmad-spec`, re-run Story Breakdown; [flow.md](flow.md)). [I]
 
 
-### Experiment 5e — the requirement change routed through `bmad-spec` (the docs' route) (2026-09-20, done)
+### Experiment 5e — the requirement change routed through `bmad-spec` (the docs' route)
+
+*2026-09-20, done*
 
 **Purpose:** compare with the hand-edit route of 5b to 5d. `labs\lab5-route` is a copy of `lab5-epic`: the original spec (before any hand-edits, 49-line memlog), the four stories, and the approved Sprint Change Proposal from Experiment 5 sitting in `_bmad-output/planning-artifacts/`. `bmad-spec` was run on the spec folder with the same requirement change Carl chose ("filtering notes by tag must now support two tags at once, so a caller can list notes that carry both tags"). Prediction written beforehand: the skill puts the change in the memlog, re-derives the spec, flags story 3 as stale, and possibly surfaces the non-goal conflict as a question. [V-lab setup]
 
@@ -354,7 +387,9 @@ So routing the change through `bmad-spec` costs about five minutes and leaves a 
 **Not tested:** regenerating `SPEC.md` from this memlog (which should keep the two-tag content); re-running Story Breakdown after the change; the Developer agent (`bmad-agent-dev`) actually performing the handoff instead of a script or a `bmad-spec` run. [?] → Later: Story Breakdown re-run done (5f). Regenerating from this memlog and the agent-persona handoff are still untested.
 
 
-### Experiment 5f — Story Breakdown re-run after the change (2026-09-20, Carl answered, done)
+### Experiment 5f — Story Breakdown re-run after the change
+
+*2026-09-20, Carl answered, done*
 
 **Purpose:** close the loop from 5e: `stories.yaml` in `lab5-route` was stale after the spec change. Story Breakdown was re-run on the spec folder (saved copy of the old file: `labs\lab5-route-stories.before-rebreakdown.yaml`). Prediction written beforehand: it proposes the same four stories with only story 3 changed, and asks about checkpoints again. [V-lab setup]
 
@@ -375,11 +410,15 @@ So routing the change through `bmad-spec` costs about five minutes and leaves a 
 **Not tested:** building any of the stories. The loop from spec to code after a change is Experiment 2's territory, not repeated here. [?] → Later: all four built in 5h.
 
 
-## Follow-ups with Carl's answers (2026-09-21)
+## Follow-ups with Carl's answers
+
+*2026-09-21*
 
 Carl answered the questions the earlier headless runs had left open, through the relay method (each question quoted to him, his answer passed back verbatim). **A tooling mistake of mine:** in these runs I passed the tool allow-list through an unquoted shell variable, which split it and produced "Ignoring --allowedTools rule" warnings; `uv run` was then blocked in the session that hit it (a run reported "`uv run` is blocked in this session; `python` runs the same scripts fine") while the runs still completed. Results were not affected as far as I can tell, but a later run used a quoted array. [V-lab]
 
-### Experiment 3, patch menu ("apply all") (Carl chose option 1)
+### Experiment 3, patch menu ("apply all")
+
+*Carl chose option 1*
 
 Both flawed-commit labs (`lab3-quick`, `lab3-thorough`) resumed at the menu "apply every patch, or walk through each". **Apply all worked in both**, in 63 s and 49 s. [V-lab]
 
@@ -396,7 +435,9 @@ Both flawed-commit labs (`lab3-quick`, `lab3-thorough`) resumed at the menu "app
 - Nothing was committed. Each run then reached a **new menu**: "Start the next story, Re-run code review, or Done". I did not answer it. [V-lab]
 - The runs applied patches without a spec file, so they skipped the spec status and sprint sync steps ("no spec file"). [V-lab]
 
-### Experiment 4, project context, answered (Carl's answers: none; don't know; current; don't know; don't know)
+### Experiment 4, project context, answered
+
+*Carl's answers: none; don't know; current; don't know; don't know*
 
 Answers were mapped in the order asked: rules regardless of the repo (none), outside documents (don't know), Node version (current), where planning documents and tickets live (don't know), whether an agent has gotten something wrong here (don't know). [V-lab]
 
@@ -418,7 +459,9 @@ In `lab5-route` (the spec after the requirement change, routed through `bmad-spe
 **A correction to something I told Carl:** I said building story 2 needed only open questions #2 and #4. That was wrong. Story 2 (remove a tag) depends on story 1 (tag storage and add), which does not exist in the code yet, and the stories run in order. Story 1 needs #3 (adding a tag the note already carries), #5 (which `E_*` codes), and #6 (which characters are legal), on top of #2 already answered. [V-lab; my error]
 
 
-## Experiment 5h — all four stories built interactively (2026-09-21 to 2026-09-23, done)
+## Experiment 5h — all four stories built interactively
+
+*2026-09-21 to 2026-09-23, done*
 
 **Purpose:** finish the loop Experiments 5 to 5g left at "spec, stories, requirement change, correct-course, spec update, stories re-run": build every story of the tags epic (`lab5-route`) through `bmad-build`, with Carl answering every open question and checkpoint through the relay method. Also resolved several open questions the earlier experiments had left standing. [V-lab]
 
@@ -471,7 +514,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 **Not tested:** `bmad-retrospective` on the finished epic (a natural next unit; → Later: Experiment 5i); `bmad-walkthrough`, which was offered at every story's end and never taken.
 
 
-## Experiment 4b — does `AGENTS.md` change a build, once it exists? (2026-09-23, Carl answered, done)
+## Experiment 4b — does `AGENTS.md` change a build, once it exists?
+
+*2026-09-23, Carl answered, done*
 
 **Purpose:** the follow-up Experiment 4 left open. `labs\lab4-context` already had `AGENTS.md`/`CLAUDE.md` approved and written in Experiment 4 but never committed; `labs\lab4-build` had already built the same request without any context file. Ran the identical request in `lab4-context` — "Add `removeNote(store, id)` ... An unknown id must fail" — to compare against the un-primed build. [V-lab]
 
@@ -496,7 +541,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 **Not tested:** whether a stricter or more detailed `AGENTS.md` (naming the id-reuse risk explicitly, or committing to "ids are never reused") would route the finding differently again; whether the same effect holds for findings unrelated to anything `AGENTS.md` states.
 
 
-## Experiment 5i — `bmad-retrospective` on the finished tags epic (2026-09-23/24, Carl answered, done)
+## Experiment 5i — `bmad-retrospective` on the finished tags epic
+
+*2026-09-23/24, Carl answered, done*
 
 **Purpose:** close the loop on the built epic (Experiment 5h) with `bmad-retrospective`, run interactively via the relay method: opening question, Phase 4 acceptance verdict, and B1's open contract question all answered by Carl. [V-lab]
 
@@ -527,7 +574,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 **Carl's decision on B1's open question, after the retrospective run:** "that is a defect to fix." The retrospective had explicitly left this as a contract question it could not settle itself ("is B1 a defect or the contract?" — story 3's AC-3 currently *requires* the aliasing). This decision authorizes R1 (copy on return at the three new-story exit points) and implicitly puts R1b on the table too: R1b's honest note is that R1 alone "does not close B1" — `getNote` and `listNotes` are still open, and closing them means renegotiating story 1's frozen Never clause, not just adding code. **Not yet acted on** — recorded as Carl's decision here, in our own wiki record, rather than by hand-editing the finalized `RETROSPECTIVE.md` (same non-hand-edit discipline as `bmad-spec`'s artifacts). Implementing R1/R1b would be a natural next unit, and would need Carl to explicitly renegotiate story 1's Never rule before R1b could proceed under BMAD's own process, not just under this record.
 
-## R1/R1b — fixing retrospective finding B1 (2026-09-24/25, Carl answered, done)
+## R1/R1b — fixing retrospective finding B1
+
+*2026-09-24/25, Carl answered, done*
 
 **Purpose:** act on Carl's decision after Experiment 5i ("that is a defect to fix") and implement R1/R1b — the only retrospective action item taken from proposal to committed code. Run in `labs\lab5-route`, relay method throughout. [V-lab]
 
@@ -552,7 +601,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - The retrospective caught its own limits and said so: Carl's second going-in concern (the token-count gate) had no artifact trail anywhere in the project, so it was recorded as "a user-reported process observation, not a sourced finding" rather than invented evidence to satisfy the concern. This matches the skill's stated rule: "a claim you cannot point at ... is not a finding. Drop it." [V-lab; V, retrospective SKILL.md]
 - Six of the sixteen action items are pure process lessons about the workflow's own mechanics (P1-P6) — a checkpoint with no completion condition, a `false` verdict with no expiry condition, no backfill mechanism for a newly discovered test shape, no write-back from review to Implementation Notes, no escape hatch in "never touch a prior story," no requirement to log a triage decision that changes stated mechanism even when behavior matches intent. None of these are about the code; all are about gaps in BMAD's own process as currently specified, discovered by running it for real across a full epic.
 
-## Experiment 8 — add-on setup + TEA (2026-09-26, done)
+## Experiment 8 — add-on setup + TEA
+
+*2026-09-26, done*
 
 **Purpose:** NGA runs core/BMM plus three add-on modules (TEA 1.26.0, BMB 2.2.2, CIS 0.3.2 — `STATE.md`, Carl's manifest read). Install the same three into a fresh copy of `lab5-route` (`labs\lab8-tea`, `lab5-route` itself untouched) and read TEA's own files, since none of it lives in the core `BMAD-METHOD` repo already pinned. Then ask whether TEA would have caught retrospective finding B1 and how it sits next to `bmad-build`/`bmad-code-review`. [V-lab]
 
@@ -575,7 +626,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 **Not tested:** actually running any TEA workflow interactively (TD, TF, RV, or TR) against `lab8-tea`'s real code and tests — this unit stayed at "read the files and reason about what the criteria/gate logic covers," a static read like Experiments 1's skill-load check rather than a live run like Experiment 2 onward. A live `RV` run against `notes.spec.js` would confirm or correct the "no row fires" reading empirically. BMB and CIS were installed and pinned successfully but not read or exercised at all — reserved for Experiments 13 and 14 per the queue. `bmad-teach-me-testing`'s curriculum, and six of TEA's eight workflow skill bodies (TD, TF, CI, AT, TA, NR), were not opened.
 
-## Experiment 9 — cross-epic frozen test (2026-09-27 to 09-29, done, interactive with Carl)
+## Experiment 9 — cross-epic frozen test
+
+*2026-09-27 to 09-29, done, interactive with Carl*
 
 **Question:** within one epic, a story's frozen Never clause protects earlier stories' code (Experiments 5h, 5i). Across epics, does it? A second epic's story must change a function the first (tags) epic built and froze. Does the new spec or story freeze the old code, does `bmad-build` refuse, ask, or just edit it, and does anything flag the conflict with the first epic's `SPEC.md`?
 
@@ -606,7 +659,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - It overstepped once and disclosed it: edited two shipped stories' descriptions after three prior runs had left them byte-identical, and offered to revert.
 - Carl: keep the two description edits. Stories 5–6 left unbuilt in `lab9-crossepic`. Re-running the true cross-epic version as **Experiment 9b** in a fresh copy, with Carl's instruction that the second epic gets its own new spec folder.
 
-### Experiment 9b — same intent, forced into a new spec folder (2026-09-28)
+### Experiment 9b — same intent, forced into a new spec folder
+
+*2026-09-28*
 
 **Setup:** `labs\lab9b-crossepic`, fresh copy of `lab5-route` at `ed2c9c0`. Same two-item intent as 9; Carl's up-front instruction: new epic, its own spec folder. Predictions 3 and 4 from Experiment 9 carry over unchanged.
 
@@ -632,7 +687,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 **Experiment 9 result (9 + 9b):** within one spec, a frozen story block is guarded (flagged, edited only on explicit human authorization, review history preserved). From a second epic, it is not consulted at all: `bmad-spec` records the override only in the new spec, and `bmad-build` plus review change the frozen story's code and shipped tests without mention. The first epic's spec and story files are left stating the old rule. [V-lab; I on the generalization]
 
-## Experiment 10 — `bmad-code-review` over the whole tags epic (2026-09-29/30, done, interactive with Carl)
+## Experiment 10 — `bmad-code-review` over the whole tags epic
+
+*2026-09-29/30, done, interactive with Carl*
 
 **Question:** each story's own review missed B1 (live store objects returned through the public API); only the retrospective's `bmad-review` pass over the combined diff found it (Experiment 5i). Does `bmad-code-review`, pointed at the whole epic's commit range with the spec, find it mid-epic, without waiting for a retrospective?
 
@@ -657,7 +714,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - **Reading:** a range review sees the whole epic's diff, so it can find the pieces of a cross-story defect, but its triage weighs each finding against the spec and existing conventions. Where the spec itself blesses the behavior (AC-3), the finding is rejected. The retrospective's pass differed in weighing the compound effect (a new mutable field plus live returns from a new entry point) rather than each piece's local justification. [I]
 - Carl: stop here. Patch menu left unanswered; no patches applied, nothing committed in `lab10-epicreview`.
 
-## Experiment 11 — `bmad-architecture` brownfield on a legacy-shaped toy (2026-09-30 to 10-01, done, interactive with Carl)
+## Experiment 11 — `bmad-architecture` brownfield on a legacy-shaped toy
+
+*2026-09-30 to 10-01, done, interactive with Carl*
 
 **Question:** `bmad-architecture` says to read the code first and "ratify existing conventions" on a brownfield codebase, and that an altitude sweep must leave no structural dimension silent (P21, [architecture-skill.md](architecture-skill.md)). On a legacy app whose business rules live only in UI event handlers, and whose database is declared off-limits: does the spine capture those rules, or ratify the handler layer's *structure* and miss the rules in it? Is the unchanged data layer recorded as decided, deferred, or left silent?
 
@@ -709,7 +768,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 **Reading:** "ratify existing conventions" here meant ratifying *behavior* (the legacy code as executable spec), not *structure* (the handler layer moved server-side). The remaining risk is the one the spine itself names: what isn't in the code (form wiring, OQ-1) can't be in the oracle. [I]
 - Carl: stop here (2026-10-02). Open questions and AD sign-off left unanswered; spine stays `draft`. Lab repo holds only the baseline and BMAD install commits.
 
-## Experiment 12 — `bmad-prd` Update mode on a hand-written PRD (2026-10-02, done, interactive with Carl)
+## Experiment 12 — `bmad-prd` Update mode on a hand-written PRD
+
+*2026-10-02, done, interactive with Carl*
 
 **Question:** `bmad-prd` Update mode says that if the memlog is missing, "a bootstrap subagent reverse-engineers a thin one from the PRD", and that "conflicts with prior decisions are surfaced before applying" (P20, [prd-skill.md](prd-skill.md)). This is the "bring what you have" path: does it surface conflicts before editing, and is the bootstrapped memlog sensible?
 
@@ -748,7 +809,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - **C1 (walk-ins without a card vs members-only Users/FR7):** both reviewers noticed the walk-in rule, but only in relation to series (rubric: low, "not a conflict"; adversarial: M6). Neither named the pre-existing contradiction. Prediction 4 essentially confirmed.
 - Carl: stop here (2026-10-02). Review findings left unanswered; PRD not finalized; nothing committed in the lab beyond the baseline and BMAD install.
 
-## Experiment 13 — BMB build + what survives a reinstall (2026-10-03, done, interactive with Carl)
+## Experiment 13 — BMB build + what survives a reinstall
+
+*2026-10-03, done, interactive with Carl*
 
 **Question:** what does a BMAD update overwrite and what survives? Feeds the queued `wiki/updating-bmad.md`. No release newer than 6.12.0 exists, so a same-version reinstall stands in for an update. Also: one small build with BMB (Builder module), to see where a custom skill lands and whether it survives.
 
@@ -805,7 +868,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 - Carl's instruction was to run it; experiment complete 2026-10-03. Lab not committed (`_bmad/`, `.claude/` excluded there).
 
-## Experiment 14 — CIS: Carson vs `bmad-brainstorming` directly (2026-10-03, done, interactive with Carl)
+## Experiment 14 — CIS: Carson vs `bmad-brainstorming` directly
+
+*2026-10-03, done, interactive with Carl*
 
 **What CIS is, read first** (installed CIS v0.3.2, `_bmad/cis/module-help.csv` and `bmad-cis-agent-brainstorming-coach/SKILL.md` + `customize.toml`): five workflows (innovation strategy, problem solving, design thinking, storytelling, and brainstorming) plus six agent personas. **CIS has no brainstorming skill of its own:** its Brainstorming menu row and Carson's only menu item (`BS`) both dispatch to the core `bmad-brainstorming`. Carson ("Elite Brainstorming Specialist") is a persona (role, identity, "enthusiastic improv coach" style, three principles) plus that one-item menu; Step 8 skips the menu and dispatches directly when the opening message names the intent. [V-lab, installed files]
 
@@ -841,7 +906,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 - Experiment complete 2026-10-03; both sessions left waiting at their "what next" question. No lab commits (`_bmad-output/` and `_bmad/` excluded).
 
-### Experiment 14b — repeat runs (2026-10-03, done)
+### Experiment 14b — repeat runs
+
+*2026-10-03, done*
 
 **Why:** Experiment 14's one difference (Carson's shortlist was costed and prescriptive; the direct run left it unchosen) rested on one run each. Two more runs per arm, each in a fresh copy of `lab8-tea` (`lab14-direct-2/3`, `lab14-cis-2/3`), same two-step protocol, same opening and the same Carl-approved answers reused verbatim. Scored on: whether the shortlist is chosen or left to the human, whether it is costed, idea and technique counts, time.
 
@@ -868,7 +935,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 - Experiment 14b complete 2026-10-03. Labs `lab14-direct-2/3`, `lab14-cis-2/3`, sessions left at their closing question.
 
-## Experiment 16 — does a central config override reach `bmad-code-review`, 6.12.0 vs 6.12.1? (2026-10-07, Carl-approved)
+## Experiment 16 — does a central config override reach `bmad-code-review`, 6.12.0 vs 6.12.1?
+
+*2026-10-07, Carl-approved*
 
 *Numbered 16 because the skill's queue reserves 15 for `bmad-prd` create-then-validate.*
 
@@ -909,7 +978,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 - Experiment 16 complete 2026-10-07. Labs `lab16-v0` (6.12.0), `lab16-v1` (6.12.1), `lab16-v1-presnap`; traces in `lab16-out/`. Both sessions left at the patch menu.
 
-## Experiment 15 — `bmad-prd` Create, finalize, then Validate (2026-10-07, interactive with Carl, relay method)
+## Experiment 15 — `bmad-prd` Create, finalize, then Validate
+
+*2026-10-07, interactive with Carl, relay method*
 
 **Question:** the untested half of `bmad-prd` (Experiment 12 ran Update only). Does Create elicit rather than author? Does Finalize reach `status: final`? Does a separate Validate run, against a PRD that already passed its own reviewer gate, still find things, and does it catch an internal contradiction planted by hand after finalize (Experiment 12's uncaught gap was a pre-existing contradiction)?
 
@@ -960,7 +1031,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 - Experiment 15 complete 2026-10-08. Lab `lab15-prd`, outputs and traces in `lab15-out/`. Validate session left at its decision questions; PRD not updated.
 
-## Experiment 17 — `bmad-walkthrough` through an agent persona (Amelia) (2026-10-08, interactive with Carl, relay method)
+## Experiment 17 — `bmad-walkthrough` through an agent persona (Amelia)
+
+*2026-10-08, interactive with Carl, relay method*
 
 **Questions:** (1) Persona routing: `bmad-walkthrough` is on **no** agent's menu at 6.12.0 (Amelia's is BD, QA, CR, SP, ER; grep of all five `customize.toml`). Her activation rule: dispatch a clear menu match, otherwise "just continue the conversation". Asked for a walkthrough through Amelia, does she invoke the walkthrough skill, route to code review (CR), or do it in her own words? (2) The walkthrough itself, never run in the lab: does it find the spec, generate its own review trail, and stop for a human decision at wrap-up? (3) Does the persona change anything about the walkthrough (Experiment 14 found brainstorming's mechanics unchanged under a persona)?
 
@@ -1005,7 +1078,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 - Experiment 17 complete 2026-10-09. Lab `lab17-walk` (unchanged at `ed2c9c0`), traces `lab17-out/`.
 
-## Experiment 18 — the same build through Amelia (`BD`) vs `bmad-build` directly (2026-10-09, Carl-approved)
+## Experiment 18 — the same build through Amelia (`BD`) vs `bmad-build` directly
+
+*2026-10-09, Carl-approved*
 
 **Question:** does loading the Developer persona change a build? Experiments 14 and 17 found persona mechanics unchanged for brainstorming and the walkthrough, but neither persona has principles about *how* to build. Amelia's do (`customize.toml` at the tag): "No task complete without passing tests", "Red, green, refactor — in that order", "Code comments explain why, not what", "production-ready ... free of AI-generated noise", communication style "Ultra-succinct. Speaks in file paths and AC IDs".
 
@@ -1052,7 +1127,9 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 
 - Experiment 18 complete 2026-10-09. Labs `lab18-direct`, `lab18-amelia` (uncommitted changes, specs `in-progress`).
 
-## Experiment 19 — v6 → v7 preview: install, `bmad setup`, `bmad migrate method` on the tags epic (2026-10-09, interactive with Carl, relay method)
+## Experiment 19 — v6 → v7 preview: install, `bmad setup`, `bmad migrate method` on the tags epic
+
+*2026-10-09, interactive with Carl, relay method*
 
 **Question:** what happens when a real v6 project (the tags epic, 6.12.0) moves onto the v7 preview? What does setup do with the v6 install, what does the migration ask, what does it move, and does the result still work (tests, build on the next story)? First lab test of [v7-preview.md](v7-preview.md).
 
@@ -1066,3 +1143,175 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 3. `bmad migrate method` asks its six questions together with defaults, writes only a plan file and a backup before approval, and on approval turns `spec-note-tag/` into `initiative-<slug>/epic-note-tag/` with the spec folder inside, four `[[entry]]`s with status `done`, four `story-<slug>-plan.md` files, the retrospective as `epic-<slug>-retrospective.md`, and `stories.yaml` archived. The B1/B2 specs (no epic) go to `backlog/` or stay as loose build records. It never touches `src/` or `tests/`, so 76/76 still pass.
 4. Because the artifacts aren't under git, it takes the backup route (`_bmad-output-bak`), not per-group commits.
 5. Something breaks or needs a judgment call (it's a preview): most likely the B1/B2 loose specs, or a path inside `RETROSPECTIVE.md`. Low confidence on which.
+
+**Run (session `e6a5eb22`, resumed per turn; traces `lab19-out/m1..m5.jsonl`, driver `lab19-out/run.sh`):**
+
+| Turn | Input | Time | What happened |
+|---|---|---|---|
+| install | `npx skills add <local worktree> --skill '*' --agent claude-code --copy -y` | — | 33 v7 skills copied over the v6 ones; v6-only leftovers `bmad-help`, `bmad-sprint-planning`, `bmad-create-epics-and-stories`; new untracked `skills-lock.json` at the repo root (local source + hash per skill). |
+| 1 | `/bmad setup` | 48 s | Repaired `_bmad/scripts`, reported modules at **6.13.0-next**, listed old-installer files left in `_bmad/` (manifests, `bmm/config.yaml`, `core/v6-shims`) and left them. Asked two questions: remove the two retired skills; start the migration. **Claimed "`_bmad-output` is committed and has no uncommitted changes, so git counts as the backup". False:** 0 files tracked; the folder is git-ignored (`.git/info/exclude`), so `git status` printed nothing. |
+| 2 | Carl: "yes to both, but _bmad-output isn't tracked, make a backup" | 19 s | **Re-checked the correction itself** (`git ls-files`, `git check-ignore`) before acting. Deleted the two retired skills (not `bmad-help`, which no `retired.toml` names). The backup copy was blocked by my headless allowlist (harness, not BMAD); it stopped and asked rather than skipping the backup. |
+| 3 | operator: allowlist widened (`cp`, `diff`, `find`) | 122 s | Backed up 13/13 files, verified with `diff -r`, wrote a draft plan (the only write into `_bmad-output`), asked six questions with defaults. |
+| 4 | Carl: "Q1 notes-lib, Q4 backlog, rest defaults" | 23 s | Updated the plan, listed 8 ordered steps, waited for plan approval. |
+| 5 | Carl: "Yes" | 241 s | Migrated; "all 11 checklist items pass, three with exceptions"; plan marked done. |
+
+**Result tree** (21 files): `initiative-notes-lib/` (envelope, `tickets.toml`, `deferred-work.md`, `archive-v6/stories.yaml`, `migration-v6-v7/` plan); inside it `epic-note-tag/` (envelope, `tickets.toml`, four `story-<slug>-plan.md` files, `spec-note-tag/` with `spec-note-tag.md` (was `SPEC.md`) and `.memlog.md`, `change-two-tag-filtering/`, `review-list-notes-by-tag/`, `epic-note-tag-retrospective.md`); `backlog/` with B1/B2 as `bug-*.md` + `bug-*-plan.md`. `active_initiative` set in `_bmad/custom/config.user.toml`. [V-lab]
+
+**Independent checks (mine):** `npm test` 76/76; `src/`, `tests/` untouched (git clean apart from `_bmad-output-bak/` and `skills-lock.json`); `_bmad-output-bak` byte-identical to the pre-install snapshot (`diff -rq` vs `lab19-pre`). [V-lab]
+
+**Scored against predictions:**
+1. Install beside v6, overwrite same names, v6-only names remain: **right.** [V-lab]
+2. Setup asks before deleting, keeps `_bmad/custom/`, offers the migration on v6 signals: **right.** But it **misjudged the backup** (see above), and it doesn't clean up `bmad-help`. [V-lab]
+3. Tree shape, statuses, retro rename, `stories.yaml` archived, B1/B2 to backlog (Carl's answer, also the default), `src/` untouched: **right on all.** [V-lab]
+4. Backup route: **right only after Carl's correction.** Left to itself it would have skipped the backup on a false "git counts as the backup". [V-lab]
+5. Something needs a judgment call: **right, three places:** the backup, Done-when #4 (below), and the line-citation drift it disclosed itself.
+
+**Findings:**
+- **The migration's backup check can be fooled by a git-ignored output folder.** `git status` on an ignored folder prints nothing, which it read as "committed and clean". Corrected, it verified the claim and made a good backup; uncorrected, a real project with an ignored `_bmad-output/` would have migrated with no backup and no git history. Common setup: the lab's own v6 installs excluded `_bmad-output/` from git. [V-lab; I on how common]
+- **The checklist passes a "Done when" the code no longer meets.** The epic's Done-when #4, "The existing note behavior and its tests are untouched", was written from the v6 spec's Success signal. B1 changed `getNote`/`listNotes` to return copies and changed existing tests, so it is false of the code today. The migration wrote it, asked Carl to confirm it (default "as written"), and its 11-item checklist passed. The checklist checks structure (files, ids, paths, statuses), not whether criteria hold. The same pattern as "status: final isn't reviewed" (Experiment 15) and the frozen-spec drift (Experiment 9b): planning text carried forward stays authoritative. [V-lab; I on the pattern]
+- **It disclosed its own imperfections unprompted.** Line citations into plans shifted by 1 to 5 lines once frontmatter was added, it left three historical mentions of old folder names, and it did two things not in the plan (B2 `after` B1 from B2's own record; individual edits when `sed -i` was blocked). [V-lab]
+- **Leftovers a team would have to decide on:** `skills-lock.json` (untracked, at the repo root, records a machine-local source path here), old installer files in `_bmad/`, the v6 `bmad-help` skill folder, and `_bmad-output-bak/`. [V-lab]
+- **No commits, no push, as documented.** The migration skips per-group commits because the store is untracked; with a tracked store it would commit after each group. [V-lab; V, P34]
+- Cost: about 7.5 minutes of model time across 5 turns, plus 4 human answers.
+
+- Experiment 19 complete 2026-10-09. Labs `lab19-v7mig` (migrated), `lab19-pre` (pre-install snapshot); traces `lab19-out/`. Not done: a `bmad-build` on new work under v7 (step 4 of the v7 track), `bmad-ticket` on the repo store (step 3).
+
+## Experiment 20 — a v7 ticket and build: file the `nextId` bug with `bmad-ticket`, then `bmad-build` it
+
+*2026-10-09, interactive with Carl, relay method*
+
+**Question:** steps 3 and 4 of the v7 track in one piece of work. Does `bmad-ticket` turn a deferred-work note into a proper bug ticket in the migrated tree? Does v7 `bmad-build` take a ticket with no story file, plan its criteria at build time, review with the new **quick** default, and stop at `built`? The bug is real and long-standing: `nextId` reissues a deleted note's id (found in Experiment 4, verified in 5h, retrospective finding A1, still in `deferred-work.md`).
+
+**Docs read first (P34, `bmad-ticket/references/ticket.md` in full):** a bug "carries a reproduction and a cause hypothesis, never a fix"; reproduction steps are run "when cheap", and if the behavior already holds it says so and creates nothing; criteria include tests for the condition and name the other valid outcome ("proof no change is needed"); risk `low`/`medium`/`high` is proposed with a reason, and the user's value wins; severity per the bug template; no source-code paths or snippets; ask only what's unsettled, with defaults; a standalone ticket goes in `backlog/`, an epic's in its `tickets.toml`; on the repo store, saving goes through the `write` verb ("the commit it describes").
+
+**Setup:** `labs\lab19-v7mig` as Experiment 19 left it (migrated, `active_initiative = initiative-notes-lib`, 76/76). Same session driver (`lab19-out/run.sh`), new sessions.
+
+**Predictions:**
+1. `bmad-ticket` runs the reproduction (cheap: a `node -e` one-liner) and confirms it before writing.
+2. It asks whether the bug belongs in `backlog/` or in the done `epic-note-tag` (it can't reopen a done epic silently), plus severity/risk with defaults. It proposes **medium** risk (data integrity: a held id resolves to another record).
+3. The ticket has no fix in it. The fix choice (counter in the store vs random ids vs accept) lands in `bmad-build`, which halts and asks, the same three-way choice as Experiment 18.
+4. `write` tries to commit, and with the store untracked it reports that rather than committing. Low confidence.
+5. Build: plans criteria into a `bug-<slug>-plan.md`, runs the single quick lens (one review subagent, not three), and ends at status `built`, not `done`. Tests grow; the existing "sequential ids" test may change, depending on the fix.
+
+**Run (two sessions, resumed per turn; traces `lab19-out/m6..m14.jsonl`):**
+
+`bmad-ticket` (session `32b38dca`):
+
+| Turn | Input | Time | What happened |
+|---|---|---|---|
+| 6 | request | 33 s | Read the deferred note, the code and the story plan; **ran the reproduction** (`node -e`) and confirmed it, finding a second case (delete every note and ids restart at `n1`). Chose `backlog/` (id 3, no parent) with a stated reason (the epic is done, and its frozen rules barred `nextId`). Asked 5 questions with defaults: expected behavior ("an id, once issued, is never issued again"), replace the one test that pins reuse with all others unedited, store contract left as an `Open question:` for the build, severity P2, risk medium. |
+| 7 | "All Defaults" | 25 s | Drafted `bug-removed-note-id-is-reissued.md`; **named three things it had added that Carl hadn't ruled on** (an extra criterion, three Boundaries, and that "ids stay `n<number>`" narrows the fix). |
+| 8 | "Approve all three" | 68 s | Set `refined: true`, then ran the single-ticket check (one subagent). **The check found the approved criteria may conflict:** "never restart after deleting all" needs data beyond the notes, while "every other test unedited" pins the store's first entry to a note. Asked: leave it open / decide the store shape now / drop the criterion; and offered two extra reproduction steps. |
+| 9 | "a, and yes add the steps" | 11 s | Recorded the open question with a dated decision, added the steps. **Asked to commit "just that file, on `master`"**, not noticing the store is git-ignored (Experiment 19, Q2). |
+| 10 | "No, store is untracked by design, don't commit" | 13 s | Accepted; **saved a Claude memory note in the lab's project folder** ("don't offer to commit ticket files") so later sessions there would know. |
+
+`bmad-build` (session `9bb55db8`):
+
+| Turn | Input | Time | What happened |
+|---|---|---|---|
+| 11 | "build backlog bug 3" | 29 s | Resolved the ticket via `tickets.py`; no plan existed, so it would write `bug-...-plan.md`. Asked the dirty-tree checkpoint (two untracked items, branch) and the subagent permission. |
+| 12 | "leave them, master is fine, yes to subagents" | 60 s | Read the code, wrote the plan, `route: oneshot`, risk medium. Raised the open store question as a design choice with three options (A: a `{ lastIssued }` marker at the end of the array, recommended; B: an array property, lost on JSON save; C: `{ notes, lastIssued }`, breaks the frozen tests). Noted unprompted that v7 build "ends by committing automatically" and that it would ask first because of Carl's confirm-before-commit rule. |
+| 13 | "A" | 158 s | Implemented; replaced the reuse test with two tests (one round-trips the store through JSON); confirmed the new tests fail on the old code (`git stash`); **review: `review: 'quick'`, one subagent**: 3 findings, 2 fixed in code (a hand-written note with a `lastIssued` field would have been mistaken for the marker; a stale comment), 1 documented as a limit, 1 rejected (junk entries already crashed); nothing deferred. Stated the known limit: a store that lost its highest note before the fix can reissue that id once. 77/77. Plan `status: 'built'`. Asked before committing. |
+| 14 | "yes commit" | 9 s | Committed `ca90b4c` (`src/notes.js`, `tests/notes.spec.js` only); plan stays untracked, status stays `built`. |
+
+**My independent check** (store round-tripped through JSON on every save): add a/b/c, tag n1, remove n3 gives a raw store of `[n1, n2, {lastIssued:3}]`; `listNotes` and `listNotesByTag` skip the marker; `getNote('n3')` gives `E_NOT_FOUND`; the next add gets `n4`; remove all leaves `[{lastIssued:4}]` and the next add gets `n5`. 77/77. [V-lab]
+
+**Scored against predictions:**
+1. Runs the reproduction first: **right**, and found a second case. [V-lab]
+2. Asks backlog vs epic: **wrong.** It decided backlog itself, with a stated reason. Risk **medium**: right. [V-lab]
+3. No fix in the ticket; the fix choice lands in the build: **right.** But the choice was **narrower than Experiment 18's** three options, because the ticket's approved Boundaries ("ids stay `n<number>`", "other tests unedited") ruled two of them out before the build started. [V-lab]
+4. `write` and the untracked store: **half right.** It never tried to commit silently, but it *asked* to commit a git-ignored file without noticing it was ignored, the same blind spot as Experiment 19's backup check. [V-lab]
+5. Plan written at build time, single quick lens, ends at `built`: **right on all three.** [V-lab]
+
+**Findings:**
+- **The ticket's own check caught conflicting criteria before any code.** Two defaults Carl accepted together could not both hold. The single-ticket check (a subagent) found that and turned it into an explicit open question. Nothing in the 6.12.0 flow checks a story's criteria against each other before the build. [V-lab; I on the comparison]
+- **Approved ticket text shaped the design.** "Other tests unedited" plus "ids stay `n<number>`" left a marker record inside the note array as the only option that fit. The build said so and offered the cleaner shape (C) with its cost. A team accepting defaults on a ticket is making design decisions. [V-lab; I]
+- **`refined: true` was set before the check ran and stayed set while the conflict was open.** Minor, but the flag says "ready" while an open question still gates the design. [V-lab]
+- **Git-ignored stores fooled two different v7 skills** (`bmad setup` in Experiment 19, `bmad-ticket` here). Both assumed the output folder is committed. The lab's v6 installs git-ignore it, and the migration's own "keep the store untracked" answer leaves it that way, so this is a v7 mismatch with its own migration path. [V-lab; I]
+- **Quick review was enough for this change:** one lens found a real defect (marker false-positive) and fixed it. One run on a small change; it says nothing yet about cross-story defects. [V-lab]
+- The build carried Carl's global confirm-before-commit rule across sessions (and the ticket session's memory note): it asked before committing and kept the plan out of git. [V-lab]
+- Cost: ticket 150 s over 5 turns; build 256 s over 4 turns; 9 human answers.
+
+- Experiment 20 complete 2026-10-09. Lab `lab19-v7mig` at `ca90b4c`; bug 3 plan at `built`, not marked done (that is `bmad-ticket`'s "mark done", a human step).
+
+## Experiment 21 — a true headless `bmad-spec` call
+
+*2026-10-18, no human answers needed*
+
+**Question (from P40):** called the way a pipeline would call it, does `bmad-spec` return the headless JSON, and does it report `complete` while open questions sit inside `SPEC.md`? Does it refuse Story Breakdown when asked for it headless?
+
+**Setup:** `labs\lab21-headless`, a fresh copy of `lab4-base` (`notes-lib`, baseline `846e9dc`, BMAD 6.12.0; `bmad-spec` is byte-identical at 6.12.1). One `claude -p` call, `--permission-mode acceptEdits --allowedTools "Bash(uv run:*)" "Bash(git:*)"`, `--output-format stream-json --verbose`, saved to `labs\lab21-out\`. The prompt identifies itself as an automated pipeline call (`headless: true`, no human, do not ask), and supplies intent `create`, slug `note-archive`, and a short archiving request (`archiveNote`, `unarchiveNote`, `listNotes` excludes archived) with deliberate gaps: does `getNote` return an archived note, can callers list archived notes, what happens when you archive an already-archived note. It also asks for `stories.yaml`. Unlike every earlier spec run, it does not tell the skill to ask.
+
+**Predictions (written before the run):**
+1. Returns the JSON shape from `assets/headless-schemas.md` with `status: "complete"` and a `files` list, not prose. (Moderate confidence; Experiment 7 showed a skill staying interactive under `claude -p`.)
+2. `SPEC.md` lists at least two of the three planted gaps as open questions, and the JSON says nothing about them.
+3. No `stories.yaml`, despite the request ("Headless runs never do this, even when the invocation text asks for it").
+4. No question to a human; the run ends on its own.
+
+**Run 1 (2026-10-18 16:27): failed before BMAD ran.** `claude -p` exited 1 in 0.3 s with `"Failed to authenticate: OAuth session expired and could not be refreshed"` (`error: authentication_failed`, 0 tokens; transcript `labs\lab21-out\run.jsonl`). The CLI's own login had lapsed; nothing in the lab folder changed. Predictions stand untested. Next step: Carl re-logs in the `claude` CLI, then the same prompt is re-run unchanged.
+
+**Run 2 (2026-10-18 19:04, after Carl re-logged in): same failure.** Identical `authentication_failed` result in 3 s, 0 tokens (`labs\lab21-out\run.jsonl`; run 1 kept as `run1-authfail.jsonl`). The CLI this session reaches is `C:\Users\ctupp\.local\bin\claude` 2.1.283, and `~\.claude\.credentials.json` was last written 06:54, so the new login didn't land where this CLI reads. Lab folder still untouched. Not re-tried further.
+
+**Run 3 (2026-10-19 05:31, in Carl's own Terminal panel, outside the sandbox): same failure.** `authentication_failed` in 1 s, 0 tokens (`labs\lab21-out\run.jsonl`; run 2 kept as `run2-authfail.jsonl`; script `run21.ps1`). So the expired login is the CLI's own, not a sandbox artifact: the `claude` on PATH (`~\.local\bin\claude` 2.1.283) still has the 2026-10-18 06:54 credentials. Carl's re-login evidently went to a different client (likely the desktop app). Lab folder still untouched; experiment parked until the CLI is signed in.
+
+**Run 4 (2026-10-19 05:36, after Carl signed in the CLI itself): ran to completion.** 65 s, 15 turns, $0.55 (`labs\lab21-out\run.jsonl`; run 3 kept as `run3-authfail.jsonl`). Final output, verbatim and nothing else:
+
+`{"status":"complete","files":["_bmad-output/specs/spec-note-archive/SPEC.md","_bmad-output/specs/spec-note-archive/.memlog.md"]}`
+
+**Predictions vs observed:**
+
+| # | Predicted | Observed |
+|---|---|---|
+| 1 | Headless JSON, `complete`, file list | **Confirmed.** The exact schema shape; no greeting, no prose. [V-lab] |
+| 2 | ≥2 of 3 planted gaps as open questions, JSON silent | **Confirmed, 3 of 3.** `SPEC.md` Open Questions: double-archive behavior, a way to list archived notes, whether `getNote` returns archived notes. The JSON mentions none. [V-lab] |
+| 3 | No `stories.yaml` | **Confirmed.** Memlog: "(direction) Caller asked for stories.yaml; skipped: Story Breakdown is interactive-only and this run is headless." The JSON doesn't say it skipped anything. [V-lab] |
+| 4 | No question to a human | **Confirmed.** Express mode chosen and logged ("input rich enough for kernel, gaps go to open questions"). [V-lab] |
+
+**Beyond the predictions:**
+- **An assumption became a capability.** The skill assumed unknown ids reuse `E_NOT_FOUND` (listed under Assumptions) and then wrote that same choice into CAP-4 as a capability with a success condition ("Both functions throw `NoteError` with code `E_NOT_FOUND`"). A downstream build would treat it as contract. It is a reasonable choice that mirrors `getNote`, but nobody approved it. [V-lab] In an interactive run that would be a visible proposal; headless, it reads as settled. [I]
+- **Everything a caller would need to know is outside the JSON:** the two assumptions, three open questions, both self-validate verdicts (PASS, PASS), and the skipped Story Breakdown are only in `SPEC.md` and `.memlog.md`. That matches the schema's "Anything else a caller needs is inside those files." [V-lab; V, P40]
+- **Harness friction, not BMAD:** Claude Code's own command checks refused three ways of calling `memlog.py` (a UNC-path warning, "brace with quote character", an unverifiable `while` loop), so the model wrote two small Python helpers to its scratchpad to append the 17 memlog entries. The run still finished unattended. [V-lab] Someone wiring this into a pipeline should expect the agent harness, not BMAD, to be where calls get blocked. [I]
+- **Contrast with every earlier spec run:** those prompts told the skill to ask, and it asked. This prompt declared itself a pipeline and said not to, and it didn't. So the mode follows how the caller frames the request, as `SKILL.md` step 4 describes ("programmatic caller ... or the first message pre-supplies all inputs"). [V-lab; V, P40]
+
+- Experiment 21 complete 2026-10-19. Lab `lab21-headless` uncommitted (spec folder only); nothing answered on BMAD's behalf: the open questions stay open.
+
+## Experiment 22 — party mode, `session` vs `subagent` on the same decision
+
+*2026-11-07, Carl-approved*
+
+**Question (from P36):** the party-mode docs admit that one model voicing every persona "tends to make them agree", and `subagent` mode puts a real agent behind each persona so that each "thinks independently". On the same open design decision, does `subagent` actually produce more disagreement than `session`, or just a slower version of the same conversation?
+
+**Setup:** two fresh copies of `lab5-route` checked out at `7ab412b` (end of the tags epic, before the B1 fix): `labs\lab22-session` and `labs\lab22-subagent`. Both were quick-updated 6.12.0 → 6.12.1 (`npx -y bmad-method@6.12.1 install --directory . --modules bmm --tools claude-code --yes`), the working version per Carl's 2026-10-18 decision. Post-epic artifacts that give the answer away were removed from both: `RETROSPECTIVE.md`, the B1/B2 fix specs, the three B1/B2 entries in `deferred-work.md`, and memlog entries 140 onward (the retrospective reconciliation). `SPEC.md` was left as re-derived after the retrospective; grep finds nothing about B1 in it. That is a caveat. Default room, party memory on (the shipped default), and each arm has its own folder, so memory can't carry from one arm to the other. One `claude -p` call per arm, using the same prompt except for `--mode`, plus `--non-interactive` (SKILL.md's only path that runs to a natural close without a human), `--permission-mode acceptEdits`, and `--output-format stream-json --verbose`.
+
+**The decision posed (identical in both arms):** `notes-lib` returns live store objects from its read and write functions, so a caller can mutate a note's tags past every validation rule. Fix by (a) defensive copies at each exit, (b) `Object.freeze` on stored notes, (c) changing the store to immutable records or clone-on-write, or (d) documenting it and not fixing it? The project actually chose (a) (R1/R1b above). The answer itself isn't the measure here.
+
+**Predictions (written before the run):**
+1. `subagent` mode really spawns agents headless (Agent/Task tool calls in the trace, at least 3 personas). If it can't, it falls back to `session` "without comment", and the trace is the only way to tell.
+2. `session` ends with every voice agreeing on one option. `subagent` ends with at least one persona still dissenting.
+3. `subagent` raises at least one angle that `session` doesn't.
+4. `subagent` takes at least 2x the wall time and cost of `session`.
+5. Both write a party memlog under `_bmad-output/party-mode/memories/`.
+6. Neither halts for a human. Both close with takeaways.
+
+**Runs (2026-11-07, run in parallel; transcripts in `labs\lab22-out\session.jsonl` and `subagent.jsonl`, final outputs in `session-final.md` and `subagent-final.md`):**
+
+- **`session`:** 78 s, 8 turns, $0.70. Seven tool calls (config and roster resolution, read `notes.js` and the tests, the memlog). An attempted `node -e` repro was blocked by Claude Code's compound-command check, and the run said so honestly ("I didn't run the repro or the test suite"). Five personas spoke in one woven exchange.
+- **`subagent`:** 198 s, 28 turns, $1.98. Four `Agent` spawns on `model: sonnet` (Winston, Amelia, John, Mary; Sally was left out, "Sally sat this one out"), then five `SendMessage` calls that reused the same agents for rounds 2 and 3. That is the standing cast `mode-subagent.md` asks for, not a fresh spawn each round. Three labelled rounds. `npm test` was blocked the same way.
+- Neither run changed code (`git status` clean in both) or halted for a human.
+
+**Predictions vs observed:**
+
+| # | Predicted | Observed |
+|---|---|---|
+| 1 | `subagent` really spawns agents headless | **Confirmed.** 4 spawns on a cheaper model ("favor faster cheaper models"), reused across rounds. [V-lab] |
+| 2 | `session` converges on one option; `subagent` keeps a dissenter | **Wrong both ways.** `session` had John argue (d) from his first turn and hold out to the end ("For the record, I still think this is gold-plating"). In `subagent`, all four agents independently picked (a) in round 1. Disagreement only arrived when John, in round 2, challenged the room *for* agreeing ("Four of us said (a) in under a minute, and that's what bothers me"). Both runs ended on (a) plus one documentation line, each with one holdout (John on value in `session`, Winston on per-read copy cost in `subagent`). [V-lab] |
+| 3 | `subagent` raises an angle `session` doesn't | **Confirmed, though not the angle expected.** Amelia's agent found two existing tests that pin the aliasing: `tests/notes.spec.js:350`, titled "listNotesByTag returns the stored note objects, copying nothing", and `:421-422`, which asserts `strictEqual` identity, "survivors must not be rewritten". Both checked: they exist. Mary's agent took that to mean (a) *reverses* a written Story 3 decision, so it should ship as an explicit spec change with sign-off, not a quiet bugfix. `session` only said to grep for `strictEqual` before committing. `session` had its own angle: the bug shows up with an in-memory store but not with a JSON store that re-parses on every load. `subagent`'s Mary raised a weaker form of that. [V-lab] |
+| 4 | `subagent` ≥2x time and cost | **Confirmed.** 2.5x time, 2.8x cost. [V-lab] |
+| 5 | Both write a party memlog | **Confirmed.** Each wrote `memories/installed/.memlog.md` with a dynamic, an outcome, and a callback or moment entry, plus who held out and why. [V-lab] |
+| 6 | Neither halts; both close | **Confirmed.** In `subagent`, John asked Carl a question, and the orchestrator staged the silence ("Carl doesn't answer. John taps the table.") and carried on. That is how `--non-interactive` handles a persona asking the absent user something. [V-lab] |
+
+**Findings:**
+- **The `session` dissent looks staged, and the `subagent` agreement looks real.** SKILL.md tells the orchestrator to make the voices clash and not resolve it. In `session`, John took the (d) side from his opening line, which fits a role assigned to produce a clash. In `subagent`, four independent agents converged on (a), which is also what the project chose in R1/R1b. [I] The docs' claim ("one model voicing five personas tends to make them agree") didn't show up here: the one-model room had *more* disagreement, because the skill's own instructions push for it. [V-lab for the transcripts; I for the reading]
+- **Independence paid off in grounding, not in dissent.** Each subagent read the code and tests for itself. The findings that change what you'd do next (two tests pin the current behavior, so the fix is a spec reversal that needs sign-off) came from that. The orchestrator in `session` read the same files and missed them. [V-lab] For a decision on real code, that is the case for `subagent`. [I]
+- **Both arms landed on the right answer and a sensible doc line.** At 2.8x the cost, `subagent` bought one materially better recommendation (the spec reversal and the two named tests). [V-lab; I]
+- **Caveats:** one run per arm (variance unmeasured; Experiment 14b found variance in brainstorming). The decision had a defensible right answer, so a genuinely contested decision might behave differently. `SPEC.md` was left as re-derived after the retrospective. Both runs were blocked from running tests by Claude Code's compound-command check, the same harness friction as Experiment 21.

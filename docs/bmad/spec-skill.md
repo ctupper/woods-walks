@@ -1,6 +1,6 @@
 # `bmad-spec`: How the Hub Skill Works
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-spec/` (P19, see `../sources.md`): `SKILL.md`, `assets/spec-template.md`, `assets/stories-schema.md`. Tags: [V, P19] traced to those files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 5 to 5i; see [lab-log.md](lab-log.md)). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24.*
+*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-spec/` (P19, see `../sources.md`): `SKILL.md`, `assets/spec-template.md`, `assets/stories-schema.md`. Tags: [V, P19] traced to those files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 5 to 5i; see [lab-log.md](lab-log.md)). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24. "The headless contract" section (P40, read at 6.12.1) added unattended 2026-10-18, not yet reviewed.*
 
 *Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); spec assets and templates are identical. Substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
 
@@ -86,7 +86,17 @@ This matches how `bmad-build` step 1 looks up a story: `{spec_folder}/stories.ya
 ??? note "The whole epic was built out (Experiment 5h)"
     All four stories, in order, with Story Breakdown re-run twice as the spec changed underneath it, each re-run correctly proposing the same story list with only the stale description touched. Full detail in [build-step-by-step.md](build-step-by-step.md)'s lab-findings section and [lab-log.md](lab-log.md). [V-lab]
 
+## The headless contract (P40, added unattended 2026-10-18)
+
+*Read at tag `v6.12.1`; `bmad-spec` has no diff between 6.12.0 and 6.12.1.*
+
+- **Two outcomes only.** Success is `{"status": "complete", "files": [...]}`: every file written or modified, and nothing else. Capabilities, companions, the validate verdict and the open questions are left for the caller to read from `SPEC.md` and `.memlog.md`. Blocked is `{"status": "blocked", "error_code", "reason"}` with two codes: `insufficient_intent` (too thin to distill) and `missing_slug`. [V, P40 `assets/headless-schemas.md`; `SKILL.md` lines 24, 37, 40, 126, 148]
+- **So a headless run never stops on an open question.** There is no `needs_input` status. Sparse input goes the express route, every gap becomes an entry in `SPEC.md`'s open questions, and the run reports `complete`. A caller that checks only `status` would treat a spec with seven open questions as finished. [V on the schema; I on the caller risk]
+- **Headless never runs Story Breakdown,** "even when the invocation text asks for it." [V, P19] A pipeline can get a spec headless but not `stories.yaml`. [I]
+- **The skill contradicts itself on the default.** The schema file opens "The default invocation is headless"; `SKILL.md` step 4 says headless only when there is no TTY, a programmatic caller, or a first message that pre-supplies everything and asks for a path back, and "**Interactive** otherwise." [V, both files] **Lab:** every `bmad-spec` run here went through `claude -p` (no terminal attached), and every one behaved interactively, asking in prose and never returning JSON (Experiments 5 to 5h). [V-lab] Those prompts told the skill to ask rather than choose, so this shows that the model's own reading of the situation beats the "no TTY" rule, not which default would apply to a bare call. [I] Same pattern as brainstorming in Experiment 7 ([ideation-skills.md](ideation-skills.md)). [V-lab]
+- **Observed headless (Experiment 21, 2026-10-19).** A `claude -p` prompt that called itself a pipeline (`headless: true`, no human, don't ask), supplied slug and input, and also asked for `stories.yaml`, got back exactly `{"status":"complete","files":[SPEC.md, .memlog.md]}` in 65 s, with no question to anyone. `SPEC.md` carried all three planted gaps as open questions and two assumptions; Story Breakdown was skipped, noted only in the memlog. [V-lab, [lab-log.md](lab-log.md) Experiment 21] So the caller-risk above is real: `complete` arrived with three open questions inside. [V-lab] **One assumption also became contract:** reusing `E_NOT_FOUND` for unknown ids was listed as an assumption *and* written into CAP-4's success condition, so a build downstream would treat an unapproved choice as required. [V-lab] With the earlier relay runs, this shows the mode follows how the request is framed: told to ask, the skill asks; told it's a pipeline, it doesn't. [V-lab]
+
 ## Not yet checked
 
-- `assets/headless-schemas.md` (JSON contract for headless runs). [?]
+- ~~`assets/headless-schemas.md` (JSON contract for headless runs).~~ Read 2026-10-18 (section above). ~~A real headless call has never been run.~~ Run 2026-10-19, Experiment 21 (section above).
 - Whether `spec_checkpoint` and `done_checkpoint` are honored by `bmad-build-auto` or only by `bmad-loop`. [?]
