@@ -23,4 +23,10 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install -r requirements.txt
-      - run: mkdocs gh-deploy --force
+      # gh-pages has a repository rule that blocks force-pushes, and
+      # `gh-deploy --force` force-pushes. Fetch the current gh-pages tip so
+      # gh-deploy commits on top of it and the push is a plain fast-forward
+      # (checkout only fetches main). The concurrency group above keeps two
+      # runs from racing for the same tip.
+      - run: git fetch --depth 1 origin gh-pages:gh-pages
+      - run: mkdocs gh-deploy
