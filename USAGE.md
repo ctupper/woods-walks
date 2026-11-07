@@ -2,6 +2,14 @@
 
 Simple workflow for creating and publishing blog posts.
 
+## One-time Setup
+
+```bash
+pip install -r requirements.txt pillow
+```
+
+`requirements.txt` pins the MkDocs Material version the site is built with; Pillow is only needed locally for `optimize_images.py`.
+
 ## Full Workflow
 
 ```bash
@@ -122,6 +130,7 @@ python optimize_images.py
 woods-walks/
 ├── README.md              # GitHub landing page with recent posts
 ├── mkdocs.yml             # Site config and nav (Walks lists posts by year)
+├── requirements.txt       # Pinned MkDocs Material version (used by both workflows)
 ├── docs/                  # Everything MkDocs publishes
 │   ├── index.md           # Site home page with recent posts
 │   ├── posts/

@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - run: pip install mkdocs-material
+      - run: pip install -r requirements.txt
       # Reports problems without blocking a deploy (publish.yml stays non-strict).
       # Fails on broken internal links, missing anchors and nav entries that
       # point at files that don't exist (see `validation` in mkdocs.yml)
