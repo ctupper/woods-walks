@@ -129,8 +129,8 @@ woods-walks/
 │   └── images/
 │       └── YYYY-MM-DD/
 │           └── image-name.jpg
-└── .claude/
-    └── instructions.md    # Full project context
+├── CLAUDE.md              # Project context Claude Code loads automatically
+└── CLAUDE.local.md        # Private personal context (gitignored, you create it)
 ```
 
 ---

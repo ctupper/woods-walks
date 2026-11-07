@@ -88,8 +88,8 @@ woods-walks/
 │   └── images/
 │       └── YYYY-MM-DD/
 │           └── descriptive-name.jpg
-└── .claude/
-    └── instructions.md (this file)
+├── CLAUDE.md (this file)
+└── CLAUDE.local.md (private personal context, gitignored)
 ```
 
 ### Naming Conventions
