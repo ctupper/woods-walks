@@ -1107,6 +1107,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#inside-the-skills-references-and-assets-p41-added-unattended-2026-10-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the skill's references and assets (P41, added unattended 2026-10-18)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#not-yet-checked" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1483,6 +1494,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practitioner-views/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practitioner Views
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1580,6 +1619,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#inside-the-skills-references-and-assets-p41-added-unattended-2026-10-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the skill's references and assets (P41, added unattended 2026-10-18)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#not-yet-checked" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1608,7 +1658,7 @@
 
 
 <h1 id="bmad-ux-designmd-and-experiencemd"><code>bmad-ux</code>: DESIGN.md and EXPERIENCE.md</h1>
-<p><em>Describes BMAD-METHOD v6.12.0. Source: <code>skills/bmad-ux/SKILL.md</code> (P23, see <code>../sources.md</code>); directory listing only for <code>assets/</code> and <code>references/</code>. Tags: [V, P23] traced to that file, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19; reviewed by Carl 2026-09-24.</em></p>
+<p><em>Describes BMAD-METHOD v6.12.0. Source: <code>skills/bmad-ux/SKILL.md</code> (P23, see <code>../sources.md</code>); directory listing only for <code>assets/</code> and <code>references/</code>. Tags: [V, P23] traced to that file, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19; reviewed by Carl 2026-09-24. Section on references and assets (P41, read at 6.12.1) added unattended 2026-10-18, not yet reviewed.</em></p>
 <p><em>Release check: read from the clone's <code>skills/</code> path. The installed-vs-clone diff (2026-09-19) found this skill differs from the <code>v6.12.0</code> release only in <code>SKILL.md</code> activation lines (the release loads <code>user_name</code>/language and greets by name); substantive claims stand at the release. See <a href="../build-step-by-step/">build-step-by-step.md</a>, last section.</em></p>
 <div class="admonition tip">
 <p class="admonition-title">TL;DR</p>
@@ -1639,9 +1689,68 @@
 <ul>
 <li>All four planning skills read so far (<code>spec</code>, <code>prd</code>, <code>architecture</code>, <code>ux</code>) share one pattern: an append-only memlog as canonical memory, a distilled artifact derived from it at Finalize, subagent extraction, and a reviewer gate. That looks like a common template of the v6.12 planning skills. [I]</li>
 </ul>
+<h2 id="inside-the-skills-references-and-assets-p41-added-unattended-2026-10-18">Inside the skill's references and assets (P41, added unattended 2026-10-18)</h2>
+<p><em>Read at tag <code>v6.12.1</code>; nothing under <code>assets/</code> or <code>references/</code> changed from 6.12.0 (only one <code>SKILL.md</code> config line did). The three DESIGN.md and two EXPERIENCE.md worked examples were listed, not read.</em></p>
+<p><strong>Validate and the reviewer gate</strong> (<code>references/validate.md</code>). Validate critiques the spine pair "without changing it", and the same pipeline is the Finalize gate. [V, P41] At Finalize it first asks whether to validate at all (offered by default, easy to skip); then, unless headless, it shows a lens menu (rubric walker + configured <code>finalize_reviewers</code> + ad-hoc lenses it judges relevant, such as accessibility) and dispatches only the picked lenses, in parallel. [V, P41] The rubric walker checks eight categories in two passes:</p>
+<table>
+<thead>
+<tr>
+<th>Pass</th>
+<th>Category</th>
+<th>What it checks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mechanical</td>
+<td>Flow coverage</td>
+<td>every source journey/requirement has a Key Flow with protagonist, steps, climax, failure path</td>
+</tr>
+<tr>
+<td></td>
+<td>Token completeness</td>
+<td>every token defined; <strong>color tokens without hex are critical</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>Component coverage</td>
+<td>every component has a visual row in DESIGN.md <em>and</em> a behavior row in EXPERIENCE.md</td>
+</tr>
+<tr>
+<td></td>
+<td>State coverage</td>
+<td>empty, cold-load, focus, error, offline, permission-denied, as they apply</td>
+</tr>
+<tr>
+<td></td>
+<td>Visual reference coverage</td>
+<td>every mockup/wireframe linked inline; orphans listed</td>
+</tr>
+<tr>
+<td>Judgment</td>
+<td>Bloat</td>
+<td>pixel specs where tokens would do, restated sources, unused sections</td>
+</tr>
+<tr>
+<td></td>
+<td>Inheritance</td>
+<td>names verbatim from sources; glossary and component names identical across files</td>
+</tr>
+<tr>
+<td></td>
+<td>Shape fit</td>
+<td>DESIGN.md sections in canonical order; EXPERIENCE.md's eight required defaults present</td>
+</tr>
+</tbody>
+</table>
+<p>[V, P41] Verdicts are <em>strong / adequate / thin / broken</em> per category, severity is "downstream impact, not fix difficulty", and the consolidated report (HTML plus a Markdown twin) has <strong>"No overall grade."</strong> [V, P41] That differs from <code>bmad-prd</code> Validate, which grades the whole document (Experiment 15 graded a PRD Poor; <a href="../prd-skill/">prd-skill.md</a>). [V-lab] The difference is deliberate: the 6.8.0 changelog describes <code>bmad-ux</code> as "Per-category verdicts, no misleading headline grade." [V, P42 CHANGELOG v6.8.0]</p>
+<p><strong>Headless</strong> (<code>references/headless.md</code>, <code>assets/headless-schemas.md</code>). Triggered by <code>headless: true</code>, a skill or non-interactive caller, a prepend step, or an automation-style first message; "Ambiguous → default interactive." Headless never asks or greets, keeps creative tools off, and ends with JSON per intent (paths to DESIGN.md, EXPERIENCE.md and memlog; a <code>changes_summary</code> and <code>conflicts_with_prior_decisions[]</code> on Update; <code>findings_summary</code> counts and <code>offer_to_update: true</code> on Validate). [V, P41] <strong>It has a third status that <code>bmad-spec</code> lacks: <code>partial</code>, meaning an artifact was produced but <code>open_questions[]</code> is non-empty or critical inputs were inferred.</strong> A caller can tell an unfinished UX spine from a finished one by status alone; with <code>bmad-spec</code> it has to open <code>SPEC.md</code> (<a href="../spec-skill/">spec-skill.md</a>, "The headless contract"). [V, P40, P41] What a headless Validate dispatches when the lens menu is skipped is not stated (all configured lenses? the rubric walker only?). [?]</p>
+<p><strong>DESIGN.md follows an outside spec.</strong> The format is Google Labs' <code>design.md</code> (Apache 2.0, April 2026), summarized in <code>references/design-md-spec.md</code>, which says "the URL wins on conflict": YAML front-matter tokens (<code>colors</code> as hex, <code>typography</code>, <code>rounded</code>, <code>spacing</code>, <code>components</code> with <code>{path.to.token}</code> references) and eight optional but order-locked body sections. Inherited systems (shadcn, MUI, Tailwind, native platforms) are referenced by name, and only the deltas are written. [V, P41] So the DESIGN.md format can change upstream without a BMAD release. [I]</p>
+<p><strong>Creative tools</strong> are subagent renderers that write to <code>.working/</code> and return only a short summary: 4 to 6 HTML color themes, 3 to 6 full "visual personality" directions on the hero screen, Excalidraw IA/flow wireframes, and 2 to 4 1:1 key-screen mocks at Finalize. All are inline CSS with no JS and no network, and use real content from the conversation ("no lorem"). [V, P41 <code>assets/</code>] Teams can add renderers such as a Figma MCP by override. [V, P41 <code>references/creative-tools.md</code>] Only artifacts that pass "would a future reader of <code>DESIGN.md</code> or <code>EXPERIENCE.md</code> open this?" get promoted to <code>mockups/</code> or <code>wireframes/</code>; the rest stay in <code>.working/</code>. Key-screen mocks may not invent layout: every composition choice must trace to a <code>.working/</code> artifact or a memlog confirmation. [V, P41] The Excalidraw renderer carries a hard-won warning: three-character element <code>index</code> values make the file fail as "invalid file" with no diagnostic. [V, P41]</p>
 <h2 id="not-yet-checked">Not yet checked</h2>
 <ul>
-<li>The contents of <code>assets/</code> (color themes, design directions, three worked DESIGN.md examples, EXPERIENCE.md examples), <code>references/design-md-spec.md</code>, <code>creative-tools.md</code>, <code>validate.md</code>, <code>headless.md</code>. [?]</li>
+<li>~~The contents of <code>assets/</code> ..., <code>references/design-md-spec.md</code>, <code>creative-tools.md</code>, <code>validate.md</code>, <code>headless.md</code>.~~ Read 2026-10-18 (section above), except the five worked examples and <code>validation-report-template.html</code>. [?]</li>
+<li>The skill has never been run in a lab: no DESIGN.md/EXPERIENCE.md, no creative-tool output, no Validate. [?]</li>
 </ul>
 
 

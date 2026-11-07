@@ -1240,6 +1240,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Moving a v6 project: bmad migrate method">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#observed-in-the-lab-migrating-the-tags-epic-experiment-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observed in the lab: migrating the tags epic (Experiment 19)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1505,6 +1522,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practitioner-views/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practitioner Views
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1588,6 +1633,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Moving a v6 project: bmad migrate method">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#observed-in-the-lab-migrating-the-tags-epic-experiment-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observed in the lab: migrating the tags epic (Experiment 19)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1652,7 +1714,7 @@
 
 
 <h1 id="bmad-v7-preview-what-changes">BMAD v7 Preview: What Changes</h1>
-<p><em>Describes <strong>unreleased</strong> BMAD-METHOD <code>main</code> at commit <code>bda3c59</code> (2026-10-06), which its own changelog calls "a first draft for v7". <strong>Nothing here is a release.</strong> npm <code>latest</code> is 6.12.1 and there are no v7 tags (both checked 2026-10-09). Main changes daily, so treat every claim as a snapshot of that commit. Source: the worktree <code>labs\BMAD-METHOD-v7p-bda3c592</code> (P34 in <code>../sources.md</code>): <code>CHANGELOG.md</code> "Unreleased", <code>docs/start/install-bmad.md</code>, <code>docs/plan/set-up-the-ticket-tree.md</code>, <code>skills/bmod-method/migration-1.toml</code> and <code>retired.toml</code>, <code>skills/bmad-build/customize.toml</code> and <code>plan-template.md</code>, <code>skills/bmad-retrospective/</code> file list and <code>references/aggregate-views.md</code>, and a skill-by-skill diff against the v6.12.0 tag; for the corrections, also <code>skills/bmad-ticket/references/validate.md</code> and <code>validate-checks.md</code>, <code>skills/bmad/scripts/setup.py</code>, and every module's <code>retired.toml</code>. Tags: [V, P34] traced to those files at that commit, [I] inferred, [?] unclear. Experiment 19 in <a href="../lab-log/">lab-log.md</a> is the first lab run against this page (under way); until it reports, nothing here is [V-lab]. Written unattended-style 2026-10-09; quotes, counts and diff sizes re-checked against the commit and three corrections added 2026-10-09 (readiness counterpart, which skills <code>bmad setup</code> offers to delete, when the migration uses <code>git mv</code>); not yet reviewed.</em></p>
+<p><em>Describes <strong>unreleased</strong> BMAD-METHOD <code>main</code> at commit <code>bda3c59</code> (2026-10-06), which its own changelog calls "a first draft for v7". <strong>Nothing here is a release.</strong> npm <code>latest</code> is 6.12.1 and there are no v7 tags (both checked 2026-10-09). Main changes daily, so treat every claim as a snapshot of that commit. Source: the worktree <code>labs\BMAD-METHOD-v7p-bda3c592</code> (P34 in <code>../sources.md</code>): <code>CHANGELOG.md</code> "Unreleased", <code>docs/start/install-bmad.md</code>, <code>docs/plan/set-up-the-ticket-tree.md</code>, <code>skills/bmod-method/migration-1.toml</code> and <code>retired.toml</code>, <code>skills/bmad-build/customize.toml</code> and <code>plan-template.md</code>, <code>skills/bmad-retrospective/</code> file list and <code>references/aggregate-views.md</code>, and a skill-by-skill diff against the v6.12.0 tag. Tags: [V, P34] traced to those files at that commit, [I] inferred, [?] unclear. Written 2026-10-09 from the files; the install, <code>bmad setup</code> and the migration were then run in a lab (Experiment 19, same day). Not yet reviewed.</em></p>
 <div class="admonition tip">
 <p class="admonition-title">TL;DR</p>
 <p>v7 is a restructure, not an update. Install moves from <code>npx bmad-method install</code> to <code>npx skills add</code> plus a <code>bmad</code> setup skill. The <code>planning_artifacts</code> / <code>implementation_artifacts</code> folders give way to one folder per <strong>initiative</strong>. <code>epics.md</code> and <code>sprint-status.yaml</code> become a <strong>ticket tree</strong> managed by a new <code>bmad-ticket</code> skill, which also replaces <code>bmad-sprint-planning</code> and <code>bmad-create-epics-and-stories</code>. A <code>bmad migrate method</code> command moves a v6 project across. <code>bmad-build</code> now defaults to a single quick review lens. BMB becomes Toolsmith. NGA runs 6.12.0, so nothing here changes the wiki's existing claims until NGA updates. [V, P34; I on NGA]</p>
@@ -1661,7 +1723,6 @@
 <ul>
 <li><strong>Install:</strong> <code>npx skills add bmad-code-org/BMAD-METHOD</code>, selecting skills plus the <code>bmad</code> hub and module records (<code>bmod-core-tools</code>, <code>bmod-method</code>); or a Claude Code / Codex plugin marketplace. Then ask the <code>bmad</code> skill to run <code>bmad setup</code>, which installs the shared runtime under <code>_bmad/</code>. [V, P34 install doc] The repo no longer has a <code>package.json</code> at its root; it ships a Python <code>pyproject.toml</code> and uses <code>uv</code>. [V, P34 tree]</li>
 <li><strong>Update:</strong> ask <code>bmad</code> to run <code>bmad setup</code> again. It runs <code>npx skills update</code> when a module has a newer version, asks any new config questions, moves <code>_bmad/custom/</code> files for renamed skills, offers to delete renamed or removed skills (each module lists them in a <code>retired.toml</code>), and ends by checking whether a migration applies. [V, P34 install doc, CHANGELOG]</li>
-<li><strong>But the retired lists cover only 2 of the 24 skill folders v7 drops:</strong> <code>bmad-sprint-planning</code> and <code>bmad-create-epics-and-stories</code>. <code>setup.py</code> builds its delete offer from those lists alone, so the other 22 (<code>bmad-help</code>, <code>bmad-quick-dev</code>, <code>bmad-create-story</code>, <code>bmad-dev-story</code>, <code>bmad-sprint-status</code> and the rest) are not offered for deletion and stay installed. Classic-installer files under <code>_bmad/</code> (<code>_config/manifest.yaml</code>, <code>core/config.yaml</code>, <code>bmm/config.yaml</code>, <code>core/v6-shims</code>, <code>config.user.toml</code> and others) are reported as <code>legacy_leftovers</code> and "never touch[ed]". [V, P34 <code>retired.toml</code> ×3, <code>setup.py</code> <code>retired_skills()</code> and <code>LEGACY_LEFTOVERS</code>] So a v6 → v7 install likely keeps the v6 shims beside the v7 skills until removed by hand. That bears on Experiment 19's prediction 2. [I]</li>
 <li><code>bmad status</code> checks versions and lists uninstalled skills of each module. [V, P34 CHANGELOG]</li>
 <li><strong>"Team and personal customizations live under <code>_bmad/custom/</code> and survive setup refreshes."</strong> That is the same rule <a href="../updating-bmad/">updating-bmad.md</a> tested on 6.12.0. Whether it holds under <code>bmad setup</code> is untested. [V, P34 install doc; ? untested]</li>
 <li>So most of <a href="../updating-bmad/">updating-bmad.md</a> is about an installer v7 drops: <code>--pin</code>, <code>--action</code>, quick-update vs full update, <code>manifest.yaml</code>. [I]</li>
@@ -1676,25 +1737,35 @@
 <h2 id="planning-and-tracking-the-ticket-tree-and-bmad-ticket">Planning and tracking: the ticket tree and <code>bmad-ticket</code></h2>
 <ul>
 <li><code>bmad-ticket</code> "is how BMad plans and tracks work": initiatives hold epics, epics hold stories, spikes and bugs. Each level keeps its breakdown in a <code>tickets.toml</code>. An entry carries what it delivers, a <code>verify</code> check, <code>after</code> prerequisites (which can name a story in another epic, or a whole epic), and any <code>unknown</code>. [V, P34 ticket-tree doc]</li>
-<li><strong>It replaces <code>bmad-sprint-planning</code> and <code>bmad-create-epics-and-stories</code></strong>, which are removed. [V, P34 <code>retired.toml</code>, migration-1 guide]</li>
-<li><strong>The readiness gate is replaced by <code>bmad-ticket</code>'s validation, not dropped.</strong> v6's gate (PASS / CONCERNS / FAIL, in <code>bmad-sprint-planning</code>; see <a href="../flow/">flow.md</a>) goes. <code>bmad-ticket</code> runs checks in five scopes (Ticket, Set, Tree, Dependencies, Closure): on any draft set of epics or epic breakdown before the user approves it ("This always runs; no path, mode, or setting skips it"), on a refined ticket before a build starts it, and on an epic before it closes. Agents that were not in the conversation run them, and findings are sorted into fix, suggest or ask rather than a verdict. [V, P34 <code>bmad-ticket/references/validate.md</code>, <code>validate-checks.md</code>] Whether it catches what the v6 gate caught is untested. [?]</li>
+<li><strong>It replaces <code>bmad-sprint-planning</code> and <code>bmad-create-epics-and-stories</code></strong>, which are removed. [V, P34 <code>retired.toml</code>, migration-1 guide] So the readiness gate (PASS / CONCERNS / FAIL) the wiki describes in <a href="../flow/">flow.md</a> has no counterpart named in the files read. [I; ? whether <code>bmad-ticket</code> carries an equivalent]</li>
 <li><strong>Stories are planned at build time.</strong> "An entry needs no file to be built. <code>bmad-build</code> plans the story's acceptance criteria when it builds", and writes the plan beside <code>tickets.toml</code> as <code>story-&lt;slug&gt;-plan.md</code>. [V, P34 ticket-tree doc] The build spec becomes a <strong>plan</strong>: <code>spec-template.md</code> is now <code>plan-template.md</code>, the Spec Change Log is the Plan Change Log, and the <code>&lt;frozen-after-approval&gt;</code> block over Intent, Boundaries and the I/O matrix stays. [V, P34 <code>plan-template.md</code>]</li>
 <li><strong>New <code>built</code> status.</strong> "Build moves it as it works and stops at <code>built</code>; only you, or an orchestrator, mark a story done." [V, P34 ticket-tree doc; <code>plan-template.md</code> status list]</li>
 <li><strong>Cutting epics:</strong> "An epic is one capability that one owner delivers to production." After epics are agreed, the skill lists decisions more than one epic must adopt and offers <code>bmad-architecture</code>; declined, each becomes a story in the opening epic that the others wait on. [V, P34 ticket-tree doc] That is a direct mechanism for the cross-epic gap in <a href="../systemic-findings/">systemic-findings.md</a> ("Freezing stops at the epic boundary"), at planning time rather than at code time. Whether it would have caught Experiment 9b's case is untested. [I; ?]</li>
+<li><strong>Observed in the lab (Experiment 20): one bug, from deferred note to commit.</strong> <code>bmad-ticket</code> ran the reproduction before writing anything and found a second failing case. It filed the bug in <code>backlog/</code> with a stated reason, asked five questions with defaults, and named everything it added beyond Carl's answers. Its single-ticket check (a subagent) then found that two defaults Carl had accepted together could not both hold, before any code was written. <code>bmad-build</code> took the ticket with no story file, wrote its plan at build time, raised the open design question with three options, ran the <strong>quick</strong> review (one subagent, which found and fixed a real defect), stopped at <code>built</code>, and asked before committing. Two things to watch: the ticket's accepted Boundaries narrowed the design to one shape before the build began, and <code>bmad-ticket</code> asked to commit a file in a git-ignored store without noticing. [V-lab, <a href="../lab-log/">lab-log.md</a> Experiment 20]</li>
 <li><strong>Trackers:</strong> Repo (the default; markdown files in the store), GitHub Issues, Jira, Linear, Notion, Trello. The markdown files stay the working copy. <strong>"Hooks are not integrated yet, so nothing syncs on its own"</strong>: the tracker and files line up only when you run the skill. The docs say Repo "has been tested most" and the trackers "still need a lot of testing". [V, P34 ticket-tree doc] So the wiki's Finding 5 ("no automatic sync with Jira/Linear", STATE.md) becomes "on-demand publish and read-back, no automatic sync" in v7. [I]</li>
 </ul>
 <h2 id="moving-a-v6-project-bmad-migrate-method">Moving a v6 project: <code>bmad migrate method</code></h2>
 <p><code>skills/bmod-method/migration-1.toml</code> is the v6 → v7 migration. [V, P34]</p>
 <ul>
 <li><strong>Detects</strong> v6 by <code>epics.md</code>, <code>sprint-status.yaml</code>, v6 build-spec files (<code>route:</code> + <code>status:</code> frontmatter), dated artifact folders, or <code>specs/spec-&lt;slug&gt;/SPEC.md</code>. [V, P34]</li>
-<li><strong>Asks first, writes nothing before approval</strong> except a plan file and a backup. Its six questions come with defaults: back up first (yes); one initiative or several (one, named after <code>core.project_name</code>); will the work touch other repos, i.e. workspace layout (no); keep planning history in its own repo (no); finish in-progress stories in v6 first (default "Finish first"); fold unstarted story files into their entries (yes). [V, P34]</li>
-<li><strong>Moves, never copies;</strong> "when the files are under git, every move is a <code>git mv</code>, so history follows the file". When they aren't (as in Experiment 19's lab, where <code>_bmad-output/</code> is git-excluded), there is no history to follow and the backup question carries the weight. [V, P34; I] It drops dates and v6 story/epic numbers from names. It turns <code>epics.md</code> + <code>sprint-status.yaml</code> into <code>tickets.toml</code> entries with mapped statuses and archives the originals unchanged in <code>archive-v6/</code>. Retrospectives combine into one file per epic. It rewrites live path references inside the store, but only lists (never edits) old paths found elsewhere in the project. [V, P34]</li>
+<li><strong>Asks first, writes nothing before approval</strong> except a plan file and a backup. Its six questions come with defaults: back up first (yes); one initiative or several; will the work touch other repos (workspace layout); keep planning history in its own repo; finish in-progress stories in v6 first (default "Finish first"); fold unstarted story files into their entries (yes). [V, P34]</li>
+<li><strong>Moves, never copies,</strong> with <code>git mv</code> so history follows. It drops dates and v6 story/epic numbers from names. It turns <code>epics.md</code> + <code>sprint-status.yaml</code> into <code>tickets.toml</code> entries with mapped statuses and archives the originals unchanged in <code>archive-v6/</code>. Retrospectives combine into one file per epic. It rewrites live path references inside the store, but only lists (never edits) old paths found elsewhere in the project. [V, P34]</li>
 <li><strong>A <code>spec-&lt;slug&gt;/</code> with <code>stories.yaml</code> becomes an epic,</strong> its stories become entries citing the spec's <code>CAP-N</code> ids, and each <code>stories/&lt;id&gt;-&lt;slug&gt;.md</code> moves as <code>story-&lt;slug&gt;-plan.md</code>. This is the shape of the lab's tags epic (<code>lab5-route</code>). [V, P34; I on the match]</li>
 <li><strong>It never pushes,</strong> and it ends with an 11-item verification checklist recorded in the plan ("never skip one"). [V, P34]</li>
 </ul>
+<h3 id="observed-in-the-lab-migrating-the-tags-epic-experiment-19">Observed in the lab: migrating the tags epic (Experiment 19)</h3>
+<p>Installed from the pinned worktree into a copy of the lab's finished v6 tags epic, then <code>bmad setup</code> and the migration, with Carl answering every question. [V-lab, <a href="../lab-log/">lab-log.md</a> Experiment 19]</p>
+<ul>
+<li><strong>The result matched the documented layout.</strong> One initiative, the spec folder became <code>epic-note-tag/</code> with four <code>done</code> plans, the retrospective and change proposal moved in, <code>stories.yaml</code> was archived, and the two loose bugfix specs went to <code>backlog/</code>. Code and tests were untouched (76/76), and setup reports <strong>6.13.0-next</strong>. It took about 7.5 minutes over five turns.</li>
+<li><strong>The backup check was fooled.</strong> Setup said the output folder "is committed ... so git counts as the backup". It wasn't: the folder was git-ignored, and <code>git status</code> prints nothing for an ignored folder. Once Carl corrected it, it re-checked with <code>git ls-files</code>, made the backup and verified it. Uncorrected, it would have migrated with no backup. <strong>Before migrating, check <code>git ls-files _bmad-output</code> yourself.</strong> [V-lab; I on the advice]</li>
+<li><strong>The same git-ignored-store blind spot showed up again in <code>bmad-ticket</code></strong> (Experiment 20), which asked to commit a ticket file in the ignored store. The migration offers to keep the store untracked, then the other v7 skills assume it's committed. [V-lab; I]</li>
+<li><strong>Its checklist checks structure, not truth.</strong> The epic's new "Done when" included "existing note behavior and its tests are untouched", carried over from the v6 spec. Later fixes made that false, and all 11 checks still passed. [V-lab]</li>
+<li><strong>Leftovers to decide on:</strong> an untracked <code>skills-lock.json</code> at the repo root, old v6 installer files in <code>_bmad/</code>, v6's <code>bmad-help</code> skill folder (not on any retired list), and the backup folder. [V-lab]</li>
+<li>It flagged its own loose ends: line citations into moved files shifted by 1 to 5 lines, and three old folder names remain in historical text. [V-lab]</li>
+</ul>
 <h2 id="build-and-review">Build and review</h2>
 <ul>
-<li><strong><code>bmad-build</code> defaults to <code>review = "quick"</code></strong>: a single "Quick" subagent lens reading the plan, the repo's agent instruction files and the diff, reporting unmet criteria, broken rules and bugs. <code>thorough</code> (Blind Hunter, Edge Case Hunter, Verification Gap Reviewer, Intent Alignment Auditor) is still there; <code>auto</code> picks quick for oneshot and thorough for the full route; <code>none</code> runs no lens and skips triage. [V, P34 <code>bmad-build/customize.toml</code>; CHANGELOG] At 6.12.0 the dispatch route ran three layers by default (<a href="../build-step-by-step/">build-step-by-step.md</a>). So by default v7 reviews each story with less, and the per-story blind spot in <a href="../systemic-findings/">systemic-findings.md</a> likely widens. [I]</li>
+<li><strong><code>bmad-build</code> defaults to <code>review = "quick"</code></strong>: a single "Quick" subagent lens reading the plan, the repo's agent instruction files and the diff, reporting unmet criteria, broken rules and bugs. <code>thorough</code> (Blind Hunter, Edge Case Hunter, Verification Gap, Intent Alignment Auditor) is still there; <code>auto</code> picks quick for oneshot and thorough for the full route. [V, P34 <code>bmad-build/customize.toml</code>; CHANGELOG] At 6.12.0 the dispatch route ran three layers by default (<a href="../build-step-by-step/">build-step-by-step.md</a>). So by default v7 reviews each story with less, and the per-story blind spot in <a href="../systemic-findings/">systemic-findings.md</a> likely widens. [I]</li>
 <li>The quick lens reads <code>AGENTS.md</code>/<code>CLAUDE.md</code> "at the repository root and in the directories the diff touches; those are the rules". [V, P34] So project context feeds review directly, which bears on the [?]-marked escalation finding from Experiments 4b and 18. [I]</li>
 <li><strong>The retrospective was rewritten</strong> (about 2,700 lines removed, mostly bundled files) and now takes "a finished epic folder in the ticket tree". It keeps an explicit whole-epic phase: "the defects that matter are the ones no single session — and no single diff hunk — could see." [V, P34 <code>SKILL.md</code>, <code>aggregate-views.md</code>] Whether it still accepts a v6 spec folder directly wasn't checked; the migration converts one into an epic. [?]</li>
 <li>Review mode (in review skills) now gives findings in chat and in markdown; "the HTML report is gone". [V, P34 CHANGELOG] Whether that covers <code>bmad-prd</code> Validate's HTML report (Experiment 15) is unclear. [?]</li>
@@ -1724,7 +1795,7 @@
 </tr>
 <tr>
 <td><a href="../flow/">flow.md</a></td>
-<td>Planning half changes: ticket tree instead of <code>epics.md</code> / <code>sprint-status.yaml</code>; readiness gate replaced by <code>bmad-ticket</code> validation (always on draft sets; no PASS / CONCERNS / FAIL verdict); stories planned at build time; new <code>built</code> status. [I]</td>
+<td>Planning half changes: ticket tree instead of <code>epics.md</code> / <code>sprint-status.yaml</code>; readiness gate removed with <code>bmad-sprint-planning</code>; stories planned at build time; new <code>built</code> status. [I]</td>
 </tr>
 <tr>
 <td><a href="../build-step-by-step/">build-step-by-step.md</a></td>
@@ -1750,10 +1821,10 @@
 </table>
 <h2 id="not-yet-checked">Not yet checked</h2>
 <ul>
-<li>A finished lab run. Experiment 19 covers install, <code>bmad setup</code> and <code>bmad migrate method</code> on the tags epic; <code>bmad-ticket</code> on the repo store is not yet planned. [?]</li>
+<li>~~Install, <code>bmad setup</code>, <code>bmad migrate method</code> on a v6 project~~ (run, Experiment 19). <code>bmad-ticket</code> (one bug, repo store) and <code>bmad-build</code> on it also run (Experiment 20). Still not run: slicing an initiative into epics, <code>bmad-ticket</code> "mark done", any tracker store, <code>bmad-build-auto</code>, the v7 retrospective, quick review on a multi-story epic. [?]</li>
 <li>The full step files of <code>bmad-build</code>, <code>bmad-code-review</code>, <code>bmad-walkthrough</code>, <code>bmad-retrospective</code> and <code>bmad-ticket</code> at this commit. [?]</li>
-<li>Whether <code>bmad-ticket</code>'s validation catches what the v6 readiness gate caught (it replaces the gate in the files; not run). [?]</li>
-<li>Whether <code>_bmad/custom/</code> overrides survive <code>bmad setup</code> and the migration. [?]</li>
+<li>Whether anything replaces the removed readiness gate. [?]</li>
+<li>Whether <code>_bmad/custom/</code> overrides survive <code>bmad setup</code> and the migration. [?] (Experiment 19 had only installer-default custom files; the migration added <code>active_initiative</code> to <code>config.user.toml</code> and changed nothing else there.)</li>
 <li>A v7 release date or version number; none is stated in the files read. [?]</li>
 </ul>
 

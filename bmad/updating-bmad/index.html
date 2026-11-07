@@ -1204,10 +1204,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-612-got-here-what-the-changelog-says-matters-for-an-installed-team-p42-added-2026-10-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How 6.12 got here: what the changelog says matters for an installed team (P42, added 2026-10-18)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-to-re-read-after-a-version-bump" class="md-nav__link">
     <span class="md-ellipsis">
       
         What to re-read after a version bump
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-for-a-whole-team-the-docs-recipes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customizing for a whole team (the docs' recipes)
       
     </span>
   </a>
@@ -1483,6 +1505,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practitioner-views/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practitioner Views
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1558,10 +1608,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-612-got-here-what-the-changelog-says-matters-for-an-installed-team-p42-added-2026-10-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How 6.12 got here: what the changelog says matters for an installed team (P42, added 2026-10-18)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-to-re-read-after-a-version-bump" class="md-nav__link">
     <span class="md-ellipsis">
       
         What to re-read after a version bump
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-for-a-whole-team-the-docs-recipes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customizing for a whole team (the docs' recipes)
       
     </span>
   </a>
@@ -1608,7 +1680,7 @@
 
 
 <h1 id="updating-bmad-what-survives-and-what-doesnt">Updating BMAD: What Survives and What Doesn't</h1>
-<p><em>Describes BMAD-METHOD v6.12.0 and its installer. Sources: <code>docs/customize/customize-bmad.md</code> (P30) and <code>docs/customize/add-modules.md</code> (P27) at the release tag, see <code>../sources.md</code>. Tags: [V, Pn] traced to those docs, [V-lab] observed in a lab run (Experiments 8 and 13, see <a href="../lab-log/">lab-log.md</a>), [I] inferred, [?] unclear. No release newer than 6.12.0 existed when this was written, so the "update" tested was a same-version reinstall. Written 2026-10-03. Re-pin notes for 6.12.1 and Experiment 16 (first real update, 6.12.0 → 6.12.1) added 2026-10-07, not yet reviewed.</em></p>
+<p><em>Describes BMAD-METHOD v6.12.0 and its installer. Sources: <code>docs/customize/customize-bmad.md</code> (P30) and <code>docs/customize/add-modules.md</code> (P27) at the release tag, see <code>../sources.md</code>. Tags: [V, Pn] traced to those docs, [V-lab] observed in a lab run (Experiments 8 and 13, see <a href="../lab-log/">lab-log.md</a>), [I] inferred, [?] unclear. No release newer than 6.12.0 existed when this was written, so the "update" tested was a same-version reinstall. Written 2026-10-03. Re-pin notes for 6.12.1 and Experiment 16 (first real update, 6.12.0 → 6.12.1) added 2026-10-07, not yet reviewed. Team-customization section from <code>docs/customize/adopt-bmad-across-a-team.md</code> (P35) install-docs bullet (P38, read at 6.12.1), and "How 6.12 got here" changelog section (P42) added 2026-10-18, docs-only, not yet reviewed.</em></p>
 <div class="admonition note">
 <p class="admonition-title">v7 preview</p>
 <p>BMAD's unreleased v7 draft replaces this installer (<code>npx skills add</code> plus a <code>bmad setup</code> skill). Most of this page applies to 6.x only. See <a href="../v7-preview/">v7-preview.md</a>.</p>
@@ -1677,11 +1749,76 @@
 <li><strong>The non-interactive default is a quick-update.</strong> <code>install --yes</code> with no <code>--action</code> on an existing install "Refreshes installed modules from their recorded sources" and does not add new modules. To add modules, pass <code>--action update</code> explicitly. [V, P27; V-lab, Experiment 8]</li>
 <li><strong>A failed update can leave a half-applied install.</strong> In the lab, a full update failed on a malformed module-list argument (a shell quoting mistake). Before it reported failure, it had deleted every module's <code>config.yaml</code> and <code>module-help.csv</code> and added stray copies of core skill files. Overrides survived, and a correct re-run repaired everything. The trigger was a usage error, but the installer did not roll back. [V-lab, Experiment 13] Take a copy of <code>_bmad/</code> and <code>.claude/</code> before updating, and if an update fails, re-run it correctly rather than working from the half-updated state. [I]</li>
 <li><strong>A version bump of installed modules needs no <code>--action</code>.</strong> A plain quick-update with the version named (<code>npx -y bmad-method@6.12.1 install ... --yes</code>) took core and bmm 6.12.0 → 6.12.1. Untested: an unpinned <code>npx bmad-method</code> (the npx cache could serve the older version). [V-lab, Experiment 16; ? on unpinned]</li>
+<li><strong>What the install docs cover, and what they leave out</strong> (P38, <code>docs/start/install-bmad.md</code> at tag <code>v6.12.1</code>, added 2026-10-18). The interactive path: re-run <code>npx bmad-method install</code> in the project, and the installer detects the existing install and offers "update" (refresh) or "modification" (change modules, tools, config); verify by running <code>bmad-help</code> again. Coming from an earlier version, it warns about stale <code>bmad-*</code> entries in legacy command directories that you should remove to avoid duplicate commands. <code>npx bmad-method@next install</code> installs the prerelease. The CI example is <code>install --yes --modules bmm --tools claude-code</code>, and the docs say to check <code>--help</code> with the same version or tag you install. [V, P38] The page says nothing about backing up first, the non-interactive quick-update default, the <code>.bak</code>, or the lack of rollback, all observed above. [V-lab; I that a reader of P38 alone would miss them]</li>
 <li>On Windows PowerShell, quote comma lists (<code>--modules "bmm,tea"</code>); unquoted, the shell splits them. [V-lab, Experiment 13]</li>
+</ul>
+<h2 id="how-612-got-here-what-the-changelog-says-matters-for-an-installed-team-p42-added-2026-10-18">How 6.12 got here: what the changelog says matters for an installed team (P42, added 2026-10-18)</h2>
+<p><em>From <code>CHANGELOG.md</code> at tag <code>v6.12.1</code>, releases 6.8.0 (2026-05-25) to 6.12.1 (2026-10-04). Older entries (6.7.1 back to the 6.0 alphas) not read.</em></p>
+<ul>
+<li><strong>The config gap Experiment 16 found was a planned halfway state.</strong> 6.11.0 moved config to layered TOML and said so outright: "The per-module <code>_bmad/bmm/config.yaml</code> still ships and the older skills still read it, so this release is the migration, not the cutover." 6.12.1 finished the cutover. [V, P42 v6.11.0, v6.12.1] So anyone on 6.11.x or 6.12.0 has central overrides that only some skills honor (see the warnings above). [I]</li>
+<li><strong>A broken override stops the skill.</strong> Since 6.11.0, a <code>{{.var}}</code> missing from the merged config, or an unparseable <code>_bmad/custom/&lt;skill&gt;.toml</code>, makes the renderer "exit 1 with a clean halt" (it used to render empty or ignore the file). [V, P42 v6.11.0 #2588] A typo in a team override is no longer silent, but it blocks everyone who pulls it until fixed. [I]</li>
+<li><strong>6.12.0's breaking changes that touch customizations:</strong> <code>persistent_facts</code> now ships empty ("Re-add <code>project-context.md</code> to your override if you relied on the auto-load"); review overrides must rename <code>{diff_output}</code> to <code>{diff_file}</code>; deprecated shims are opt-in on fresh installs (<code>--shims</code>); <code>bmad-checkpoint-preview</code> became <code>bmad-walkthrough</code> (<code>CK</code> → <code>WT</code>, old ID forwards); build no longer auto-triggers on interactive edits or chores. [V, P42 v6.12.0]</li>
+<li><strong>6.11.0 renamed things your override files are named after.</strong> <code>bmad-quick-dev</code> → <code>bmad-build</code>, <code>bmad-dev-auto</code> → <code>bmad-build-auto</code>, and <code>_bmad/custom/bmad-quick-dev{,.user}.toml</code> must be renamed by hand. The forwarding shim offers the migration but won't overwrite, and "unattended runs on the old name with a legacy customization file will refuse to start." Also retired into shims: three review skills and two editorial ones (now lenses on <code>bmad-review</code>), the research trio (now <code>bmad-deep-recon</code>), <code>bmad-document-project</code> and <code>bmad-generate-project-context</code> (now <code>bmad-project-context</code>), <code>bmad-sprint-status</code>, and <code>bmad-create-story</code>/<code>bmad-dev-story</code>. Shims last until v7. [V, P42 v6.11.0]</li>
+<li><strong><code>uv</code> went from "recommended" to required for rendered skills in two steps:</strong> 6.9.0 warned, and 6.11.0 made <code>bmad-build</code>/<code>bmad-build-auto</code> halt without it. Even 6.11.0's installer still showed uv as optional inside the green "ready" box until #2704 fixed the wording. [V, P42 v6.9.0, v6.11.0] Matches the install-doc correction on <a href="../overview/">overview.md</a>. [V]</li>
+<li><strong>Unpublished evidence behind design choices.</strong> Several entries cite internal trials: the adversarial-reviewer A/B (see <a href="../agents/">agents.md</a>), "seven real commits from a production HIPAA platform" for the verification-gap reviewer, "16 reviewer runs" for its false-gap fix, and a "50% to 100%" catch-rate gain for Edge Case Hunter's named-set pass. None link to data. [V that they are claimed; ? on the results]</li>
 </ul>
 <h2 id="what-to-re-read-after-a-version-bump">What to re-read after a version bump</h2>
 <p>Most skills changed only cosmetically between releases this project compared. The two that changed substantively between the 6.12.0 release and the later unreleased code were <strong><code>bmad-build</code></strong> (how it picks a route) and <strong><code>bmad-code-review</code></strong> (how its review layers are chosen). See <a href="../build-step-by-step/">build-step-by-step.md</a>, "What the clone changed". After a version bump, re-read those two first, and diff their installed <code>SKILL.md</code> and step files against the previous version. [V-lab; I on the priority]</p>
 <p><strong>The first real bump, 6.12.0 → 6.12.1 (2026-10-04), did not follow that pattern:</strong> <code>bmad-build</code>, <code>bmad-build-auto</code>, and <code>bmad-spec</code> did not change at all; 23 other skills changed one config-loading line each; <code>bmad-create-epics-and-stories</code> now saves <code>epics.md</code> as <code>status: draft</code> and sets <code>status: final</code> only when every validation check passes; party mode's collision check now sees aliases. [V, CHANGELOG v6.12.1 and <code>git diff v6.12.0 v6.12.1</code>] The changelog is the faster first read; the "re-read build and review first" advice above is [?] re-check as a general rule. [I]</p>
+<h2 id="customizing-for-a-whole-team-the-docs-recipes">Customizing for a whole team (the docs' recipes)</h2>
+<p><em>Added 2026-10-18 from <code>docs/customize/adopt-bmad-across-a-team.md</code> at the tag (P35). Docs-only; no recipe has been run in the lab.</em></p>
+<p>The docs give six recipes, each one override file under <code>_bmad/custom/</code>, committed so everyone inherits it on pull. Every per-skill file has a team form (<code>&lt;skill&gt;.toml</code>, committed) and a personal form (<code>&lt;skill&gt;.user.toml</code>, gitignored); central config splits the same way. [V, P35] The <code>bmad-customize</code> skill writes and verifies recipes 1 to 4 and 6; recipe 5 is written by hand. [V, P35; skill exists at the tag]</p>
+<table>
+<thead>
+<tr>
+<th>Scope of the rule</th>
+<th>Where it goes</th>
+<th>Key(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All dev work, whatever workflow the agent dispatches</td>
+<td><code>_bmad/custom/bmad-agent-dev.toml</code></td>
+<td><code>[agent] persistent_facts</code> (recipe 1)</td>
+</tr>
+<tr>
+<td>One workflow's output (compliance fields, conventions doc via <code>file:</code>)</td>
+<td><code>_bmad/custom/&lt;workflow&gt;.toml</code></td>
+<td><code>[workflow] persistent_facts</code> (recipe 2)</td>
+</tr>
+<tr>
+<td>Publish when a workflow finishes (Confluence, Jira)</td>
+<td>same</td>
+<td><code>[workflow] on_complete</code>, runs once after output is written (recipe 3)</td>
+</tr>
+<tr>
+<td>Your own output template</td>
+<td>same</td>
+<td>e.g. <code>brief_template</code>, <code>prd_template</code> (recipes 4, 6)</td>
+</tr>
+<tr>
+<td>Who is on the roster; shared paths and output language</td>
+<td><code>_bmad/custom/config.toml</code></td>
+<td><code>[agents.&lt;code&gt;]</code>, <code>[modules.bmm]</code>, <code>[core]</code> (recipe 5)</td>
+</tr>
+<tr>
+<td>On-demand knowledge sources, stacked handoffs, finalize-time writing standards</td>
+<td><code>_bmad/custom/&lt;workflow&gt;.toml</code></td>
+<td><code>external_sources</code>, <code>external_handoffs</code>, <code>doc_standards</code> (recipe 6; check the workflow's <code>customize.toml</code> for which it has)</td>
+</tr>
+</tbody>
+</table>
+<p>[V, P35; each key checked present in the tag's <code>customize.toml</code> for <code>bmad-product-brief</code>, <code>bmad-prd</code>, <code>bmad-agent-dev</code>]</p>
+<ul>
+<li><strong>Rules that must hold outside BMAD go in the IDE session file too</strong> (<code>CLAUDE.md</code>, <code>AGENTS.md</code>, <code>copilot-instructions.md</code>): BMAD customizations load only when a skill activates. Keep that file short; the model reads it every turn. [V, P35]</li>
+<li><strong>The recipes describe intent; they do not change approval behavior.</strong> Recipe 3's example asks before creating a Jira epic and publishes to Confluence without asking, because the prose in <code>on_complete</code> says so. Whatever confirmation a team wants has to be written into that text. [V, P35; I on the generalization]</li>
+<li><strong>A misnamed file or a disconnected MCP server fails quietly.</strong> The file must carry the exact skill directory name, and an MCP tool named in <code>persistent_facts</code> or <code>on_complete</code> "does nothing if that server is not connected." [V, P35] For <code>external_sources</code> and <code>external_handoffs</code> the docs say the gap is noted or flagged; for <code>persistent_facts</code> they promise no such note. [V, P35; I on the contrast]</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">On 6.12.0, recipe 5's shared-path pin splits the team's output (source reading, not lab-tested)</p>
+<p>Recipe 5c pins <code>planning_artifacts</code> and <code>document_output_language</code> in <code>_bmad/custom/config.toml</code>. At the 6.12.0 tag, the skills that use <code>planning_artifacts</code> split by how they load config. <strong>Through the merged config (would see the pin):</strong> <code>bmad-architecture</code> and <code>bmad-deep-recon</code> (via <code>resolve_config.py</code>), and <code>bmad-build</code> (its step files use <code>{{.planning_artifacts}}</code>, filled by the renderer from the merged config). <strong>Straight from <code>_bmad/bmm/config.yaml</code> (would not):</strong> <code>bmad-prd</code>, <code>bmad-product-brief</code> (the recipe page's own running example), <code>bmad-ux</code>, <code>bmad-prfaq</code>, <code>bmad-create-epics-and-stories</code>, <code>bmad-sprint-planning</code>, <code>bmad-code-review</code>, <code>bmad-correct-course</code>, <code>bmad-retrospective</code>, <code>bmad-walkthrough</code>, and all five agents. [V, each skill's activation step at the tag (grep); V, P42 CHANGELOG v6.11.0 on the renderer's merged config] <code>bmad-spec</code> is not affected either way: it writes to <code>{output_folder}/specs/</code>, not the planning folder. [V, <code>bmad-spec/SKILL.md</code> line 32] 6.12.1 moves the 23 direct readers to the resolver. [V, CHANGELOG v6.12.1] So on 6.12.0, a pinned planning path would likely put the PRD, UX spines, and epics in the installer's folder while <code>bmad-architecture</code> writes to the pinned one and <code>bmad-build</code> looks for planning docs in the pinned one, where the PRD and epics aren't. [I, not observed] That is the same gap Experiment 16 observed for <code>bmad-code-review</code> (see the warning above). The roster recipes (5a, 5b) look unaffected for party mode, which reads the roster through the resolver at 6.12.0. [V, source; I on effect] <em>(Corrected 2026-10-18 by a claim-check pass: the first version named <code>bmad-spec</code> and party mode as the skills that would follow the pin, but neither reads <code>planning_artifacts</code>.)</em></p>
+</div>
 <h2 id="a-lightweight-stance-options-not-a-recommendation">A lightweight stance (options, not a recommendation)</h2>
 <p>None of these were tested as a team practice; they follow from what was observed. [I]</p>
 <ul>
@@ -1697,6 +1834,7 @@
 <li>~~A real version-to-version update.~~ Done 2026-10-07 (Experiment 16): a plain <code>npx -y bmad-method@6.12.1 install --directory . --modules bmm --tools claude-code --yes</code> (quick-update, no <code>--action</code>) took core and bmm to 6.12.1, kept <code>_bmad/custom/</code> byte-identical, and left the file count unchanged. [V-lab] For 6.12.1, no skill's <code>customize.toml</code> changed (tag diff stat). [V] Still open in general: whether a new release changes <code>customize.toml</code> fields that existing overrides depend on. [?]</li>
 <li>Whether a full update treats direct edits the same way as a quick-update (the edits were not re-planted before the full run). [?]</li>
 <li>Personal <code>.user.toml</code> overrides and <code>config.user.toml</code> (only team files were tested). [?]</li>
+<li>Any of the six team recipes in a live run, in particular recipe 5c's pinned planning path on 6.12.0 vs 6.12.1 (would show the split predicted above) and whether a <code>persistent_facts</code> entry naming a missing MCP tool produces any notice. [?]</li>
 </ul>
 
 

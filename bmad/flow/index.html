@@ -1555,6 +1555,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practitioner-views/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practitioner Views
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1752,7 +1780,7 @@
 
 
 <h1 id="bmad-the-flow-how-an-idea-moves">BMAD — The Flow: How an Idea Moves</h1>
-<p><em>Describes BMAD-METHOD v6.12.0. Tags: [V] traced to primary doc (source IDs in <code>../sources.md</code>), [I] inferred, [?] unclear, [V-lab] observed in a lab run (Experiments 1 to 5i; see <a href="../lab-log/">lab-log.md</a>). First written 2026-09-19; lab notes added through 2026-09-24; reviewed by Carl 2026-09-24. "After the build: generating more tests" added unattended 2026-09-26 (P29), "walking a human through the change" 2026-10-03 (P31), the Getting Deeper worked example 2026-10-07 (P33), and the walkthrough lab note 2026-10-09 (Experiment 17), all not yet reviewed.</em></p>
+<p><em>Describes BMAD-METHOD v6.12.0. Tags: [V] traced to primary doc (source IDs in <code>../sources.md</code>), [I] inferred, [?] unclear, [V-lab] observed in a lab run (Experiments 1 to 5i; see <a href="../lab-log/">lab-log.md</a>). First written 2026-09-19; lab notes added through 2026-09-24; reviewed by Carl 2026-09-24. "After the build: generating more tests" added unattended 2026-09-26 (P29), "walking a human through the change" 2026-10-03 (P31), the Getting Deeper worked example 2026-10-07 (P33), the walkthrough lab note 2026-10-09 (Experiment 17), and the web-bundles note 2026-10-18 (P37, read at 6.12.1), all not yet reviewed.</em></p>
 <div class="admonition tip">
 <p class="admonition-title">TL;DR</p>
 <p>The delivery diagram frames every path as one loop: <strong>Clarify → Plan → Build and verify → Learn and adjust</strong>, entered at three points (vague notion, big clear idea, small change). [V, P10 labels at the v6.12.0 tag] That bigger work "enters the loop earlier and goes round it more often" and "does not become a different way of delivering" is prose from the unreleased clone's <code>docs/index.md</code> (P1) and is not in the released docs. [clone-only; not [V] for 6.12.0] The released sizing table (<code>bmad-build</code> for one session, <code>bmad-spec</code> plus stories for an epic, planning documents for a project, below) supports the same idea. [V, P3]</p>
@@ -1842,6 +1870,11 @@
 <p><strong>Architecture spine test:</strong> does a decision go in? Only if two units built independently could choose incompatibly, the call is non-obvious, and it's a real trade-off. [V, P6] It exists to prevent things like REST in one epic and GraphQL in another. [V, P6]</p>
 <p><strong>Readiness gate</strong> (<code>bmad-sprint-planning</code>): "could a developer implement these epics without inventing decisions nothing records?" Verdict PASS / CONCERNS / FAIL. [V, P7]</p>
 <p><strong>Working modes</strong> on brief, PRD, and UX: a <strong>Fast path</strong> drafts everything with <code>[ASSUMPTION]</code> tags; a <strong>Coaching path</strong> draws the thinking out section by section. [V, P5, P6]</p>
+<p><strong>Planning outside the IDE: web bundles (P37, read at tag <code>v6.12.1</code>, added unattended 2026-10-18).</strong> "Plan in the web, build in the IDE": six bundles (Brainstorming, Product Brief, PRFAQ, PRD, UX, Market &amp; Industry Research) package a planning capability as a Gemini Gem or ChatGPT Custom GPT, so the planning conversation runs on a flat-rate subscription instead of metered IDE tokens; you carry the Canvas document back into the repo. [V, P37] Each bundle is a <code>SKILL.md</code> protocol uploaded as knowledge, an <code>INSTRUCTIONS.md</code> block (the persona) you paste in, and data files; customize only the pasted block so an update is just re-uploading the knowledge files. [V, P37] Install is through bmadcode.com only (free signup for the ZIP). [V, P37]</p>
+<ul>
+<li><strong>A bundle is not the IDE skill in a different wrapper.</strong> The repo's <code>web-bundles/</code> is versioned on its own (<code>web-bundles-v1.0.0</code>, released 2026-05-25) and the PRD Coach's <code>SKILL.md</code> is a separate 101-line, Canvas-centred protocol last changed 2026-05-25. It has no memlog (0 mentions vs 6 in <code>bmad-prd</code>) and its Validate is one inline pass against a checklist, not <code>bmad-prd</code>'s reviewer subagents. [V, <code>web-bundles/</code> at tag <code>v6.12.1</code>, grep] So a PRD planned in a Gem arrives without the memlog that <code>bmad-spec</code>/<code>bmad-prd</code> updates rely on (Experiments 5d, 12). [I] The timing explains it: bundles shipped in 6.8.0 (2026-05-25) claiming "Full schema parity with IDE skills so Gem ↔ IDE handoffs do not break", and the shared memlog became the standard in 6.9.0 (2026-06-21), after the bundles were frozen. [V, P42 CHANGELOG v6.8.0, v6.9.0] The parity claim was true for the artifact's shape at the time, not for the working memory the IDE skills now keep. [I] Whether <code>bmad-prd</code> Update mode would then bootstrap one cleanly, as it did for a hand-written PRD in Experiment 12, is likely but untested. [?]</li>
+<li><strong>v7 removes web bundles</strong> in favor of skills (<a href="../v7-preview/">v7-preview.md</a>). [V, P34] A team adopting them on 6.12.x is adopting a path the next major version drops. [I]</li>
+</ul>
 <h2 id="build-and-verify-one-session-per-unit">Build and verify: one session per unit</h2>
 <p><code>bmad-build</code> takes any expression of intent (a sentence, issue, spec, or planned story), investigates the codebase and upstream context, plans, implements, reviews, fixes, and commits locally. [V, P8]</p>
 <ol>

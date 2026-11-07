@@ -987,6 +987,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#epic-context-and-sprint-status-p39-added-unattended-2026-10-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Epic context and sprint status (P39, added unattended 2026-10-18)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#not-yet-checked" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1538,6 +1549,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practitioner-views/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practitioner Views
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1690,6 +1729,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#epic-context-and-sprint-status-p39-added-unattended-2026-10-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Epic context and sprint status (P39, added unattended 2026-10-18)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#not-yet-checked" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1721,7 +1771,7 @@
 <blockquote>
 <p><strong>Re-verified against the v6.12.0 release (2026-09-19).</strong> This page was first written from a later, unreleased clone (<code>f033e70</code>). The route, review, and step-3 sections below were re-read from the release tag (<code>labs\BMAD-METHOD-v6.12.0\src\bmm-skills\ship\bmad-build</code>, identical to the installed skill) and rewritten. The clone-only differences are kept in the last section. Tags [V, P18r] mean the release-tag files.</p>
 </blockquote>
-<p><em>Describes BMAD-METHOD v6.12.0. Source: <code>skills/bmad-build/</code> (source ID P18, see <code>../sources.md</code>). Tags: [V, P18] traced to the skill's own files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 2, 3, 4b, 5h, 5i, 9/9b; see <a href="../lab-log/">lab-log.md</a>). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24. Experiment 9/9b note under The frozen block added 2026-09-29.</em></p>
+<p><em>Describes BMAD-METHOD v6.12.0. Source: <code>skills/bmad-build/</code> (source ID P18, see <code>../sources.md</code>). Tags: [V, P18] traced to the skill's own files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 2, 3, 4b, 5h, 5i, 9/9b; see <a href="../lab-log/">lab-log.md</a>). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24. Experiment 9/9b note under The frozen block added 2026-09-29. "Epic context and sprint status" section (P39, read at 6.12.1) added unattended 2026-10-18, not yet reviewed.</em></p>
 <p>This page is the mechanism behind the "Build and verify" stage in <a href="../flow/">flow.md</a>. That page says what <code>bmad-build</code> does. This one says how the skill is put together.</p>
 <div class="admonition tip">
 <p class="admonition-title">TL;DR</p>
@@ -1881,9 +1931,21 @@
 <summary>Headless claude -p does spawn both implementation and review subagents, when given explicit permission</summary>
 <p>Step 1's "ask once for the whole workflow run" subagent gate fired mid-build in Experiment 5h (dispatch route); once answered yes, review ran three parallel layers and the presentation step's findings distinguish reviewer-found issues from the main session's own triage, consistent with independent subagents rather than one session role-playing several. [V-lab; answers the STATE.md open question "which skills actually spawn subagents" for <code>bmad-build</code>, other skills untested]</p>
 </details>
+<h2 id="epic-context-and-sprint-status-p39-added-unattended-2026-10-18">Epic context and sprint status (P39, added unattended 2026-10-18)</h2>
+<p><em>Read at tag <code>v6.12.1</code>; <code>bmad-build</code> has no diff between 6.12.0 and 6.12.1, so this holds for both.</em></p>
+<p><strong>When step 1 decides the work is an epic story</strong> (by reasoning over the intent, the artifact listing, and the epics file: "Do not rely on filename patterns or regex"), it loads a cached <code>epic-&lt;N&gt;-context.md</code> from the implementation-artifacts folder instead of the planning docs. The cache counts as valid if it exists, is non-empty, starts with <code># Epic &lt;N&gt; Context:</code>, and no file in the planning-artifacts folder is newer. If it's valid, <strong>the raw PRD, architecture, and UX docs are not loaded at all.</strong> Otherwise a subagent compiles a new one (inline if the runtime can't spawn subagents, naming Copilot, Codex, local Ollama, older Claude), and the build halts if the result fails the header check. [V, P39 <code>step-01-clarify-and-route.md</code>]</p>
+<p>The compiler's rules: Goal and story titles always; requirements, technical decisions, UX patterns, cross-story dependencies only if relevant, otherwise omitted. "Scope aggressively ... When in doubt, leave it out." Describe constraints by purpose, never by source section; no verbatim quotes; nothing derivable from the code; 800 to 1500 tokens; never invent. A missing epic writes nothing and reports; missing planning docs still produce Goal and Stories with the gap noted. [V, P39 <code>compile-epic-context.md</code>]</p>
+<p><strong>Continuity between stories</strong> comes from one place: the most recent <code>done</code> spec in the same epic with a lower story number. Its Code Map, Design Notes, Spec Change Log, and task list feed step 2's planning. An <code>in-review</code> predecessor is offered, not loaded silently. [V, P39]</p>
+<p><strong><code>sync-sprint-status.md</code></strong> is five lines: set the story's status in <code>sprint-status.yaml</code> (to <code>in-progress</code> at implement, <code>review</code> at present), never move it backwards, bump the parent epic from <code>backlog</code> to <code>in-progress</code>, update <code>last_updated</code>, keep comments. It runs only when a story key is set and the file exists. [V, P39] <strong>The two status records end in different places:</strong> <code>bmad-build</code> sets the story <em>spec's</em> frontmatter to <code>done</code> at the end (step 5, and the oneshot route), but it moves the story in <code>sprint-status.yaml</code> only as far as <code>review</code>. [V, <code>step-05-present.md</code> line 15, <code>step-oneshot.md</code> line 76, and the four <code>sync-sprint-status</code> call sites] Moving <code>sprint-status.yaml</code> to <code>done</code> is left to something else; which skill does that was not traced. [?] <em>(Corrected 2026-10-18 by a claim-check pass: the first version said <code>bmad-build</code> never sets <code>done</code>.)</em> → Later, same day (traced from an Antigravity review, checked against the tag): <strong>standalone <code>bmad-code-review</code> is what sets it.</strong> When every <code>decision-needed</code> and <code>patch</code> finding is resolved and no high/medium finding remains, it sets the story's status and <code>development_status[{story_key}]</code> to <code>done</code>; otherwise to <code>in-progress</code>. [V, <code>bmad-code-review/steps/step-04-present.md</code> §6] That fits the official Phase 4 chain since 6.11.0, <code>bmad-sprint-planning → bmad-build → bmad-code-review</code>. [V, P42 CHANGELOG v6.11.0] <strong>The consequence if a team skips the separate review because <code>bmad-build</code> already reviewed:</strong> the story spec says <code>done</code>, <code>sprint-status.yaml</code> says <code>review</code>, and <code>bmad-retrospective</code> reads the latter. Its <code>sprint_status.py</code> lists every story not at <code>done</code> as pending; interactively it asks whether to retro an unfinished epic, headless it proceeds and records the list, and either way the machine verdict is <strong>rejected</strong> when any story is unfinished (a human may override interactively). [V, <code>bmad-retrospective/SKILL.md</code> line 57, <code>scripts/sprint_status.py</code> <code>pending_stories</code>] So in sprint mode, <code>bmad-build</code>'s own review does not close a story as far as the tracker and the retrospective are concerned; the second review pass does. [I] Not lab-tested: the lab epics never had a <code>sprint-status.yaml</code>.</p>
+<p>What this means, inferred and not lab-tested (no lab build has gone through this path: the tags epic was a <code>bmad-spec</code> stories-mode epic with no <code>epics.md</code> or <code>sprint-status.yaml</code>, and no <code>epic-*-context.md</code> exists in any lab folder) [V-lab on absence]:</p>
+<ul>
+<li><strong>A build on an epic story sees a ≤1500-token summary of the planning docs, not the docs.</strong> Anything the compiler judged irrelevant, such as an architecture decision it didn't connect to this epic, doesn't reach the build. The architecture spine's decisions (for example, Experiment 11's parity-oracle ADs) would arrive distilled. [I]</li>
+<li><strong>The cache's header says "Edit freely", but a hand edit survives only until any planning file gets a newer timestamp,</strong> at which point the file is silently recompiled. The validity check is timestamps, so a checkout or sync that touches a planning file triggers recompilation even with no real change. This is the same kind of drift as <code>SPEC.md</code> vs the memlog (Experiment 5d). [I]</li>
+<li><strong>Continuity reaches back one story.</strong> Story 4 inherits story 3's Spec Change Log, not story 1's. That fits the cross-story findings in <a href="../systemic-findings/">systemic-findings.md</a>: a story-1 decision (like the A1 <code>nextId</code> verdict) arrives later only if each story in between carried it forward. [I]</li>
+</ul>
 <h2 id="not-yet-checked">Not yet checked</h2>
 <ul>
-<li><code>compile-epic-context.md</code> and <code>sync-sprint-status.md</code>; the second half of the Edge Case Hunter and Verification Gap prompts (output formats). [?]</li>
+<li>~~<code>compile-epic-context.md</code> and <code>sync-sprint-status.md</code>~~ read 2026-10-18 (section above, P39); the epic-story path itself never run in a lab. [?] The second half of the Edge Case Hunter and Verification Gap prompts (output formats). [?]</li>
 </ul>
 <details class="info">
 <summary>What the clone changed (superseded — kept for the record, not needed to understand the release)</summary>
