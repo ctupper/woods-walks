@@ -28,6 +28,10 @@ markdown_extensions:
   - md_in_html
   - admonition
 
+# Build-time fixes that leave the markdown files untouched (see each file)
+hooks:
+  - hooks/lists.py
+
 # Fail `mkdocs build --strict` on links to headings that don't exist
 validation:
   anchors: warn
