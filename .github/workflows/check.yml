@@ -1,0 +1,22 @@
+name: Check site
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build with mkdocs --strict
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - run: pip install -r requirements.txt
+      # Reports problems without blocking a deploy (publish.yml stays non-strict).
+      # Fails on broken internal links, missing anchors and nav entries that
+      # point at files that don't exist (see `validation` in mkdocs.yml)
+      - run: mkdocs build --strict

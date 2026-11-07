@@ -34,17 +34,18 @@
 
 ## My Background (For Voice/Context)
 
-- 57 years old, computer programmer in Maine
-- Grew up in northern Maine (Perham), lumber jack family heritage
+- Computer programmer in Maine
 - Pattern recognition and systems thinking are core strengths
 - Value autonomy, intellectual challenge, efficiency
-- Introverted - the woods are restoration time
-- Recovery mindset: one day at a time, forward-looking
+- One day at a time, forward-looking
 - Direct communicator, no time for unnecessary complexity
 
+Personal background and life context live in `CLAUDE.local.md` at the repo
+root. It's gitignored, so it stays on my machine and never goes public.
+Claude Code loads it automatically.
+
 ### Why I Walk
-- Connection to late father (woods = where I feel him around)
-- Mental health and physical movement
+- Restoration and physical movement
 - Finding "special moments" at macro and micro levels
 - Escape from work chaos and life demands
 - Just being myself without roles/responsibilities
@@ -57,7 +58,7 @@
 ```markdown
 # Post Title
 
-*Date*
+## Month Day, Year
 
 Brief introduction/context (2-3 sentences max)
 
@@ -70,14 +71,16 @@ Optional second image if it adds to story
 Closing thought (1-2 sentences)
 
 ---
-[← Back](../index.md)
+[← Back to all posts](../index.md)
 ```
 
 ### File Organization
 ```
 woods-walks/
 ├── README.md (GitHub landing page, recent posts list)
+├── USAGE.md (script quick reference)
 ├── mkdocs.yml (site config; nav Walks lists posts by year)
+├── new-post.py, optimize_images.py, publish.py
 ├── docs/ (everything MkDocs publishes)
 │   ├── index.md (site home page, recent posts list)
 │   ├── posts/
@@ -85,8 +88,8 @@ woods-walks/
 │   └── images/
 │       └── YYYY-MM-DD/
 │           └── descriptive-name.jpg
-└── .claude/
-    └── instructions.md (this file)
+├── CLAUDE.md (this file)
+└── CLAUDE.local.md (private personal context, gitignored)
 ```
 
 ### Naming Conventions
@@ -152,13 +155,14 @@ woods-walks/
 ## Technical Stack
 
 ### Current Setup
-- **Hosting:** GitHub (public repo)
-- **Format:** Markdown files
-- **Images:** Stored in repo (for now)
-- **Version control:** Git + GitHub
+- **Site:** MkDocs + Material theme, published to GitHub Pages (https://ctupper.github.io/woods-walks/)
+- **Deploy:** GitHub Actions runs `mkdocs gh-deploy` on every push to `main`
+- **Check:** GitHub Actions runs `mkdocs build --strict` on pushes and pull requests (broken links/anchors)
+- **Format:** Markdown files in `docs/`
+- **Images:** Stored in repo, optimized by `optimize_images.py`
+- **Version control:** Git + GitHub (public repo)
 
 ### Future Consideration (Not Yet)
-- **GitHub Pages + Jekyll:** When ready for proper blog look
 - **Custom domain:** Maybe someday, not priority
 - **Comments:** Probably never - not trying to build community
 - **Analytics:** Don't care about metrics
@@ -167,8 +171,7 @@ woods-walks/
 1. **Post creation workflow:** Scripts/templates to make new posts easy
 2. **Image management:** Batch resizing, organizing, optimizing
 3. **Markdown consistency:** Keeping format clean and consistent
-4. **Jekyll setup:** When ready to upgrade from plain markdown
-5. **Automation:** Anything that removes friction from posting
+4. **Automation:** Anything that removes friction from posting
 
 ### What I Don't Need
 - SEO optimization
@@ -181,31 +184,14 @@ woods-walks/
 
 ## Common Tasks & Workflows
 
-### Creating New Post
-```bash
-# Ideal workflow (help me build this):
-./new-post.sh "First Snow"
-# Creates:
-# - docs/posts/2025-12-24-first-snow.md (from template)
-# - docs/images/2025-12-24/ (empty folder)
-# - Opens editor with template filled in
-```
+Scripts are in the repo root; see `USAGE.md` for details.
 
-### Adding Images
 ```bash
-# Current: Manual upload to GitHub
-# Desired: Script to resize and organize
-./add-images.sh docs/posts/2025-12-24-first-snow.md image1.jpg image2.jpg
-# Resizes images, moves to correct folder, updates post with image markdown
-```
-
-### Publishing
-```bash
-# Current: git add, commit, push
-# Keep it simple - this workflow is fine
-git add .
-git commit -m "Add post: First Snow"
-git push
+python new-post.py "First Snow"      # post file, image folder, home page, README and nav entries
+# copy photos into docs/images/YYYY-MM-DD/
+python optimize_images.py            # resize new images, strip EXIF/GPS, print markdown snippets
+mkdocs serve                         # preview at http://127.0.0.1:8000
+python publish.py "First Snow"       # git add, commit, push; Actions rebuilds the site
 ```
 
 ---
@@ -251,14 +237,8 @@ git push
 
 ## Important Context Notes
 
-### Current Life Situation
-- Work: Busy, sometimes chaotic, year-end crunch
-- Family: Wife (Jo-Ann) dealing with health issues, adult kids nearby
-- Financial: Working toward debt freedom, ~3-4 years out
-- Mindset: One day at a time, managing what I can control
-
 ### Why This Matters
-The walks are essential mental health time. The blog is:
+The walks are essential restoration time. The blog is:
 - Documentation of the journey
 - Practice in noticing/appreciating
 - Something that's mine (not work, not family obligations)
@@ -297,7 +277,7 @@ I mean:
 ```markdown
 # Shadow in the Snow
 
-*December 9, 2025*
+## December 9, 2025
 
 First snow this week. Cold and frosty at sunrise.
 
@@ -306,14 +286,14 @@ First snow this week. Cold and frosty at sunrise.
 Most people miss their own shadow in the path. Sometimes you need to be in the moment and take it in.
 
 ---
-[← Back](../index.md)
+[← Back to all posts](../index.md)
 ```
 
 ### Style 2: Observation-First
 ```markdown
 # Green in Winter
 
-*December 10, 2025*
+## December 10, 2025
 
 Found ferns still bright green, tucked in a broken log. Everything else dormant, but these persist.
 
@@ -322,35 +302,34 @@ Found ferns still bright green, tucked in a broken log. Everything else dormant,
 Life finds a way even in the cold. Just enough.
 
 ---
-[← Back](../index.md)
+[← Back to all posts](../index.md)
 ```
 
 ### Style 3: Reflection
 ```markdown
 # The Hunt
 
-*December 15, 2025*
+## December 15, 2025
 
 The hunt is just as rewarding as capturing a special moment. Sometimes you see them, sometimes you need to find them.
 
 Been thinking about that on these morning walks. The looking matters as much as the finding.
 
 ---
-[← Back](../index.md)
+[← Back to all posts](../index.md)
 ```
 
 ---
 
 ## Version History & Evolution
 
-### Current Phase: Getting Started
-- Setting up basic repo structure
+### Current Phase: Posting
+- Repo, site and posting scripts are in place
 - Learning what works for posting rhythm
 - Experimenting with style/voice
 - Keeping it dead simple
 
 ### Future Possibilities
-- Upgrade to Jekyll for better presentation
 - Custom domain (maybe)
 - More sophisticated image handling
 - Hiking adventure posts (not just daily walks)

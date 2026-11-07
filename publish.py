@@ -17,11 +17,13 @@ def slugify(title):
     slug = re.sub(r'[-\s]+', '-', slug)
     return slug.strip('-')
 
-def run_command(cmd, description):
-    """Run a shell command and return output"""
+def run_command(args, description):
+    """Run a command (list of arguments, no shell) and return True on success"""
     print(f"[+] {description}...")
     try:
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True)
+        # Arguments go straight to git, so quotes or other special characters
+        # in a title or message can't break the command
+        result = subprocess.run(args, capture_output=True, text=True, check=True)
         if result.stdout.strip():
             print(result.stdout)
         return True
@@ -31,7 +33,7 @@ def run_command(cmd, description):
 
 def git_status():
     """Check git status"""
-    result = subprocess.run("git status --short", shell=True, capture_output=True, text=True)
+    result = subprocess.run(["git", "status", "--short"], capture_output=True, text=True)
     return result.stdout.strip()
 
 def publish_post(title, custom_message=None):
@@ -67,7 +69,7 @@ def publish_post(title, custom_message=None):
     print()
 
     # Stage all changes
-    if not run_command("git add .", "Staging all changes"):
+    if not run_command(["git", "add", "."], "Staging all changes"):
         return False
 
     # Create commit message
@@ -77,12 +79,11 @@ def publish_post(title, custom_message=None):
         commit_msg = f"Add post: {title}"
 
     # Commit
-    commit_cmd = f'git commit -m "{commit_msg}"'
-    if not run_command(commit_cmd, f"Committing: {commit_msg}"):
+    if not run_command(["git", "commit", "-m", commit_msg], f"Committing: {commit_msg}"):
         return False
 
     # Push
-    if not run_command("git push", "Pushing to GitHub"):
+    if not run_command(["git", "push"], "Pushing to GitHub"):
         return False
 
     print("\n[+] Successfully published!")

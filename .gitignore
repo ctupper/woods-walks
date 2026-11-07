@@ -1,5 +1,6 @@
-# Claude Code local settings
+# Claude Code local settings and private notes (personal context stays off GitHub)
 .claude/settings.local.json
+CLAUDE.local.md
 
 # Python
 __pycache__/
