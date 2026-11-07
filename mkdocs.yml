@@ -63,6 +63,7 @@ nav:
           - Systemic Findings: bmad/systemic-findings.md
       - Reference:
           - Glossary: bmad/glossary.md
+          - Practitioner Views: bmad/practitioner-views.md
 
 plugins:
   - search
