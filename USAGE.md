@@ -96,7 +96,7 @@ python publish.py "Morning Walk" --message "Update post with new images"
 - Shows git status
 - Stages all changes (`git add .`)
 - Commits with message: `Add post: {title}`
-- Pushes to GitHub; on `main`, the publish-docs workflow rebuilds the site with `mkdocs gh-deploy`
+- Pushes to GitHub; on `main`, the publish-docs workflow builds the site and deploys it with GitHub Pages' deploy action
 - Titles and messages can contain quotes or any other characters
 
 **Site check:** the "Check site" workflow runs `mkdocs build --strict` on every push to `main` and every pull request. It fails on broken internal links, links to headings that don't exist, and nav entries pointing at missing files. It doesn't block the publish, so a red X means fix the link, not that the post is missing. Run the same check locally with `mkdocs build --strict`.

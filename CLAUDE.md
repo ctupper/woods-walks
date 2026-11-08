@@ -156,7 +156,7 @@ woods-walks/
 
 ### Current Setup
 - **Site:** MkDocs + Material theme, published to GitHub Pages (https://ctupper.github.io/woods-walks/)
-- **Deploy:** GitHub Actions runs `mkdocs gh-deploy` on every push to `main`
+- **Deploy:** GitHub Actions builds with `mkdocs build` and publishes with GitHub Pages' deploy actions on every push to `main` (Settings > Pages > Source: GitHub Actions)
 - **Check:** GitHub Actions runs `mkdocs build --strict` on pushes and pull requests (broken links/anchors)
 - **Format:** Markdown files in `docs/`
 - **Images:** Stored in repo, optimized by `optimize_images.py`
