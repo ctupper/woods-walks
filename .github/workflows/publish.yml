@@ -3,19 +3,28 @@ on:
   push:
     branches:
       - main
+  # Lets you redeploy from the Actions tab without a new commit
+  # (e.g. right after switching Settings > Pages > Source to "GitHub Actions").
+  workflow_dispatch:
 
+# Publishes through GitHub Pages' own deploy actions instead of pushing a
+# gh-pages branch, so GitHub's built-in "pages-build-deployment" workflow
+# (and its Node 20 deprecation warning) no longer runs.
+# Requires Settings > Pages > Source = "GitHub Actions".
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
-# The wiki auto-sync can push several commits a minute apart. Only the newest
-# run should publish, or a slower run of an older commit could finish last
-# and overwrite gh-pages with stale content.
+# The wiki auto-sync can push several commits a minute apart. Queue runs
+# instead of running them side by side; GitHub keeps only the newest
+# pending run, and a deploy that has started is allowed to finish.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -23,10 +32,17 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install -r requirements.txt
-      # gh-pages has a repository rule that blocks force-pushes, and
-      # `gh-deploy --force` force-pushes. Fetch the current gh-pages tip so
-      # gh-deploy commits on top of it and the push is a plain fast-forward
-      # (checkout only fetches main). The concurrency group above keeps two
-      # runs from racing for the same tip.
-      - run: git fetch --depth 1 origin gh-pages:gh-pages
-      - run: mkdocs gh-deploy
+      - run: mkdocs build
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
