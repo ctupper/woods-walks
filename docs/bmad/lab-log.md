@@ -34,6 +34,7 @@
     - [Experiment 22](#experiment-22-party-mode-session-vs-subagent-on-the-same-decision) — party mode: the one-model `session` room's dissent looked staged, while four independent `subagent` agents agreed and grounded the better recommendation, at 2.8x the cost.
     - [Experiment 23](#experiment-23-does-the-compiled-epic-context-keep-a-late-decision) — the planted export decision survived the epic compile with its reasons, but export got its own epic and the acceptance criteria also carried it, so this was the easy case.
     - [Experiment 24](#experiment-24-does-a-late-decision-survive-in-a-broad-epic) — six compiles of one broad epic: the export format came through concrete every time, even with the architecture doc as its only source, but the toy is too small to make the compile choose.
+    - [Experiment 25](#experiment-25-does-the-shared-path-pin-reach-each-skill) — the team recipe's pinned planning path split the skills on 6.12.0 exactly as the source predicted, and reached all five tested on 6.12.1.
 
 ## Experiment 1 — Install and skill load
 
@@ -1421,3 +1422,30 @@ Each variant was compiled three times in a fresh `claude -p` session, $2.25 for 
 4. **What exists only in `epics.md` disappears with it, without invention.** A's quoting rule came through 3/3. B's three runs, with that rule removed, carried only the AC's generic "read back as one record" or nothing, and none made one up.
 
 **What this does not show.** The compile was never forced to choose. `architecture.md` is about 1,300 words, about a quarter of it later-release decisions, and the compiled files came out at 765 to 848 words, so the MVP decisions appear to fit without pressure. [I] The later-release decisions shrank to one line. A planning set several times larger is the test that would make the budget bind. AD-8 also has a clear heading and an obviously matching story title, which is the easy kind of late decision. A decision with no word in common with any story is untested. The compile prompt was passed directly, whereas a real `bmad-build` main agent writes its own subagent prompt. The model matches Experiment 23's compile subagents (Opus 5.5), and those subagent prompts opened the same way, with the instructions file and then the inputs. No code was built from these files.
+
+## Experiment 25 — Does the shared-path pin reach each skill?
+
+*2026-11-08, on-demand (Carl: "Run 5c"), activation only*
+
+**Question:** recipe 5c of the team-adoption doc pins `planning_artifacts` in `_bmad/custom/config.toml`. The source reading in `updating-bmad.md` predicted that on 6.12.0 some skills would follow the pin and others would ignore it, and that 6.12.1 would close the gap.
+
+**Setup.** Fresh installs in `labs\lab25-v0` (6.12.0) and `labs\lab25-v1` (6.12.1), with the recipe's own TOML appended. A marker file in each folder: `_bmad-output/planning-artifacts/prd-INSTALLER-FOLDER.md` and `shared/planning/prd-PINNED-FOLDER.md`. One `claude -p` run per skill per version, told to run only activation and config loading, list the planning folder and report the path. Predictions were written to `labs\lab25-out\predictions.md` first. No skill created a file in either planning folder.
+
+| Skill | 6.12.0 | 6.12.1 | Predicted |
+|---|---|---|---|
+| `bmad-prd` | installer folder | pinned | match |
+| `bmad-product-brief` | installer folder | pinned | match |
+| `bmad-create-epics-and-stories` | installer folder | pinned | match |
+| `bmad-architecture` | pinned | pinned | match |
+| `bmad-build` | pinned | pinned | match |
+
+**Findings [V-lab]:**
+
+1. **The predicted split is real on 6.12.0.** The three skills that follow the installer folder each read `_bmad/bmm/config.yaml` and listed only the installer marker. `bmad-architecture` ran `resolve_config.py` and listed only the pinned marker.
+2. **`bmad-build` gets the pin at render time.** Its rendered `step-01-clarify-and-route.md` has the `shared/planning` path written in, on both versions. It needs no config read of its own.
+3. **6.12.1 closes it for these five.** The three that diverged now run `resolve_config.py` and listed the pinned marker, which matches the CHANGELOG's account of moving direct readers to the resolver.
+4. **The consequence for a 6.12.0 team is the one the wiki warned about.** With this pin, a PRD or epics file would be looked for and, by the skill's own path, written in the installer folder, while `bmad-architecture` and `bmad-build` look in the pinned one. The paths are observed. The write itself is inferred, since no document was created. [I]
+
+**What this does not show.** Five skills, one run each, activation only. The other skills on the 6.12.0 list and the five agents were not run. The `implementation_artifacts` and `document_output_language` pins were set but not graded.
+
+**Harness mistake (mine):** the first pass allowed `uv` under Bash only, and the agents used PowerShell, so `uv run` was blocked. 6.12.0's `bmad-build` never rendered, and on 6.12.1 agents read the config files themselves after the resolver was refused. That pass is discarded (kept in `labs\lab25-out`, $2.73). The results above are the rerun with shell tools allowed, $1.85, no tool errors.
