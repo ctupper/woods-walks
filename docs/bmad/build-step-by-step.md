@@ -145,9 +145,11 @@ What this means, inferred and not lab-tested (no lab build has gone through this
 
 → **Later, Experiment 23 (2026-11-08) ran this path on a toy, four stories across two epics** [V-lab, [lab log](lab-log.md#experiment-23-does-the-compiled-epic-context-keep-a-late-decision)]:
 
-- A subagent compiled each epic's context, at about 900 to 1,150 tokens. A decision planted only in the architecture doc came through concrete, with its reasons, in the epic that needed it, and was correctly left out of the other. Later-release decisions shrank to one line. Caveat: that decision had its own epic and was also in the acceptance criteria, so this was the easy case. Whether a decision that one late story needs survives in a broad epic is still untested.
+- A subagent compiled each epic's context, at about 900 to 1,150 tokens. A decision planted only in the architecture doc came through concrete, with its reasons, in the epic that needed it, and was correctly left out of the other. Later-release decisions shrank to one line. Caveat: that decision had its own epic and was also in the acceptance criteria, so this was the easy case. Experiment 24 took up the harder case.
 - On cache hits the main agent read neither the PRD nor the architecture doc. The run that compiled Epic 2 read both anyway after compiling, and a review subagent read the architecture doc on a cache-hit story. "Not loaded" holds for the main agent's planning on a cache hit, and no further.
 - A build that changed `epics.md` also edited the cached context, so its timestamp stayed newer and the next stories reused it instead of recompiling.
+
+→ **Later, Experiment 24 (2026-11-08) compiled one broad epic six times** [V-lab, [lab log](lab-log.md#experiment-24-does-a-late-decision-survive-in-a-broad-epic)]: the export format, needed only by the last stories, came through concrete in 6 of 6, including 3 of 3 where the architecture doc was its only source. On this toy the compiler goes to the source, so the decision doesn't depend on `epics.md` repeating it. Caveat: the planning docs are small enough that the token target never forced a choice, so behavior on a large planning set is still untested.
 
 ## Not yet checked
 

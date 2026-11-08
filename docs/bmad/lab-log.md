@@ -33,6 +33,7 @@
     - [Experiment 21](#experiment-21-a-true-headless-bmad-spec-call) — after three failed CLI logins, headless `bmad-spec` returned `complete` while three open questions sat in `SPEC.md`, and skipped the requested stories without saying so.
     - [Experiment 22](#experiment-22-party-mode-session-vs-subagent-on-the-same-decision) — party mode: the one-model `session` room's dissent looked staged, while four independent `subagent` agents agreed and grounded the better recommendation, at 2.8x the cost.
     - [Experiment 23](#experiment-23-does-the-compiled-epic-context-keep-a-late-decision) — the planted export decision survived the epic compile with its reasons, but export got its own epic and the acceptance criteria also carried it, so this was the easy case.
+    - [Experiment 24](#experiment-24-does-a-late-decision-survive-in-a-broad-epic) — six compiles of one broad epic: the export format came through concrete every time, even with the architecture doc as its only source, but the toy is too small to make the compile choose.
 
 ## Experiment 1 — Install and skill load
 
@@ -1377,3 +1378,46 @@ Modification times of the planning files and the context file are recorded after
 **What this does not show.** Whether a decision needed by one late story survives in a broad epic is still open, because export got its own epic. Whether the context alone would have carried AD-8 is also open, because the ACs and raw-doc reads both mask it. It is one small toy, one run per story, and the code for story 2.1 was never written.
 
 **Harness mistake (mine):** the scaffold's `package.json` used `node --test "tests/"`, which fails on Node 22. Build 1.1 caught it and asked; Carl chose bare `node --test`. That is what caused the `epics.md` edit in finding 6.
+
+## Experiment 24 — Does a late decision survive in a broad epic?
+
+*2026-11-08, on-demand (Carl: "Let it rip"), compile step only*
+
+Experiment 23 left the hard case open, because export got its own epic and its acceptance criteria also carried the decision. This run folds export into one epic and removes the format from the ACs.
+
+**Setup.** Two copies of `lab23-epicctx` with an empty `implementation-artifacts` and no git history, in `labs\lab24-A` and `labs\lab24-B`. Both have one epic of five stories, with export as 1.4 and the spreadsheet check as 1.5. `architecture.md` and `prd.md` are unchanged. Predictions were written to `labs\lab24-out\predictions.md` before any compile ran.
+
+- **Variant A (realistic):** the ACs and story text lose the CSV format. The Requirements Inventory stays as BMAD wrote it, so `epics.md` still has the AD-8 line and the CSV decisions.
+- **Variant B (hand-built):** every trace of AD-8 is also removed from `epics.md`, so `architecture.md` is the only source. BMAD would not produce this file.
+
+Each variant was compiled three times in a fresh `claude -p` session, $2.25 for all six by CLI report. Each session got `compile-epic-context.md` (identical to the rendered copy) plus the four parameters step 1 says to pass. All six read `epics.md`, `prd.md` and `architecture.md`, then wrote the file.
+
+**Grading of AD-8:** Concrete means both `;` and the BOM appear. Partial means one, or a generic format mention. Lost means neither.
+
+| Run | AD-8 | Decimal-comma reason | Garbled-accents or garbled-text reason | Revisit if locale changes | Quoting rule | Tokens (chars/4) |
+|---|---|---|---|---|---|---|
+| A1 | Concrete | no | yes | yes | yes | ~1,260 |
+| A2 | Concrete | no | yes | yes | yes | ~1,340 |
+| A3 | Concrete | no | yes | no | yes | ~1,290 |
+| B1 | Concrete | yes | yes | yes | no | ~1,280 |
+| B2 | Concrete | yes | yes | yes | no | ~1,280 |
+| B3 | Concrete | no | yes | yes | no | ~1,250 |
+
+| # | Prediction | Observed |
+|---|---|---|
+| 1 | A: Concrete 3/3 | **Confirmed** |
+| 2 | B: Concrete at least 2/3 | **Confirmed,** 3/3 |
+| 3 | At least one reason kept in 2/3 of each | **Confirmed,** 3/3 of each |
+| 4 | B keeps revisit-on-locale-change in at most 1/3, since it sits in Risks | **Wrong.** 3/3 in B, 2/3 in A |
+| 5 | B invents no quoting rule or column order | **Confirmed,** 3/3 |
+| 6 | All inside 800 to 1,500 tokens | **Confirmed** |
+| 7 | A at least as concrete as B, reasons about equal | **Half right.** Equally concrete, but B kept the decimal-comma reason more often |
+
+**Findings [V-lab, one toy project, n=3 per variant]:**
+
+1. **Folding export into a broad epic did not lose the decision.** All six were Concrete, including the three where only `architecture.md` had it. On this toy, the risk that "scope aggressively" drops a detail only the last story needs did not appear.
+2. **The compiler goes to the source.** B's epics file has no format at all, and all three runs recovered it. Every run read `architecture.md`. The decision isn't kept because `epics.md` repeats it.
+3. **The inventory shapes the wording.** A's runs kept the decision but lost the decimal-comma reason 3/3, using the shorter "garbled text in one column" framing. B's runs kept it 2/3. That is a small sample, but the direction fits: a short summary line already in `epics.md` seems to replace the fuller reason. [I]
+4. **What exists only in `epics.md` disappears with it, without invention.** A's quoting rule came through 3/3. B's three runs, with that rule removed, carried only the AC's generic "read back as one record" or nothing, and none made one up.
+
+**What this does not show.** The compile was never forced to choose. `architecture.md` is about 1,300 words, about a quarter of it later-release decisions, and the compiled files came out at 765 to 848 words, so the MVP decisions appear to fit without pressure. [I] The later-release decisions shrank to one line. A planning set several times larger is the test that would make the budget bind. AD-8 also has a clear heading and an obviously matching story title, which is the easy kind of late decision. A decision with no word in common with any story is untested. The compile prompt was passed directly, whereas a real `bmad-build` main agent writes its own subagent prompt. The model matches Experiment 23's compile subagents (Opus 5.5), and those subagent prompts opened the same way, with the instructions file and then the inputs. No code was built from these files.
