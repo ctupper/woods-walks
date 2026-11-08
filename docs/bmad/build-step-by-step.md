@@ -143,9 +143,15 @@ What this means, inferred and not lab-tested (no lab build has gone through this
 - **The cache's header says "Edit freely", but a hand edit survives only until any planning file gets a newer timestamp,** at which point the file is silently recompiled. The validity check is timestamps, so a checkout or sync that touches a planning file triggers recompilation even with no real change. This is the same kind of drift as `SPEC.md` vs the memlog (Experiment 5d). [I]
 - **Continuity reaches back one story.** Story 4 inherits story 3's Spec Change Log, not story 1's. That fits the cross-story findings in [systemic-findings.md](systemic-findings.md): a story-1 decision (like the A1 `nextId` verdict) arrives later only if each story in between carried it forward. [I]
 
+→ **Later, Experiment 23 (2026-11-08) ran this path on a toy, four stories across two epics** [V-lab, [lab log](lab-log.md#experiment-23-does-the-compiled-epic-context-keep-a-late-decision)]:
+
+- A subagent compiled each epic's context, at about 900 to 1,150 tokens. A decision planted only in the architecture doc came through concrete, with its reasons, in the epic that needed it, and was correctly left out of the other. Later-release decisions shrank to one line. Caveat: that decision had its own epic and was also in the acceptance criteria, so this was the easy case. Whether a decision that one late story needs survives in a broad epic is still untested.
+- On cache hits the main agent read neither the PRD nor the architecture doc. The run that compiled Epic 2 read both anyway after compiling, and a review subagent read the architecture doc on a cache-hit story. "Not loaded" holds for the main agent's planning on a cache hit, and no further.
+- A build that changed `epics.md` also edited the cached context, so its timestamp stayed newer and the next stories reused it instead of recompiling.
+
 ## Not yet checked
 
-- ~~`compile-epic-context.md` and `sync-sprint-status.md`~~ read 2026-10-18 (section above, P39); the epic-story path itself never run in a lab. [?] The second half of the Edge Case Hunter and Verification Gap prompts (output formats). [?]
+- ~~`compile-epic-context.md` and `sync-sprint-status.md`~~ read 2026-10-18 (section above, P39). ~~The epic-story path itself never run in a lab.~~ Run in Experiment 23 (2026-11-08). [?] The second half of the Edge Case Hunter and Verification Gap prompts (output formats). [?]
 
 ??? info "What the clone changed (superseded — kept for the record, not needed to understand the release)"
     Method: `diff -r --strip-trailing-cr` of a fresh `npx bmad-method install` (`labs\lab3-review\.claude\skills`) against `labs\BMAD-METHOD\skills` at `f033e70`. The installer writes CRLF, so a plain diff shows every file as changed; normalizing that leaves the real differences. [V-lab]

@@ -32,6 +32,7 @@
     - [Experiment 20](#experiment-20-a-v7-ticket-and-build-file-the-nextid-bug-with-bmad-ticket-then-bmad-build-it) — `bmad-ticket`'s own check caught conflicting criteria before any code, quick review found and fixed a real defect, and a git-ignored store fooled a second v7 skill.
     - [Experiment 21](#experiment-21-a-true-headless-bmad-spec-call) — after three failed CLI logins, headless `bmad-spec` returned `complete` while three open questions sat in `SPEC.md`, and skipped the requested stories without saying so.
     - [Experiment 22](#experiment-22-party-mode-session-vs-subagent-on-the-same-decision) — party mode: the one-model `session` room's dissent looked staged, while four independent `subagent` agents agreed and grounded the better recommendation, at 2.8x the cost.
+    - [Experiment 23](#experiment-23-does-the-compiled-epic-context-keep-a-late-decision) — the planted export decision survived the epic compile with its reasons, but export got its own epic and the acceptance criteria also carried it, so this was the easy case.
 
 ## Experiment 1 — Install and skill load
 
@@ -1315,3 +1316,64 @@ All [V-lab]. Every story took the `dispatch` route (none was small enough for `o
 - **Independence paid off in grounding, not in dissent.** Each subagent read the code and tests for itself. The findings that change what you'd do next (two tests pin the current behavior, so the fix is a spec reversal that needs sign-off) came from that. The orchestrator in `session` read the same files and missed them. [V-lab] For a decision on real code, that is the case for `subagent`. [I]
 - **Both arms landed on the right answer and a sensible doc line.** At 2.8x the cost, `subagent` bought one materially better recommendation (the spec reversal and the two named tests). [V-lab; I]
 - **Caveats:** one run per arm (variance unmeasured; Experiment 14b found variance in brainstorming). The decision had a defensible right answer, so a genuinely contested decision might behave differently. `SPEC.md` was left as re-derived after the retrospective. Both runs were blocked from running tests by Claude Code's compound-command check, the same harness friction as Experiment 21.
+
+## Experiment 23 — Does the compiled epic context keep a late decision?
+
+*2026-11-07 to 11-08, interactive with Carl, relay method*
+
+**Question (from P39):** on the epic-story path, `bmad-build` compiles `epic-<N>-context.md`, a 800–1,500-token distillation whose rules say "scope aggressively" and "when in doubt, leave it out". On later builds it loads that file *instead of* the PRD and architecture docs. Does an architecture decision that only the epic's last story needs survive the compile? And does that story's build get it some other way?
+
+**Setup:** `labs\lab23-epicctx`, a new greenfield toy (`reading-log`, a dependency-free Node library), `git init`, BMAD 6.12.1 (`bmad-build` is byte-identical at 6.12.0, so the result applies to 6.12.0 users). Hand-written planning docs in `_bmad-output/planning-artifacts/`, both generic:
+- `prd.md`, 375 words: FR1 add a book entry, FR2 list (optionally by year), FR3 export to CSV "that the household spreadsheet can open directly". It says nothing about the delimiter or encoding.
+- `architecture.md`, 1,297 words: 17 decisions, five of them for later releases (sync service, device auth, goals, importers, UI), plus risks and a glossary.
+
+**The planted decision,** AD-8 in the middle of `architecture.md`, one sentence plus a rationale: CSV export uses a **semicolon delimiter** and starts with a **UTF-8 BOM** (European-locale Excel). It appears only in the architecture doc. A risks line restates the locale dependency without naming either choice. The two planning docs together run about 2,200 tokens, so the compiler has to cut.
+
+**Flow:**
+1. `bmad-create-epics-and-stories` with Carl answering. Sprint planning is skipped: step-01 sets `story_key` only "if `sprint-status.yaml` exists", so the build doesn't need it.
+2. `bmad-build` on story 1, named explicitly as epic 1, story 1, so it takes the epic path. That build compiles `epic-1-context.md`.
+3. `bmad-build` on story 3, which should load the cached context and not the raw docs.
+
+Modification times of the planning files and the context file are recorded after every call (`labs\lab23-out\m<N>.mtimes`), because a newer planning file invalidates the cache.
+
+**Scoring for AD-8, at each of three places** (`epics.md` requirements and story 3's acceptance criteria; `epic-1-context.md`; story 3's code):
+- **concrete:** both semicolon and BOM
+- **partial:** one of the two
+- **generalized:** for example "Excel-compatible CSV", which a builder would still write with commas
+- **dropped**
+
+**Predictions (written before any run):**
+1. The epics skill carries AD-8 into `epics.md`'s requirements inventory and into story 3's acceptance criteria, concretely. (Moderate confidence: the skill's stated goal is to turn "PRD requirements and Architecture decisions" into stories with "complete acceptance criteria".)
+2. Export stays in the same epic as add and list. If BMAD splits it into its own epic, the test changes; that would be flagged to Carl, not steered.
+3. `epic-1-context.md` keeps AD-8 **partially**: semicolon kept, BOM dropped or generalized. The later-release decisions (AD-13 to AD-17) are dropped. It lands within 800–1,500 tokens.
+4. Story 1's build compiles the context through a subagent (the preferred path; `Agent` is allowed).
+5. Story 3's build loads the cached `epic-1-context.md`, makes no Read call on `architecture.md` or `prd.md`, and recompiles nothing.
+6. Story 3's code uses semicolons. Whether it writes the BOM depends on whether the story text carries it, so if prediction 1 holds, the code is right whatever the compile did. That would be masking, a realistic outcome to record.
+
+**What ran:** `bmad-create-epics-and-stories`, then `bmad-build` in a fresh session for each of stories 1.1, 1.2, 1.3 and 2.1. BMAD's questions were relayed to Carl (the test-script question verbatim, later spec menus and the subagent question summarized or partly quoted) and his answers went back verbatim; continue menus got his standing "C". Story 2.1 stopped at an approved spec ("Approve and stop"), so no export code exists. Results: 1.1 (`a88a2d8`, 4 tests), 1.2 (`c5eed38`, 22 tests), 1.3 (`b5a1c56`, 40 tests), all on Node 22. CLI-reported cost: epics $2.40, 1.1 $3.51, 1.2 $3.38, 1.3 $4.69, 2.1 spec $1.40, about $15.40 in all.
+
+**The design changed mid-run.** BMAD proposed two epics and Carl approved them, so export became Epic 2 on its own. AD-8 was then central to the epic being compiled, not a detail in a broad one. The "scope aggressively" rule was not really tested against it.
+
+| # | Prediction | Observed |
+|---|---|---|
+| 1 | AD-8 reaches `epics.md` requirements and the story ACs, concretely | **Confirmed.** Requirements line 40 and story 2.1's ACs, including the BOM bytes `EF BB BF` and the header `id;title;author;finishedOn;rating` |
+| 2 | Export stays in the same epic | **Wrong.** Split into Epic 2 on Carl's approval |
+| 3 | The context keeps AD-8 partially; later releases dropped; 800–1,500 tokens | **Partly wrong.** `epic-1-context.md` left AD-8 out entirely, which was correct for that epic. `epic-2-context.md` kept it **concrete**. AD-13 to AD-17 shrank to one out-of-scope line in both. Sizes: 689 and 734 words, about 4,600 characters each, so about 900 to 1,150 tokens by estimate, in range either way |
+| 4 | Compiled through a subagent | **Confirmed**, both compiles |
+| 5 | The later build loads the cache, reads no raw docs, recompiles nothing | **Confirmed for the main agent** on cache hits (1.2, 1.3). Exceptions in findings 4 and 5 |
+| 6 | Code is right whatever the compile did (masking) | **Not reached at code level.** The masking condition is confirmed: the ACs carry both choices. The 2.1 spec has both, and lists changing them under what must not be done |
+
+**Findings [V-lab, one toy project]:**
+
+1. **The compile kept the decision and its reasons.** `epic-2-context.md` has the BOM, the `;`, the exact header and "Do not 'normalize' this to commas or drop the BOM". The decimal-comma reason, the garbled-accents reason and "a change of spreadsheet or locale means revisiting the format decision" are in `architecture.md` and not in `epics.md`, so the compiler took them from the raw doc.
+2. **It separated epics correctly.** Epic 1's context has no AD-8. It does carry what Epic 2 needs from Epic 1 (`listEntries` order, `LogError`).
+3. **A cache hit kept raw docs out of planning.** In 1.2 and 1.3 the main agent read `epic-1-context.md`, the previous `done` spec and `epics.md`, and neither `prd.md` nor `architecture.md`. Checked across every main-agent Read, Grep, Glob and shell call: the only contact was a directory listing and greps of `epics.md`.
+4. **A run that compiles can still read the raw docs afterwards.** In 2.1 the main agent read `architecture.md` and `prd.md` itself after the subagent compiled. In 1.1 it did not. The step file's "Do not load raw planning docs" sits only in the valid-cache branch, so this isn't a violation. It does mean the first story of an epic may get both the summary and the sources, and that the 2.1 spec can't be credited to the context alone.
+5. **Subagents aren't bound by the cache rule.** In 1.3's review, the Blind Hunter read `architecture.md` (identified by `parent_tool_use_id`). `step-04-review.md` launches it as a "context-free subagent" whose content under review is the diff; the prompt doesn't forbid opening other files, but this one did, so a review layer described as context-free isn't guaranteed to be.
+6. **A build can keep the cache valid by editing it.** Fixing a test-script problem, build 1.1 edited `epics.md` (19:13:54), then edited `epic-1-context.md` (19:14:06), saying the edited `epics.md` would otherwise make the cached context look out of date. Stories 1.2 and 1.3 reused it. Here the edit was accurate. But the validity check compares timestamps only, so it can't tell an accurate edit from a touch. [I]
+7. **The compiler broke its own "no story-level details" rule a little.** `epic-2-context.md` names story 2.2's sample script, its seed cases and its manual Excel step.
+8. **Reading across epics was the agent's choice.** Build 2.1 read `spec-1-3`, although the continuity rule covers only lower-numbered `done` specs in the same epic.
+
+**What this does not show.** Whether a decision needed by one late story survives in a broad epic is still open, because export got its own epic. Whether the context alone would have carried AD-8 is also open, because the ACs and raw-doc reads both mask it. It is one small toy, one run per story, and the code for story 2.1 was never written.
+
+**Harness mistake (mine):** the scaffold's `package.json` used `node --test "tests/"`, which fails on Node 22. Build 1.1 caught it and asked; Carl chose bare `node --test`. That is what caused the `epics.md` edit in finding 6.
