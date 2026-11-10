@@ -49,6 +49,7 @@ nav:
           - Flow: bmad/flow.md
           - Agents: bmad/agents.md
           - Building: bmad/build-step-by-step.md
+          - Loops: bmad/loops.md
       - Skills:
           - Spec: bmad/spec-skill.md
           - PRD: bmad/prd-skill.md
