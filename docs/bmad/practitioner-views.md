@@ -1,9 +1,9 @@
 # Practitioner Views: Secondary Sources Checked Against the Lab
 
-*Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. Neither has been reviewed.*
+*Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand. None has been reviewed.*
 
 !!! tip "TL;DR"
-    The first source (S1, January 2026) is a critique of BMAD as it stood at a 6.0 alpha, eight months and two restructurings before the release this wiki describes. About half its complaints don't fit 6.12: the roster, document sharding, and "too heavy for small work" have all changed. The other half match what the lab saw: artifacts that fall out of sync, runs that report done when they aren't fully done, and output that varies between runs. Token cost, the learning curve, and dependence on strong models were never measured here. The second source (S2, October 2026) compares installing v6.12 and v7. It is right where it copies BMAD's current install page and wrong in three places: it attributes v6 installer changes to v7, puts a v7 setup step into v6.12, and points to a plugin marketplace that BMAD itself calls stale.
+    The first source (S1, January 2026) is a critique of BMAD as it stood at a 6.0 alpha, eight months and two restructurings before the release this wiki describes. About half its complaints don't fit 6.12: the roster, document sharding, and "too heavy for small work" have all changed. The other half match what the lab saw: artifacts that fall out of sync, runs that report done when they aren't fully done, and output that varies between runs. Token cost, the learning curve, and dependence on strong models were never measured here. The second source (S2, October 2026) compares installing v6.12 and v7. It is right where it copies BMAD's current install page and wrong in three places: it attributes v6 installer changes to v7, puts a v7 setup step into v6.12, and points to a plugin marketplace that BMAD itself calls stale. The third (S3, BMAD's author on YouTube) matches the v7 docs on epic folders and stories planned at build time. Its specific numbers and bmad-loop's internals are unverified, and the captions are poor.
 
 ## S1: "Limitations of BMAD Method" (asantos2000, 2026-01-10)
 
@@ -57,7 +57,41 @@ Read it as a description of an earlier BMAD, not of 6.12. [I]
 - v6.12 source and docs now live on a `V6.12` branch. [V, main `README.md`]
 - Main is now 61 commits past the `bda3c59` commit this wiki's v7 page describes. [V-lab, `git rev-list`] [v7-preview.md](v7-preview.md) may therefore be out of date. A refresh is its own unit.
 
+## S3: BMad Code YouTube channel (BMAD's author)
+
+**What it is.** Brian's own channel: demos, live sessions with community guests, and v7 previews. Two videos read so far, from auto-captioned transcripts (`data/fabric/bmadcode/`, gitignored). **The captions are poor:** the Live Ep 5 track reads like a machine translation of a translation ("Be Mad", "BDD" for BMAD), so nothing below is a quote, only paraphrase. Author statements are still secondary until a doc or lab backs them. Added 2026-11-10 on demand; not reviewed.
+
+### S3a: "How Teams Run BMad at Scale", Live Ep 5 (2026-10-17, with Tim Dickey)
+
+| # | S3a says | Against the docs and the lab |
+|---|---|---|
+| 1 | **In v7 each epic is its own folder whose epic file is the spec. The single sprint-planning file goes, and stories aren't written up front; each is planned as it's built.** | **Agrees.** `epics.md` and `sprint-status.yaml` become the ticket tree, and "an entry needs no file to be built". [V, P34 ticket-tree doc] The lab built a story with no story file. [V-lab, Experiment 20] |
+| 2 | **The epic, not the story, is now one developer's unit of work. Aim for about 7 to 11 stories per epic.** | **First half agrees:** "An epic is one capability that one owner delivers to production." [V, P34 ticket-tree doc] **The 7 to 11 figure wasn't found** in the v7 skills and planning docs at `bda3c59` or `main` @ `e734d3a` (searched, not read in full). [?] Treat it as the author's guidance. |
+| 3 | **Long planning documents become folders of small files with one main file; the old mechanical sharding is gone.** | **Partly.** v7 writes each document as `<type>-<slug>/<type>-<slug>.md`. [V, P34 CHANGELOG] `bmad-shard-doc` was retired with no replacement. [V, CHANGELOG] A split into several files inside the folder wasn't seen in the files read. [?] |
+| 4 | **"Too heavy" is a misreading of old versions: one skill can build directly, and it runs review lenses and tests before calling the work done. The lenses can be configured.** | **Agrees.** Same as S1 row 1. [V, P3, P38; V-lab, Experiment 4] `bmad-build`'s `customize.toml` defines the review layers at 6.12.1 and quick/thorough lens sets in v7. [V, `customize.toml` at both versions] v7's default quick review ran one subagent in the lab. [V-lab, Experiment 20] |
+| 5 | **A meeting transcript can go straight into planning and come out as an epic.** | **Docs agree on the input:** `bmad-ticket` accepts "a PRD alone, meeting notes, or a one-paragraph idea". [V, P34 ticket-tree doc] Not tried in the lab. |
+| 6 | **The v7 `bmad` agent can suggest other installed skills, and steers trivial work away from the full method.** | **Not checked.** [?] |
+| 7 | **Use the strongest model for planning and a cheaper one for coding; planning tokens pay for themselves.** | **Untested.** Every lab run used a frontier model. [V-lab] Same gap as S1 row 8. |
+| 8 | **AI amplifies whatever practice a team already has: the bottleneck moves to pipelines, code review and requirements. Prefer continuous delivery from main, with feature flags.** | **Opinion, outside BMAD's docs.** It fits the docs' own premise that human attention is "the most expensive resource". [V, P8] [I] |
+| 9 | **Output quality depends on the person steering: state your own view and ask the model to challenge it.** | **Consistent with the lab.** A headless `bmad-spec` run returned `complete` with open questions when nobody steered it. [V-lab, Experiment 21] [I] |
+
+### S3b: "bmad-loop First Look" (2026-07-07, with Paul, "Pinky D")
+
+| # | S3b says | Against the docs and the lab |
+|---|---|---|
+| 1 | **bmad-loop replaces the experimental "automator" and installs as an option in the BMAD installer.** | **Agrees.** 6.10.0 (2026-07-03) added `bmad-loop` as an opt-in module and deprecated `bmad-automator`. [V, CHANGELOG v6.10.0] Its registry entry points to its own repo, `github.com/bmad-code-org/bmad-loop`: "Builds, verifies, and retros a whole epic unattended", not selected by default. [V, `bmad-modules.yaml` @ v6.12.1] There is no separate `bmad-loop` npm package (404). [V-lab] |
+| 2 | **It runs a whole epic, or chosen stories with a cap, and can pick up a project already half done.** | **Partly.** At 6.12 it walks a spec folder's `stories.yaml` in list order. It is a linear scheduler with no dependency graph, and selecting one story runs only that story. [V, `docs/build/autonomous-development-loops.md` @ v6.12.1] The video's demo read `sprint-status.yaml`, the 6.10 layout. [I] |
+| 3 | **Each story is built by an unattended worker that follows spec status and escalates to a human when stuck.** | **Agrees.** The worker was `bmad-dev-auto` in 6.10, renamed `bmad-build-auto` in 6.11. [V, CHANGELOG; [updating-bmad.md](updating-bmad.md)] `blocked` is meant as a routing signal, not just a failure. [V, autonomous-loops doc] Never run in the lab. |
+| 4 | **Findings that aren't this story's problem go to deferred work, and a "sweep" works through them later, two passes by default.** | **Partly.** `bmad-build-auto` reports `deferred` findings as a machine-readable list, "intentionally not a backlog"; the orchestrator decides what to do. [V, autonomous-loops doc] The changelog names "deferred-work sweeps" as a bmad-loop job. [V, CHANGELOG v6.10.0] The sweep's behavior and limit weren't checked. [?] |
+| 5 | **It runs agents in visible tmux sessions (tmux 3.2+) rather than headless calls, partly because of how headless use is billed.** | **Not checked.** bmad-loop's own repo wasn't read, and the billing point is about vendor policy. [?] |
+| 6 | **Works with Claude Code, Codex, Gemini CLI and GitHub Copilot CLI through hook adapters; it can run each story in a git worktree.** | **Not checked.** [?] Same reason. |
+| 7 | **Parallel work means separate epics.** (Implied by the demo running one epic at a time.) | **Agrees.** The docs say bmad-loop doesn't coordinate across a project; parallel streams need separate epic owners or a higher layer. [V, autonomous-loops doc] This matches S3a row 2. [I] |
+| 8 | **There is no v5 because a publishing script pushed 5.x versions to npm by mistake.** | **The versions exist:** npm lists `5.0.0-beta.1` through `5.1.3`. [V-lab, `npm view`] The cause is the author's account. |
+
+**Net.** On v7's direction (epic folders, stories planned at build time, one owner per epic) the author's talk matches the docs, which makes the channel a good early signal for what a release will change. [I] Specific numbers (7 to 11 stories per epic) and bmad-loop's internals (tmux, adapters, sweep limits) are author statements only. [I] The caption quality limits what can be cited. [V-lab]
+
 ## Not yet checked
 
+- S3: bmad-loop's own repo, and four more videos still to pull (`sources.md`).
 - S1's underlying sources (Cochran's blog, the Medium token analysis) haven't been read directly. The figures above are quoted as S1 reports them.
 - S2's two `CHANGELOG.md` permalinks were looked up but not read in full.
