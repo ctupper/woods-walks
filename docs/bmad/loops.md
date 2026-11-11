@@ -1,6 +1,6 @@
 # Loops: How BMAD Builds Unattended
 
-*How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo's `README.md` and `docs/FEATURES.md` at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43). Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops); not reviewed.*
+*How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides; not reviewed.*
 
 !!! tip "TL;DR"
     A loop is a batch job for stories. A plain program (not an AI) picks the next story, starts a fresh AI coding session to build it, checks the result itself (files, git, your tests), sends it to a second, separate AI session for review, checks again, and commits. Then it moves to the next story. The AI never decides whether its own work is done. When a story won't converge, the loop sets it aside and carries on. When something needs a person, it pauses and waits. It works one story at a time, in list order, and its idea of "done" is only as good as the checks you give it.
@@ -45,7 +45,7 @@ Four rules make this trustworthy rather than hopeful:
 
 | Situation | What the loop does |
 |---|---|
-| A story uses up its attempts | **Sets it aside** ("plateau-defer"), notes where the attempt's work was saved, and moves to the next story. [V, P43] |
+| A story uses up its attempts | **Sets it aside** ("plateau-defer"), notes where the attempt's work was saved, and moves to the next story. [V, P43] **Except in the default setup:** building in place with work left in the tree, the run *pauses* for you to roll back by hand, because `rollback_on_failure` defaults to off. It only moves on by itself with that setting on, a clean tree, or worktree isolation. [V, P43 escalations-guide "Plateau-defer"] |
 | The AI reports a **CRITICAL** problem (for example, the plan contradicts itself) | **Pauses the whole run** and notifies you. `bmad-loop resolve` opens an interactive session to fix the spec, then re-runs the story. [V, P43] |
 | The AI reports a **PREFERENCE** | Logs it and keeps going. [V, P43] |
 | The environment is broken (database down, tool missing, provider outage) | Pauses **without** charging the story an attempt. `resume` rechecks first. [V, P43] |
@@ -55,9 +55,46 @@ Four rules make this trustworthy rather than hopeful:
 
 Before any attempt is thrown away, its commits and uncommitted work are saved on git refs you can restore from. [V, P43]
 
+## Getting a paused run going again
+
+A pause tells you in two places: a desktop notice and a line in the run's `ATTENTION` file. `bmad-loop status` names the stage and the reason. [V, P43 escalations-guide] Which command clears it depends on why it stopped:
+
+| Why it stopped | What you do |
+|---|---|
+| A gate or checkpoint you configured (epic boundary, spec approval) | `bmad-loop resume` [V, P43] |
+| The environment was broken before a session started | Fix it, then `resume`. The checks re-run first. [V, P43] |
+| A story escalated (a real problem in the spec) | `bmad-loop resolve`, below. A plain `resume` skips the stuck story, runs the rest of the list, then pauses again. The run is never marked finished while a story is escalated. [V, P43] |
+
+**`resolve` has five ways out**, one per kind of problem: [V, P43 escalations-guide]
+
+- **Fix the spec with an AI's help** (the default). An interactive "resolve agent" opens with the escalation and the frozen spec. You fix the spec together, exit, and confirm the re-arm. The story starts over with fresh budgets.
+- **Fix the spec yourself**, then `resolve --no-interactive`. Same re-arm, no agent.
+- **Re-apply saved work** (`--restore-patch`). When the build stopped on an intent gap, it saves its patch, and the re-run starts at review rather than rebuilding. In-place runs only.
+- **Re-check kept work** (`--reverify`). For an environment fault where the code itself was fine: your test commands re-run on the existing work, with no new build session. A failure is never retried.
+- **Take the kept branch as it is** (`--adopt-branch`, worktree runs only). Merges it and marks the story done. The tool warns that review and your test commands are **not** re-run. It's meant for false alarms. [V, P43] It's also the one exit that skips every check the loop exists for. [I]
+
+Two cases worth knowing:
+
+- **A review that overrules the build** doesn't get extra rounds. When review sends a story back after the build marked it done, the loop treats that as a contradiction and escalates. Setting the status back to done by hand doesn't clear it; you resolve it. [V, P43] This is the loop declining to referee two AI sessions that disagree. [I]
+- **A parked story isn't reviewed until you confirm it.** Parking at `awaiting-operator` skips the review loop. If the build asked for a follow-up review, that review is still owed after `confirm`, and you run it yourself. [V, P43] So parked work sits unreviewed in the meantime. [I]
+
+Usage limits have their own exit: `resolve --at-reset` waits until the coding tool's limit resets, then re-arms and resumes. Running out of credits never resets by itself, so that one needs a person. [V, P43]
+
 ## Deferred work
 
 Builds and reviews find things that aren't the current story's job: a pre-existing bug, a split-off goal, an open question. BMAD's worker reports these as a `deferred` list, "intentionally not a backlog"; the driver decides what to do with them. [V, P15] bmad-loop writes them to a ledger (`deferred-work.md`, entries `DW-1`, `DW-2`...). A **sweep** then triages each entry against the code: already fixed, buildable, blocked, skipped, or a question for you. Buildable entries go through the same build-check-review-commit pipeline. [V, P43] A ledger entry can also block named stories until it's resolved (a `gate:` line). [V, P43]
+
+**How a sweep behaves** (from the sweep guide): [V, P43 sweep-guide]
+
+- It won't start on uncommitted changes. Commit or stash first.
+- `--dry-run` lists the open entries without starting any sessions. Use it first.
+- **Decisions stay with you.** Run attended, it asks you about each judgment call (build it, close it, or keep it open), with a recommendation, and Enter takes the recommendation. Run unattended (`--no-prompt`), it builds only the bundles that need no decision and leaves the questions open for `bmad-loop decisions` later. It never answers them itself.
+- A bundle can't pass review until every ledger entry in it reads `done`.
+- `--repeat` re-triages after each cycle to pick up newly deferred work, five cycles by default. An automatic sweep can run per epic or at the end of a run; the default is off.
+- A story can close ledger entries itself when it commits (`closes_deferred: [DW-5]` in its spec). A story that fails closes nothing.
+- A gate is released only by an explicit `status: done`. A missing or misspelled status still blocks.
+
+**One v6/v7 difference matters for cross-story defects.** On v6, a sweep can pull a retrospective's action items into the ledger as entries. On v7 it can't, because v7 retrospective action items are prose, not records: the sweep files none and logs that ingest was unavailable. [V, P43 sweep-guide "Sweeps on BMAD v7"] So on v7 a retrospective finding reaches the build pipeline only when a person turns it into a ticket or a ledger entry. [I]
 
 ## What a loop can't see
 
@@ -76,6 +113,6 @@ Builds and reviews find things that aren't the current story's job: a pre-existi
 
 ## Not yet checked
 
-- bmad-loop's other guides (escalations, sweep, tickets, configuration) beyond what README and FEATURES summarize.
+- bmad-loop's tickets, setup and TUI guides, and the configuration reference. Escalations and sweep were read 2026-11-11.
 - Any lab run of bmad-loop or `bmad-build-auto`. The natural test is the tags epic from Experiments 5 to 10, which has the cross-story defect (B1): would a loop commit it?
-- The author's "5 fundamentals" video on loops (S3, not yet pulled).
+- The author's "5 fundamentals" video on loops (S3). Its transcript was pulled 2026-11-11 and is next in line to read.
