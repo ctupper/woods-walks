@@ -4,12 +4,15 @@ site_url: https://ctupper.github.io/woods-walks/
 theme:
   name: material
   palette: 
-    - scheme: slate 
+    - scheme: slate
       primary: green
       accent: green
   features:
-    - navigation.tabs 
+    - navigation.tabs
     - navigation.sections
+    - navigation.top      # back-to-top button on long pages (Lab Logs, Systemic Findings)
+    - toc.follow          # right-hand contents list tracks the scroll position
+    - search.highlight    # highlight search terms on the page you land on
   mermaid: true
 
 extra_css:
