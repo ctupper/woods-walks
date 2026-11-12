@@ -1,9 +1,5 @@
 # `bmad-prd`: How the PRD Skill Works
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-prd/` (P20, see `../sources.md`): `SKILL.md`, `assets/prd-template.md`, first ~30 lines of `references/validate.md` and `references/headless.md`. Tags: [V, P20] traced to those files, [I] inferred, [?] unclear, [V-lab] observed in a lab run. Run in the lab twice (Experiment 12, Update mode; Experiment 15, Create → finalize → Validate; see [lab-log.md](lab-log.md)). `references/validate.md` and `assets/prd-validation-checklist.md` read in full 2026-10-07. Written unattended 2026-09-19; reviewed by Carl 2026-09-24; lab sections added 2026-10-02 and 2026-10-08 (the latter not yet reviewed).*
-
-*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting; substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
-
 !!! tip "TL;DR"
     `bmad-prd` is the tool for "agreement and sign-off among people" — one skill with three intents: **Create** a PRD from scratch, **Update** an existing one against a change, or **Validate** one without changing anything. It elicits rather than authors (it hands the pen back rather than proposing MVP cuts itself), keeps an append-only memlog like `bmad-spec`, and gates finalizing behind a parallel-subagent reviewer pass, except at hobby stakes, where the pass may be skipped (Experiment 15: it was).
 
@@ -92,3 +88,11 @@ A hobby-stakes PRD for a neighborhood tool-lending shelf, fast path, every answe
 
 - ~~`assets/prd-validation-checklist.md`, the rest of `references/validate.md`~~ (read 2026-10-07). Still unread: the Adapt-In Menu section of the template, `assets/headless-schemas.md`. [?]
 - Input reconciliation at finalize (needs source documents). A finalize at internal or launch stakes, where the gate should offer the all/subset/skip menu. [?]
+
+---
+
+??? info "About this page"
+
+    *Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-prd/` (P20, see `../sources.md`): `SKILL.md`, `assets/prd-template.md`, first ~30 lines of `references/validate.md` and `references/headless.md`. Tags: [V, P20] traced to those files, [I] inferred, [?] unclear, [V-lab] observed in a lab run. Run in the lab twice (Experiment 12, Update mode; Experiment 15, Create → finalize → Validate; see [lab-log.md](lab-log.md)). `references/validate.md` and `assets/prd-validation-checklist.md` read in full 2026-10-07. Written unattended 2026-09-19; reviewed by Carl 2026-09-24; lab sections added 2026-10-02 and 2026-10-08 (the latter not yet reviewed).*
+
+    *Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting; substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*

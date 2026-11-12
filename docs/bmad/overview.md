@@ -1,7 +1,5 @@
 # BMAD in One Page
 
-*For someone who has never seen BMAD. Describes BMAD-METHOD v6.12.0. Tags: [V] traced to the project's own docs or skill files (detail and source IDs on the linked pages), [V-lab] seen in a lab run, [I] inferred. Drafted unattended 2026-09-19 and read by the project owner on 2026-09-20, who found it good. The owner had followed the research closely, so a read by someone who has never seen BMAD would still be stronger evidence. Install note corrected and shortest-path line added unattended 2026-10-18 from the Getting Started docs (P38, 6.12.1), not yet reviewed.*
-
 !!! tip "TL;DR"
     BMAD adds named commands ("skills") to an AI coding tool. A few turn a written-down intent into a one-page spec, then implement and independently review the change against it. Small work can skip straight to building; bigger work starts with planning skills instead. It halts and asks rather than guessing when your intent is unclear, and it doesn't sync with your tracker or decide what you want. The rest of this page is the detail, with a citation for every claim.
 
@@ -76,4 +74,32 @@ Six things observed running BMAD for real, each collapsed by default — expand 
 
 ## Known gaps
 
-Not yet covered or run: customization for teams beyond what an update keeps (see [updating-bmad.md](updating-bmad.md)); the UX and sprint-planning skills in a lab run (read, not run). Lab experiments run so far: install, one small idea through the loop, code review on a flawed commit and on a whole epic, a change in an existing codebase, the ideation skills (including a persona comparison), a spec-backed epic taken through a requirement change and built out story by story, a retrospective on that epic that found a defect no single story's review could have (Experiment 5i), add-on modules (test architect, builder), a second epic changing the first's code, architecture on a legacy-shaped app, PRD Update, Create and Validate, what survives an update (including a real 6.12.0 → 6.12.1 update), the walkthrough run through an agent persona, and the same build run directly and through the Developer persona (see [lab-log.md](lab-log.md), Experiments 1 to 18). [I] (Line refreshed 2026-10-09; it had gone stale since 2026-09-24.)
+**Not yet covered or run:**
+
+- Customization for teams beyond what an update keeps (see [updating-bmad.md](updating-bmad.md)).
+- The UX and sprint-planning skills in a lab run (read, not run).
+
+**Lab experiments run so far** (see [lab-log.md](lab-log.md), Experiments 1 to 18): [I]
+
+- Install.
+- One small idea through the loop.
+- Code review on a flawed commit and on a whole epic.
+- A change in an existing codebase.
+- The ideation skills, including a persona comparison.
+- A spec-backed epic taken through a requirement change and built out story by story.
+- A retrospective on that epic that found a defect no single story's review could have (Experiment 5i).
+- Add-on modules (test architect, builder).
+- A second epic changing the first's code.
+- Architecture on a legacy-shaped app.
+- PRD Update, Create and Validate.
+- What survives an update, including a real 6.12.0 → 6.12.1 update.
+- The walkthrough run through an agent persona.
+- The same build run directly and through the Developer persona.
+
+---
+
+??? info "About this page"
+
+    *Known gaps list refreshed 2026-10-09 (it had gone stale since 2026-09-24); turned into lists 2026-11-11.*
+
+    *For someone who has never seen BMAD. Describes BMAD-METHOD v6.12.0. Tags: [V] traced to the project's own docs or skill files (detail and source IDs on the linked pages), [V-lab] seen in a lab run, [I] inferred. Drafted unattended 2026-09-19 and read by the project owner on 2026-09-20, who found it good. The owner had followed the research closely, so a read by someone who has never seen BMAD would still be stronger evidence. Install note corrected and shortest-path line added unattended 2026-10-18 from the Getting Started docs (P38, 6.12.1), not yet reviewed.*

@@ -1,9 +1,17 @@
 # Systemic Findings
 
-*Patterns that only show up by looking across several experiments or several stories at once — not new claims about BMAD, but connections between claims already tagged and sourced elsewhere in this wiki. Same discipline as every other page: [V-lab] traced to a specific lab observation (source pointed to below), [I] inferred, [?] unclear. Nothing here is evidence on its own; each pattern links back to the pages and experiments that are. Written 2026-09-24, unattended, folding in a reader suggestion Carl asked for by name. Triage-variance and memlog-attribution sections, and the B4 note, added the same day from Carl's review pass of [lab-log.md](lab-log.md). "Freezing stops at the epic boundary" added 2026-09-29 from Experiment 9/9b. Experiment 10 paragraph added to the first section 2026-09-30. Epic-context cache added as a fourth (source-read, not lab) case of "the record for the next reader drifts" 2026-10-18, not yet reviewed. Patterns changed from callout boxes to headings 2026-11-07 so the page's table of contents lists them (formatting only, no wording changed).*
-
 !!! tip "TL;DR — eleven patterns, in order below"
-    A story-scoped review can't see an epic-scoped defect · a `false` verdict has no expiry date · ownership rules that protect a story can also protect a defect · freezing stops at the epic boundary · the record for the next reader drifts while the record nobody reads stays accurate · available context changes what gets escalated, not what gets found · a model can notice it keeps rejecting the same claim · the open-question list moves both ways, not just down · triage verdicts are one sample, not a repeatable measurement · the memlog's audit trail credits the configured user, whoever actually spoke · what this project's own retrospective on BMAD does *not* close.
+    1. A story-scoped review can't see an epic-scoped defect.
+    2. A `false` verdict has no expiry date.
+    3. Ownership rules that protect a story can also protect a defect.
+    4. Freezing stops at the epic boundary.
+    5. The record for the next reader drifts, while the record nobody reads stays accurate.
+    6. Available context changes what gets escalated, not what gets found.
+    7. A model can notice it keeps rejecting the same claim.
+    8. The open-question list moves both ways, not just down.
+    9. Triage verdicts are one sample, not a repeatable measurement.
+    10. The memlog's audit trail credits the configured user, whoever actually spoke.
+    11. What this project's own retrospective on BMAD does *not* close.
 
 ## A story-level review cannot see an epic-level defect
 The most serious bug found anywhere in this research ([build-step-by-step.md](build-step-by-step.md)'s B1: live-object aliasing that lets a caller bypass every validation rule silently) was not found by any of the four stories' own reviews. Each story's review was scoped to that story's diff, and each triage decision that touched the issue was locally correct — story 1 and story 2 both checked the aliasing against the existing convention and correctly matched it. What changed was invisible from inside any single story: story 1 added a mutable field to a record that an old convention already handed out by reference, and story 3 handed that same mutable field out from a fourth entry point. Only `bmad-retrospective`'s own review pass over the *combined* four-commit diff caught the compound effect. [V-lab, [lab-log.md](lab-log.md) Experiment 5i, finding B1]
@@ -77,3 +85,9 @@ So the loop that closes is: an epic ships, `bmad-build`'s Learn-and-adjust stage
 ## Not yet checked
 
 Whether any of these patterns hold on a larger epic (more than four stories), on a team with more than one human in the loop, or on a codebase where `AGENTS.md` names the specific risk a later review escalates (rather than only the data contract shape, as in the one case tested). [?]
+
+---
+
+??? info "About this page"
+
+    *Patterns that only show up by looking across several experiments or several stories at once — not new claims about BMAD, but connections between claims already tagged and sourced elsewhere in this wiki. Same discipline as every other page: [V-lab] traced to a specific lab observation (source pointed to below), [I] inferred, [?] unclear. Nothing here is evidence on its own; each pattern links back to the pages and experiments that are. Written 2026-09-24, unattended, folding in a reader suggestion Carl asked for by name. Triage-variance and memlog-attribution sections, and the B4 note, added the same day from Carl's review pass of [lab-log.md](lab-log.md). "Freezing stops at the epic boundary" added 2026-09-29 from Experiment 9/9b. Experiment 10 paragraph added to the first section 2026-09-30. Epic-context cache added as a fourth (source-read, not lab) case of "the record for the next reader drifts" 2026-10-18, not yet reviewed. Patterns changed from callout boxes to headings 2026-11-07 so the page's table of contents lists them (formatting only, no wording changed).*

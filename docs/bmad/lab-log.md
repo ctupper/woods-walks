@@ -1,9 +1,5 @@
 ﻿# BMAD — Lab Log
 
-*Observations from running BMAD in throwaway repos under `C:\Users\ctupp\labs\`. Tag [V-lab] = seen happening. Each entry says what the docs predicted and what actually happened.*
-
-*This is a log: entries are kept as written at the time. Where a later experiment answered an entry's "not tested" or "unconfirmed" line, a `→ Later:` pointer was added (Carl review pass, 2026-09-24) instead of rewriting the entry. On 2026-11-07 each entry's date and status moved from its heading to the line under it, so the contents list stays short (formatting only, wording unchanged). Index lines for Experiments 15 to 22 added the same day.*
-
 !!! tip "Index — one line per entry, in order run"
     - [Experiment 1](#experiment-1-install-and-skill-load) — full install works; 29 skills confirmed.
     - [Experiment 2](#experiment-2-one-toy-idea-through-the-loop) — spec through build round trip, dispatch route, 18/18 tests, review found real issues.
@@ -1449,3 +1445,11 @@ Each variant was compiled three times in a fresh `claude -p` session, $2.25 for 
 **What this does not show.** Five skills, one run each, activation only. The other skills on the 6.12.0 list and the five agents were not run. The `implementation_artifacts` and `document_output_language` pins were set but not graded.
 
 **Harness mistake (mine):** the first pass allowed `uv` under Bash only, and the agents used PowerShell, so `uv run` was blocked. 6.12.0's `bmad-build` never rendered, and on 6.12.1 agents read the config files themselves after the resolver was refused. That pass is discarded (kept in `labs\lab25-out`, $2.73). The results above are the rerun with shell tools allowed, $1.85, no tool errors.
+
+---
+
+??? info "About this page"
+
+    *Observations from running BMAD in throwaway repos under `C:\Users\ctupp\labs\`. Tag [V-lab] = seen happening. Each entry says what the docs predicted and what actually happened.*
+
+    *This is a log: entries are kept as written at the time. Where a later experiment answered an entry's "not tested" or "unconfirmed" line, a `→ Later:` pointer was added (Carl review pass, 2026-09-24) instead of rewriting the entry. On 2026-11-07 each entry's date and status moved from its heading to the line under it, so the contents list stays short (formatting only, wording unchanged). Index lines for Experiments 15 to 22 added the same day.*

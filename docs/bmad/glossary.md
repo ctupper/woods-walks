@@ -1,7 +1,5 @@
 # BMAD Glossary
 
-*Describes BMAD-METHOD v6.12.0. Each entry points to the wiki page where the term is sourced; tags and source IDs live there. Definitions restate what those pages already tag [V]; nothing new was read for this page. Draft written unattended 2026-09-19; reviewed by Carl 2026-09-24, when terms from the later experiments were added.*
-
 **AD (architecture decision).** One numbered block in an architecture spine (`AD-1`, `AD-2`...) with Binds, Prevents, and Rule. IDs are stable and never reused. See [architecture-skill.md](architecture-skill.md).
 
 **Addendum (`addendum.md`).** Side file holding depth that doesn't fit the PRD (rejected alternatives, technical-how, sizing data). See [prd-skill.md](prd-skill.md).
@@ -93,3 +91,11 @@
 **Triage verdict.** The one verdict the main session gives each review finding after checking it at the cited location: `high`, `medium`, `low`, `false`, or `maybe-false`. Reviewers' own severities are discarded. A `false` verdict is judged against the code as it is now and is never revisited when later stories change the premise. See [build-step-by-step.md](build-step-by-step.md), [systemic-findings.md](systemic-findings.md).
 
 **`uv`.** Python tool the installer requires; `bmad-build` halts without it. See [lab-log.md](lab-log.md).
+
+
+
+---
+
+??? info "About this page"
+
+    *Describes BMAD-METHOD v6.12.0. Each entry points to the wiki page where the term is sourced; tags and source IDs live there. Definitions restate what those pages already tag [V]; nothing new was read for this page. Draft written unattended 2026-09-19; reviewed by Carl 2026-09-24, when terms from the later experiments were added.*

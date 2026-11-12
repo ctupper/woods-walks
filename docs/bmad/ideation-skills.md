@@ -1,7 +1,5 @@
 # The Ideation Skills: `bmad-brainstorming` and `bmad-forge-idea`
 
-*Describes BMAD-METHOD v6.12.0, read from the release tag (source P25, see `../sources.md`): `src/core-skills/bmad-forge-idea/SKILL.md`, `src/core-skills/bmad-brainstorming/SKILL.md`, `references/headless.md`, the first lines of `references/mode-autonomous.md`, and the first rows and category counts of `assets/brain-methods.csv`. Tags: [V, P25] traced to those files, [I] inferred, [?] unclear. Run unattended in Experiment 6 (both halted on human input, as the files predict) and Experiment 7 (headless flag and prepend tests for brainstorming). Written unattended 2026-09-19; reviewed by Carl 2026-09-24.*
-
 !!! tip "TL;DR"
     Two core Clarify-stage skills that need no PRD, spec, or agent, and end in a record of thinking rather than code. `bmad-brainstorming` diverges — aim past 100 ideas, resist concluding. `bmad-forge-idea` converges, adversarially, one question at a time, and can say a half-formed idea is dead. Neither picks for the human: brainstorming won't choose ideas in its dialogue stances, forge won't steer toward "let's build it." Headless mode is real but narrow — a present human message means interactive, no flag or prepend overrides that, confirmed in the lab.
 
@@ -62,3 +60,9 @@ Both use the append-only memlog and `memlog.py` (`init`, `append --type`, `set -
 ## Not yet checked
 
 `references/mode-facilitator.md`, `mode-partner.md`, `converge.md`, `finalize.md`, `resume.md`, `in-chat-techniques.md`, `brain.py`, `resolve_personas.py`, both `customize.toml` files, and how `bmad-party-mode` differs from forge's persona pool. [?]
+
+---
+
+??? info "About this page"
+
+    *Describes BMAD-METHOD v6.12.0, read from the release tag (source P25, see `../sources.md`): `src/core-skills/bmad-forge-idea/SKILL.md`, `src/core-skills/bmad-brainstorming/SKILL.md`, `references/headless.md`, the first lines of `references/mode-autonomous.md`, and the first rows and category counts of `assets/brain-methods.csv`. Tags: [V, P25] traced to those files, [I] inferred, [?] unclear. Run unattended in Experiment 6 (both halted on human input, as the files predict) and Experiment 7 (headless flag and prepend tests for brainstorming). Written unattended 2026-09-19; reviewed by Carl 2026-09-24.*

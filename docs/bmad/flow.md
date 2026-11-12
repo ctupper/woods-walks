@@ -1,7 +1,5 @@
 # BMAD — The Flow: How an Idea Moves
 
-*Describes BMAD-METHOD v6.12.0. Tags: [V] traced to primary doc (source IDs in `../sources.md`), [I] inferred, [?] unclear, [V-lab] observed in a lab run (Experiments 1 to 5i; see [lab-log.md](lab-log.md)). First written 2026-09-19; lab notes added through 2026-09-24; reviewed by Carl 2026-09-24. "After the build: generating more tests" added unattended 2026-09-26 (P29), "walking a human through the change" 2026-10-03 (P31), the Getting Deeper worked example 2026-10-07 (P33), the walkthrough lab note 2026-10-09 (Experiment 17), and the web-bundles note 2026-10-18 (P37, read at 6.12.1), all not yet reviewed.*
-
 !!! tip "TL;DR"
     The delivery diagram frames every path as one loop: **Clarify → Plan → Build and verify → Learn and adjust**, entered at three points (vague notion, big clear idea, small change). [V, P10 labels at the v6.12.0 tag] That bigger work "enters the loop earlier and goes round it more often" and "does not become a different way of delivering" is prose from the unreleased clone's `docs/index.md` (P1) and is not in the released docs. [clone-only; not [V] for 6.12.0] The released sizing table (`bmad-build` for one session, `bmad-spec` plus stories for an epic, planning documents for a project, below) supports the same idea. [V, P3]
 
@@ -223,3 +221,9 @@ All three original questions are answered:
 - ~~Where does a human actually get pulled in during a `bmad-build` run?~~ At the checkpoints the step files name (dirty tree, subagent permission, Open Questions, approval, token count), every one of which fired as documented across Experiment 5h; see [build-step-by-step.md](build-step-by-step.md). [V-lab]
 
 One lab observation so far: `bmad-help` on a tiny idea recommended skipping the planning pipeline and going straight to `bmad-spec` then `bmad-build`, consistent with the sizing rule above. [V-lab, see [lab-log.md](lab-log.md)]
+
+---
+
+??? info "About this page"
+
+    *Describes BMAD-METHOD v6.12.0. Tags: [V] traced to primary doc (source IDs in `../sources.md`), [I] inferred, [?] unclear, [V-lab] observed in a lab run (Experiments 1 to 5i; see [lab-log.md](lab-log.md)). First written 2026-09-19; lab notes added through 2026-09-24; reviewed by Carl 2026-09-24. "After the build: generating more tests" added unattended 2026-09-26 (P29), "walking a human through the change" 2026-10-03 (P31), the Getting Deeper worked example 2026-10-07 (P33), the walkthrough lab note 2026-10-09 (Experiment 17), and the web-bundles note 2026-10-18 (P37, read at 6.12.1), all not yet reviewed.*

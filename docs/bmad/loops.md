@@ -1,7 +1,5 @@
 # Loops: How BMAD Builds Unattended
 
-*How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides; not reviewed.*
-
 !!! tip "TL;DR"
     A loop is a batch job for stories. A plain program (not an AI) picks the next story, starts a fresh AI coding session to build it, checks the result itself (files, git, your tests), sends it to a second, separate AI session for review, checks again, and commits. Then it moves to the next story. The AI never decides whether its own work is done. When a story won't converge, the loop sets it aside and carries on. When something needs a person, it pauses and waits. It works one story at a time, in list order, and its idea of "done" is only as good as the checks you give it.
 
@@ -116,3 +114,9 @@ Builds and reviews find things that aren't the current story's job: a pre-existi
 - bmad-loop's tickets, setup and TUI guides, and the configuration reference. Escalations and sweep were read 2026-11-11.
 - Any lab run of bmad-loop or `bmad-build-auto`. The natural test is the tags epic from Experiments 5 to 10, which has the cross-story defect (B1): would a loop commit it?
 - The author's "5 fundamentals" video on loops (S3). Its transcript was pulled 2026-11-11 and is next in line to read.
+
+---
+
+??? info "About this page"
+
+    *How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides; not reviewed.*

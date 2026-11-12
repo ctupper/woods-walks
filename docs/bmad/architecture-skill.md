@@ -1,9 +1,5 @@
 # `bmad-architecture`: The Architecture Spine
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-architecture/` (P21, see `../sources.md`): `SKILL.md`, first ~70 lines of `assets/spine-template.md`, first ~25 lines of `references/reviewer-gate.md` and of `scripts/lint_spine.py`. Tags: [V, P21] traced to those files, [I] inferred, [?] unclear, [V-lab] observed in a lab run. Run in the lab once (Experiment 11, brownfield, see [lab-log.md](lab-log.md)). Written unattended 2026-09-19; reviewed by Carl 2026-09-24; lab section added 2026-10-02.*
-
-*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting plus Python floor (3.10 release, 3.11 clone); substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
-
 !!! tip "TL;DR"
     `bmad-architecture` produces a "consistency contract," `ARCHITECTURE-SPINE.md`, fixing only the invariants that would let two independently built units diverge incompatibly — not the stack, source tree, or full data shape, which stay owned by the code once it exists. The inclusion test is narrow on purpose: fix it here only if two units built separately could choose incompatibly, the call is non-obvious, and it's a real trade-off; everything else goes to Deferred. Same memlog-then-derive pattern as `bmad-spec` and `bmad-prd`, plus a deterministic linter ahead of the reviewer gate.
 
@@ -62,3 +58,11 @@ Run on a small generic legacy toy: an order-entry app whose business rules live 
 ## Not yet checked
 
 - The rest of `spine-template.md`, the remaining reviewer-gate text, the linter's checks beyond its header, `references/headless.md`, and `customize.toml`'s default `finalize_reviewers`. [?]
+
+---
+
+??? info "About this page"
+
+    *Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-architecture/` (P21, see `../sources.md`): `SKILL.md`, first ~70 lines of `assets/spine-template.md`, first ~25 lines of `references/reviewer-gate.md` and of `scripts/lint_spine.py`. Tags: [V, P21] traced to those files, [I] inferred, [?] unclear, [V-lab] observed in a lab run. Run in the lab once (Experiment 11, brownfield, see [lab-log.md](lab-log.md)). Written unattended 2026-09-19; reviewed by Carl 2026-09-24; lab section added 2026-10-02.*
+
+    *Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name) and `lint_spine.py` formatting plus Python floor (3.10 release, 3.11 clone); substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*

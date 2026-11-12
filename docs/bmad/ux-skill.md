@@ -1,9 +1,5 @@
 # `bmad-ux`: DESIGN.md and EXPERIENCE.md
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-ux/SKILL.md` (P23, see `../sources.md`); directory listing only for `assets/` and `references/`. Tags: [V, P23] traced to that file, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19; reviewed by Carl 2026-09-24. Section on references and assets (P41, read at 6.12.1) added unattended 2026-10-18, not yet reviewed.*
-
-*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
-
 !!! tip "TL;DR"
     `bmad-ux` produces two peer contracts — `DESIGN.md` (how it looks) and `EXPERIENCE.md` (how it behaves) — both of which win over any mock, wireframe, or import on conflict. Same elicit-don't-author stance and memlog-then-derive pattern as the PRD and architecture skills, plus a third mode unique to UX: handing Discovery's output off to an external design tool and folding the result back in later.
 
@@ -66,3 +62,11 @@ Documented next steps: `bmad-architecture`, `bmad-create-epics-and-stories`, `bm
 
 - ~~The contents of `assets/` ..., `references/design-md-spec.md`, `creative-tools.md`, `validate.md`, `headless.md`.~~ Read 2026-10-18 (section above), except the five worked examples and `validation-report-template.html`. [?]
 - The skill has never been run in a lab: no DESIGN.md/EXPERIENCE.md, no creative-tool output, no Validate. [?]
+
+---
+
+??? info "About this page"
+
+    *Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-ux/SKILL.md` (P23, see `../sources.md`); directory listing only for `assets/` and `references/`. Tags: [V, P23] traced to that file, [I] inferred, [?] unclear. Not run in a lab. Written unattended 2026-09-19; reviewed by Carl 2026-09-24. Section on references and assets (P41, read at 6.12.1) added unattended 2026-10-18, not yet reviewed.*
+
+    *Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*

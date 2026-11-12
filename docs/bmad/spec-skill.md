@@ -1,9 +1,5 @@
 # `bmad-spec`: How the Hub Skill Works
 
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-spec/` (P19, see `../sources.md`): `SKILL.md`, `assets/spec-template.md`, `assets/stories-schema.md`. Tags: [V, P19] traced to those files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 5 to 5i; see [lab-log.md](lab-log.md)). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24. "The headless contract" section (P40, read at 6.12.1) added unattended 2026-10-18, not yet reviewed.*
-
-*Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); spec assets and templates are identical. Substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*
-
 [flow.md](flow.md) calls `bmad-spec` the hub of Plan. This page covers what it actually does.
 
 !!! tip "TL;DR"
@@ -100,3 +96,11 @@ This matches how `bmad-build` step 1 looks up a story: `{spec_folder}/stories.ya
 
 - ~~`assets/headless-schemas.md` (JSON contract for headless runs).~~ Read 2026-10-18 (section above). ~~A real headless call has never been run.~~ Run 2026-10-19, Experiment 21 (section above).
 - Whether `spec_checkpoint` and `done_checkpoint` are honored by `bmad-build-auto` or only by `bmad-loop`. [?]
+
+---
+
+??? info "About this page"
+
+    *Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-spec/` (P19, see `../sources.md`): `SKILL.md`, `assets/spec-template.md`, `assets/stories-schema.md`. Tags: [V, P19] traced to those files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 5 to 5i; see [lab-log.md](lab-log.md)). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24. "The headless contract" section (P40, read at 6.12.1) added unattended 2026-10-18, not yet reviewed.*
+
+    *Release check: read from the clone's `skills/` path. The installed-vs-clone diff (2026-09-19) found this skill differs from the `v6.12.0` release only in `SKILL.md` activation lines (the release loads `user_name`/language and greets by name); spec assets and templates are identical. Substantive claims stand at the release. See [build-step-by-step.md](build-step-by-step.md), last section.*

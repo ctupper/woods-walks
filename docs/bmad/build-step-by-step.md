@@ -1,9 +1,5 @@
 # `bmad-build` Step by Step
 
-> **Re-verified against the v6.12.0 release (2026-09-19).** This page was first written from a later, unreleased clone (`f033e70`). The route, review, and step-3 sections below were re-read from the release tag (`labs\BMAD-METHOD-v6.12.0\src\bmm-skills\ship\bmad-build`, identical to the installed skill) and rewritten. The clone-only differences are kept in the last section. Tags [V, P18r] mean the release-tag files.
-
-*Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-build/` (source ID P18, see `../sources.md`). Tags: [V, P18] traced to the skill's own files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 2, 3, 4b, 5h, 5i, 9/9b; see [lab-log.md](lab-log.md)). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24. Experiment 9/9b note under The frozen block added 2026-09-29. "Epic context and sprint status" section (P39, read at 6.12.1) added unattended 2026-10-18, not yet reviewed.*
-
 This page is the mechanism behind the "Build and verify" stage in [flow.md](flow.md). That page says what `bmad-build` does. This one says how the skill is put together.
 
 !!! tip "TL;DR"
@@ -170,3 +166,11 @@ What this means, inferred and not lab-tested (no lab build has gone through this
     **Superseded by the re-pin below:** the installed skills were then shown identical to the `v6.12.0` tag, and docs P1 to P17 were diffed against the tag (material differences in P1, P7, P14, P17; see `../sources.md`).
 
     **Re-pin result (2026-09-19):** the installed 29 skills are **byte-identical (CRLF-normalized) to the `v6.12.0` git tag** (commit `05bfbd4`, which is also the npm package's `gitHead`). Skills at the tag live under `src/bmm-skills/...`, not the top-level `skills/` of the clone. A worktree of the tag is at `C:\Users\ctupp\labs\BMAD-METHOD-v6.12.0`. So the installed behavior *is* the release; the clone at `f033e70` is a later main snapshot. [V-lab] The marks that were on this page have been resolved against the tag; see the top note. [I]
+
+---
+
+??? info "About this page"
+
+    > **Re-verified against the v6.12.0 release (2026-09-19).** This page was first written from a later, unreleased clone (`f033e70`). The route, review, and step-3 sections below were re-read from the release tag (`labs\BMAD-METHOD-v6.12.0\src\bmm-skills\ship\bmad-build`, identical to the installed skill) and rewritten. The clone-only differences are kept in the last section. Tags [V, P18r] mean the release-tag files.
+
+    *Describes BMAD-METHOD v6.12.0. Source: `skills/bmad-build/` (source ID P18, see `../sources.md`). Tags: [V, P18] traced to the skill's own files, [I] inferred, [?] unclear. [V-lab] marks claims observed in a lab run (Experiments 2, 3, 4b, 5h, 5i, 9/9b; see [lab-log.md](lab-log.md)). First written unattended 2026-09-19; lab findings added through 2026-09-24; reviewed by Carl 2026-09-24. Experiment 9/9b note under The frozen block added 2026-09-29. "Epic context and sprint status" section (P39, read at 6.12.1) added unattended 2026-10-18, not yet reviewed.*

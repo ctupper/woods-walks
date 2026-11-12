@@ -1,7 +1,5 @@
 # BMAD v7 Preview: What Changes
 
-*Describes **unreleased** BMAD-METHOD `main` at commit `bda3c59` (2026-10-06), which its own changelog calls "a first draft for v7". **Nothing here is a release.** npm `latest` is 6.12.1 and there are no v7 tags (both checked 2026-10-09). Main changes daily, so treat every claim as a snapshot of that commit. Source: the worktree `labs\BMAD-METHOD-v7p-bda3c592` (P34 in `../sources.md`): `CHANGELOG.md` "Unreleased", `docs/start/install-bmad.md`, `docs/plan/set-up-the-ticket-tree.md`, `skills/bmod-method/migration-1.toml` and `retired.toml`, `skills/bmad-build/customize.toml` and `plan-template.md`, `skills/bmad-retrospective/` file list and `references/aggregate-views.md`, and a skill-by-skill diff against the v6.12.0 tag. Tags: [V, P34] traced to those files at that commit, [I] inferred, [?] unclear. Written 2026-10-09 from the files; the install, `bmad setup` and the migration were then run in a lab (Experiment 19, same day). Not yet reviewed.*
-
 !!! tip "TL;DR"
     v7 is a restructure, not an update. Install moves from `npx bmad-method install` to `npx skills add` plus a `bmad` setup skill. The `planning_artifacts` / `implementation_artifacts` folders give way to one folder per **initiative**. `epics.md` and `sprint-status.yaml` become a **ticket tree** managed by a new `bmad-ticket` skill, which also replaces `bmad-sprint-planning` and `bmad-create-epics-and-stories`. A `bmad migrate method` command moves a v6 project across. `bmad-build` now defaults to a single quick review lens. BMB becomes Toolsmith. NGA runs 6.12.0, so nothing here changes the wiki's existing claims until NGA updates. [V, P34; I on NGA]
 
@@ -89,3 +87,9 @@ Change size in the skills the wiki relies on (files / lines, `git diff --shortst
 - Whether anything replaces the removed readiness gate. [?]
 - Whether `_bmad/custom/` overrides survive `bmad setup` and the migration. [?] (Experiment 19 had only installer-default custom files; the migration added `active_initiative` to `config.user.toml` and changed nothing else there.)
 - A v7 release date or version number; none is stated in the files read. [?]
+
+---
+
+??? info "About this page"
+
+    *Describes **unreleased** BMAD-METHOD `main` at commit `bda3c59` (2026-10-06), which its own changelog calls "a first draft for v7". **Nothing here is a release.** npm `latest` is 6.12.1 and there are no v7 tags (both checked 2026-10-09). Main changes daily, so treat every claim as a snapshot of that commit. Source: the worktree `labs\BMAD-METHOD-v7p-bda3c592` (P34 in `../sources.md`): `CHANGELOG.md` "Unreleased", `docs/start/install-bmad.md`, `docs/plan/set-up-the-ticket-tree.md`, `skills/bmod-method/migration-1.toml` and `retired.toml`, `skills/bmad-build/customize.toml` and `plan-template.md`, `skills/bmad-retrospective/` file list and `references/aggregate-views.md`, and a skill-by-skill diff against the v6.12.0 tag. Tags: [V, P34] traced to those files at that commit, [I] inferred, [?] unclear. Written 2026-10-09 from the files; the install, `bmad setup` and the migration were then run in a lab (Experiment 19, same day). Not yet reviewed.*

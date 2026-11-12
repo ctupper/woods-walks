@@ -1,7 +1,5 @@
 # Practitioner Views: Secondary Sources Checked Against the Lab
 
-*Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand. None has been reviewed.*
-
 !!! tip "TL;DR"
     The first source (S1, January 2026) is a critique of BMAD as it stood at a 6.0 alpha, eight months and two restructurings before the release this wiki describes. About half its complaints don't fit 6.12: the roster, document sharding, and "too heavy for small work" have all changed. The other half match what the lab saw: artifacts that fall out of sync, runs that report done when they aren't fully done, and output that varies between runs. Token cost, the learning curve, and dependence on strong models were never measured here. The second source (S2, October 2026) compares installing v6.12 and v7. It is right where it copies BMAD's current install page and wrong in three places: it attributes v6 installer changes to v7, puts a v7 setup step into v6.12, and points to a plugin marketplace that BMAD itself calls stale. The third (S3, BMAD's author on YouTube) matches the v7 docs on epic folders and stories planned at build time. Its specific numbers and bmad-loop's internals are unverified, and the captions are poor.
 
@@ -95,3 +93,9 @@ Read it as a description of an earlier BMAD, not of 6.12. [I]
 - S3: more videos still to pull (`sources.md`). bmad-loop's own repo has since been read (P43); see [loops.md](loops.md). It confirms S3b rows 5 and 6: tmux 3.2+ by default, and profiles for Claude Code, Codex, Gemini CLI, Copilot CLI, OpenCode and Antigravity. [V, P43]
 - S1's underlying sources (Cochran's blog, the Medium token analysis) haven't been read directly. The figures above are quoted as S1 reports them.
 - S2's two `CHANGELOG.md` permalinks were looked up but not read in full.
+
+---
+
+??? info "About this page"
+
+    *Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand. None has been reviewed.*

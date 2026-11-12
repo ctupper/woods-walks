@@ -1,7 +1,5 @@
 # Updating BMAD: What Survives and What Doesn't
 
-*Describes BMAD-METHOD v6.12.0 and its installer. Sources: `docs/customize/customize-bmad.md` (P30) and `docs/customize/add-modules.md` (P27) at the release tag, see `../sources.md`. Tags: [V, Pn] traced to those docs, [V-lab] observed in a lab run (Experiments 8 and 13, see [lab-log.md](lab-log.md)), [I] inferred, [?] unclear. No release newer than 6.12.0 existed when this was written, so the "update" tested was a same-version reinstall. Written 2026-10-03. Re-pin notes for 6.12.1 and Experiment 16 (first real update, 6.12.0 → 6.12.1) added 2026-10-07, not yet reviewed. Team-customization section from `docs/customize/adopt-bmad-across-a-team.md` (P35) install-docs bullet (P38, read at 6.12.1), and "How 6.12 got here" changelog section (P42) added 2026-10-18, docs-only, not yet reviewed.*
-
 !!! note "v7 preview"
     BMAD's unreleased v7 draft replaces this installer (`npx skills add` plus a `bmad setup` skill). Most of this page applies to 6.x only. See [v7-preview.md](v7-preview.md).
 
@@ -101,3 +99,9 @@ None of these were tested as a team practice; they follow from what was observed
 - Whether a full update treats direct edits the same way as a quick-update (the edits were not re-planted before the full run). [?]
 - Personal `.user.toml` overrides and `config.user.toml` (only team files were tested). [?]
 - The team recipes in a live run. ~~Recipe 5c's pinned planning path on 6.12.0 vs 6.12.1.~~ Done for five skills, activation only (Experiment 25). Still open: the other recipes, and whether a `persistent_facts` entry naming a missing MCP tool produces any notice. [?]
+
+---
+
+??? info "About this page"
+
+    *Describes BMAD-METHOD v6.12.0 and its installer. Sources: `docs/customize/customize-bmad.md` (P30) and `docs/customize/add-modules.md` (P27) at the release tag, see `../sources.md`. Tags: [V, Pn] traced to those docs, [V-lab] observed in a lab run (Experiments 8 and 13, see [lab-log.md](lab-log.md)), [I] inferred, [?] unclear. No release newer than 6.12.0 existed when this was written, so the "update" tested was a same-version reinstall. Written 2026-10-03. Re-pin notes for 6.12.1 and Experiment 16 (first real update, 6.12.0 → 6.12.1) added 2026-10-07, not yet reviewed. Team-customization section from `docs/customize/adopt-bmad-across-a-team.md` (P35) install-docs bullet (P38, read at 6.12.1), and "How 6.12 got here" changelog section (P42) added 2026-10-18, docs-only, not yet reviewed.*
