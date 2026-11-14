@@ -57,7 +57,7 @@ Read it as a description of an earlier BMAD, not of 6.12. [I]
 
 ## S3: BMad Code YouTube channel (BMAD's author)
 
-**What it is.** Brian's own channel: demos, live sessions with community guests, and v7 previews. Three videos read so far, from auto-captioned transcripts (`data/fabric/bmadcode/`, gitignored). **The captions are poor:** the Live Ep 5 track reads like a machine translation of a translation ("Be Mad", "BDD" for BMAD), so nothing below is a quote, only paraphrase. Author statements are still secondary until a doc or lab backs them. Added 2026-11-10 on demand; not reviewed.
+**What it is.** Brian's own channel: demos, live sessions with community guests, and v7 previews. Four videos read so far, from auto-captioned transcripts (`data/fabric/bmadcode/`, gitignored). **The captions are poor:** the Live Ep 5 track reads like a machine translation of a translation ("Be Mad", "BDD" for BMAD), so nothing below is a quote, only paraphrase. Author statements are still secondary until a doc or lab backs them. Added 2026-11-10 on demand; not reviewed.
 
 ### S3a: "How Teams Run BMad at Scale", Live Ep 5 (2026-10-17, with Tim Dickey)
 
@@ -103,6 +103,20 @@ A talk about loops in general, not a demo. Dated a week after 6.10.0 added bmad-
 
 **Net for S3c.** The most useful thing in it is the four-question test, which says when not to loop. It fits this project's lab finding that the checks a loop relies on miss cross-story defects. [I]
 
+### S3d: "V7 Stops Writing Every Story" (2026-10-21, short clip)
+
+About 7 minutes, answering viewer questions about team conflicts and sharding. It posted four days after Live Ep 5 and mentions what "Tim" said, so it's probably a clip from that session. [I] Most of it repeats S3a rows 1 to 3 and 8; only the new points are below.
+
+| # | S3d says | Against the docs and the lab |
+|---|---|---|
+| 1 | **No index files. Many small, well-named files (with a date in the name, say) work because models search well with grep; even 10,000 such files are fine. Each v7 document folder has one main file that links to the rest, so the model loads only what it needs.** | **Folder shape agrees** (S3a row 3). [V, P34 CHANGELOG] The "no index" stance and the 10,000-file figure are the author's experience. Not found in the v7 ticket-tree doc or CHANGELOG at `bda3c59` (searched). [?] It matches how this wiki is used: small pages, found by name. [I] |
+| 2 | **The breakdown is a tree: initiative (some call it a feature), then epic, then story. The PRD sits at initiative level and can be turned into a spec at that altitude.** | **The tree agrees:** "initiatives hold epics, epics hold stories, spikes and bugs". [V, P34 ticket-tree doc] Feeding a PRD to `bmad-spec` as an initiative-level spec wasn't seen in the files read. [?] |
+| 3 | **Stories inside one epic can run in parallel if you want.** | **Not how bmad-loop works today:** it runs one story at a time, and parallel runs are planned but clamped to 1. [V, P43] Doing it by hand is possible, but within-epic freezing (Experiments 5h, 5i) suggests stories that touch the same code would collide. [I] |
+| 4 | **Two branch styles: continuous delivery off main with feature flags (his preference), or one feature branch per epic, merged at once if it takes only a day or two. Worktrees are a good fit; a video on worktrees with BMAD is coming.** | **Opinion.** bmad-loop's optional worktree per story merges back locally and opens no pull requests. [V, P43] The per-epic branch is outside BMAD's docs. [I] |
+| 5 | **v7 writes no story files up front.** The epic file lists what's needed, and each story is planned as it's built, so pivoting is cheaper. | **Agrees**, same as S3a row 1. [V, P34; V-lab, Experiment 20] |
+
+**Net for S3d.** It adds little to S3a. The one new and checkable point, parallel stories within an epic, is something bmad-loop doesn't do yet. [I]
+
 **Net.** On v7's direction (epic folders, stories planned at build time, one owner per epic) the author's talk matches the docs, which makes the channel a good early signal for what a release will change. [I] Specific numbers (7 to 11 stories per epic) and bmad-loop's internals (tmux, adapters, sweep limits) are author statements only. [I] The caption quality limits what can be cited. [V-lab]
 
 ## Not yet checked
@@ -115,4 +129,4 @@ A talk about loops in general, not a demo. Dated a week after 6.10.0 added bmad-
 
 ??? info "About this page"
 
-    *Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand; S3c was added unattended 2026-11-14. None has been reviewed.*
+    *Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand; S3c was added unattended 2026-11-14, S3d the same day on demand. None has been reviewed.*
