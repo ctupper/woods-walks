@@ -102,6 +102,19 @@ Builds and reviews find things that aren't the current story's job: a pre-existi
 - **Whether the tests are any good.** The loop trusts your commands. Weak tests mean confident commits of wrong code. [I]
 - **Safety.** By default sessions run with the coding tool's permission prompts bypassed. A sandboxed mode exists for Claude Code and Codex on Linux and macOS. bmad-loop's own docs warn that "a worktree is not a security boundary". [V, P43]
 
+## When a loop is worth it
+
+BMAD's author offers four questions before building a heavy loop (secondary: [practitioner-views.md](practitioner-views.md) S3c). Each one maps to a bmad-loop feature: [I]
+
+| Question | Where bmad-loop answers it |
+|---|---|
+| Does the task recur often enough to justify the setup? | Not a feature. It's your call. |
+| Can the system reject bad output automatically? | Your `[verify]` commands. With none, it can't. [V, P43] |
+| Can the agent finish the job end to end? | If not, the story parks at `awaiting-operator`. [V, P43] |
+| Can "done" be defined beyond taste? | The spec's acceptance criteria, which the driver doesn't check itself. [I] |
+
+The more "no" answers, the more a person should drive, with a good prompt and context instead of a loop. [secondary, S3c] He also frames "loop" as five different things, from an agent's own try-and-test cycle up to the people who decide what the loops work on; bmad-loop is the middle of that range. [secondary, S3c; [I]]
+
 ## Practical notes
 
 - **Status:** "Early open beta", with breaking changes possible in any pre-1.0 release. [V, P43]
@@ -113,10 +126,11 @@ Builds and reviews find things that aren't the current story's job: a pre-existi
 
 - bmad-loop's tickets, setup and TUI guides, and the configuration reference. Escalations and sweep were read 2026-11-11.
 - Any lab run of bmad-loop or `bmad-build-auto`. The natural test is the tags epic from Experiments 5 to 10, which has the cross-story defect (B1): would a loop commit it?
-- The author's "5 fundamentals" video on loops (S3). Its transcript was pulled 2026-11-11 and is next in line to read.
+- Whether bmad-loop reports tokens or cost per story (the author's "cost per accepted change" measure, S3c).
+- The author's "V7 Stops Writing Every Story" video (S3), saved and next to read. The "5 fundamentals" video was read 2026-11-14 (see "When a loop is worth it").
 
 ---
 
 ??? info "About this page"
 
-    *How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides; not reviewed.*
+    *How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides, and unattended 2026-11-14 with "When a loop is worth it" from the author's 2026-07-11 video (S3c, secondary); not reviewed.*

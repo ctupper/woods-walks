@@ -57,7 +57,7 @@ Read it as a description of an earlier BMAD, not of 6.12. [I]
 
 ## S3: BMad Code YouTube channel (BMAD's author)
 
-**What it is.** Brian's own channel: demos, live sessions with community guests, and v7 previews. Two videos read so far, from auto-captioned transcripts (`data/fabric/bmadcode/`, gitignored). **The captions are poor:** the Live Ep 5 track reads like a machine translation of a translation ("Be Mad", "BDD" for BMAD), so nothing below is a quote, only paraphrase. Author statements are still secondary until a doc or lab backs them. Added 2026-11-10 on demand; not reviewed.
+**What it is.** Brian's own channel: demos, live sessions with community guests, and v7 previews. Three videos read so far, from auto-captioned transcripts (`data/fabric/bmadcode/`, gitignored). **The captions are poor:** the Live Ep 5 track reads like a machine translation of a translation ("Be Mad", "BDD" for BMAD), so nothing below is a quote, only paraphrase. Author statements are still secondary until a doc or lab backs them. Added 2026-11-10 on demand; not reviewed.
 
 ### S3a: "How Teams Run BMad at Scale", Live Ep 5 (2026-10-17, with Tim Dickey)
 
@@ -86,6 +86,23 @@ Read it as a description of an earlier BMAD, not of 6.12. [I]
 | 7 | **Parallel work means separate epics.** (Implied by the demo running one epic at a time.) | **Agrees.** The docs say bmad-loop doesn't coordinate across a project; parallel streams need separate epic owners or a higher layer. [V, P15] This matches S3a row 2. [I] |
 | 8 | **There is no v5 because a publishing script pushed 5.x versions to npm by mistake.** | **The versions exist:** npm lists `5.0.0-beta.1` through `5.1.3`. [V-lab, `npm view`] The cause is the author's account. |
 
+### S3c: "AI Loop Hype Is Real, But Master These 5 Fundamentals First" (2026-07-11, solo)
+
+A talk about loops in general, not a demo. Dated a week after 6.10.0 added bmad-loop (CHANGELOG v6.10.0), and almost nothing in it depends on a version. The `en-orig` caption track is cleaner than S3a's, but still paraphrased here.
+
+| # | S3c says | Against the docs and the lab |
+|---|---|---|
+| 1 | **Prompt, context, harness and loop "engineering" are layers, not generations. A loop still needs a good harness, which still needs the right context; sometimes one good prompt with a person watching is the right tool.** | **Opinion.** It matches how BMAD is built: bmad-loop drives a skill (`bmad-build-auto`), which runs inside a coding tool. [V, P15, P43] [I] |
+| 2 | **"Loop" means five different things:** the agent's inner try-and-test loop; the **Ralph loop** (a while loop restarting the agent with fresh context on the same goal, files carrying progress); the **"software machine"** (issue → triage → fix → review → ship); a **system loop** that tunes the harness and prompts from results; and the **oversight loop**, where people choose the work, the acceptable risks and when to stop, and answer for the result. | **Useful map; mostly agrees.** bmad-loop calls itself "a deterministic ralph-loop orchestrator" and starts a fresh session per story. [V, P43] Its build-check-review-commit pipeline is closer to the "software machine", minus triage and shipping (it commits locally and opens no pull requests). [V, P43] [I] Its gates and escalations are where the oversight loop plugs in. [V, P43] Nothing in BMAD automates the system loop; the retrospective is a person's job. [I] |
+| 3 | **The success condition is the danger. A loop optimizes whatever it is scored on, which may not be the real goal.** (His example: a templating-engine speed-up that gamed a benchmark and wasn't merged.) | **Agrees with this wiki's read** that a loop is only as good as your `[verify]` commands. [I; [loops.md](loops.md)] The example is third-party and wasn't checked. [?] |
+| 4 | **Measure cost per accepted change, not total spend: ten changes with six thrown away means you paid for, and reviewed, ten.** | **Opinion.** bmad-loop caps attempts, rounds and session time. [V, P43] Whether it reports tokens or cost per story wasn't checked. [?] |
+| 5 | **Review is the bottleneck. As volume grows, people skim and accept, and a code base can keep passing tests while its owners understand less of it.** | **Consistent with the lab.** A cross-story defect passed every story review and a whole-epic review. [V-lab, Experiments 5i, 10] bmad-loop's default pause at each epic boundary is one guard against skimming. [V, P43] [I] |
+| 6 | **Fundamentals first:** know the context window, prompt for outcomes rather than steps, never leave success undefined, know what the agent can verify, when subagents help, what skills are, and **where state lives**: put decisions in durable files. | **Matches the method.** BMAD passes state between fresh sessions through files; every headless lab step did. [V-lab, Experiments 2 onward] |
+| 7 | **Four questions before building a heavy loop:** does the task recur often enough? Can the system reject bad output automatically? Can the agent finish end to end? Can "done" be defined beyond taste? The more "no" answers, the more a person should drive. | **Not a BMAD doc rule**, but each maps to a bmad-loop feature: `[verify]` commands (2), `awaiting-operator` parking (3), the spec's acceptance criteria (4). [V, P43] [I] Folded into [loops.md](loops.md). |
+| 8 | **Third-party figures** (a coding-tool creator who no longer prompts directly, a company spending its annual AI-tool budget in four months, and others). | **Not checked.** [?] Don't cite them from here. |
+
+**Net for S3c.** The most useful thing in it is the four-question test, which says when not to loop. It fits this project's lab finding that the checks a loop relies on miss cross-story defects. [I]
+
 **Net.** On v7's direction (epic folders, stories planned at build time, one owner per epic) the author's talk matches the docs, which makes the channel a good early signal for what a release will change. [I] Specific numbers (7 to 11 stories per epic) and bmad-loop's internals (tmux, adapters, sweep limits) are author statements only. [I] The caption quality limits what can be cited. [V-lab]
 
 ## Not yet checked
@@ -98,4 +115,4 @@ Read it as a description of an earlier BMAD, not of 6.12. [I]
 
 ??? info "About this page"
 
-    *Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand. None has been reviewed.*
+    *Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand; S3c was added unattended 2026-11-14. None has been reviewed.*
