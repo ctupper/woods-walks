@@ -23,6 +23,16 @@ The released docs' delivery diagram shows one loop of four steps: **Clarify, Pla
 
 For a change that fits in one session, you can skip planning documents entirely: write down the intent, let `bmad-spec` turn it into a one-page contract, and let `bmad-build` implement and review it. In a lab run, a small command-line tool went from idea to passing tests this way. [V, [flow.md](flow.md); V-lab, [lab-log.md](lab-log.md)] The official Getting Started tutorial goes shorter still: one request straight to `bmad-build` (the Mars Rover kata), which asks what it needs, shows a plan for approval, then writes and checks the code. No spec step. [V, P38 `docs/start/build-your-first-change.md`] That matches Experiment 4, where `bmad-build` took a small change in an existing repo with no spec and no questions. [V-lab]
 
+??? question "Isn't BMAD too heavy?"
+    It's the most common complaint, and BMAD's author says it comes from older versions: the "brief, then PRD, then architecture, then UX, then every story written up front" sequence is how v4 and early v6 were taught. [secondary, [practitioner-views.md](practitioner-views.md) S3e] What this project found:
+
+    - **One skill is enough for small work.** `bmad-build` takes a plain request, asks what it needs, and reviews and tests its own work before calling it done. [V, P38; V-lab, Experiment 4]
+    - **You can start from a conversation.** `bmad-spec` condenses any input into a one-page spec, so a meeting transcript or a rough prototype can feed it directly, and `bmad-build` builds from the result. [V, [spec-skill.md](spec-skill.md)] (The author suggests exactly this route; it hasn't been run with a real transcript in the lab.)
+    - **The planning skills are optional.** `bmad-prd` and `bmad-architecture` are for when several people must agree. [V, [prd-skill.md](prd-skill.md), [architecture-skill.md](architecture-skill.md)]
+    - **One caveat on v7.** The author says v7's `bmad` agent will suggest other people's skills and steer trivial work away from the method. In the v7 draft read here, it recommends "only installed skills", taken from each module's own help, so an outside skill shows up only once it's installed as a module with help. Steering small work away wasn't found. [V, P34 `skills/bmad/references/help.md`; ? on the steering]
+
+    Whether the planning pays for itself in tokens, as the author argues, hasn't been measured here. [?]
+
 ## What the parts do
 
 - **Five agents** (named personas that route you to skills): Mary the analyst (research, briefs), John the product manager (requirements, epics), Winston the architect, Sally the UX designer, Amelia the developer (build, review). An agent is mostly a personality plus a menu; the real work lives in the skills. [V, [agents.md](agents.md)]
@@ -102,4 +112,4 @@ Six things observed running BMAD for real, each collapsed by default — expand 
 
     *Known gaps list refreshed 2026-10-09 (it had gone stale since 2026-09-24); turned into lists 2026-11-11.*
 
-    *For someone who has never seen BMAD. Describes BMAD-METHOD v6.12.0. Tags: [V] traced to the project's own docs or skill files (detail and source IDs on the linked pages), [V-lab] seen in a lab run, [I] inferred. Drafted unattended 2026-09-19 and read by the project owner on 2026-09-20, who found it good. The owner had followed the research closely, so a read by someone who has never seen BMAD would still be stronger evidence. Install note corrected and shortest-path line added unattended 2026-10-18 from the Getting Started docs (P38, 6.12.1), not yet reviewed.*
+    *For someone who has never seen BMAD. Describes BMAD-METHOD v6.12.0. Tags: [V] traced to the project's own docs or skill files (detail and source IDs on the linked pages), [V-lab] seen in a lab run, [I] inferred. Drafted unattended 2026-09-19 and read by the project owner on 2026-09-20, who found it good. The owner had followed the research closely, so a read by someone who has never seen BMAD would still be stronger evidence. Install note corrected and shortest-path line added unattended 2026-10-18 from the Getting Started docs (P38, 6.12.1), not yet reviewed. "Isn't BMAD too heavy?" box added 2026-11-14 on request, from S3e (secondary) checked against the docs, the lab and the v7 draft (P34); not yet reviewed.*

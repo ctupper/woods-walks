@@ -57,7 +57,7 @@ Read it as a description of an earlier BMAD, not of 6.12. [I]
 
 ## S3: BMad Code YouTube channel (BMAD's author)
 
-**What it is.** Brian's own channel: demos, live sessions with community guests, and v7 previews. Four videos read so far, from auto-captioned transcripts (`data/fabric/bmadcode/`, gitignored). **The captions are poor:** the Live Ep 5 track reads like a machine translation of a translation ("Be Mad", "BDD" for BMAD), so nothing below is a quote, only paraphrase. Author statements are still secondary until a doc or lab backs them. Added 2026-11-10 on demand; not reviewed.
+**What it is.** Brian's own channel: demos, live sessions with community guests, and v7 previews. Seven videos read so far (one, a career talk, logged in `sources.md` only), from auto-captioned transcripts (`data/fabric/bmadcode/`, gitignored). **The captions are poor:** the Live Ep 5 track reads like a machine translation of a translation ("Be Mad", "BDD" for BMAD), so nothing below is a quote, only paraphrase. Author statements are still secondary until a doc or lab backs them. Added 2026-11-10 on demand; not reviewed.
 
 ### S3a: "How Teams Run BMad at Scale", Live Ep 5 (2026-10-17, with Tim Dickey)
 
@@ -117,11 +117,38 @@ About 7 minutes, answering viewer questions about team conflicts and sharding. I
 
 **Net for S3d.** It adds little to S3a. The one new and checkable point, parallel stories within an epic, is something bmad-loop doesn't do yet. [I]
 
+### S3e: "Is BMad Too Heavy" (2026-10-20, Live Ep 5 clip, with Tim Dickey)
+
+A viewer reported that most people in a training cohort found BMAD too cumbersome next to lighter methods. This is the author's answer. Summarized for readers in [overview.md](overview.md) ("Isn't BMAD too heavy?").
+
+| # | S3e says | Against the docs and the lab |
+|---|---|---|
+| 1 | **"Too heavy" comes from v4 and early v6, and from his year-old masterclass:** brief, PRD, architecture, UX, all epics and stories, then one story at a time. That has been gone for a while; BMAD is modular. | **Agrees.** Same as S1 row 1 and S3a row 4. [V, P38; V-lab, Experiment 4] |
+| 2 | **One skill can do it: `bmad-build` talks until it has enough, builds, checks the code through internal lenses, writes tests, and only then says it's done.** He claims it beats a raw model "any time of the day". | **The first part agrees.** [V, P38; V-lab, Experiment 4] The comparison with a raw model is his claim; the lab never ran one. [?] |
+| 3 | **Plan from a conversation: a transcript (or a brainstorming session) goes into `bmad-spec`, which fills the gaps and produces an epic; then `bmad-build`.** | **Supported by the docs:** `bmad-spec` condenses any input. [V, [spec-skill.md](spec-skill.md)] v7's `bmad-ticket` also takes "meeting notes" (S3a row 5). Not run with a real transcript. |
+| 4 | **Prototype freely, then hand the prototype to `bmad-spec` to turn into a real plan, architecture and deployment.** Designers should prototype rather than draw wireframes. | **Not tested.** Spec-from-existing-code is close to Experiment 4's existing-codebase start, but that used `bmad-build`, not `bmad-spec`. [V-lab] [I] |
+| 5 | **BMAD doesn't lock you in. You can mix in other skills, and in v7 register them in the help system, so the `bmad` agent may suggest one** (his example: a third-party "grill me" skill). | **Partly.** v7's `bmad` skill "recommends the next skill from what is installed" and answers only from "the installed modules' own help". A skill with no module help is reported as having none. [V, P34 `skills/bmad/SKILL.md`, `references/help.md`] So an outside skill gets suggested only once it's packaged as a module with help, which Toolsmith can do. [I] |
+| 6 | **v7's agent will tell a to-do-app builder to just ask the coding tool directly.** "Scale adaptive." | **Not found** in the v7 `bmad` skill or its help reference at `bda3c59`. [?] It may live in module help files, which weren't read. |
+| 7 | **Planning costs tokens but pays for itself, because unplanned work gets redone.** A viewer added that people who refused BMAD ran into token limits and restarted projects. | **Not measured here.** Same gap as S1 row 8 and S3a row 7. [?] |
+| 8 | **(Tim) BMAD works as training wheels for business-side newcomers: it forces hard questions. As a consultant he drops it into a repo to get structure without inventing it.** | **Opinion.** Consistent with the lab, where skills halted on intent gaps rather than guessing. [V-lab, Experiment 2] [I] |
+| 9 | **Product managers with long PRD experience say `bmad-prd` still guides them to things they hadn't considered.** | **Anecdote.** Experiment 15's Validate pass did find gaps in a PRD. [V-lab] [I] |
+| 10 | **Coming: BMAD from chat surfaces (Slack, Teams, Jira tickets picked up by an agent).** v7 "out in a few weeks" (said 2026-10-20). | **Stated goal only.** The Jira-and-tracker side exists in v7's `bmad-ticket` as on-demand publishing, with no automatic sync. [V, P34; [v7-preview.md](v7-preview.md)] No 7.0 on npm as of 2026-11-14. [V-lab, `npm view`] |
+
+### S3f: "Teams Avoid Stepping on Each Other" (2026-10-20, Live Ep 5 clip)
+
+Same Q&A as S3d (a viewer asking how teams avoid conflicts on shared BMAD files), with more of Tim's answer. Only points not already in S3a or S3d:
+
+- **(Tim) Small linked files help you find decisions by date.** He keeps a main document that links out to month-by-month snapshots, so he can ask the agent to "pull up the first week of August" and compare what was built then with now. **Opinion.** It's the same small-files idea as S3d row 1. [I]
+- **(Tim) Acceptance criteria often need splitting too,** since a feature can carry a dozen or more. **Consistent with** `bmad-spec`, which gives each capability its own testable success condition. [V, [spec-skill.md](spec-skill.md)] [I]
+- **(Brian) BMAD is "an AI SDLC transformation framework", not just a development framework:** it aims to speed up how product gets requirements to engineers, not only how code gets written. **Positioning.** It fits the planning skills' focus on agreement across people. [V, [prd-skill.md](prd-skill.md)] [I]
+
+**Net for S3e and S3f.** The "too heavy" answer holds up against the docs and the lab for v6.12. The v7 claims about suggesting outside skills hold only in a narrower form. [I]
+
 **Net.** On v7's direction (epic folders, stories planned at build time, one owner per epic) the author's talk matches the docs, which makes the channel a good early signal for what a release will change. [I] Specific numbers (7 to 11 stories per epic) and bmad-loop's internals (tmux, adapters, sweep limits) are author statements only. [I] The caption quality limits what can be cited. [V-lab]
 
 ## Not yet checked
 
-- S3: more videos still to pull (`sources.md`). bmad-loop's own repo has since been read (P43); see [loops.md](loops.md). It confirms S3b rows 5 and 6: tmux 3.2+ by default, and profiles for Claude Code, Codex, Gemini CLI, Copilot CLI, OpenCode and Antigravity. [V, P43]
+- S3: every saved video has been read (2026-11-14); new ones get added as the channel posts them. Still unchecked from S3e: whether v7 module help steers trivial work away from the method (row 6). bmad-loop's own repo has since been read (P43); see [loops.md](loops.md). It confirms S3b rows 5 and 6: tmux 3.2+ by default, and profiles for Claude Code, Codex, Gemini CLI, Copilot CLI, OpenCode and Antigravity. [V, P43]
 - S1's underlying sources (Cochran's blog, the Medium token analysis) haven't been read directly. The figures above are quoted as S1 reports them.
 - S2's two `CHANGELOG.md` permalinks were looked up but not read in full.
 
@@ -129,4 +156,4 @@ About 7 minutes, answering viewer questions about team conflicts and sharding. I
 
 ??? info "About this page"
 
-    *Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand; S3c was added unattended 2026-11-14, S3d the same day on demand. None has been reviewed.*
+    *Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand; S3c was added unattended 2026-11-14, S3d, S3e and S3f the same day on demand. None has been reviewed.*
