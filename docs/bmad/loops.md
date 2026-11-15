@@ -131,6 +131,21 @@ Owain Lewis's "Loop Engineering" tutorial is a non-BMAD baseline (secondary: S4,
 
 The two agree on the shape: one job per run, state on disk, a person on anything ambiguous. [I] The real difference is the last gate. Lewis's design limits throughput to human review capacity on purpose. bmad-loop's local merge doesn't stop at a person, so the human check moves to the retrospective, which bmad-loop treats as optional (see "What a loop can't see"). [I] Lewis's risk triage step also has no bmad-loop counterpart. Anything in the story list gets run, so the "is this safe to hand off?" judgment happens when a person writes the plan. [I]
 
+### What a good goal needs
+
+Lewis's companion tutorial, "Agent Goals and Loops" (secondary: S4, `tutorials/agent-goals-and-loops/LESSON.md`, undated), separates a prompt (one action), a goal (keep working until an outcome is true), an interval loop (repeat a check), and a schedule (start at a set time). He notes "loop" is mostly a Claude Code feature name for the interval idea. His test for a goal: could a reviewer tell whether it succeeded? If not, rewrite it. He lists six parts, and most map onto a BMAD story: [secondary, S4; mapping [I]]
+
+| Goal part (S4) | In a bmad-loop run |
+|---|---|
+| Outcome: what should be true | The story's acceptance criteria |
+| Evidence: how it's checked | Your `[verify]` commands [V, P43] |
+| Boundary: what it may touch | The spec's scope and its Never clause; optional worktree [V, P43] |
+| Risk: what's forbidden (auth, billing, secrets, deletes) | No separate risk list; permission prompts are bypassed by default [V, P43] |
+| Retry rule | Not checked [?] |
+| Stop rule: when to ask a person | `awaiting-operator` [V, P43] |
+
+He also bounds every goal with an attempt limit and a time limit (for example three failed deploys, or 60 minutes), and calls out "Merge when done" as an instruction that removes the review gate. [secondary, S4] bmad-loop's local merge is that instruction by default. [I] The risk row is the clearest gap: a BMAD story says what to build, not what the agent must never touch outside the code. [I]
+
 ## Practical notes
 
 - **Status:** "Early open beta", with breaking changes possible in any pre-1.0 release. [V, P43]
@@ -145,9 +160,10 @@ The two agree on the shape: one job per run, state on disk, a person on anything
 - Whether bmad-loop reports tokens or cost per story (the author's "cost per accepted change" measure, S3c).
 - The author says stories within one epic can run in parallel (S3d); bmad-loop clamps parallel runs to 1 today, so that's untested.
 - Whether bmad-loop has a dry-run mode, and whether its local merge can be set to stop for human approval (the gate S4 treats as essential).
+- Whether bmad-loop has per-story retry, attempt or time limits (S4's goal tutorial bounds every goal with both).
 
 ---
 
 ??? info "About this page"
 
-    *How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides, and unattended 2026-11-14 with "When a loop is worth it" from the author's 2026-07-11 video (S3c, secondary), plus one open item from S3d; and on demand 2026-11-15 with "Compared with a loop outside BMAD" from Owain Lewis's Loop Engineering tutorial (S4, secondary); not reviewed.*
+    *How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides, and unattended 2026-11-14 with "When a loop is worth it" from the author's 2026-07-11 video (S3c, secondary), plus one open item from S3d; and on demand 2026-11-15 with "Compared with a loop outside BMAD" from Owain Lewis's Loop Engineering tutorial (S4, secondary), then "What a good goal needs" from his Agent Goals and Loops tutorial (S4, secondary); not reviewed.*
