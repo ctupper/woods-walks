@@ -125,11 +125,11 @@ Owain Lewis's "Loop Engineering" tutorial is a non-BMAD baseline (secondary: S4,
 | Stuck or unclear | Label `needs:human` with a specific question | The story parks at `awaiting-operator` [V, P43] |
 | Found something out of scope | Report it, don't fix it | Deferred work (above) |
 | Isolation | Fresh worktree per ticket | Optional worktree per story [V, P43] |
-| Where the result lands | A PR; a person approves every merge | Merged back locally; no PRs opened [V, P43] |
-| First run | Dry run that changes nothing | Not checked [?] |
+| Where the result lands | A PR; a person approves every merge | Committed (or merged back from the worktree) locally; no PRs opened. By default the run pauses for a person at each epic boundary; `per-story-spec-approval` pauses every story after its verified dev pass, before review and commit [V, P43] |
+| First run | Dry run that changes nothing | `bmad-loop run --dry-run` prints the per-story plan and spawns nothing [V, P43] |
 | Security caveat | Labels are "routing metadata, not a security boundary" | "A worktree is not a security boundary" [V, P43] |
 
-The two agree on the shape: one job per run, state on disk, a person on anything ambiguous. [I] The real difference is the last gate. Lewis's design limits throughput to human review capacity on purpose. bmad-loop's local merge doesn't stop at a person, so the human check moves to the retrospective, which bmad-loop treats as optional (see "What a loop can't see"). [I] Lewis's risk triage step also has no bmad-loop counterpart. Anything in the story list gets run, so the "is this safe to hand off?" judgment happens when a person writes the plan. [I]
+The two agree on the shape: one job per run, state on disk, a person on anything ambiguous. [I] The real difference is where the human gate sits by default. Lewis puts a person on every change. bmad-loop's default puts one at each epic boundary, so the stories inside an epic land without a person seeing them, and the closest check is the epic retrospective, which bmad-loop treats as optional (see "What a loop can't see"). [I] A per-story gate exists (`[gates] mode = "per-story-spec-approval"`), but it pauses before review rather than before the merge, and it's off by default. [V, P43] *Corrected 2026-11-15: an earlier version of this section said bmad-loop's merge doesn't stop at a person, which contradicted this page's own escalation table above.* Lewis's risk triage step also has no bmad-loop counterpart. Anything in the story list gets run, so the "is this safe to hand off?" judgment happens when a person writes the plan. [I]
 
 ### What a good goal needs
 
@@ -140,11 +140,13 @@ Lewis's companion tutorial, "Agent Goals and Loops" (secondary: S4, `tutorials/a
 | Outcome: what should be true | The story's acceptance criteria |
 | Evidence: how it's checked | Your `[verify]` commands [V, P43] |
 | Boundary: what it may touch | The spec's scope and its Never clause; optional worktree [V, P43] |
-| Risk: what's forbidden (auth, billing, secrets, deletes) | No separate risk list; permission prompts are bypassed by default [V, P43] |
-| Retry rule | Not checked [?] |
-| Stop rule: when to ask a person | `awaiting-operator` [V, P43] |
+| Risk: what's forbidden (auth, billing, secrets, deletes) | No separate risk list. Permission prompts are bypassed by default; `[adapter] permission_mode = "sandboxed"` turns a denied action into an error for the agent instead (Claude Code and Codex on Linux/macOS only) [V, P43] |
+| Retry rule | `[limits] max_dev_attempts = 2`, `max_review_cycles = 3` [V, P43] |
+| Stop rule: when to ask a person | `awaiting-operator`, the `[gates]` pauses, and CRITICAL escalations, which always pause [V, P43] |
 
-He also bounds every goal with an attempt limit and a time limit (for example three failed deploys, or 60 minutes), and calls out "Merge when done" as an instruction that removes the review gate. [secondary, S4] bmad-loop's local merge is that instruction by default. [I] The risk row is the clearest gap: a BMAD story says what to build, not what the agent must never touch outside the code. [I]
+He also bounds every goal with an attempt limit and a time limit (for example three failed deploys, or 60 minutes), and calls out "Merge when done" as an instruction that removes the review gate. [secondary, S4] bmad-loop has both kinds of limit: the attempt caps above and a 90-minute wall clock per session (`session_timeout_min`). [V, P43] Its spend cap is softer. `max_tokens_per_story` (2M weighted tokens) only raises a notice and "the story runs on"; a per-session cap (4M) can end a session only with `session_budget_mode = "enforce"`, and the default is `warn`. [V, P43] The risk row is the clearest gap: a BMAD story says what to build, not what the agent must never touch outside the code, and the sandbox that would enforce it doesn't run on Windows. [I]
+
+All of these live in `.bmad-loop/policy.toml`, which `bmad-loop init` writes and gitignores, so policy is per machine, not shared with the team through the repo. [V, P43, `docs/reference/configuration.md` at `5721f1e`] Two other defaults worth knowing: `[scm] isolation = "none"` (work in place on your checked-out branch), and `rollback_on_failure = false`, so a failed attempt pauses with recovery steps instead of reverting your tree. [V, P43]
 
 ## Practical notes
 
@@ -155,15 +157,14 @@ He also bounds every goal with an attempt limit and a time limit (for example th
 
 ## Not yet checked
 
-- bmad-loop's tickets, setup and TUI guides, and the configuration reference. Escalations and sweep were read 2026-11-11.
+- bmad-loop's tickets, setup and TUI guides, and the CLI and run-state references. Escalations and sweep were read 2026-11-11, the configuration reference 2026-11-15.
 - Any lab run of bmad-loop or `bmad-build-auto`. The natural test is the tags epic from Experiments 5 to 10, which has the cross-story defect (B1): would a loop commit it?
-- Whether bmad-loop reports tokens or cost per story (the author's "cost per accepted change" measure, S3c).
+- Whether bmad-loop reports tokens or cost per story (the author's "cost per accepted change" measure, S3c). *Partly answered 2026-11-15: it tracks each story's weighted token spend for its budget checks [V, P43]; whether that shows up as a per-story report isn't checked.*
 - The author says stories within one epic can run in parallel (S3d); bmad-loop clamps parallel runs to 1 today, so that's untested.
-- Whether bmad-loop has a dry-run mode, and whether its local merge can be set to stop for human approval (the gate S4 treats as essential).
-- Whether bmad-loop has per-story retry, attempt or time limits (S4's goal tutorial bounds every goal with both).
+- ~~Whether bmad-loop has a dry-run mode, a human gate before merge, and retry or time limits.~~ Answered 2026-11-15 from the configuration reference: `run --dry-run`, `[gates]` and story checkpoints, `[limits]` (see "What a good goal needs"). Still open: no setting pauses *after* review and *before* commit, which is where S4 puts its gate. `done_checkpoint` pauses only after the commit.
 
 ---
 
 ??? info "About this page"
 
-    *How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides, and unattended 2026-11-14 with "When a loop is worth it" from the author's 2026-07-11 video (S3c, secondary), plus one open item from S3d; and on demand 2026-11-15 with "Compared with a loop outside BMAD" from Owain Lewis's Loop Engineering tutorial (S4, secondary), then "What a good goal needs" from his Agent Goals and Loops tutorial (S4, secondary); not reviewed.*
+    *How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides, and unattended 2026-11-14 with "When a loop is worth it" from the author's 2026-07-11 video (S3c, secondary), plus one open item from S3d; and on demand 2026-11-15 with "Compared with a loop outside BMAD" from Owain Lewis's Loop Engineering tutorial (S4, secondary), then "What a good goal needs" from his Agent Goals and Loops tutorial (S4, secondary); then the same day bmad-loop's `docs/reference/configuration.md` at commit `5721f1e` (2026-11-15), which filled in the goal table and corrected the merge-gate claim; not reviewed.*
