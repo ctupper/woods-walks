@@ -115,6 +115,22 @@ BMAD's author offers four questions before building a heavy loop (secondary: [pr
 
 The more "no" answers, the more a person should drive, with a good prompt and context instead of a loop. [secondary, S3c] He also frames "loop" as five different things, from an agent's own try-and-test cycle up to the people who decide what the loops work on; bmad-loop is the middle of that range. [secondary, S3c; [I]]
 
+## Compared with a loop outside BMAD
+
+Owain Lewis's "Loop Engineering" tutorial is a non-BMAD baseline (secondary: S4, `tutorials/loop-engineering/LESSON.md`, undated). He defines loop engineering as "designing the system around a recurring agent job", and says every loop needs five things: a job, permissions, a schedule, state kept outside the chat, and evaluation. His example is two loops that only talk through GitHub Issues. A *manager* triages tickets, labels risk, and marks only clear low-risk work `agent:ready`. A *worker* takes one ready ticket, works in a fresh worktree, runs tests, has a second agent review the diff, opens a PR, and waits for a person to merge. [secondary, S4]
+
+| | Lewis's baseline | bmad-loop |
+|---|---|---|
+| Who picks the work | A manager loop labels risk; the worker only takes `risk:low` + `agent:ready` | A person writes the stories; the driver runs them in list order [V, P15] |
+| Stuck or unclear | Label `needs:human` with a specific question | The story parks at `awaiting-operator` [V, P43] |
+| Found something out of scope | Report it, don't fix it | Deferred work (above) |
+| Isolation | Fresh worktree per ticket | Optional worktree per story [V, P43] |
+| Where the result lands | A PR; a person approves every merge | Merged back locally; no PRs opened [V, P43] |
+| First run | Dry run that changes nothing | Not checked [?] |
+| Security caveat | Labels are "routing metadata, not a security boundary" | "A worktree is not a security boundary" [V, P43] |
+
+The two agree on the shape: one job per run, state on disk, a person on anything ambiguous. [I] The real difference is the last gate. Lewis's design limits throughput to human review capacity on purpose. bmad-loop's local merge doesn't stop at a person, so the human check moves to the retrospective, which bmad-loop treats as optional (see "What a loop can't see"). [I] Lewis's risk triage step also has no bmad-loop counterpart. Anything in the story list gets run, so the "is this safe to hand off?" judgment happens when a person writes the plan. [I]
+
 ## Practical notes
 
 - **Status:** "Early open beta", with breaking changes possible in any pre-1.0 release. [V, P43]
@@ -128,9 +144,10 @@ The more "no" answers, the more a person should drive, with a good prompt and co
 - Any lab run of bmad-loop or `bmad-build-auto`. The natural test is the tags epic from Experiments 5 to 10, which has the cross-story defect (B1): would a loop commit it?
 - Whether bmad-loop reports tokens or cost per story (the author's "cost per accepted change" measure, S3c).
 - The author says stories within one epic can run in parallel (S3d); bmad-loop clamps parallel runs to 1 today, so that's untested.
+- Whether bmad-loop has a dry-run mode, and whether its local merge can be set to stop for human approval (the gate S4 treats as essential).
 
 ---
 
 ??? info "About this page"
 
-    *How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides, and unattended 2026-11-14 with "When a loop is worth it" from the author's 2026-07-11 video (S3c, secondary), plus one open item from S3d; not reviewed.*
+    *How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides, and unattended 2026-11-14 with "When a loop is worth it" from the author's 2026-07-11 video (S3c, secondary), plus one open item from S3d; and on demand 2026-11-15 with "Compared with a loop outside BMAD" from Owain Lewis's Loop Engineering tutorial (S4, secondary); not reviewed.*
