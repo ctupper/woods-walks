@@ -57,7 +57,7 @@ Read it as a description of an earlier BMAD, not of 6.12. [I]
 
 ## S3: BMad Code YouTube channel (BMAD's author)
 
-**What it is.** Brian's own channel: demos, live sessions with community guests, and v7 previews. Seven videos read so far (one, a career talk, logged in `sources.md` only), from auto-captioned transcripts (`data/fabric/bmadcode/`, gitignored). **The captions are poor:** the Live Ep 5 track reads like a machine translation of a translation ("Be Mad", "BDD" for BMAD), so nothing below is a quote, only paraphrase. Author statements are still secondary until a doc or lab backs them. Added 2026-11-10 on demand; not reviewed.
+**What it is.** Brian's own channel: demos, live sessions with community guests, and v7 previews. Eight videos read so far (one, a career talk, logged in `sources.md` only), from auto-captioned transcripts (`data/fabric/bmadcode/`, gitignored). **The captions are poor:** the Live Ep 5 track reads like a machine translation of a translation ("Be Mad", "BDD" for BMAD), so nothing below is a quote, only paraphrase. Author statements are still secondary until a doc or lab backs them. Added 2026-11-10 on demand; not reviewed.
 
 ### S3a: "How Teams Run BMad at Scale", Live Ep 5 (2026-10-17, with Tim Dickey)
 
@@ -144,11 +144,25 @@ Same Q&A as S3d (a viewer asking how teams avoid conflicts on shared BMAD files)
 
 **Net for S3e and S3f.** The "too heavy" answer holds up against the docs and the lab for v6.12. The v7 claims about suggesting outside skills hold only in a narrower form. [I]
 
+### S3g: "3 Things Successful AI-Native Engineering Teams Are Doing Differently" (2026-11-11, solo)
+
+About 13 minutes, an interview-style talk about team adoption, not a demo. No skill, version or setting is named, so there is almost nothing to check against the docs. Points:
+
+| # | S3g says | Against the docs and the lab |
+|---|---|---|
+| 1 | **Don't start a team on BMAD.** Give engineers the coding agent and the tokens first and let them learn the tool; layer the method on after. | **Opinion.** BMAD's docs don't set a readiness order. [I] It fits the lab, where steering a skill well took knowing the coding tool first (Experiment 21's unsteered `bmad-spec` run). [V-lab] [I] |
+| 2 | **Three marks of effective AI teams:** they level up together rather than relying on one or two enthusiasts; they bring product and design in, since getting code written is "the easy part"; and they rethink the whole value stream, sprints included, because faster engineers just wait on slower requirements. | **Opinion**, the same argument as S3a row 8 and S3f's "AI SDLC" positioning. [I] |
+| 3 | **Mix experimentation with a standard baseline.** Eight engineers each inventing their own skills ends as eight ways of working; a shared method sets a floor for people who don't follow AI closely. | **Opinion.** The team-customization mechanism this would ride on exists (shared `_bmad/custom/` overrides). [V, [updating-bmad.md](updating-bmad.md)] [I] |
+| 4 | **Origin:** about two years ago, managing an engineering team around the time of Sonnet 3.5, he saw usage split between "do all my work" and "spicy autocomplete", and built a single-developer method for breaking work into small planned pieces. It grew into a team and organization framework. | **History, the author's account.** Not checked. [?] |
+| 5 | **Teams that blow a year's AI-token budget in months aren't using a framework; teams that adopt BMAD across product and engineering spend less and ship faster.** | **Not measured here**, same gap as S3a row 7 and S3e row 7. No figures or sources are given. [?] Treat it as a sales claim. [I] |
+
+**Net for S3g.** Positioning, not method. The one useful idea for a reader is row 1's order: tool fluency first, method second. Nothing here changes a page in this wiki. [I]
+
 **Net.** On v7's direction (epic folders, stories planned at build time, one owner per epic) the author's talk matches the docs, which makes the channel a good early signal for what a release will change. [I] Specific numbers (7 to 11 stories per epic) and bmad-loop's internals (tmux, adapters, sweep limits) are author statements only. [I] The caption quality limits what can be cited. [V-lab]
 
 ## Not yet checked
 
-- S3: every saved video has been read (2026-11-14); new ones get added as the channel posts them. Still unchecked from S3e: whether v7 module help steers trivial work away from the method (row 6). bmad-loop's own repo has since been read (P43); see [loops.md](loops.md). It confirms S3b rows 5 and 6: tmux 3.2+ by default, and profiles for Claude Code, Codex, Gemini CLI, Copilot CLI, OpenCode and Antigravity. [V, P43]
+- S3: every saved video has been read (2026-11-15, S3g); new ones get added as the channel posts them. Still unchecked from S3e: whether v7 module help steers trivial work away from the method (row 6). bmad-loop's own repo has since been read (P43); see [loops.md](loops.md). It confirms S3b rows 5 and 6: tmux 3.2+ by default, and profiles for Claude Code, Codex, Gemini CLI, Copilot CLI, OpenCode and Antigravity. [V, P43]
 - S1's underlying sources (Cochran's blog, the Medium token analysis) haven't been read directly. The figures above are quoted as S1 reports them.
 - S2's two `CHANGELOG.md` permalinks were looked up but not read in full.
 
@@ -156,4 +170,4 @@ Same Q&A as S3d (a viewer asking how teams avoid conflicts on shared BMAD files)
 
 ??? info "About this page"
 
-    *Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand; S3c was added unattended 2026-11-14, S3d, S3e and S3f the same day on demand. None has been reviewed.*
+    *Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand; S3c was added unattended 2026-11-14, S3d, S3e and S3f the same day on demand, and S3g 2026-11-15 on demand. None has been reviewed.*
