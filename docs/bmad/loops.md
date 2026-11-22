@@ -93,7 +93,7 @@ Every session is a fresh AI conversation, so the loop's memory is files on disk,
 
 **Cleanup never touches a paused run.** `clean` archives or deletes only finished or stopped runs past retention; paused, crashed and interrupted runs are left alone, and a sweep run holding ledger closes whose code hasn't landed is never removed. [V, P43 run-state] A forgotten paused run therefore sits on disk until someone looks at it. [I]
 
-**Cost and models in the record.** Each session's end row records tokens, split per model, read from the coding tool's own usage file. The model logged at session start is the one *configured*; the models that actually ran come from the transcript at session end, and some tools (Antigravity) report none. The per-model split "never feeds any token total or budget". [V, P43 run-state] So a per-story cost can be rebuilt from the journal, but no report doing that is documented here. [I]
+**Cost and models in the record.** Each session's end row records tokens, split per model, read from the coding tool's own usage file. The model logged at session start is the one *configured*; the models that actually ran come from the transcript at session end, and some tools (Antigravity) report none. The per-model split "never feeds any token total or budget". [V, P43 run-state] *Later, from the CLI reference: `bmad-loop status` does report tokens per story (see "The commands" below).* [V, P43 cli]
 
 Two side notes: out-of-tree state is keyed to the project's path, so moving the project orphans it; and the docs say to finish or abandon a run before downgrading bmad-loop, because an older version refuses to resume a run it doesn't understand. [V, P43 run-state]
 
@@ -192,18 +192,38 @@ All of these live in `.bmad-loop/policy.toml`, which `bmad-loop init` writes and
 - **Plans it can read:** v6's `sprint-status.yaml` (default), v6.12's `stories.yaml`, or v7's ticket tree (experimental). [V, P43]
 - **Isolation:** optional git worktree per story, merged back locally; no pull requests are opened. [V, P43]
 
+### The commands, in the order you'd meet them
+
+From the CLI reference (`docs/reference/cli.md` at `8224d53`). All [V, P43 cli], unless tagged.
+
+| Stage | Command | What it does |
+|---|---|---|
+| Set up | `init` | Registers the hook relay with your coding tool, copies three helper skills (`bmad-loop-resolve`, `-sweep`, `-setup`), writes `policy.toml` if missing, and adds the gitignore lines. |
+| Check | `validate` | Preflight checks; exits 1 on any problem. Runs no project commands and launches no AI unless you add `--probes` (also runs your environment probes). A check missing from the output didn't run; it didn't pass. |
+| Rehearse | `run --dry-run` | Prints the per-story plan, spawns nothing. |
+| Run | `run` | dev → review → verify → commit over the actionable stories. `--epic`, `--story` and `--max-stories` narrow it. **Refuses a dirty worktree.** |
+| Watch | `status`, `attach`, `tui` | `status` shows each story's phase, dev and review counts, **tokens per story**, and the commit or defer reason. `attach` drops you into the live session. |
+| Stop | `stop` / `stop --graceful` | Hard stop now, or after the current story commits. |
+| Restart | `resume` | Continues a paused or interrupted run. Doesn't need a clean worktree. Warns about, then skips, any story still escalated. |
+| Unstick | `resolve` | The five exits under "Getting a paused run going again", plus `--at-reset` for usage limits. |
+| Finish parked work | `confirm` | For a story parked at `awaiting-operator`: you acknowledge each owed action, and it marks the story done and commits. `--reverify` re-runs your tests first; without it nothing is re-checked. |
+| Side work | `sweep`, `decisions` | Deferred-work triage, and answers to the questions sweeps left open. |
+| Tidy | `cleanup`, `clean`, `archive`, `delete` | Leftover terminal sessions, then disk. |
+| Report a bug | `diagnose` | A sanitized dump for the maintainers; it refuses to write if its leak check fires. |
+
+Every read command can emit `--json` with a versioned schema, so a run can be watched by a script rather than a person. [V, P43 cli] For this project's question about cost, `status --json` gives per-story raw and weighted tokens, plus a per-model split when one was recorded. [V, P43 cli] `confirm` is worth noting: it closes a story without review, and its test re-run is opt-in. [V, P43 cli; I]
+
 ## Not yet checked
 
-- bmad-loop's setup and TUI guides, and the CLI reference. Escalations and sweep were read 2026-11-11, the configuration reference 2026-11-15, the tickets guide 2026-11-17, the run-state reference 2026-11-21.
+- bmad-loop's setup and TUI guides. Escalations and sweep were read 2026-11-11, the configuration reference 2026-11-15, the tickets guide 2026-11-17, the run-state reference 2026-11-21, the CLI reference 2026-11-22.
 - Whether BMAD 7.0 ships as 6.13.0. bmad-loop's tickets mode targets main at `6.13.0-next` and requires 6.13.0 or newer, so the version watch should look for 6.13.0 as well as 7.0. [?]
 - Tickets mode end to end: Sofia's planning, the per-ticket pauses, and whether an auto retrospective returns `rejected` on the tags epic's B1 defect. Needs v7 installed.
 - Any lab run of bmad-loop or `bmad-build-auto`. The natural test is the tags epic from Experiments 5 to 10, which has the cross-story defect (B1): would a loop commit it?
-- Whether bmad-loop reports tokens or cost per story (the author's "cost per accepted change" measure, S3c). *Partly answered 2026-11-15: it tracks each story's weighted token spend for its budget checks [V, P43]; whether that shows up as a per-story report isn't checked.* *2026-11-21: the run-state reference shows the journal records tokens per session and per model, so the data exists; no per-story report is documented there.*
-- The author says stories within one epic can run in parallel (S3d); bmad-loop clamps parallel runs to 1 today, so that's untested.
+- ~~Whether bmad-loop reports tokens or cost per story (the author's "cost per accepted change" measure, S3c).~~ *Answered 2026-11-22: `bmad-loop status` shows tokens per story, and `--json` gives raw and weighted counts [V, P43 cli]. Tokens, not dollars; nothing converts them to cost.* *Partly answered 2026-11-15: it tracks each story's weighted token spend for its budget checks [V, P43]; whether that shows up as a per-story report isn't checked.*- The author says stories within one epic can run in parallel (S3d); bmad-loop clamps parallel runs to 1 today, so that's untested.
 - ~~Whether bmad-loop has a dry-run mode, a human gate before merge, and retry or time limits.~~ Answered 2026-11-15 from the configuration reference: `run --dry-run`, `[gates]` and story checkpoints, `[limits]` (see "What a good goal needs"). Still open: no setting pauses *after* review and *before* commit, which is where S4 puts its gate. `done_checkpoint` pauses only after the commit.
 
 ---
 
 ??? info "About this page"
 
-    *How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides, and unattended 2026-11-14 with "When a loop is worth it" from the author's 2026-07-11 video (S3c, secondary), plus one open item from S3d; and on demand 2026-11-15 with "Compared with a loop outside BMAD" from Owain Lewis's Loop Engineering tutorial (S4, secondary), then "What a good goal needs" from his Agent Goals and Loops tutorial (S4, secondary); then the same day bmad-loop's `docs/reference/configuration.md` at commit `5721f1e` (2026-11-15), which filled in the goal table and corrected the merge-gate claim; and unattended 2026-11-17 with "On v7: the ticket tree" from `docs/tickets-guide.md` at `5721f1e`; and on demand 2026-11-20 with a contributor's epic-at-a-time habit (S3h, secondary) in "When a loop is worth it"; and unattended 2026-11-21 with "Where a run keeps its memory" from `docs/reference/run-state.md` at `origin/HEAD` `8224d53` (2026-11-16); not reviewed.*
+    *How an autonomous development loop works in BMAD: what runs, what it checks, where it stops for a person, and what it can't see. Sources: BMAD's own loop doc (P15, `docs/build/autonomous-development-loops.md` at v6.12.1) and the bmad-loop repo at commit `795a55a` (2026-11-06; latest tag v0.13.2, 2026-10-09) (P43): `README.md`, `docs/FEATURES.md`, and since 2026-11-11 `docs/escalations-guide.md` and `docs/sweep-guide.md`. Tags: [V, Pxx] traced to those files, [V-lab] seen in this project's lab, [I] inferred, [?] unclear. **No loop has been run in this project's lab.** Written 2026-11-10 on demand (Carl asked to understand loops), extended 2026-11-11 with the escalation and sweep guides, and unattended 2026-11-14 with "When a loop is worth it" from the author's 2026-07-11 video (S3c, secondary), plus one open item from S3d; and on demand 2026-11-15 with "Compared with a loop outside BMAD" from Owain Lewis's Loop Engineering tutorial (S4, secondary), then "What a good goal needs" from his Agent Goals and Loops tutorial (S4, secondary); then the same day bmad-loop's `docs/reference/configuration.md` at commit `5721f1e` (2026-11-15), which filled in the goal table and corrected the merge-gate claim; and unattended 2026-11-17 with "On v7: the ticket tree" from `docs/tickets-guide.md` at `5721f1e`; and on demand 2026-11-20 with a contributor's epic-at-a-time habit (S3h, secondary) in "When a loop is worth it"; and unattended 2026-11-21 with "Where a run keeps its memory" from `docs/reference/run-state.md` at `origin/HEAD` `8224d53` (2026-11-16); and on demand 2026-11-22 with "The commands, in the order you'd meet them" from `docs/reference/cli.md` at `8224d53`; not reviewed.*
