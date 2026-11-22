@@ -192,6 +192,24 @@ All of these live in `.bmad-loop/policy.toml`, which `bmad-loop init` writes and
 - **Plans it can read:** v6's `sprint-status.yaml` (default), v6.12's `stories.yaml`, or v7's ticket tree (experimental). [V, P43]
 - **Isolation:** optional git worktree per story, merged back locally; no pull requests are opened. [V, P43]
 
+### Setting it up
+
+From the setup guide (`docs/setup-guide.md` at `8224d53`). All [V, P43 setup-guide], unless tagged.
+
+- **Two parts, both required.** Three small bundled skills, plus the `bmad-loop` Python program that actually drives the loop. The skills do nothing alone. The driver is not an npm package: it installs from git with `uv tool install`, and the guide recommends pinning a release tag for day-to-day use. Without a tag the install tracks `main`.
+- **Three ways in.** `uv tool install` then `bmad-loop init` (simplest); the BMAD installer on v6 (copies the skills only, not the driver); or `npx skills add` plus `bmad setup` on v7. In every route, `/bmad-loop-setup` installs the driver, asks which coding tools to drive, runs `init`, then `validate`.
+- **Version floor.** Sprint mode needs BMAD 6.10.0 or newer, so the 6.12.x line this project uses qualifies. Tickets mode needs 6.13.0 or newer.
+- **Windows.** WSL is the supported route. The native Windows backend (psmux 3.4.0+ and PowerShell 7) is experimental. Inside WSL, install with the Linux Python; a Windows-installed copy is reachable from bash but "silently behaves as Windows".
+- **One interactive launch first.** Spawned sessions can't answer first-run dialogs, so you run `claude` once in the project and accept the workspace-trust and hooks prompts. A dialog left pending shows up as a session timeout. Other tools have their own one-time steps.
+- **A first `validate` failure is normal.** On a fresh project it exits non-zero until sprint planning has run. Read it as a readiness checklist, not an install failure.
+- **Upgrading is two steps:** the driver (`uv tool upgrade bmad-loop --reinstall`), then the per-project skill copies (`init --force-skills`). `/bmad-loop-setup upgrade` does both. `policy.toml` is left as it is.
+- **No uninstall command.** The guide gives seven manual steps. Clean up runs and worktrees first, while the tool is still installed, or they're orphaned.
+
+Two settings bear on this project's findings:
+
+- **A different model can review.** The coding tool for each stage is set separately, so dev can run on Claude Code and review on Codex. That needs hooks registered for both tools (`init --cli claude --cli codex`) and `[adapter.review] name = "codex"` in `policy.toml`. [V, P43 setup-guide] The S3h contributor uses same-model reviewers ([practitioner-views.md](practitioner-views.md)), so cross-model review is available but not what he does. Whether it catches more is untested. [I]
+- **By default the retrospective can't see the loop's records.** `bmad-retrospective` reads session logs as evidence, but it doesn't know where bmad-loop keeps them, so on an epic bmad-loop drove "it finds none and skips that analysis". bmad-loop ships no fix. The guide gives a `_bmad/custom/bmad-retrospective.toml` with four `persistent_facts` lines that point it at `.bmad-loop/runs/` and the journal format, and warns against a `file:` glob that would load every journal into context. Records last only as long as the run folder or its archive. [V, P43 setup-guide] The retrospective is the one check that caught the cross-story defect in the lab, so this override is worth adding before relying on it in a loop. [I; V-lab, Experiments 5i, 10]
+
 ### The commands, in the order you'd meet them
 
 From the CLI reference (`docs/reference/cli.md` at `8224d53`). All [V, P43 cli], unless tagged.
@@ -215,7 +233,8 @@ Every read command can emit `--json` with a versioned schema, so a run can be wa
 
 ## Not yet checked
 
-- bmad-loop's setup and TUI guides. Escalations and sweep were read 2026-11-11, the configuration reference 2026-11-15, the tickets guide 2026-11-17, the run-state reference 2026-11-21, the CLI reference 2026-11-22.
+- bmad-loop's TUI guide. Escalations and sweep were read 2026-11-11, the configuration reference 2026-11-15, the tickets guide 2026-11-17, the run-state reference 2026-11-21, the CLI reference and setup guide 2026-11-22.
+- Whether the retrospective override in "Setting it up" changes what the retrospective finds on a loop-driven epic. Needs a lab run.
 - Whether BMAD 7.0 ships as 6.13.0. bmad-loop's tickets mode targets main at `6.13.0-next` and requires 6.13.0 or newer, so the version watch should look for 6.13.0 as well as 7.0. [?]
 - Tickets mode end to end: Sofia's planning, the per-ticket pauses, and whether an auto retrospective returns `rejected` on the tags epic's B1 defect. Needs v7 installed.
 - Any lab run of bmad-loop or `bmad-build-auto`. The natural test is the tags epic from Experiments 5 to 10, which has the cross-story defect (B1): would a loop commit it?
