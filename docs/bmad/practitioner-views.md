@@ -179,11 +179,27 @@ About 130 minutes, walking through Quick Dev's diagram, then a Q&A. **Names are 
 
 **Net for S3h.** The most technical S3 video so far. Its core mechanics match `bmad-build` at v6.12.1: the 1,600-token spec ceiling, the frozen intent, blind reviewers, triage loopbacks and append-only deferred work. Two details have moved since July: three default review layers (not four) and a loopback limit of 5 (not about 3). Row 10 is the most useful idea for loops. [I]
 
+### S3i: "BMad Method v7 Launches 11/25: Beyond Narrow SDD" (2026-11-22, solo trailer)
+
+A one-minute launch trailer with about 150 words of narration. Checked 2026-11-25 against BMAD main at `e435a225` (2026-11-12) and npm. The captions garble names ("Obea", "Sophia" for Sofia). [?]
+
+| # | S3i says | Against the docs and the lab |
+|---|---|---|
+| 1 | **v7 launches November 25, 2026.** | **Not out at the time of checking** (morning of 11/25): npm `latest` is still 6.12.4, the newest GitHub tag is v6.12.4, and main's README still calls v7 a "preview alpha" with a "mid-November 2026" ETA. [V-lab, `npm view`, `git tag`] Check again at the next version watch. [I] |
+| 2 | **The BMAD agent is "fully skill store compliant" and grows as you add official modules, community ones, or your own built with Toolsmith.** | **Agrees in substance.** v7 installs through `npx skills add`, one module per folder under `skills/`, and Toolsmith ("Smithy") builds and packages skills, agents and modules. [V, P34; README and CHANGELOG at `e435a225`] "Skill store" is his wording; the docs say `npx skills add`. [I] |
+| 3 | **Monorepo and polyrepo planning.** | **Partly.** v7 docs describe multi-repo work from a workspace folder above the repos. [V, P34 ticket-tree doc; [v7-preview.md](v7-preview.md)] bmad-loop's tickets mode refuses a tree spread across several repos, so loops stay single-repo. [V, P43 tickets-guide] |
+| 4 | **Planning context runs on "BMad Obea" by default, or connects to external ticket trackers, with Sofia powering both.** | **"Obea" isn't found on main** (searched for the likely spellings); it is probably the in-repo ticket store, garbled by the captions. [?] Sofia (`bmad-agent-po`) runs v7 planning. [V, P43 tickets-guide] The tracker side is on-demand publish and read-back through `bmad-ticket`, with no automatic sync. [V, P34; [v7-preview.md](v7-preview.md)] |
+| 5 | **The team:** Mary (analysis), John (product), Sally (UX), Winston (architecture), Amelia (code), Sofia (tracker and store). | **Agrees** with the v7 agent roster. [V, P34; [v7-preview.md](v7-preview.md); P43 for Sofia] |
+| 6 | **Nadia, a founder advisor, is one module install away in the founder pack.** | **Agrees.** The Founder module ships Nadia (`bmad-founder-agent-advisor`): seventeen business documents from a startup diagnostic to a board pack, runway and cap-table math by script, and an investor pitch room. Install with `npx skills add bmad-code-org/BMAD-METHOD/skills/founder`, then `bmad setup founder`. [V, README, CHANGELOG, `docs/reference/skills-and-agents.md` at `e435a225`] New to this wiki. |
+| 7 | **v7 "crushes" spec-driven development tools that cover a narrow slice; it's the foundation for a whole organization's AI SDLC.** | **Marketing.** Nothing to check. Same positioning as S3a row 8 and S3f. [I] |
+
+**Net for S3i.** A trailer. Every concrete claim except the date matches main, and the only new fact for this wiki is the Founder module. Whether v7 actually ships today is the thing to watch. [I]
+
 **Net.** On v7's direction (epic folders, stories planned at build time, one owner per epic) the author's talk matches the docs, which makes the channel a good early signal for what a release will change. [I] Specific numbers (7 to 11 stories per epic) and bmad-loop's internals (tmux, adapters, sweep limits) are author statements only. [I] The caption quality limits what can be cited. [V-lab]
 
 ## Not yet checked
 
-- S3: every saved video has been read (2026-11-20, S3h); new ones get added as the channel posts them. Still unchecked from S3h: the 300-token intent figure (row 3) and the review step's no-subagent fallback (row 12). Still unchecked from S3e: whether v7 module help steers trivial work away from the method (row 6). bmad-loop's own repo has since been read (P43); see [loops.md](loops.md). It confirms S3b rows 5 and 6: tmux 3.2+ by default, and profiles for Claude Code, Codex, Gemini CLI, Copilot CLI, OpenCode and Antigravity. [V, P43]
+- S3: every saved video has been read (2026-11-25, S3i); new ones get added as the channel posts them. Still unchecked from S3h: the 300-token intent figure (row 3) and the review step's no-subagent fallback (row 12). Still unchecked from S3e: whether v7 module help steers trivial work away from the method (row 6). bmad-loop's own repo has since been read (P43); see [loops.md](loops.md). It confirms S3b rows 5 and 6: tmux 3.2+ by default, and profiles for Claude Code, Codex, Gemini CLI, Copilot CLI, OpenCode and Antigravity. [V, P43]
 - S1's underlying sources (Cochran's blog, the Medium token analysis) haven't been read directly. The figures above are quoted as S1 reports them.
 - S2's two `CHANGELOG.md` permalinks were looked up but not read in full.
 
@@ -191,4 +207,4 @@ About 130 minutes, walking through Quick Dev's diagram, then a Q&A. **Names are 
 
 ??? info "About this page"
 
-    *Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand; S3c was added unattended 2026-11-14, S3d, S3e and S3f the same day on demand, S3g 2026-11-15 on demand, and S3h 2026-11-20 on demand. None has been reviewed.*
+    *Outside write-ups about BMAD (blogs, talks, videos), each checked claim by claim against the pinned release (6.12.0, read at 6.12.1) and this project's lab runs. Per the spec, a secondary source never makes a claim [V] by itself. The left column is what the source says, attributed to it. Only the right column carries [V, Pxx] or [V-lab] tags, and those cite this wiki's own evidence. Disagreements are logged rather than smoothed over (spec, Method 4). Page started unattended 2026-11-07 with S1. S2 was added the same day, on demand. S3 was added 2026-11-10, on demand; S3c was added unattended 2026-11-14, S3d, S3e and S3f the same day on demand, S3g 2026-11-15 on demand, S3h 2026-11-20 on demand, and S3i 2026-11-25 on demand. None has been reviewed.*
